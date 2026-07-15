@@ -1,0 +1,44 @@
+{
+  "run_id": "ing_56fa930abc834376",
+  "source": "binance",
+  "status": "SUCCESS",
+  "assets": [
+    "BTC/USDT"
+  ],
+  "timeframes": [
+    "1d"
+  ],
+  "coverage": [
+    {
+      "symbol": "BTC/USDT",
+      "timeframe": "1d",
+      "status": "SUCCESS",
+      "requested_start": "2024-01-01T00:00:00+00:00",
+      "requested_end": "2024-01-15T00:00:00+00:00",
+      "actual_start": "2024-01-01T00:00:00+00:00",
+      "actual_end": "2024-01-15T00:00:00+00:00",
+      "candles_received": 15,
+      "candles_inserted": 0,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 15,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": null,
+      "gaps": [],
+      "error": null,
+      "series_used": null
+    }
+  ],
+  "candles_received": 15,
+  "candles_inserted": 0,
+  "candles_updated": 0,
+  "candles_rejected": 0,
+  "pages_fetched": 1,
+  "retries": 0,
+  "gaps": [],
+  "error_summary": null,
+  "started_at": "2026-07-15T23:16:22.094207+00:00",
+  "finished_at": "2026-07-15T23:16:22.789116+00:00",
+  "notes": []
+}
