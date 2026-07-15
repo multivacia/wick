@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: wick-db
+    environment:
+      POSTGRES_USER: wick
+      POSTGRES_PASSWORD: wick
+      POSTGRES_DB: wick
+    ports:
+      - "5432:5432"
+    volumes:
+      - wick_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wick -d wick"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional TimescaleDB — start with: docker compose --profile timescale up -d
+  # Do not run both `db` and `timescaledb` on the same host port.
+  timescaledb:
+    profiles: ["timescale"]
+    image: timescale/timescaledb:latest-pg16
+    container_name: wick-timescaledb
+    environment:
+      POSTGRES_USER: wick
+      POSTGRES_PASSWORD: wick
+      POSTGRES_DB: wick
+    ports:
+      - "5433:5432"
+    volumes:
+      - wick_tsdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wick -d wick"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  wick_pgdata:
+  wick_tsdata:
