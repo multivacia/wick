@@ -34,7 +34,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 
 ## Stack
 
-Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, PostgreSQL (TimescaleDB opcional), Polars, NumPy, pydantic-settings, pytest, ruff, Docker Compose.
+Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial; mínimo 15 por `NULLS NOT DISTINCT`), TimescaleDB opcional, Polars, NumPy, pydantic-settings, pytest, ruff, Docker Compose, GitHub Actions CI.
 
 ## Fontes de dados (R1)
 

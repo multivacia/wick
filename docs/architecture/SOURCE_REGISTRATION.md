@@ -31,6 +31,9 @@ Uma conta Binance só será relevante no futuro para endpoints privados ou opera
 ## PostgreSQL/TimescaleDB
 
 - nenhum cadastro externo é necessário para uso local via Docker.
+- **PostgreSQL 16** é a versão oficial/homologada (Compose + CI).
+- **PostgreSQL 15** é o mínimo tecnicamente suportado (`NULLS NOT DISTINCT`).
+- TimescaleDB é opcional (`docker compose --profile timescale`); imagem versionada `timescale/timescaledb:2.28.3-pg16`.
 - serviços gerenciados na nuvem só serão avaliados depois.
 
 ## GitHub

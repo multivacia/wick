@@ -8,8 +8,17 @@ Release atual: **R1 — Setup e Ingestão**.
 
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/)
-- Docker + Docker Compose **ou** PostgreSQL 16 local
+- Docker + Docker Compose **ou** PostgreSQL local
 - Git
+
+### PostgreSQL
+
+| Papel | Versão |
+|-------|--------|
+| **Oficial / homologada** | **PostgreSQL 16** (Compose, CI, setup local recomendado) |
+| **Mínima tecnicamente suportada** | **PostgreSQL 15** (necessário para `UNIQUE … NULLS NOT DISTINCT` em `asset`) |
+
+TimescaleDB é **opcional** (profile Compose) e **não** faz parte do CI principal.
 
 ## Setup do zero
 
@@ -20,23 +29,28 @@ uv sync --all-extras
 # 2) Variáveis de ambiente
 cp .env.example .env
 
-# 3) Banco (recomendado: Docker Compose)
+# 3) Banco oficial (PostgreSQL 16 via Docker Compose)
 docker compose up -d db
 # Aguarde o healthcheck ficar healthy
 
-# Alternativa TimescaleDB (opcional, porta 5433):
+# Alternativa TimescaleDB opcional (imagem versionada 2.28.3-pg16, porta 5433):
 # docker compose --profile timescale up -d timescaledb
 # Ajuste DATABASE_URL no .env para a porta 5433
 
 # 4) Migrations (Alembic é a fonte oficial do schema — não use create_all)
+# O banco deve iniciar vazio; o schema vem só do Alembic.
 uv run alembic upgrade head
 
-# 5) Validação
+# 5) Validação (mesmo conjunto do CI)
 uv run ruff check .
 uv run ruff format --check .
 uv run pytest
 uv run wick db-check
 ```
+
+### CI
+
+Pull requests e pushes relevantes rodam `.github/workflows/ci.yml` com serviço **PostgreSQL 16** vazio + Alembic + ruff + pytest.
 
 ## Ingestão
 

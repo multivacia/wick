@@ -1,5 +1,16 @@
 # Modelo de Dados
 
+## PostgreSQL
+
+| Papel | Versão |
+|-------|--------|
+| Oficial / homologada | **16** |
+| Mínima suportada | **15** |
+
+A unicidade de `asset(symbol, source, exchange)` usa `NULLS NOT DISTINCT`, recurso disponível a partir do PostgreSQL 15. Ambientes oficiais (Docker Compose e CI) usam PostgreSQL 16.
+
+TimescaleDB é opcional e não altera o modelo lógico da R1.
+
 ## asset
 
 - id
@@ -14,7 +25,7 @@
 - updated_at
 
 Unicidade:
-`(symbol, source, exchange)` com `NULLS NOT DISTINCT` (PostgreSQL),
+`(symbol, source, exchange)` com `NULLS NOT DISTINCT` (PostgreSQL ≥ 15),
 para impedir duplicatas quando `exchange` é nulo.
 
 ## candle

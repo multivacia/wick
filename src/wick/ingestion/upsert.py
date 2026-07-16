@@ -1,7 +1,16 @@
 """Idempotent candle upsert with revision auditing.
 
-Uses PostgreSQL ON CONFLICT / row locks so concurrent ingestions do not raise
-IntegrityError and do not lose revisions.
+Concurrency design (do not change without evidence of a defect):
+
+1. ``INSERT ... ON CONFLICT DO NOTHING``
+   Protects the *creation race*: two sessions may attempt to insert the same
+   ``(asset_id, timeframe, timestamp, source)`` key. Exactly one insert wins;
+   the loser does not raise ``IntegrityError``.
+
+2. ``SELECT ... FOR UPDATE`` on the existing row
+   Serializes *comparison and revision* of an already-persisted candle so
+   concurrent updates cannot lose ``data_revision`` increments or skip audit
+   events. Identical OHLCV yields ``unchanged`` (no revision event).
 """
 
 from __future__ import annotations
@@ -86,6 +95,7 @@ def upsert_candles(
 
     for raw in candles:
         candle_id = uuid4()
+        # Step 1 — creation race: winner inserts, loser continues without IntegrityError.
         insert_stmt = (
             insert(Candle)
             .values(
@@ -115,6 +125,7 @@ def upsert_candles(
             stats.inserted += 1
             continue
 
+        # Step 2 — serialize compare/revise on the row that already exists.
         existing = session.execute(
             select(Candle)
             .where(
