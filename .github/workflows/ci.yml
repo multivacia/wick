@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+      - "cursor/**"
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  r1-validate:
+    name: R1 validate (PostgreSQL 16)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: wick
+          POSTGRES_PASSWORD: wick
+          POSTGRES_DB: wick
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wick -d wick"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      DATABASE_URL: postgresql+psycopg://wick:wick@localhost:5432/wick
+      TEST_DATABASE_URL: postgresql+psycopg://wick:wick@localhost:5432/wick
+      CANDLE_CLOSE_SAFETY_DELAY_SECONDS: "30"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --all-extras
+
+      - name: Apply Alembic migrations on empty database
+        run: uv run alembic upgrade head
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Ruff format check
+        run: uv run ruff format --check .
+
+      - name: Pytest
+        run: uv run pytest

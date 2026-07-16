@@ -1,0 +1,46 @@
+{
+  "run_id": "ing_67b487e5a0af4b81",
+  "source": "yahoo",
+  "status": "PARTIAL",
+  "assets": [
+    "AAPL"
+  ],
+  "timeframes": [
+    "1d"
+  ],
+  "coverage": [
+    {
+      "symbol": "AAPL",
+      "timeframe": "1d",
+      "status": "PARTIAL",
+      "requested_start": "2024-01-01T00:00:00+00:00",
+      "requested_end": "2024-02-01T00:00:00+00:00",
+      "actual_start": "2024-01-02T05:00:00+00:00",
+      "actual_end": "2024-01-31T05:00:00+00:00",
+      "candles_received": 21,
+      "candles_inserted": 21,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 0,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": "Partial history: requested 2024-01-01T00:00:00+00:00\u20132024-02-01T00:00:00+00:00, got 2024-01-02T05:00:00+00:00\u20132024-01-31T05:00:00+00:00",
+      "gaps": [],
+      "error": null,
+      "series_used": "adjusted_close_when_available"
+    }
+  ],
+  "candles_received": 21,
+  "candles_inserted": 21,
+  "candles_updated": 0,
+  "candles_rejected": 0,
+  "pages_fetched": 1,
+  "retries": 0,
+  "gaps": [],
+  "error_summary": null,
+  "started_at": "2026-07-15T23:16:13.684771+00:00",
+  "finished_at": "2026-07-15T23:16:15.303400+00:00",
+  "notes": [
+    "AAPL/1d: stock gap check is partial (trading calendar not implemented)"
+  ]
+}
