@@ -161,3 +161,85 @@ class CandleRevisionEvent(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )
+
+
+class PatternDetected(Base):
+    __tablename__ = "pattern_detected"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=_uuid)
+    anchor_candle_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("candle.id", ondelete="CASCADE"), nullable=False
+    )
+    start_candle_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("candle.id", ondelete="CASCADE"), nullable=False
+    )
+    pattern_length: Mapped[int] = mapped_column(Integer, nullable=False)
+    pattern_type: Mapped[str] = mapped_column(String(64), nullable=False)
+    signal: Mapped[str] = mapped_column(String(16), nullable=False)
+    trend_context: Mapped[str] = mapped_column(String(16), nullable=False, default="UNKNOWN")
+    detector_version: Mapped[str] = mapped_column(String(32), nullable=False)
+    parameters_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    detected_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    confirmation_status: Mapped[str] = mapped_column(String(32), nullable=False, default="PENDING")
+    confirmation_candle_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("candle.id", ondelete="SET NULL"), nullable=True
+    )
+    confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    confirmation_rule_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    context_features: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
+    run_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+        onupdate=func.now(),
+    )
+
+    __table_args__ = (
+        UniqueConstraint(
+            "anchor_candle_id",
+            "pattern_type",
+            "detector_version",
+            "parameters_hash",
+            name="uq_pattern_detected_logical",
+        ),
+        Index("ix_pattern_detected_type", "pattern_type"),
+        Index("ix_pattern_detected_run", "run_id"),
+    )
+
+
+class PatternConfirmation(Base):
+    __tablename__ = "pattern_confirmation"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=_uuid)
+    pattern_detected_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("pattern_detected.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    confirmation_rule_version: Mapped[str] = mapped_column(String(64), nullable=False)
+    confirmation_status: Mapped[str] = mapped_column(String(32), nullable=False)
+    confirmation_candle_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("candle.id", ondelete="SET NULL"), nullable=True
+    )
+    evaluated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+        onupdate=func.now(),
+    )
+
+    __table_args__ = (
+        UniqueConstraint(
+            "pattern_detected_id",
+            "confirmation_rule_version",
+            name="uq_pattern_confirmation_logical",
+        ),
+    )

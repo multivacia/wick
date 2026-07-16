@@ -1,7 +1,14 @@
 """Database package."""
 
 from wick.db.base import Base
-from wick.db.models import Asset, Candle, CandleRevisionEvent, IngestionRun
+from wick.db.models import (
+    Asset,
+    Candle,
+    CandleRevisionEvent,
+    IngestionRun,
+    PatternConfirmation,
+    PatternDetected,
+)
 from wick.db.session import get_engine, reset_engine, session_scope
 
 __all__ = [
@@ -10,6 +17,8 @@ __all__ = [
     "Candle",
     "CandleRevisionEvent",
     "IngestionRun",
+    "PatternConfirmation",
+    "PatternDetected",
     "get_engine",
     "reset_engine",
     "session_scope",
