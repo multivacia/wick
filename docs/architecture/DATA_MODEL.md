@@ -13,6 +13,10 @@
 - created_at
 - updated_at
 
+Unicidade:
+`(symbol, source, exchange)` com `NULLS NOT DISTINCT` (PostgreSQL),
+para impedir duplicatas quando `exchange` é nulo.
+
 ## candle
 
 - id
@@ -56,8 +60,24 @@ Chave única:
 - retries
 - status: `SUCCESS|PARTIAL|FAILED`
 - error_summary
+- coverage JSONB (R1)
+- gaps JSONB (R1)
+- quality_report JSONB (R1)
 - started_at
 - finished_at
+
+## candle_revision_event (R1)
+
+Auditoria de revisão OHLCV:
+
+- id
+- candle_id
+- run_id
+- previous_revision
+- new_revision
+- previous_ohlcv JSONB
+- new_ohlcv JSONB
+- created_at
 
 ## pattern_detected
 

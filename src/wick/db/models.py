@@ -54,7 +54,13 @@ class Asset(Base):
     candles: Mapped[list[Candle]] = relationship(back_populates="asset")
 
     __table_args__ = (
-        UniqueConstraint("symbol", "source", "exchange", name="uq_asset_symbol_source_exchange"),
+        UniqueConstraint(
+            "symbol",
+            "source",
+            "exchange",
+            name="uq_asset_symbol_source_exchange",
+            postgresql_nulls_not_distinct=True,
+        ),
         Index("ix_asset_symbol", "symbol"),
     )
 

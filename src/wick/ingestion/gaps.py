@@ -88,7 +88,7 @@ def detect_gaps(
 
 def ensure_aware(ts: datetime) -> datetime:
     if ts.tzinfo is None:
-        return ts.replace(tzinfo=UTC)
+        raise ValueError("timestamp must be timezone-aware (UTC)")
     return ts.astimezone(UTC)
 
 

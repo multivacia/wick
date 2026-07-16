@@ -1,8 +1,7 @@
 """Shared pytest fixtures — offline tests use PostgreSQL when available.
 
-Schema for tests is created from SQLAlchemy metadata matching the Alembic models.
-Application runtime must use Alembic only (see test_no_create_all).
-After the test session, Alembic migrations are re-applied so the local DB remains usable.
+Schema is applied via Alembic (official source). Application code must not use
+create_all (see test_no_create_all).
 """
 
 from __future__ import annotations
@@ -19,7 +18,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session, sessionmaker
 
 from wick.config import Settings
-from wick.db.base import Base
 from wick.ingestion.validators import RawCandle
 
 DEFAULT_TEST_URL = os.environ.get(
@@ -29,6 +27,20 @@ DEFAULT_TEST_URL = os.environ.get(
         "postgresql+psycopg://wick:wick@127.0.0.1:5432/wick",
     ),
 )
+
+
+def _alembic_upgrade(database_url: str) -> None:
+    os.environ["DATABASE_URL"] = database_url
+    cfg = Config("alembic.ini")
+    command.upgrade(cfg, "head")
+
+
+def _reset_schema(engine) -> None:
+    with engine.begin() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
+        conn.execute(text("GRANT ALL ON SCHEMA public TO wick"))
+        conn.execute(text("GRANT ALL ON SCHEMA public TO public"))
 
 
 @pytest.fixture(scope="session")
@@ -45,20 +57,12 @@ def engine(database_url: str):
     except Exception as exc:  # noqa: BLE001
         pytest.skip(f"PostgreSQL not available for tests: {exc}")
 
-    Base.metadata.drop_all(eng)
-    with eng.begin() as conn:
-        conn.execute(text("DROP TABLE IF EXISTS alembic_version"))
-    Base.metadata.create_all(eng)
+    _reset_schema(eng)
+    _alembic_upgrade(database_url)
     yield eng
-    Base.metadata.drop_all(eng)
-    with eng.begin() as conn:
-        conn.execute(text("DROP TABLE IF EXISTS alembic_version"))
+    _reset_schema(eng)
     eng.dispose()
-
-    # Restore official schema via Alembic for local/demo usage after tests
-    cfg = Config("alembic.ini")
-    os.environ["DATABASE_URL"] = database_url
-    command.upgrade(cfg, "head")
+    _alembic_upgrade(database_url)
 
 
 @pytest.fixture

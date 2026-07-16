@@ -205,7 +205,9 @@ def test_incremental_fetches_only_missing(session, settings: Settings):
     # Second call should start after latest stored candle
     assert provider.calls
     _, _, fetch_start, _ = provider.calls[0]
-    assert fetch_start > first_batch[-1].timestamp
+    from wick.timeframes import timeframe_duration
+
+    assert fetch_start == first_batch[-1].timestamp + timeframe_duration("1d")
     count = session.execute(select(func.count()).select_from(Candle)).scalar_one()
     assert count == 8
 
@@ -244,6 +246,8 @@ def test_invalid_ohlcv_rejected(session, settings: Settings):
     assert outcome.report.candles_inserted == 0
     assert outcome.report.candles_rejected == 1
     assert session.execute(select(func.count()).select_from(Candle)).scalar_one() == 0
+    assert outcome.report.status == "FAILED"
+    assert outcome.report.coverage[0].status == "FAILED"
 
 
 def test_ingestion_run_persisted(session, settings: Settings):

@@ -96,13 +96,23 @@ def filter_closed_candles(
     return accepted, rejected
 
 
-def ohlcv_dict(candle: RawCandle | Any) -> dict[str, str]:
+def ohlcv_dict(candle: RawCandle | Any) -> dict[str, str | None]:
     return {
         "open": str(candle.open),
         "high": str(candle.high),
         "low": str(candle.low),
         "close": str(candle.close),
         "volume": str(candle.volume),
+        "adjusted_close": (
+            str(candle.adjusted_close)
+            if getattr(candle, "adjusted_close", None) is not None
+            else None
+        ),
+        "adjustment_factor": (
+            str(candle.adjustment_factor)
+            if getattr(candle, "adjustment_factor", None) is not None
+            else None
+        ),
     }
 
 
@@ -111,11 +121,13 @@ def ohlcv_equal(a: Any, b: RawCandle) -> bool:
     for field in fields:
         if Decimal(str(getattr(a, field))) != getattr(b, field):
             return False
-    # Optional adjusted fields
-    a_adj = getattr(a, "adjusted_close", None)
-    b_adj = b.adjusted_close
-    if a_adj is None and b_adj is None:
-        return True
-    if a_adj is None or b_adj is None:
-        return False
-    return Decimal(str(a_adj)) == b_adj
+    for field in ("adjusted_close", "adjustment_factor"):
+        a_val = getattr(a, field, None)
+        b_val = getattr(b, field, None)
+        if a_val is None and b_val is None:
+            continue
+        if a_val is None or b_val is None:
+            return False
+        if Decimal(str(a_val)) != Decimal(str(b_val)):
+            return False
+    return True

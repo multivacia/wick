@@ -22,7 +22,7 @@ from wick.ingestion.upsert import (
     upsert_candles,
 )
 from wick.ingestion.validators import filter_closed_candles, validate_ohlcv
-from wick.timeframes import normalize_timeframe
+from wick.timeframes import normalize_timeframe, timeframe_duration
 
 
 @dataclass
@@ -78,8 +78,8 @@ class IngestionService:
         run_id = f"ing_{uuid.uuid4().hex[:16]}"
         started = datetime.now(UTC)
         timeframes = [normalize_timeframe(tf) for tf in request.timeframes]
-        start = request.start.astimezone(UTC)
-        end = request.end.astimezone(UTC)
+        start = _require_utc(request.start)
+        end = _require_utc(request.end)
 
         run = IngestionRun(
             run_id=run_id,
@@ -158,44 +158,98 @@ class IngestionService:
         incremental: bool,
         counters: _Counters,
     ) -> None:
-        asset_ref = self.provider.resolve_asset(symbol)
-        asset = get_or_create_asset(
-            self.session,
-            symbol=asset_ref.symbol,
-            asset_type=asset_ref.asset_type,
-            source=self.provider.name,
-            exchange=asset_ref.exchange,
-            currency=asset_ref.currency,
-            timezone=asset_ref.timezone,
-        )
-
-        fetch_start = start
-        if incremental:
-            latest = latest_candle_timestamp(
-                self.session,
-                asset_id=asset.id,
-                timeframe=timeframe,
-                source=self.provider.name,
+        """Process one symbol/timeframe inside a SAVEPOINT for isolation."""
+        try:
+            with self.session.begin_nested():
+                self._process_symbol_timeframe(
+                    run_id=run_id,
+                    symbol=symbol,
+                    timeframe=timeframe,
+                    start=start,
+                    end=end,
+                    incremental=incremental,
+                    counters=counters,
+                )
+        except Exception as exc:  # noqa: BLE001 — isolate per asset/timeframe
+            # SAVEPOINT already rolled back DB writes for this unit.
+            # Coverage/error may already be recorded by _process_symbol_timeframe.
+            already = any(
+                c.symbol.upper() == symbol.upper()
+                and c.timeframe == timeframe
+                and c.status == "FAILED"
+                for c in counters.coverages
             )
-            if latest is not None:
-                # Resume from next bar after latest stored candle
-                fetch_start = latest + timedelta(microseconds=1)
-                if fetch_start >= end:
-                    cov = AssetCoverage(
-                        symbol=asset_ref.symbol,
+            if not already:
+                try:
+                    resolved = self.provider.resolve_asset(symbol).symbol
+                except Exception:  # noqa: BLE001
+                    resolved = symbol
+                counters.any_failure = True
+                counters.errors.append(f"{resolved}/{timeframe}: {exc}")
+                counters.coverages.append(
+                    AssetCoverage(
+                        symbol=resolved,
                         timeframe=timeframe,
-                        status="SUCCESS",
+                        status="FAILED",
                         requested_start=iso(start),
                         requested_end=iso(end),
-                        actual_start=iso(latest),
-                        actual_end=iso(latest),
-                        known_limitation="Already up to date; no new range to fetch",
+                        actual_start=None,
+                        actual_end=None,
+                        error=str(exc),
                     )
-                    counters.coverages.append(cov)
-                    counters.any_success = True
-                    return
+                )
 
+    def _process_symbol_timeframe(
+        self,
+        *,
+        run_id: str,
+        symbol: str,
+        timeframe: str,
+        start: datetime,
+        end: datetime,
+        incremental: bool,
+        counters: _Counters,
+    ) -> None:
+        asset_ref = self.provider.resolve_asset(symbol)
         try:
+            asset = get_or_create_asset(
+                self.session,
+                symbol=asset_ref.symbol,
+                asset_type=asset_ref.asset_type,
+                source=self.provider.name,
+                exchange=asset_ref.exchange,
+                currency=asset_ref.currency,
+                timezone=asset_ref.timezone,
+            )
+
+            fetch_start = start
+            if incremental:
+                latest = latest_candle_timestamp(
+                    self.session,
+                    asset_id=asset.id,
+                    timeframe=timeframe,
+                    source=self.provider.name,
+                )
+                if latest is not None:
+                    fetch_start = latest + timeframe_duration(timeframe)
+                    if fetch_start >= end:
+                        cov = AssetCoverage(
+                            symbol=asset_ref.symbol,
+                            timeframe=timeframe,
+                            status="SUCCESS",
+                            requested_start=iso(start),
+                            requested_end=iso(end),
+                            actual_start=iso(latest),
+                            actual_end=iso(latest),
+                            known_limitation=(
+                                "Already up to date for append-only incremental mode; "
+                                "historical gap repair requires --full"
+                            ),
+                        )
+                        counters.coverages.append(cov)
+                        counters.any_success = True
+                        return
+
             kwargs: dict[str, Any] = {
                 "max_retries": self.settings.ingestion_max_retries,
                 "base_seconds": self.settings.ingestion_backoff_base_seconds,
@@ -203,160 +257,208 @@ class IngestionService:
             if self.sleep_fn is not None:
                 kwargs["sleep_fn"] = self.sleep_fn
 
-            fetch, retries = retry_call(
-                lambda: self.provider.fetch_ohlcv(asset_ref.symbol, timeframe, fetch_start, end),
-                **kwargs,
-            )
-        except ProviderError as exc:
-            counters.any_failure = True
-            counters.errors.append(f"{asset_ref.symbol}/{timeframe}: {exc}")
-            counters.coverages.append(
-                AssetCoverage(
-                    symbol=asset_ref.symbol,
-                    timeframe=timeframe,
-                    status="FAILED",
-                    requested_start=iso(start),
-                    requested_end=iso(end),
-                    actual_start=None,
-                    actual_end=None,
-                    error=str(exc),
+            try:
+                fetch, retries = retry_call(
+                    lambda: self.provider.fetch_ohlcv(
+                        asset_ref.symbol, timeframe, fetch_start, end
+                    ),
+                    **kwargs,
                 )
-            )
-            return
-        except Exception as exc:  # noqa: BLE001 — isolate per asset
-            counters.any_failure = True
-            counters.errors.append(f"{asset_ref.symbol}/{timeframe}: {exc}")
-            counters.coverages.append(
-                AssetCoverage(
-                    symbol=asset_ref.symbol,
-                    timeframe=timeframe,
-                    status="FAILED",
-                    requested_start=iso(start),
-                    requested_end=iso(end),
-                    actual_start=None,
-                    actual_end=None,
-                    error=str(exc),
+            except ProviderError as exc:
+                counters.any_failure = True
+                counters.errors.append(f"{asset_ref.symbol}/{timeframe}: {exc}")
+                counters.coverages.append(
+                    AssetCoverage(
+                        symbol=asset_ref.symbol,
+                        timeframe=timeframe,
+                        status="FAILED",
+                        requested_start=iso(start),
+                        requested_end=iso(end),
+                        actual_start=None,
+                        actual_end=None,
+                        error=str(exc),
+                    )
                 )
+                return
+
+            counters.retries += retries
+            counters.pages += fetch.pages_fetched
+            counters.received += len(fetch.candles)
+
+            closed, open_rejected = filter_closed_candles(
+                fetch.candles,
+                timeframe,
+                safety_delay_seconds=self.settings.candle_close_safety_delay_seconds,
             )
-            return
+            valid: list = []
+            invalid_count = 0
+            for c in closed:
+                result = validate_ohlcv(c)
+                if result.ok:
+                    valid.append(c)
+                else:
+                    invalid_count += 1
 
-        counters.retries += retries
-        counters.pages += fetch.pages_fetched
-        counters.received += len(fetch.candles)
+            rejected = len(open_rejected) + invalid_count
+            counters.rejected += rejected
 
-        closed, open_rejected = filter_closed_candles(
-            fetch.candles,
-            timeframe,
-            safety_delay_seconds=self.settings.candle_close_safety_delay_seconds,
-        )
-        valid: list = []
-        invalid_count = 0
-        for c in closed:
-            result = validate_ohlcv(c)
-            if result.ok:
-                valid.append(c)
-            else:
-                invalid_count += 1
-
-        rejected = len(open_rejected) + invalid_count
-        counters.rejected += rejected
-
-        stats = upsert_candles(
-            self.session,
-            asset=asset,
-            timeframe=timeframe,
-            source=self.provider.name,
-            candles=valid,
-            run_id=run_id,
-        )
-        counters.inserted += stats.inserted
-        counters.updated += stats.updated
-
-        timestamps = load_timestamps(
-            self.session,
-            asset_id=asset.id,
-            timeframe=timeframe,
-            source=self.provider.name,
-        )
-        gaps = detect_gaps(
-            timestamps,
-            asset_symbol=asset_ref.symbol,
-            timeframe=timeframe,
-            asset_type=asset_ref.asset_type,
-        )
-        gaps_json = gaps_to_json(gaps)
-        counters.all_gaps.extend(gaps_json)
-
-        actual_start = fetch.actual_start
-        actual_end = fetch.actual_end
-        if actual_start:
-            counters.actual_starts.append(actual_start)
-        if actual_end:
-            counters.actual_ends.append(actual_end)
-
-        # Coverage classification
-        partial = False
-        notes: list[str] = []
-        if fetch.known_limitation:
-            partial = True
-            notes.append(fetch.known_limitation)
-        if actual_start and actual_start > start + timedelta(days=2):
-            partial = True
-            notes.append(
-                f"Actual start {actual_start.isoformat()} later than requested {start.isoformat()}"
-            )
-        if actual_end and actual_end < end - timedelta(days=2) and asset_ref.asset_type == "crypto":
-            # Crypto should be continuous; large shortfall is partial
-            partial = True
-            notes.append(
-                f"Actual end {actual_end.isoformat()} earlier than requested {end.isoformat()}"
-            )
-        if not valid and not fetch.candles:
-            counters.any_failure = True
-            status = "FAILED"
-            error = fetch.known_limitation or "No candles returned"
-        elif partial:
-            counters.any_partial = True
-            counters.any_success = True
-            status = "PARTIAL"
-            error = None
-        else:
-            counters.any_success = True
-            status = "SUCCESS"
-            error = None
-
-        if asset_ref.asset_type == "stock":
-            counters.notes.append(
-                f"{asset_ref.symbol}/{timeframe}: stock gap check is partial "
-                "(trading calendar not implemented)"
-            )
-
-        series_used = None
-        if fetch.metadata:
-            series_used = fetch.metadata.get("series_used")
-
-        counters.coverages.append(
-            AssetCoverage(
-                symbol=asset_ref.symbol,
+            stats = upsert_candles(
+                self.session,
+                asset=asset,
                 timeframe=timeframe,
-                status=status,
-                requested_start=iso(start),
-                requested_end=iso(end),
-                actual_start=iso(actual_start),
-                actual_end=iso(actual_end),
-                candles_received=len(fetch.candles),
-                candles_inserted=stats.inserted,
-                candles_updated=stats.updated,
-                candles_rejected=rejected,
-                candles_unchanged=stats.unchanged,
-                open_candles_rejected=len(open_rejected),
-                invalid_rejected=invalid_count,
-                known_limitation="; ".join(notes) if notes else fetch.known_limitation,
-                gaps=gaps_json,
-                error=error,
-                series_used=series_used,
+                source=self.provider.name,
+                candles=valid,
+                run_id=run_id,
             )
+            counters.inserted += stats.inserted
+            counters.updated += stats.updated
+
+            timestamps = load_timestamps(
+                self.session,
+                asset_id=asset.id,
+                timeframe=timeframe,
+                source=self.provider.name,
+            )
+            gaps = detect_gaps(
+                timestamps,
+                asset_symbol=asset_ref.symbol,
+                timeframe=timeframe,
+                asset_type=asset_ref.asset_type,
+            )
+            gaps_json = gaps_to_json(gaps)
+            counters.all_gaps.extend(gaps_json)
+
+            actual_start = fetch.actual_start
+            actual_end = fetch.actual_end
+            if actual_start:
+                counters.actual_starts.append(actual_start)
+            if actual_end:
+                counters.actual_ends.append(actual_end)
+
+            status, error, notes, _partial = _classify_coverage(
+                asset_type=asset_ref.asset_type,
+                timeframe=timeframe,
+                start=start,
+                end=end,
+                actual_start=actual_start,
+                actual_end=actual_end,
+                valid_count=len(valid),
+                received_count=len(fetch.candles),
+                known_limitation=fetch.known_limitation,
+            )
+            if status == "FAILED":
+                counters.any_failure = True
+            elif status == "PARTIAL":
+                counters.any_partial = True
+                counters.any_success = True
+            else:
+                counters.any_success = True
+
+            if asset_ref.asset_type == "stock":
+                counters.notes.append(
+                    f"{asset_ref.symbol}/{timeframe}: stock gap check is partial "
+                    "(trading calendar not implemented)"
+                )
+
+            series_used = None
+            if fetch.metadata:
+                series_used = fetch.metadata.get("series_used")
+
+            counters.coverages.append(
+                AssetCoverage(
+                    symbol=asset_ref.symbol,
+                    timeframe=timeframe,
+                    status=status,
+                    requested_start=iso(start),
+                    requested_end=iso(end),
+                    actual_start=iso(actual_start),
+                    actual_end=iso(actual_end),
+                    candles_received=len(fetch.candles),
+                    candles_inserted=stats.inserted,
+                    candles_updated=stats.updated,
+                    candles_rejected=rejected,
+                    candles_unchanged=stats.unchanged,
+                    open_candles_rejected=len(open_rejected),
+                    invalid_rejected=invalid_count,
+                    known_limitation="; ".join(notes) if notes else fetch.known_limitation,
+                    gaps=gaps_json,
+                    error=error,
+                    series_used=series_used,
+                )
+            )
+        except Exception as exc:
+            counters.any_failure = True
+            counters.errors.append(f"{asset_ref.symbol}/{timeframe}: {exc}")
+            counters.coverages.append(
+                AssetCoverage(
+                    symbol=asset_ref.symbol,
+                    timeframe=timeframe,
+                    status="FAILED",
+                    requested_start=iso(start),
+                    requested_end=iso(end),
+                    actual_start=None,
+                    actual_end=None,
+                    error=str(exc),
+                )
+            )
+            raise
+
+
+def _require_utc(dt: datetime) -> datetime:
+    if dt.tzinfo is None:
+        raise ValueError("ingestion timestamps must be timezone-aware (UTC)")
+    return dt.astimezone(UTC)
+
+
+def _coverage_tolerance(timeframe: str, asset_type: str) -> timedelta:
+    """Allowed slack between requested and actual coverage before PARTIAL."""
+    if asset_type == "stock":
+        return max(timeframe_duration(timeframe) * 2, timedelta(days=5))
+    return timeframe_duration(timeframe) * 2
+
+
+def _classify_coverage(
+    *,
+    asset_type: str,
+    timeframe: str,
+    start: datetime,
+    end: datetime,
+    actual_start: datetime | None,
+    actual_end: datetime | None,
+    valid_count: int,
+    received_count: int,
+    known_limitation: str | None,
+) -> tuple[str, str | None, list[str], bool]:
+    notes: list[str] = []
+    if known_limitation:
+        notes.append(known_limitation)
+
+    if valid_count == 0:
+        if received_count == 0:
+            return "FAILED", (known_limitation or "No candles returned"), notes, False
+        return (
+            "FAILED",
+            "All received candles were rejected (open or invalid OHLCV)",
+            notes,
+            False,
         )
+
+    partial = bool(known_limitation)
+    tol = _coverage_tolerance(timeframe, asset_type)
+    if actual_start is not None and actual_start > start + tol:
+        partial = True
+        notes.append(
+            f"Actual start {actual_start.isoformat()} later than requested {start.isoformat()}"
+        )
+    if actual_end is not None and actual_end < end - tol:
+        partial = True
+        notes.append(
+            f"Actual end {actual_end.isoformat()} earlier than requested {end.isoformat()}"
+        )
+
+    if partial:
+        return "PARTIAL", None, notes, True
+    return "SUCCESS", None, notes, False
 
 
 def _aggregate_status(counters: _Counters) -> str:

@@ -90,7 +90,19 @@ class YahooProvider(MarketDataProvider):
         try:
             rows = self._download(symbol, interval, effective_start, end_utc)
         except Exception as exc:
-            raise ProviderError(str(exc), retryable=True) from exc
+            msg = str(exc)
+            lower = msg.lower()
+            retryable = True
+            retry_after = None
+            if "401" in lower or "403" in lower or "unauthorized" in lower:
+                retryable = False
+            if "429" in lower or "too many requests" in lower or "rate limit" in lower:
+                retryable = True
+                retry_after = 5.0
+            err = ProviderError(msg, retryable=retryable)
+            if retry_after is not None:
+                err.retry_after = retry_after  # type: ignore[attr-defined]
+            raise err from exc
 
         candles: list[RawCandle] = []
         for row in rows:

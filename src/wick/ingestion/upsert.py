@@ -1,12 +1,19 @@
-"""Idempotent candle upsert with revision auditing."""
+"""Idempotent candle upsert with revision auditing.
+
+Uses PostgreSQL ON CONFLICT / row locks so concurrent ingestions do not raise
+IntegrityError and do not lose revisions.
+"""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from decimal import Decimal
+from typing import Any
+from uuid import uuid4
 
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
 from wick.db.models import Asset, Candle, CandleRevisionEvent
@@ -31,26 +38,37 @@ def get_or_create_asset(
     currency: str | None,
     timezone: str = "UTC",
 ) -> Asset:
-    stmt = select(Asset).where(
-        Asset.symbol == symbol,
-        Asset.source == source,
-        Asset.exchange.is_(exchange) if exchange is None else Asset.exchange == exchange,
+    """Idempotent asset create. Safe under concurrency via ON CONFLICT."""
+    asset_id = uuid4()
+    stmt = (
+        insert(Asset)
+        .values(
+            id=asset_id,
+            symbol=symbol,
+            asset_type=asset_type,
+            source=source,
+            exchange=exchange,
+            currency=currency,
+            timezone=timezone,
+            active=True,
+        )
+        .on_conflict_do_nothing(constraint="uq_asset_symbol_source_exchange")
+        .returning(Asset.id)
     )
-    asset = session.execute(stmt).scalar_one_or_none()
-    if asset is not None:
+    inserted_id = session.execute(stmt).scalar_one_or_none()
+    if inserted_id is not None:
+        asset = session.get(Asset, inserted_id)
+        assert asset is not None
         return asset
-    asset = Asset(
-        symbol=symbol,
-        asset_type=asset_type,
-        source=source,
-        exchange=exchange,
-        currency=currency,
-        timezone=timezone,
-        active=True,
-    )
-    session.add(asset)
-    session.flush()
-    return asset
+
+    existing = session.execute(
+        select(Asset).where(
+            Asset.symbol == symbol,
+            Asset.source == source,
+            Asset.exchange.is_(exchange) if exchange is None else Asset.exchange == exchange,
+        )
+    ).scalar_one()
+    return existing
 
 
 def upsert_candles(
@@ -67,36 +85,46 @@ def upsert_candles(
     now_utc = now or datetime.now(UTC)
 
     for raw in candles:
-        stmt = select(Candle).where(
-            Candle.asset_id == asset.id,
-            Candle.timeframe == timeframe,
-            Candle.timestamp == raw.timestamp,
-            Candle.source == source,
-        )
-        existing = session.execute(stmt).scalar_one_or_none()
-        if existing is None:
-            session.add(
-                Candle(
-                    asset_id=asset.id,
-                    timeframe=timeframe,
-                    timestamp=raw.timestamp,
-                    open=raw.open,
-                    high=raw.high,
-                    low=raw.low,
-                    close=raw.close,
-                    volume=raw.volume,
-                    adjusted_close=raw.adjusted_close,
-                    adjustment_factor=raw.adjustment_factor,
-                    source=source,
-                    is_closed=True,
-                    first_ingested_at=now_utc,
-                    last_ingested_at=now_utc,
-                    source_updated_at=raw.source_updated_at,
-                    data_revision=1,
-                )
+        candle_id = uuid4()
+        insert_stmt = (
+            insert(Candle)
+            .values(
+                id=candle_id,
+                asset_id=asset.id,
+                timeframe=timeframe,
+                timestamp=raw.timestamp,
+                open=raw.open,
+                high=raw.high,
+                low=raw.low,
+                close=raw.close,
+                volume=raw.volume,
+                adjusted_close=raw.adjusted_close,
+                adjustment_factor=raw.adjustment_factor,
+                source=source,
+                is_closed=True,
+                first_ingested_at=now_utc,
+                last_ingested_at=now_utc,
+                source_updated_at=raw.source_updated_at,
+                data_revision=1,
             )
+            .on_conflict_do_nothing(constraint="uq_candle_key")
+            .returning(Candle.id)
+        )
+        inserted = session.execute(insert_stmt).scalar_one_or_none()
+        if inserted is not None:
             stats.inserted += 1
             continue
+
+        existing = session.execute(
+            select(Candle)
+            .where(
+                Candle.asset_id == asset.id,
+                Candle.timeframe == timeframe,
+                Candle.timestamp == raw.timestamp,
+                Candle.source == source,
+            )
+            .with_for_update()
+        ).scalar_one()
 
         if ohlcv_equal(existing, raw):
             existing.last_ingested_at = now_utc
@@ -104,16 +132,7 @@ def upsert_candles(
             continue
 
         prev_rev = existing.data_revision
-        prev_ohlcv = {
-            "open": str(existing.open),
-            "high": str(existing.high),
-            "low": str(existing.low),
-            "close": str(existing.close),
-            "volume": str(existing.volume),
-            "adjusted_close": str(existing.adjusted_close)
-            if existing.adjusted_close is not None
-            else None,
-        }
+        prev_ohlcv = _snapshot(existing)
         existing.open = raw.open
         existing.high = raw.high
         existing.low = raw.low
@@ -140,6 +159,20 @@ def upsert_candles(
 
     session.flush()
     return stats
+
+
+def _snapshot(candle: Candle) -> dict[str, Any]:
+    return {
+        "open": str(candle.open),
+        "high": str(candle.high),
+        "low": str(candle.low),
+        "close": str(candle.close),
+        "volume": str(candle.volume),
+        "adjusted_close": str(candle.adjusted_close) if candle.adjusted_close is not None else None,
+        "adjustment_factor": str(candle.adjustment_factor)
+        if candle.adjustment_factor is not None
+        else None,
+    }
 
 
 def latest_candle_timestamp(
