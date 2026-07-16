@@ -26,12 +26,14 @@ _TF_MAP = {
     "1w": "1wk",
 }
 
-# Known intraday history limits (approximate, documented by Yahoo)
+# Known intraday history limits (approximate, documented by Yahoo).
+# Keep a 1-day safety margin inside Yahoo's hard window so clamped starts
+# are not rejected at the exact boundary (observed 730d → empty series).
 _INTRADAY_MAX_LOOKBACK = {
-    "1m": timedelta(days=7),
-    "5m": timedelta(days=60),
-    "15m": timedelta(days=60),
-    "1h": timedelta(days=730),
+    "1m": timedelta(days=6),
+    "5m": timedelta(days=59),
+    "15m": timedelta(days=59),
+    "1h": timedelta(days=729),
 }
 
 
@@ -110,19 +112,35 @@ class YahooProvider(MarketDataProvider):
             ts = ts.replace(tzinfo=UTC) if ts.tzinfo is None else ts.astimezone(UTC)
             if ts < start_utc or ts > end_utc:
                 continue
+            try:
+                o = float(row["open"])
+                h = float(row["high"])
+                lo = float(row["low"])
+                c = float(row["close"])
+                v = float(row["volume"])
+            except (TypeError, ValueError):
+                continue
+            if any(math.isnan(x) or math.isinf(x) for x in (o, h, lo, c, v)):
+                continue
             adj = row.get("adjusted_close")
+            if adj is not None:
+                try:
+                    adj_f = float(adj)
+                    adj = None if math.isnan(adj_f) or math.isinf(adj_f) else adj_f
+                except (TypeError, ValueError):
+                    adj = None
             candles.append(
                 RawCandle(
                     timestamp=ts,
-                    open=Decimal(str(row["open"])),
-                    high=Decimal(str(row["high"])),
-                    low=Decimal(str(row["low"])),
-                    close=Decimal(str(row["close"])),
-                    volume=Decimal(str(row["volume"])),
+                    open=Decimal(str(o)),
+                    high=Decimal(str(h)),
+                    low=Decimal(str(lo)),
+                    close=Decimal(str(c)),
+                    volume=Decimal(str(v)),
                     adjusted_close=Decimal(str(adj)) if adj is not None else None,
                     adjustment_factor=(
-                        (Decimal(str(adj)) / Decimal(str(row["close"])))
-                        if adj is not None and Decimal(str(row["close"])) != 0
+                        (Decimal(str(adj)) / Decimal(str(c)))
+                        if adj is not None and c != 0
                         else None
                     ),
                 )

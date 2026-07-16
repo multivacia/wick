@@ -89,26 +89,37 @@ def _load_bars_and_index(
     return bars, candles, idx
 
 
-def _pattern_events(
+def _load_patterns_for_series(
     session: Session,
     *,
-    candle_ids: set[Any],
+    asset_id: Any,
+    timeframe: str,
+) -> list[PatternDetected]:
+    return list(
+        session.execute(
+            select(PatternDetected)
+            .join(Candle, PatternDetected.anchor_candle_id == Candle.id)
+            .where(
+                Candle.asset_id == asset_id,
+                Candle.timeframe == timeframe,
+                PatternDetected.detector_version == DETECTOR_VERSION,
+                PatternDetected.parameters_hash == DEFAULT_PARAMS.parameters_hash(),
+            )
+        ).scalars()
+    )
+
+
+def _pattern_events_from_rows(
+    rows: list[PatternDetected],
+    *,
     id_to_index: dict[Any, int],
     pattern_type: str,
     confirmation_used: bool,
 ) -> list[SignalEvent]:
-    rows = list(
-        session.execute(
-            select(PatternDetected).where(
-                PatternDetected.pattern_type == pattern_type,
-                PatternDetected.detector_version == DETECTOR_VERSION,
-                PatternDetected.parameters_hash == DEFAULT_PARAMS.parameters_hash(),
-                PatternDetected.anchor_candle_id.in_(candle_ids),
-            )
-        ).scalars()
-    )
     events: list[SignalEvent] = []
     for p in rows:
+        if p.pattern_type != pattern_type:
+            continue
         if p.anchor_candle_id not in id_to_index:
             continue
         if confirmation_used and p.confirmation_status != "CONFIRMED":
@@ -146,16 +157,10 @@ def validate_series(
     bars, candles, id_to_index = _load_bars_and_index(
         session, asset_id, coverage.timeframe, safety_delay
     )
-    candle_ids = set(id_to_index.keys())
-    rows = list(
-        session.execute(
-            select(PatternDetected).where(
-                PatternDetected.anchor_candle_id.in_(candle_ids),
-                PatternDetected.detector_version == DETECTOR_VERSION,
-            )
-        ).scalars()
+    pattern_rows = _load_patterns_for_series(
+        session, asset_id=asset_id, timeframe=coverage.timeframe
     )
-    pattern_counts = dict(Counter(r.pattern_type for r in rows))
+    pattern_counts = dict(Counter(r.pattern_type for r in pattern_rows))
 
     reports = []
     vbt_results = []
@@ -163,9 +168,8 @@ def validate_series(
     month_hits: Counter[str] = Counter()
 
     for variant in variants:
-        events = _pattern_events(
-            session,
-            candle_ids=candle_ids,
+        events = _pattern_events_from_rows(
+            pattern_rows,
             id_to_index=id_to_index,
             pattern_type=variant.pattern_type,
             confirmation_used=variant.confirmation_used,
