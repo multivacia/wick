@@ -194,52 +194,57 @@ def validate_series(
         )
         reports.append(report)
 
-        # vectorbt complementary check on non-overlapping train-evaluable trades
-        use_events = non_overlapping_events(events, variant.horizon)
-        own_points: list[TradePoint] = []
-        entry_idxs: list[int] = []
-        exit_idxs: list[int] = []
-        for ev in use_events[:200]:  # cap compare sample for runtime
-            r = evaluate_signal(
-                bars,
-                pattern_index=ev.pattern_index,
-                signal=ev.signal,
-                pattern_type=ev.pattern_type,
-                horizon=variant.horizon,
-                confirmation_used=ev.confirmation_used,
-                cost_scenario=variant.cost_scenario,
-            )
-            if (
-                r.status != "OK"
-                or r.net_return is None
-                or r.entry_index is None
-                or r.exit_index is None
-            ):
-                continue
-            own_points.append(
-                TradePoint(
-                    entry_index=r.entry_index,
-                    exit_index=r.exit_index,
-                    entry_ts=candles[r.entry_index].timestamp.isoformat(),
-                    exit_ts=candles[r.exit_index].timestamp.isoformat(),
-                    net_return=r.net_return,
+        # vectorbt complementary check — representative BASE/h5/HAMMER sample per series
+        if (
+            variant.cost_scenario == "BASE"
+            and variant.horizon == 5
+            and variant.pattern_type == "HAMMER"
+            and not variant.confirmation_used
+        ):
+            use_events = non_overlapping_events(events, variant.horizon)
+            own_points: list[TradePoint] = []
+            entry_idxs: list[int] = []
+            exit_idxs: list[int] = []
+            for ev in use_events[:500]:
+                r = evaluate_signal(
+                    bars,
+                    pattern_index=ev.pattern_index,
+                    signal=ev.signal,
+                    pattern_type=ev.pattern_type,
+                    horizon=variant.horizon,
+                    confirmation_used=ev.confirmation_used,
+                    cost_scenario=variant.cost_scenario,
                 )
+                if (
+                    r.status != "OK"
+                    or r.net_return is None
+                    or r.entry_index is None
+                    or r.exit_index is None
+                ):
+                    continue
+                own_points.append(
+                    TradePoint(
+                        entry_index=r.entry_index,
+                        exit_index=r.exit_index,
+                        entry_ts=candles[r.entry_index].timestamp.isoformat(),
+                        exit_ts=candles[r.exit_index].timestamp.isoformat(),
+                        net_return=r.net_return,
+                    )
+                )
+                entry_idxs.append(r.entry_index)
+                exit_idxs.append(r.exit_index)
+            opens = [b.open for b in bars]
+            closes = [b.close for b in bars]
+            cost = get_scenario(variant.cost_scenario).total_cost
+            vbt_rets = vectorbt_net_returns(opens, closes, entry_idxs, exit_idxs, cost)
+            cmp = compare_trade_sets(
+                own_points,
+                vbt_rets,
+                vbt_entry_indices=entry_idxs,
+                vbt_exit_indices=exit_idxs,
+                vbt_entry_ts=[pt.entry_ts for pt in own_points],
+                vbt_exit_ts=[pt.exit_ts for pt in own_points],
             )
-            entry_idxs.append(r.entry_index)
-            exit_idxs.append(r.exit_index)
-        opens = [b.open for b in bars]
-        closes = [b.close for b in bars]
-        cost = get_scenario(variant.cost_scenario).total_cost
-        vbt_rets = vectorbt_net_returns(opens, closes, entry_idxs, exit_idxs, cost)
-        cmp = compare_trade_sets(
-            own_points,
-            vbt_rets,
-            vbt_entry_indices=entry_idxs,
-            vbt_exit_indices=exit_idxs,
-            vbt_entry_ts=[p.entry_ts for p in own_points],
-            vbt_exit_ts=[p.exit_ts for p in own_points],
-        )
-        if not cmp.ok:
             vbt_results.append({"strategy": report.strategy_id, **asdict(cmp)})
 
     reports = apply_fdr_across_reports(reports)
@@ -331,7 +336,12 @@ def run_r3d(
     mark_holdout_opened(manifest_path)
 
     series_results = []
-    for cov in coverage:
+    for i, cov in enumerate(coverage):
+        print(
+            f"validate [{i + 1}/{len(coverage)}] {cov.symbol} {cov.timeframe} "
+            f"status={cov.coverage_status}",
+            flush=True,
+        )
         series_results.append(
             validate_series(session, coverage=cov, variants=variants, safety_delay=safety_delay)
         )

@@ -1,0 +1,222 @@
+[
+  {
+    "symbol": "BTC/USDT",
+    "source": "binance",
+    "timeframe": "1h",
+    "candles_scanned": 17538,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 5855,
+    "confirmations": 11710,
+    "run_id": "det_95b67c7812fb4b33",
+    "notes": []
+  },
+  {
+    "symbol": "BTC/USDT",
+    "source": "binance",
+    "timeframe": "1d",
+    "candles_scanned": 3118,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 979,
+    "confirmations": 1958,
+    "run_id": "det_0102f2b18c0849d5",
+    "notes": []
+  },
+  {
+    "symbol": "ETH/USDT",
+    "source": "binance",
+    "timeframe": "1h",
+    "candles_scanned": 17538,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 5860,
+    "confirmations": 11720,
+    "run_id": "det_5cdc98d564be42d4",
+    "notes": []
+  },
+  {
+    "symbol": "ETH/USDT",
+    "source": "binance",
+    "timeframe": "1d",
+    "candles_scanned": 3118,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 966,
+    "confirmations": 1932,
+    "run_id": "det_44b192ba83914924",
+    "notes": []
+  },
+  {
+    "symbol": "SOL/USDT",
+    "source": "binance",
+    "timeframe": "1h",
+    "candles_scanned": 17538,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 5692,
+    "confirmations": 11384,
+    "run_id": "det_8ca9c86eacb7416d",
+    "notes": []
+  },
+  {
+    "symbol": "SOL/USDT",
+    "source": "binance",
+    "timeframe": "1d",
+    "candles_scanned": 2165,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 649,
+    "confirmations": 1298,
+    "run_id": "det_cfc948151c73414d",
+    "notes": []
+  },
+  {
+    "symbol": "BNB/USDT",
+    "source": "binance",
+    "timeframe": "1h",
+    "candles_scanned": 17538,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 5795,
+    "confirmations": 11590,
+    "run_id": "det_885dfc8bf8374c22",
+    "notes": []
+  },
+  {
+    "symbol": "BNB/USDT",
+    "source": "binance",
+    "timeframe": "1d",
+    "candles_scanned": 3118,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 949,
+    "confirmations": 1898,
+    "run_id": "det_9e964dc2b03b40c9",
+    "notes": []
+  },
+  {
+    "symbol": "XRP/USDT",
+    "source": "binance",
+    "timeframe": "1h",
+    "candles_scanned": 17538,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 5788,
+    "confirmations": 11576,
+    "run_id": "det_87de9ca48a87486e",
+    "notes": []
+  },
+  {
+    "symbol": "XRP/USDT",
+    "source": "binance",
+    "timeframe": "1d",
+    "candles_scanned": 2995,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 961,
+    "confirmations": 1920,
+    "run_id": "det_c9ee4ec0baf6490f",
+    "notes": []
+  },
+  {
+    "symbol": "PETR4.SA",
+    "source": "yahoo",
+    "timeframe": "1d",
+    "candles_scanned": 1246,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 277,
+    "confirmations": 554,
+    "run_id": "det_fcfde4d75d344ef9",
+    "notes": []
+  },
+  {
+    "symbol": "PETR4.SA",
+    "source": "yahoo",
+    "timeframe": "1h",
+    "candles_scanned": 3471,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 1026,
+    "confirmations": 2052,
+    "run_id": "det_197b282914a44f51",
+    "notes": []
+  },
+  {
+    "symbol": "VALE3.SA",
+    "source": "yahoo",
+    "timeframe": "1d",
+    "candles_scanned": 1246,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 290,
+    "confirmations": 580,
+    "run_id": "det_3953351b880e46bb",
+    "notes": []
+  },
+  {
+    "symbol": "VALE3.SA",
+    "source": "yahoo",
+    "timeframe": "1h",
+    "candles_scanned": 3470,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 1042,
+    "confirmations": 2084,
+    "run_id": "det_9d0ddf9c703f49fa",
+    "notes": []
+  },
+  {
+    "symbol": "ITUB4.SA",
+    "source": "yahoo",
+    "timeframe": "1d",
+    "candles_scanned": 1246,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 291,
+    "confirmations": 582,
+    "run_id": "det_2113617b7f1f4776",
+    "notes": []
+  },
+  {
+    "symbol": "ITUB4.SA",
+    "source": "yahoo",
+    "timeframe": "1h",
+    "candles_scanned": 3471,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 1046,
+    "confirmations": 2092,
+    "run_id": "det_75a03f93c16c4b94",
+    "notes": []
+  },
+  {
+    "symbol": "AAPL",
+    "source": "yahoo",
+    "timeframe": "1d",
+    "candles_scanned": 1253,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 301,
+    "confirmations": 602,
+    "run_id": "det_3b4575491bc14a78",
+    "notes": []
+  },
+  {
+    "symbol": "AAPL",
+    "source": "yahoo",
+    "timeframe": "1h",
+    "candles_scanned": 3468,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 995,
+    "confirmations": 1990,
+    "run_id": "det_046ce53b85d041ed",
+    "notes": []
+  },
+  {
+    "symbol": "MSFT",
+    "source": "yahoo",
+    "timeframe": "1d",
+    "candles_scanned": 1253,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 275,
+    "confirmations": 550,
+    "run_id": "det_da864121ca8c4ddd",
+    "notes": []
+  },
+  {
+    "symbol": "MSFT",
+    "source": "yahoo",
+    "timeframe": "1h",
+    "candles_scanned": 3468,
+    "patterns_inserted": 0,
+    "patterns_unchanged": 960,
+    "confirmations": 1920,
+    "run_id": "det_f79265fd6b1a40df",
+    "notes": []
+  }
+]

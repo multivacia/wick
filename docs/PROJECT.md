@@ -20,12 +20,12 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R1 | Setup, schema, ingestão OHLCV idempotente e auditável | **MERGED** (`R1_GATE = APPROVED`, tag `v0.1.0-r1`) |
 | R2 | Detectores de padrões com contrato matemático versionado | **MERGED** (`R2_GATE = APPROVED`, tag `v0.2.0-r2`) |
 | R3A–C | Motor, estatística, relatórios e gates mecânicos | **MERGED** (`R3_IMPLEMENTATION/AUDIT = COMPLETE`, tag `v0.3.0-r3`) |
-| R3D | Validação em dados históricos reais (sem recalibrar) | **Em andamento** |
+| R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (auditada; 0 estratégias passaram) |
 | R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED_NO_REAL_STRATEGY_APPROVED** |
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
 
-## Estado oficial pós-merge (2026-07-16)
+## Estado oficial pós-merge + R3D (2026-07-16)
 
 | Campo | Valor |
 |-------|--------|
@@ -34,13 +34,16 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3A_GATE | APPROVED |
 | R3_IMPLEMENTATION | COMPLETE |
 | R3_AUDIT | COMPLETE |
-| R3_GATE | PENDING_REAL_DATA_VALIDATION |
+| R3D_IMPLEMENTATION | COMPLETE |
+| R3D_AUDIT | COMPLETE |
+| R3_GATE | PENDING_HUMAN_DECISION |
 | R4_STATUS | BLOCKED_NO_REAL_STRATEGY_APPROVED |
 | R5_STATUS | NOT_STARTED |
 | Merges | PR #1→#4 em `main` (merge commits; sem squash da cadeia) |
 | Tags | `v0.1.0-r1`, `v0.2.0-r2`, `v0.3.0-r3` |
 | Custos | `COST_MODEL_VERSION=1.0.0-provisional` (inalterado) |
 | Trend baseline | `TREND_BASELINE_V1 = close > SMA20` |
+| R3D | 0 PASSES / 568 FAILS / 3272 INCONCLUSIVE · ver `reports/r3d/` |
 
 ## Encerramento R1
 
@@ -59,7 +62,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3B PR | https://github.com/multivacia/wick/pull/4 (MERGED) · tag `v0.3.0-r3` |
 | R3D branch | `feature/r3d-real-data-validation` |
 | Custos OPTIMISTIC/BASE/STRESSED | **provisórios v1** — confirmação humana antes de R4 |
-| R3_GATE | `PENDING_REAL_DATA_VALIDATION` até R3D; depois `PENDING_HUMAN_DECISION` |
+| R3_GATE | `PENDING_HUMAN_DECISION` (R3D completa; nenhuma estratégia real aprovada) |
 | R4 / R5 | BLOCKED / NOT_STARTED |
 
 ## Gates
