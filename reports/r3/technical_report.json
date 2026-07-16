@@ -1,0 +1,227 @@
+[
+  {
+    "strategy_id": "hammer_h1_optimistic",
+    "description": "Synthetic HAMMER long N=1 OPTIMISTIC",
+    "n_signals": 44,
+    "sample_tier": "EXPLORATORY",
+    "mean_net_train": 0.0007177632526060688,
+    "mean_net_holdout": 0.0006373909049149705,
+    "ci95_train": [
+      0.0006904909413264847,
+      0.0007464500823301722
+    ],
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.0014985014985014987,
+    "beats_random_baseline": false,
+    "classification": "NO_EDGE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "OPTIMISTIC",
+    "horizon": 1,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h1_base",
+    "description": "Synthetic HAMMER long N=1 BASE",
+    "n_signals": 44,
+    "sample_tier": "EXPLORATORY",
+    "mean_net_train": -0.0004822367473939311,
+    "mean_net_holdout": -0.0005626090950850296,
+    "ci95_train": [
+      -0.0005095090586735154,
+      -0.00045354991766982785
+    ],
+    "p_raw": 1.0,
+    "p_adj": 1.0,
+    "beats_random_baseline": true,
+    "classification": "NEGATIVE",
+    "mechanical_gate": "FAILS_CRITERIA",
+    "cost_scenario": "BASE",
+    "horizon": 1,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h1_stressed",
+    "description": "Synthetic HAMMER long N=1 STRESSED",
+    "n_signals": 44,
+    "sample_tier": "EXPLORATORY",
+    "mean_net_train": -0.0030822367473939323,
+    "mean_net_holdout": -0.0031626090950850304,
+    "ci95_train": [
+      -0.0031095090586735165,
+      -0.003053549917669829
+    ],
+    "p_raw": 1.0,
+    "p_adj": 1.0,
+    "beats_random_baseline": false,
+    "classification": "NEGATIVE",
+    "mechanical_gate": "FAILS_CRITERIA",
+    "cost_scenario": "STRESSED",
+    "horizon": 1,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h5_optimistic",
+    "description": "Synthetic HAMMER long N=5 OPTIMISTIC",
+    "n_signals": 22,
+    "sample_tier": "INSUFFICIENT",
+    "mean_net_train": 0.0026392064959512335,
+    "mean_net_holdout": 0.002474781809830163,
+    "ci95_train": [
+      0.002572649665535905,
+      0.0027107921546227647
+    ],
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.0014985014985014987,
+    "beats_random_baseline": false,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "OPTIMISTIC",
+    "horizon": 5,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h5_base",
+    "description": "Synthetic HAMMER long N=5 BASE",
+    "n_signals": 22,
+    "sample_tier": "INSUFFICIENT",
+    "mean_net_train": 0.0014392064959512336,
+    "mean_net_holdout": 0.001274781809830163,
+    "ci95_train": [
+      0.0013726496655359051,
+      0.0015107921546227648
+    ],
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.0014985014985014987,
+    "beats_random_baseline": true,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "BASE",
+    "horizon": 5,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h5_stressed",
+    "description": "Synthetic HAMMER long N=5 STRESSED",
+    "n_signals": 22,
+    "sample_tier": "INSUFFICIENT",
+    "mean_net_train": -0.0011607935040487674,
+    "mean_net_holdout": -0.0013252181901698377,
+    "ci95_train": [
+      -0.0012273503344640958,
+      -0.0010892078453772361
+    ],
+    "p_raw": 1.0,
+    "p_adj": 1.0,
+    "beats_random_baseline": false,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "STRESSED",
+    "horizon": 5,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h10_optimistic",
+    "description": "Synthetic HAMMER long N=10 OPTIMISTIC",
+    "n_signals": 15,
+    "sample_tier": "INSUFFICIENT",
+    "mean_net_train": 0.0050388715281202735,
+    "mean_net_holdout": null,
+    "ci95_train": [
+      0.004907236454848555,
+      0.005158893671325746
+    ],
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.0014985014985014987,
+    "beats_random_baseline": false,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "OPTIMISTIC",
+    "horizon": 10,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h10_base",
+    "description": "Synthetic HAMMER long N=10 BASE",
+    "n_signals": 15,
+    "sample_tier": "INSUFFICIENT",
+    "mean_net_train": 0.003838871528120275,
+    "mean_net_holdout": null,
+    "ci95_train": [
+      0.0037072364548485564,
+      0.003958893671325747
+    ],
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.0014985014985014987,
+    "beats_random_baseline": true,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "BASE",
+    "horizon": 10,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  },
+  {
+    "strategy_id": "hammer_h10_stressed",
+    "description": "Synthetic HAMMER long N=10 STRESSED",
+    "n_signals": 15,
+    "sample_tier": "INSUFFICIENT",
+    "mean_net_train": 0.0012388715281202738,
+    "mean_net_holdout": null,
+    "ci95_train": [
+      0.0011072364548485552,
+      0.0013588936713257462
+    ],
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.0014985014985014987,
+    "beats_random_baseline": false,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "cost_scenario": "STRESSED",
+    "horizon": 10,
+    "notes": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze"
+    ]
+  }
+]

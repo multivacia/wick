@@ -18,5 +18,7 @@ reports/*
 !reports/example_ingestion_quality.json
 !reports/live_binance_rerun.json
 !reports/live_yahoo_sample.json
+!reports/r3/
+!reports/r3/**
 data/
 .DS_Store
