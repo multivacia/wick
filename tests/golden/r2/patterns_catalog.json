@@ -1,0 +1,61 @@
+{
+  "cases": [
+    {
+      "case_id": "DOJI_POSITIVE_001",
+      "candles": [{"open": 100, "high": 102, "low": 98, "close": 100.05, "volume": 1}],
+      "expected": {"DOJI": true}
+    },
+    {
+      "case_id": "DOJI_NEGATIVE_001",
+      "candles": [{"open": 100, "high": 110, "low": 90, "close": 108, "volume": 1}],
+      "expected": {"DOJI": false}
+    },
+    {
+      "case_id": "DOJI_BOUNDARY_EXACT",
+      "candles": [{"open": 100, "high": 110, "low": 90, "close": 102, "volume": 1}],
+      "expected": {"DOJI": true},
+      "reason": "body_ratio = 2/20 = 0.10 exact"
+    },
+    {
+      "case_id": "HAMMER_POSITIVE_001",
+      "candles": [{"open": 10.0, "high": 10.6, "low": 8.0, "close": 10.5, "volume": 1}],
+      "expected": {"HAMMER": true, "DOJI": false}
+    },
+    {
+      "case_id": "HAMMER_NEGATIVE_SHORT_WICK",
+      "candles": [{"open": 10.0, "high": 10.5, "low": 9.5, "close": 10.2, "volume": 1}],
+      "expected": {"HAMMER": false}
+    },
+    {
+      "case_id": "INVERTED_HAMMER_POSITIVE_001",
+      "candles": [{"open": 10.5, "high": 15.0, "low": 10.0, "close": 12.0, "volume": 1}],
+      "expected": {"INVERTED_HAMMER": true}
+    },
+    {
+      "case_id": "SHOOTING_STAR_POSITIVE_001",
+      "candles": [{"open": 12.0, "high": 15.0, "low": 10.0, "close": 10.5, "volume": 1}],
+      "expected": {"SHOOTING_STAR": true}
+    },
+    {
+      "case_id": "BULLISH_ENGULFING_POSITIVE_001",
+      "candles": [
+        {"open": 12, "high": 12.2, "low": 10, "close": 10.2, "volume": 1},
+        {"open": 10.0, "high": 13, "low": 9.8, "close": 12.5, "volume": 1}
+      ],
+      "expected": {"BULLISH_ENGULFING": true}
+    },
+    {
+      "case_id": "BEARISH_ENGULFING_POSITIVE_001",
+      "candles": [
+        {"open": 10, "high": 12.2, "low": 9.8, "close": 12, "volume": 1},
+        {"open": 12.2, "high": 12.3, "low": 9.5, "close": 9.8, "volume": 1}
+      ],
+      "expected": {"BEARISH_ENGULFING": true}
+    },
+    {
+      "case_id": "DEGENERATE_NO_DOJI",
+      "candles": [{"open": 100, "high": 100, "low": 100, "close": 100, "volume": 1}],
+      "expected": {"DOJI": false, "HAMMER": false}
+    }
+  ]
+}

@@ -111,5 +111,68 @@ def db_check() -> None:
     console.print("Database OK")
 
 
+@app.command("detect")
+def detect_cmd(
+    symbols: str = typer.Option(..., "--assets", help="Comma-separated asset symbols"),
+    timeframes: str = typer.Option("1d", "--timeframes"),
+    source: str = typer.Option("binance", "--source", help="Asset source to resolve"),
+    start: str | None = typer.Option(None, "--start"),
+    end: str | None = typer.Option(None, "--end"),
+    incremental: bool = typer.Option(True, "--incremental/--full-scan"),
+    reprocess: bool = typer.Option(False, "--reprocess"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+    detector_version: str | None = typer.Option(None, "--detector-version"),
+) -> None:
+    """Detect R2 candlestick patterns on stored closed candles (no returns)."""
+    from sqlalchemy import select
+
+    from wick.db.models import Asset
+    from wick.detection.service import DetectionService
+    from wick.patterns.params import DETECTOR_VERSION
+
+    settings = get_settings()
+    symbol_list = [s.strip() for s in symbols.split(",") if s.strip()]
+    tf_list = [t.strip() for t in timeframes.split(",") if t.strip()]
+    start_dt = _parse_dt(start) if start else None
+    end_dt = _parse_dt(end) if end else None
+    version = detector_version or DETECTOR_VERSION
+
+    with session_scope(settings) as session:
+        svc = DetectionService(
+            session,
+            detector_version=version,
+            dry_run=dry_run,
+            safety_delay_seconds=settings.candle_close_safety_delay_seconds,
+        )
+        for sym in symbol_list:
+            assets = list(
+                session.execute(
+                    select(Asset).where(Asset.symbol == sym, Asset.source == source)
+                ).scalars()
+            )
+            if not assets:
+                console.print(f"Asset not found: {sym} source={source}")
+                continue
+            for asset in assets:
+                for tf in tf_list:
+                    summary = svc.detect_asset_timeframe(
+                        asset_id=asset.id,
+                        timeframe=tf,
+                        start=start_dt,
+                        end=end_dt,
+                        incremental=incremental and not reprocess,
+                        reprocess=reprocess,
+                    )
+                    console.print(
+                        f"{asset.symbol} {tf}: scanned={summary.candles_scanned} "
+                        f"inserted={summary.patterns_inserted} "
+                        f"unchanged={summary.patterns_unchanged} "
+                        f"confirmations={summary.confirmations_upserted} "
+                        f"dry_run={summary.dry_run} run={summary.run_id}"
+                    )
+                    for note in summary.notes:
+                        console.print(f"  note: {note}")
+
+
 if __name__ == "__main__":
     app()

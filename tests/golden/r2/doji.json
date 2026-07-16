@@ -1,0 +1,9 @@
+{
+  "case_id": "DOJI_POSITIVE_001",
+  "rule_version": "1.0.0",
+  "candles": [
+    {"open": 100, "high": 102, "low": 98, "close": 100.05, "volume": 1000}
+  ],
+  "expected": {"detected": true, "pattern_type": "DOJI"},
+  "reason": "body_ratio = 0.05/4 = 0.0125 <= 0.10"
+}
