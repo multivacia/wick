@@ -37,12 +37,15 @@ Séries abaixo do alvo → `PARTIAL` (não completar artificialmente).
 - retorno por operação: tolerância absoluta `1e-10`
 - métricas agregadas: tolerância absoluta `1e-8`
 
-## Gates
-
-Estado máximo permitido desta release:
+## Gates (estado final autorizado)
 
 - `R3D_IMPLEMENTATION = COMPLETE`
 - `R3D_AUDIT = COMPLETE`
-- `R3_GATE = PENDING_HUMAN_DECISION`
+- `R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1`
+- `R4_STATUS = BLOCKED_NO_REAL_STRATEGY_APPROVED`
+- `R5_STATUS = NOT_STARTED`
+
+`experiment_id = r3d-real-validation-v1` — holdout consumido; reuso proibido;
+custos/parâmetros congelados pós-holdout.
 
 Não iniciar R4/R5.

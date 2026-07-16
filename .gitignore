@@ -25,5 +25,4 @@ data/
 
 !reports/r3d/
 !reports/r3d/**
-reports/r3d/technical_report.json
 reports/r3d/*.log

@@ -2,7 +2,7 @@
   "generated_at": "2026-07-16T18:29:24.676504+00:00",
   "R3D_IMPLEMENTATION": "COMPLETE",
   "R3D_AUDIT": "COMPLETE",
-  "R3_GATE": "PENDING_HUMAN_DECISION",
+  "R3_GATE": "REJECTED_NO_MEASURABLE_EDGE_V1",
   "R4_STATUS": "BLOCKED_NO_REAL_STRATEGY_APPROVED",
   "coverage_status_counts": {
     "COMPLETE": 15,
@@ -1173,5 +1173,26 @@
   "R5_STATUS": "NOT_STARTED",
   "audit_ref": "docs/audits/R3D_AUDIT_RESULTS.md",
   "vectorbt_compare": "20/20 series OK (HAMMER N=5 BASE raw sample)",
-  "patterns_total": 39997
+  "patterns_total": 39997,
+  "experiment_id": "r3d-real-validation-v1",
+  "detector_version": "1.0.0",
+  "parameters_hash": "2f202cf99000ec16",
+  "cost_model_version": "1.0.0-provisional",
+  "seed": 42,
+  "n_bootstrap": 1000,
+  "holdout_opened": true,
+  "holdout_opened_at": "2026-07-16T18:27:55.890963+00:00",
+  "holdout_consumed": true,
+  "holdout_reuse_forbidden": true,
+  "stock_1d_acceptance": "PARTIAL_ACCEPTED_FOR_R3D",
+  "decision": {
+    "passes": 0,
+    "failed": 568,
+    "inconclusive": 3272,
+    "promoted": 0,
+    "parameters_or_costs_changed_after_holdout": false,
+    "negative_result_accepted_as_valid_conclusion": true,
+    "paper_trading_started": false
+  },
+  "updated_at": "2026-07-16T20:50:33.107440+00:00"
 }

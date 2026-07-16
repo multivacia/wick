@@ -1918,7 +1918,16 @@
   "notes": [
     "Manifest frozen before holdout evaluation.",
     "No parameter recalibration after freeze.",
-    "COST_MODEL_VERSION remains provisional."
+    "COST_MODEL_VERSION remains provisional.",
+    "experiment_id=r3d-real-validation-v1",
+    "Holdout consumed once at holdout_opened_at; reuse forbidden.",
+    "No cost/parameter changes after holdout opening.",
+    "Stock 1d PARTIAL (~4.988y) accepted for R3D as PARTIAL_ACCEPTED_FOR_R3D (human 2026-07-16)."
   ],
-  "holdout_opened_at": "2026-07-16T18:27:55.890963+00:00"
+  "holdout_opened_at": "2026-07-16T18:27:55.890963+00:00",
+  "experiment_id": "r3d-real-validation-v1",
+  "holdout_consumed": true,
+  "holdout_reuse_forbidden": true,
+  "parameters_frozen_after_holdout": true,
+  "cost_model_frozen_after_holdout": true
 }

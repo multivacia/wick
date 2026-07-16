@@ -20,12 +20,12 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R1 | Setup, schema, ingestão OHLCV idempotente e auditável | **MERGED** (`R1_GATE = APPROVED`, tag `v0.1.0-r1`) |
 | R2 | Detectores de padrões com contrato matemático versionado | **MERGED** (`R2_GATE = APPROVED`, tag `v0.2.0-r2`) |
 | R3A–C | Motor, estatística, relatórios e gates mecânicos | **MERGED** (`R3_IMPLEMENTATION/AUDIT = COMPLETE`, tag `v0.3.0-r3`) |
-| R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (auditada; 0 estratégias passaram) |
+| R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (`R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1`, tag `v0.4.0-r3d-real-validation`) |
 | R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED_NO_REAL_STRATEGY_APPROVED** |
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
 
-## Estado oficial pós-merge + R3D (2026-07-16)
+## Estado oficial (pós-R3D)
 
 | Campo | Valor |
 |-------|--------|
@@ -36,14 +36,18 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3_AUDIT | COMPLETE |
 | R3D_IMPLEMENTATION | COMPLETE |
 | R3D_AUDIT | COMPLETE |
-| R3_GATE | PENDING_HUMAN_DECISION |
+| R3_GATE | **REJECTED_NO_MEASURABLE_EDGE_V1** |
 | R4_STATUS | BLOCKED_NO_REAL_STRATEGY_APPROVED |
 | R5_STATUS | NOT_STARTED |
-| Merges | PR #1→#4 em `main` (merge commits; sem squash da cadeia) |
-| Tags | `v0.1.0-r1`, `v0.2.0-r2`, `v0.3.0-r3` |
-| Custos | `COST_MODEL_VERSION=1.0.0-provisional` (inalterado) |
-| Trend baseline | `TREND_BASELINE_V1 = close > SMA20` |
-| R3D | 0 PASSES / 568 FAILS / 3272 INCONCLUSIVE · ver `reports/r3d/` |
+| experiment_id | `r3d-real-validation-v1` |
+| detector_version / parameters_hash | `1.0.0` / `2f202cf99000ec16` |
+| cost_model_version | `1.0.0-provisional` (congelado pós-holdout) |
+| seed / bootstrap | `42` / `1000` |
+| holdout | consumido 1×; **reuso proibido** |
+| R3D mecânico | 0 PASSES / 568 FAILS / 3272 INCONCLUSIVE |
+| Ações 1d | `PARTIAL_ACCEPTED_FOR_R3D` (~4.988y) |
+| Paper trading | **não iniciado** |
+| Tags | `v0.1.0-r1`, `v0.2.0-r2`, `v0.3.0-r3`, `v0.4.0-r3d-real-validation` |
 
 ## Encerramento R1
 
@@ -53,24 +57,24 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | PR | https://github.com/multivacia/wick/pull/1 (MERGED) |
 | Tag | `v0.1.0-r1` |
 
-## Status R2 / R3
+## Status R2 / R3 / R3D
 
 | Campo | Valor |
 |-------|--------|
 | R2 PR | https://github.com/multivacia/wick/pull/2 (MERGED) · tag `v0.2.0-r2` |
 | R3A PR | https://github.com/multivacia/wick/pull/3 (MERGED) |
 | R3B PR | https://github.com/multivacia/wick/pull/4 (MERGED) · tag `v0.3.0-r3` |
-| R3D branch | `feature/r3d-real-data-validation` |
-| Custos OPTIMISTIC/BASE/STRESSED | **provisórios v1** — confirmação humana antes de R4 |
-| R3_GATE | `PENDING_HUMAN_DECISION` (R3D completa; nenhuma estratégia real aprovada) |
+| R3D PR | https://github.com/multivacia/wick/pull/5 · tag `v0.4.0-r3d-real-validation` |
+| Custos | `1.0.0-provisional` — não alterar para reavaliar `r3d-real-validation-v1` |
+| R3_GATE | `REJECTED_NO_MEASURABLE_EDGE_V1` |
 | R4 / R5 | BLOCKED / NOT_STARTED |
 
 ## Gates
 
 - R1 → R2: **aprovado**; merges em `main` concluídos.
 - R2 → R3: **aprovado**.
-- R3 → R4: bloqueado até validação em dados reais (R3D) + decisão humana; nenhuma estratégia real aprovada ainda.
-- R4 → R5: paper signals auditáveis, sem execução real.
+- R3 → R4: **rejeitado na v1** — sem edge mensurável sob metodologia/custos congelados; R4 bloqueada.
+- R4 → R5: paper signals auditáveis, sem execução real (não iniciado).
 - Qualquer uso de dinheiro real exige decisão humana explícita.
 
 ## Stack
@@ -80,7 +84,7 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 ## Fontes de dados (R1)
 
 - Binance via endpoints públicos de klines (`data-api.binance.vision`; interface ccxt-compatível nos testes).
-- Yahoo Finance via yfinance (sem cadastro).
+- Yahoo Finance via yfinance (sem cadastro); ver `docs/audits/R3D_YAHOO_1H_COVERAGE.md` para limites intraday observados.
 - brapi plugável e opcional (token em `.env` quando disponível).
 
 ## Log de decisões
@@ -99,5 +103,8 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-16 | Implementar R2 com `R2_PATTERN_SPECIFICATION.md` | Spec executável fornecida pelo humano | Oito padrões oficiais, sem retorno |
 | 2026-07-16 | Custos R3 provisórios (BASE total 0.0024) | Numerics ausentes na metodologia | `1.0.0-provisional`; confirmação humana antes de R4 |
 | 2026-07-16 | Merges PR #1–#4 em `main` + tags v0.1/v0.2/v0.3 | Autorização humana explícita | Cadeia R1–R3 em main |
-| 2026-07-16 | `R3_GATE = PENDING_REAL_DATA_VALIDATION` | R3D obrigatória antes de decisão R4 | Sem promoção automática |
 | 2026-07-16 | R3D: universo cripto+ações, 1h/1d, sem recalibrar | Validação honesta em dados reais | Branch `feature/r3d-real-data-validation` |
+| 2026-07-16 | R3D: 0 estratégias passaram o gate mecânico | 568 FAILS; 3272 INCONCLUSIVE; 0 promovidas | Resultado negativo aceito como conclusão válida |
+| 2026-07-16 | Parâmetros e custos **não** alterados após abertura do holdout | Holdout consumido 1×; reuso proibido | Experimento `r3d-real-validation-v1` congelado |
+| 2026-07-16 | Ações 1d ~4.988y → `PARTIAL_ACCEPTED_FOR_R3D` | Sem fill artificial; aceite humano para R3D | Não reclassifica COMPLETE |
+| 2026-07-16 | `R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1` | Autorização humana pós-auditoria R3D | R4/R5 não iniciados; sem paper trading |

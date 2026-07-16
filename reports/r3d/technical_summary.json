@@ -10,5 +10,14 @@
   "coverage_status_counts": {
     "COMPLETE": 15,
     "PARTIAL": 5
-  }
+  },
+  "experiment_id": "r3d-real-validation-v1",
+  "detector_version": "1.0.0",
+  "parameters_hash": "2f202cf99000ec16",
+  "cost_model_version": "1.0.0-provisional",
+  "seed": 42,
+  "n_bootstrap": 1000,
+  "holdout_consumed": true,
+  "full_technical_report": "reports/r3d/technical_report.json",
+  "R3_GATE": "REJECTED_NO_MEASURABLE_EDGE_V1"
 }
