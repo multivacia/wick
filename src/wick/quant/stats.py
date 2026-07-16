@@ -95,6 +95,11 @@ def paired_random_baseline(
     *,
     seed: int = 42,
 ) -> list[float]:
+    """Deprecated shuffle helper — prefer ``baselines.paired_random_entry_returns``.
+
+    Kept for unit compatibility; shuffling observed returns is NOT a valid
+    paired-entry null. Do not use for gate decisions.
+    """
     rng = np.random.default_rng(seed)
     arr = np.asarray(list(returns), dtype=float).copy()
     rng.shuffle(arr)

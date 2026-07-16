@@ -36,7 +36,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | PostgreSQL | 16 oficial / homologada; 15 mínima (NULLS NOT DISTINCT) |
 | PR | https://github.com/multivacia/wick/pull/1 |
 | Merge | Pendente de autorização humana |
-| R2 | Não iniciada |
+| R2 | Seguiu em branches dependentes (`feature/r2-detection` …) sem merge de R1 |
 
 ## Status R2 / R3 (2026-07-16)
 
@@ -45,7 +45,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R2 PR | https://github.com/multivacia/wick/pull/2 (`feature/r2-detection`) |
 | R3A PR | https://github.com/multivacia/wick/pull/3 (`feature/r3a-backtest-core`) |
 | R3B branch | `feature/r3b-quant-validation` |
-| Testes (tip R3B) | 76 passed |
+| Testes (tip R3B) | 79 passed |
 | Custos OPTIMISTIC/BASE/STRESSED | **provisórios v1** (`cost_model_version=1.0.0-provisional`) — exigem confirmação humana antes de R4 |
 | R3_GATE | `PENDING_HUMAN_DECISION` |
 | R4 / R5 | NOT_STARTED |
