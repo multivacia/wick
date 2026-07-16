@@ -52,8 +52,10 @@ def test_no_return_fields_in_r2_modules():
         text = path.read_text(encoding="utf-8")
         # allow comments mentioning backtest prohibition in docs strings carefully
         for token in banned:
-            if token in text and path.name not in {"__init__.py"}:
-                # detection/service may mention nothing; patterns shouldn't
-                if any(p in path.parts for p in ("patterns", "features", "detection")):
-                    offenders.append(f"{path}:{token}")
+            if (
+                token in text
+                and path.name not in {"__init__.py"}
+                and any(p in path.parts for p in ("patterns", "features", "detection"))
+            ):
+                offenders.append(f"{path}:{token}")
     assert offenders == [], offenders
