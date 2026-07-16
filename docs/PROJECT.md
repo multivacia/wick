@@ -18,10 +18,10 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | Release | Escopo | Status |
 |---------|--------|--------|
 | R1 | Setup, schema, ingestão OHLCV idempotente e auditável | **Concluída** (`R1_GATE = APPROVED`) |
-| R2 | Detectores de padrões com contrato matemático versionado | Não iniciada |
-| R3 | Backtests, custos, baselines, significância estatística | — |
-| R4 | Paper trading / simulação temporal sem ordem real | — |
-| R5 | Observabilidade, relatórios e gates de promoção | — |
+| R2 | Detectores de padrões com contrato matemático versionado | **Implementada + auditada** (`R2_GATE = APPROVED` técnico; PR aberta) |
+| R3 | Backtests, custos, baselines, significância estatística | **Implementação completa** (`R3_GATE = PENDING_HUMAN_DECISION`) |
+| R4 | Paper trading / simulação temporal sem ordem real | **NOT_STARTED** |
+| R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
 
 ## Encerramento R1
@@ -36,13 +36,25 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | PostgreSQL | 16 oficial / homologada; 15 mínima (NULLS NOT DISTINCT) |
 | PR | https://github.com/multivacia/wick/pull/1 |
 | Merge | Pendente de autorização humana |
-| R2 | Não iniciada |
+| R2 | Seguiu em branches dependentes (`feature/r2-detection` …) sem merge de R1 |
+
+## Status R2 / R3 (2026-07-16)
+
+| Campo | Valor |
+|-------|--------|
+| R2 PR | https://github.com/multivacia/wick/pull/2 (`feature/r2-detection`) |
+| R3A PR | https://github.com/multivacia/wick/pull/3 (`feature/r3a-backtest-core`) |
+| R3B branch | `feature/r3b-quant-validation` (PR https://github.com/multivacia/wick/pull/4) |
+| Testes (tip R3B) | 79 passed |
+| Custos OPTIMISTIC/BASE/STRESSED | **provisórios v1** (`cost_model_version=1.0.0-provisional`) — exigem confirmação humana antes de R4 |
+| R3_GATE | `PENDING_HUMAN_DECISION` |
+| R4 / R5 | NOT_STARTED |
 
 ## Gates
 
-- R1 → R2: **aprovado** (ingestão confiável, migrations oficiais, testes offline + concorrência, CI verde, README reproduzível). Aguardar autorização humana para merge e para iniciar R2.
-- R2 → R3: detectores versionados, exemplos manuais, sem uso de informação futura.
-- R3 → R4: metodologia congelada, holdout intocado até o gate, custos e FDR documentados.
+- R1 → R2: **aprovado** tecnicamente; merge da R1 ainda aguarda autorização humana.
+- R2 → R3: **aprovado** tecnicamente (detectores versionados, golden, zero look-ahead evidenciado nas suítes).
+- R3 → R4: metodologia implementada; holdout/FDR/custos documentados; **gate humano obrigatório** (custos provisórios + seleção de estratégias).
 - R4 → R5: paper signals auditáveis, sem execução real.
 - Qualquer uso de dinheiro real exige decisão humana explícita.
 
@@ -69,3 +81,6 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-16 | PostgreSQL 16 oficial; 15 mínimo; Timescale `2.28.3-pg16` | Homologação e CI | Compose/CI fixados em 16 |
 | 2026-07-16 | CI GitHub Actions com PG 16 vazio + Alembic | Gate de hardening | PR bloqueável por checks |
 | 2026-07-16 | `R1_GATE = APPROVED` | Hardening + CI verde + 39 testes | R1 encerrada; merge e R2 só com autorização humana |
+| 2026-07-16 | Implementar R2 com `R2_PATTERN_SPECIFICATION.md` | Spec executável fornecida pelo humano | Oito padrões oficiais, sem retorno |
+| 2026-07-16 | Custos R3 provisórios (BASE total 0.0024) | Numerics ausentes na metodologia | `1.0.0-provisional`; confirmação humana antes de R4 |
+| 2026-07-16 | `R3_GATE = PENDING_HUMAN_DECISION` | R3A/R3B/R3C implementados; R4 bloqueada | Seleção de estratégias é humana |

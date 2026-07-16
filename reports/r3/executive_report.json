@@ -1,0 +1,272 @@
+[
+  {
+    "strategy": "hammer_h1_optimistic",
+    "description": "Synthetic HAMMER long N=1 OPTIMISTIC",
+    "signals": 44,
+    "mean_net_return_train": 0.0034098995114117485,
+    "ci95": [
+      0.003282519265808123,
+      0.003542934580689199
+    ],
+    "cost_scenario": "OPTIMISTIC",
+    "holdout_mean_net": 0.0030480883602378227,
+    "random_baseline_mean": 0.003378713031927513,
+    "trend_baseline_mean": 0.0033635021804976238,
+    "asset_same_windows_mean": 0.0046098995114117495,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.003330949336145205,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.003378713031927513 trend=0.0033635021804976238 asset_windows=0.0046098995114117495 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h1_base",
+    "description": "Synthetic HAMMER long N=1 BASE",
+    "signals": 44,
+    "mean_net_return_train": 0.0022098995114117493,
+    "ci95": [
+      0.0020825192658081243,
+      0.0023429345806892004
+    ],
+    "cost_scenario": "BASE",
+    "holdout_mean_net": 0.0018480883602378225,
+    "random_baseline_mean": 0.002178713031927513,
+    "trend_baseline_mean": 0.0021635021804976237,
+    "asset_same_windows_mean": 0.0046098995114117495,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.002130949336145205,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.002178713031927513 trend=0.0021635021804976237 asset_windows=0.0046098995114117495 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h1_stressed",
+    "description": "Synthetic HAMMER long N=1 STRESSED",
+    "signals": 44,
+    "mean_net_return_train": -0.0003901004885882515,
+    "ci95": [
+      -0.0005174807341918768,
+      -0.00025706541931080055
+    ],
+    "cost_scenario": "STRESSED",
+    "holdout_mean_net": -0.0007519116397621782,
+    "random_baseline_mean": -0.0004212869680724879,
+    "trend_baseline_mean": -0.0004364978195023771,
+    "asset_same_windows_mean": 0.0046098995114117495,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": -0.00046905066385479567,
+    "p_raw": 1.0,
+    "p_adj": 1.0,
+    "classification": "NEGATIVE",
+    "mechanical_gate": "FAILS_CRITERIA",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=-0.0004212869680724879 trend=-0.0004364978195023771 asset_windows=0.0046098995114117495 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "FAILS_CRITERIA"
+  },
+  {
+    "strategy": "hammer_h5_optimistic",
+    "description": "Synthetic HAMMER long N=5 OPTIMISTIC",
+    "signals": 22,
+    "mean_net_return_train": 0.007113153445822072,
+    "ci95": [
+      0.006835001329521431,
+      0.007410866244148729
+    ],
+    "cost_scenario": "OPTIMISTIC",
+    "holdout_mean_net": 0.006446559048428037,
+    "random_baseline_mean": 0.0069815516519584515,
+    "trend_baseline_mean": 0.007014303924895715,
+    "asset_same_windows_mean": 0.008313153445822074,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.006955065358425303,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.0069815516519584515 trend=0.007014303924895715 asset_windows=0.008313153445822074 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h5_base",
+    "description": "Synthetic HAMMER long N=5 BASE",
+    "signals": 22,
+    "mean_net_return_train": 0.005913153445822073,
+    "ci95": [
+      0.0056350013295214324,
+      0.006210866244148729
+    ],
+    "cost_scenario": "BASE",
+    "holdout_mean_net": 0.005246559048428036,
+    "random_baseline_mean": 0.00578155165195845,
+    "trend_baseline_mean": 0.0058143039248957145,
+    "asset_same_windows_mean": 0.008313153445822074,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.005755065358425303,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.00578155165195845 trend=0.0058143039248957145 asset_windows=0.008313153445822074 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h5_stressed",
+    "description": "Synthetic HAMMER long N=5 STRESSED",
+    "signals": 22,
+    "mean_net_return_train": 0.0033131534458220716,
+    "ci95": [
+      0.0030350013295214304,
+      0.0036108662441487293
+    ],
+    "cost_scenario": "STRESSED",
+    "holdout_mean_net": 0.0026465590484280356,
+    "random_baseline_mean": 0.0031815516519584502,
+    "trend_baseline_mean": 0.0032143039248957142,
+    "asset_same_windows_mean": 0.008313153445822074,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.003155065358425302,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.0031815516519584502 trend=0.0032143039248957142 asset_windows=0.008313153445822074 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h10_optimistic",
+    "description": "Synthetic HAMMER long N=10 OPTIMISTIC",
+    "signals": 15,
+    "mean_net_return_train": 0.011732809158844816,
+    "ci95": [
+      0.011208218771873477,
+      0.012211372802344106
+    ],
+    "cost_scenario": "OPTIMISTIC",
+    "holdout_mean_net": null,
+    "random_baseline_mean": 0.011434099404548806,
+    "trend_baseline_mean": 0.011577806105393343,
+    "asset_same_windows_mean": 0.01293280915884482,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.01151060426454749,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.011434099404548806 trend=0.011577806105393343 asset_windows=0.01293280915884482 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h10_base",
+    "description": "Synthetic HAMMER long N=10 BASE",
+    "signals": 15,
+    "mean_net_return_train": 0.010532809158844818,
+    "ci95": [
+      0.010008218771873478,
+      0.011011372802344106
+    ],
+    "cost_scenario": "BASE",
+    "holdout_mean_net": null,
+    "random_baseline_mean": 0.010234099404548806,
+    "trend_baseline_mean": 0.010377806105393345,
+    "asset_same_windows_mean": 0.01293280915884482,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.01031060426454749,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.010234099404548806 trend=0.010377806105393345 asset_windows=0.01293280915884482 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  },
+  {
+    "strategy": "hammer_h10_stressed",
+    "description": "Synthetic HAMMER long N=10 STRESSED",
+    "signals": 15,
+    "mean_net_return_train": 0.007932809158844817,
+    "ci95": [
+      0.007408218771873478,
+      0.008411372802344106
+    ],
+    "cost_scenario": "STRESSED",
+    "holdout_mean_net": null,
+    "random_baseline_mean": 0.007634099404548803,
+    "trend_baseline_mean": 0.007777806105393342,
+    "asset_same_windows_mean": 0.01293280915884482,
+    "buy_and_hold_train": 0.17900000000000005,
+    "walk_forward_mean_oos": 0.00771060426454749,
+    "p_raw": 0.000999000999000999,
+    "p_adj": 0.001123876123876124,
+    "classification": "INCONCLUSIVE",
+    "mechanical_gate": "INCONCLUSIVE",
+    "risks": [
+      "temporal split train=175 holdout=75",
+      "walk_forward_folds=9 (inside 70% only)",
+      "overlap_policy=no_simultaneous_positions",
+      "holdout_evaluated_once_after_freeze",
+      "baselines random=0.007634099404548803 trend=0.007777806105393342 asset_windows=0.01293280915884482 buy_hold=0.17900000000000005",
+      "fdr_batched_across_strategies"
+    ],
+    "recommended_decision": "INCONCLUSIVE"
+  }
+]
