@@ -285,7 +285,9 @@ def run_strategy_validation(
     )
 
 
-def apply_fdr_across_reports(reports: Sequence[StrategyReport], alpha: float = 0.05) -> list[StrategyReport]:
+def apply_fdr_across_reports(
+    reports: Sequence[StrategyReport], alpha: float = 0.05
+) -> list[StrategyReport]:
     """Recompute BH-FDR across a batch and refresh classification/gate."""
     _ = alpha
     raw = [r.p_raw if r.p_raw is not None else 1.0 for r in reports]
