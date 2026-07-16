@@ -13,7 +13,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
 from wick.db.models import Candle, PatternConfirmation, PatternDetected
-from wick.features.context import OHLCV, build_geometries, compute_context_at
+from wick.features.context import OHLCV, build_geometries, compute_all_contexts
 from wick.patterns.confirmation import OFFICIAL_CONFIRMATION_RULES, evaluate_confirmation
 from wick.patterns.detectors import detect_all_at_anchor
 from wick.patterns.params import DEFAULT_PARAMS, DETECTOR_VERSION, DetectorParams
@@ -138,23 +138,25 @@ class DetectionService:
 
         bars = _bars_from_candles(candles)
         geoms = build_geometries(bars, self.params)
+        contexts = compute_all_contexts(bars, self.params, geoms)
 
         for i in range(start_idx, len(candles)):
             summary.candles_scanned += 1
             hits = detect_all_at_anchor(geoms, i, self.params)
-            ctx = compute_context_at(bars, i, self.params, geometries=geoms)
+            ctx = contexts[i]
             anchor = candles[i]
             for hit in hits:
                 start_candle = candles[i - hit.length + 1]
-                record = {
-                    "pattern_type": hit.pattern_type,
-                    "signal": hit.signal,
-                    "length": hit.length,
-                    "anchor_ts": anchor.timestamp.isoformat(),
-                    "trend_context": ctx.trend_direction,
-                }
-                summary.hits.append(record)
                 if self.dry_run:
+                    summary.hits.append(
+                        {
+                            "pattern_type": hit.pattern_type,
+                            "signal": hit.signal,
+                            "length": hit.length,
+                            "anchor_ts": anchor.timestamp.isoformat(),
+                            "trend_context": ctx.trend_direction,
+                        }
+                    )
                     continue
                 inserted = self._upsert_pattern(
                     anchor=anchor,
@@ -168,6 +170,8 @@ class DetectionService:
                     summary.patterns_inserted += 1
                 else:
                     summary.patterns_unchanged += 1
+            if not self.dry_run and (i + 1) % 500 == 0:
+                self.session.flush()
 
         # Confirmation pass — only for patterns whose t+1 is closed and present
         if not self.dry_run:
@@ -225,7 +229,6 @@ class DetectionService:
             .returning(PatternDetected.id)
         )
         row_id = self.session.execute(stmt).scalar_one_or_none()
-        self.session.flush()
         return row_id is not None
 
     def _process_confirmations(

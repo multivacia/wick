@@ -22,3 +22,7 @@ reports/*
 !reports/r3/**
 data/
 .DS_Store
+
+!reports/r3d/
+!reports/r3d/**
+reports/r3d/*.log

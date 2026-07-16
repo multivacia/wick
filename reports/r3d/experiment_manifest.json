@@ -1,0 +1,1933 @@
+{
+  "manifest_version": "1.0.0",
+  "frozen_at": "2026-07-16T18:27:55.889784+00:00",
+  "holdout_opened": true,
+  "detector_version": "1.0.0",
+  "parameters_hash": "2f202cf99000ec16",
+  "cost_model_version": "1.0.0-provisional",
+  "trend_baseline": "close > SMA20",
+  "seed": 42,
+  "n_bootstrap": 1000,
+  "train_frac": 0.7,
+  "horizons": [
+    1,
+    3,
+    5,
+    10
+  ],
+  "cost_scenarios": [
+    "OPTIMISTIC",
+    "BASE",
+    "STRESSED"
+  ],
+  "pattern_types": [
+    "DOJI",
+    "HAMMER",
+    "INVERTED_HAMMER",
+    "SHOOTING_STAR",
+    "BULLISH_ENGULFING",
+    "BEARISH_ENGULFING",
+    "MORNING_STAR",
+    "EVENING_STAR"
+  ],
+  "variants": [
+    {
+      "strategy_id": "doji_h1_raw_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h1_raw_base",
+      "pattern_type": "DOJI",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h1_raw_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h1_confirmed_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h1_confirmed_base",
+      "pattern_type": "DOJI",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h1_confirmed_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h3_raw_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h3_raw_base",
+      "pattern_type": "DOJI",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h3_raw_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h3_confirmed_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h3_confirmed_base",
+      "pattern_type": "DOJI",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h3_confirmed_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h5_raw_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h5_raw_base",
+      "pattern_type": "DOJI",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h5_raw_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h5_confirmed_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h5_confirmed_base",
+      "pattern_type": "DOJI",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h5_confirmed_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h10_raw_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h10_raw_base",
+      "pattern_type": "DOJI",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h10_raw_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h10_confirmed_optimistic",
+      "pattern_type": "DOJI",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h10_confirmed_base",
+      "pattern_type": "DOJI",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "doji_h10_confirmed_stressed",
+      "pattern_type": "DOJI",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h1_raw_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h1_raw_base",
+      "pattern_type": "HAMMER",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h1_raw_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h1_confirmed_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h1_confirmed_base",
+      "pattern_type": "HAMMER",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h1_confirmed_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h3_raw_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h3_raw_base",
+      "pattern_type": "HAMMER",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h3_raw_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h3_confirmed_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h3_confirmed_base",
+      "pattern_type": "HAMMER",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h3_confirmed_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h5_raw_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h5_raw_base",
+      "pattern_type": "HAMMER",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h5_raw_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h5_confirmed_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h5_confirmed_base",
+      "pattern_type": "HAMMER",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h5_confirmed_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h10_raw_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h10_raw_base",
+      "pattern_type": "HAMMER",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h10_raw_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h10_confirmed_optimistic",
+      "pattern_type": "HAMMER",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h10_confirmed_base",
+      "pattern_type": "HAMMER",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "hammer_h10_confirmed_stressed",
+      "pattern_type": "HAMMER",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h1_raw_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h1_raw_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h1_raw_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h1_confirmed_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h1_confirmed_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h1_confirmed_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h3_raw_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h3_raw_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h3_raw_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h3_confirmed_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h3_confirmed_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h3_confirmed_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h5_raw_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h5_raw_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h5_raw_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h5_confirmed_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h5_confirmed_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h5_confirmed_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h10_raw_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h10_raw_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h10_raw_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h10_confirmed_optimistic",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h10_confirmed_base",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "inverted_hammer_h10_confirmed_stressed",
+      "pattern_type": "INVERTED_HAMMER",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h1_raw_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h1_raw_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h1_raw_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h1_confirmed_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h1_confirmed_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h1_confirmed_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h3_raw_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h3_raw_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h3_raw_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h3_confirmed_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h3_confirmed_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h3_confirmed_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h5_raw_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h5_raw_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h5_raw_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h5_confirmed_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h5_confirmed_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h5_confirmed_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h10_raw_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h10_raw_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h10_raw_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h10_confirmed_optimistic",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h10_confirmed_base",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "shooting_star_h10_confirmed_stressed",
+      "pattern_type": "SHOOTING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h1_raw_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h1_raw_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h1_raw_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h1_confirmed_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h1_confirmed_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h1_confirmed_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h3_raw_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h3_raw_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h3_raw_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h3_confirmed_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h3_confirmed_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h3_confirmed_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h5_raw_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h5_raw_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h5_raw_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h5_confirmed_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h5_confirmed_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h5_confirmed_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h10_raw_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h10_raw_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h10_raw_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h10_confirmed_optimistic",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h10_confirmed_base",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bullish_engulfing_h10_confirmed_stressed",
+      "pattern_type": "BULLISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h1_raw_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h1_raw_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h1_raw_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h1_confirmed_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h1_confirmed_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h1_confirmed_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h3_raw_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h3_raw_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h3_raw_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h3_confirmed_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h3_confirmed_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h3_confirmed_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h5_raw_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h5_raw_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h5_raw_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h5_confirmed_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h5_confirmed_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h5_confirmed_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h10_raw_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h10_raw_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h10_raw_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h10_confirmed_optimistic",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h10_confirmed_base",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "bearish_engulfing_h10_confirmed_stressed",
+      "pattern_type": "BEARISH_ENGULFING",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h1_raw_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h1_raw_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h1_raw_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h1_confirmed_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h1_confirmed_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h1_confirmed_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h3_raw_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h3_raw_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h3_raw_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h3_confirmed_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h3_confirmed_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h3_confirmed_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h5_raw_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h5_raw_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h5_raw_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h5_confirmed_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h5_confirmed_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h5_confirmed_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h10_raw_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h10_raw_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h10_raw_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h10_confirmed_optimistic",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h10_confirmed_base",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "morning_star_h10_confirmed_stressed",
+      "pattern_type": "MORNING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h1_raw_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h1_raw_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h1_raw_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 1,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h1_confirmed_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h1_confirmed_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h1_confirmed_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 1,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h3_raw_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h3_raw_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h3_raw_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 3,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h3_confirmed_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h3_confirmed_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h3_confirmed_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 3,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h5_raw_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h5_raw_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h5_raw_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 5,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h5_confirmed_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h5_confirmed_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h5_confirmed_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 5,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h10_raw_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h10_raw_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h10_raw_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 10,
+      "confirmation_used": false,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h10_confirmed_optimistic",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "OPTIMISTIC",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h10_confirmed_base",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "BASE",
+      "signal_filter": "bullish"
+    },
+    {
+      "strategy_id": "evening_star_h10_confirmed_stressed",
+      "pattern_type": "EVENING_STAR",
+      "horizon": 10,
+      "confirmation_used": true,
+      "cost_scenario": "STRESSED",
+      "signal_filter": "bullish"
+    }
+  ],
+  "coverage_at_freeze": [
+    {
+      "source": "binance",
+      "symbol": "BTC/USDT",
+      "timeframe": "1h",
+      "asset_class": "crypto",
+      "asset_id": "e669a964-2a68-4103-9bc4-e082652910ea",
+      "candle_count": 17538,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-16T00:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 2.0005703855806525,
+      "min_years_required": 2.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "BTC/USDT",
+      "timeframe": "1d",
+      "asset_class": "crypto",
+      "asset_id": "e669a964-2a68-4103-9bc4-e082652910ea",
+      "candle_count": 3118,
+      "rejected_estimate": 10,
+      "first_ts": "2018-01-01T00:00:00+00:00",
+      "last_ts": "2026-07-15T00:00:00+00:00",
+      "span_years": 8.53388090349076,
+      "min_years_required": 4.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "ETH/USDT",
+      "timeframe": "1h",
+      "asset_class": "crypto",
+      "asset_id": "8b939b74-8118-4aec-8c1b-30a686dc413f",
+      "candle_count": 17538,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-16T00:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 2.0005703855806525,
+      "min_years_required": 2.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "ETH/USDT",
+      "timeframe": "1d",
+      "asset_class": "crypto",
+      "asset_id": "8b939b74-8118-4aec-8c1b-30a686dc413f",
+      "candle_count": 3118,
+      "rejected_estimate": 10,
+      "first_ts": "2018-01-01T00:00:00+00:00",
+      "last_ts": "2026-07-15T00:00:00+00:00",
+      "span_years": 8.53388090349076,
+      "min_years_required": 4.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "SOL/USDT",
+      "timeframe": "1h",
+      "asset_class": "crypto",
+      "asset_id": "a725d7e2-3257-460e-81d1-71128510b8bc",
+      "candle_count": 17538,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-16T00:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 2.0005703855806525,
+      "min_years_required": 2.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "SOL/USDT",
+      "timeframe": "1d",
+      "asset_class": "crypto",
+      "asset_id": "a725d7e2-3257-460e-81d1-71128510b8bc",
+      "candle_count": 2165,
+      "rejected_estimate": 10,
+      "first_ts": "2020-08-11T00:00:00+00:00",
+      "last_ts": "2026-07-15T00:00:00+00:00",
+      "span_years": 5.924709103353867,
+      "min_years_required": 4.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "BNB/USDT",
+      "timeframe": "1h",
+      "asset_class": "crypto",
+      "asset_id": "7cce5315-412c-4533-a60c-2a7dfdba7c6a",
+      "candle_count": 17538,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-16T00:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 2.0005703855806525,
+      "min_years_required": 2.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "BNB/USDT",
+      "timeframe": "1d",
+      "asset_class": "crypto",
+      "asset_id": "7cce5315-412c-4533-a60c-2a7dfdba7c6a",
+      "candle_count": 3118,
+      "rejected_estimate": 10,
+      "first_ts": "2018-01-01T00:00:00+00:00",
+      "last_ts": "2026-07-15T00:00:00+00:00",
+      "span_years": 8.53388090349076,
+      "min_years_required": 4.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "XRP/USDT",
+      "timeframe": "1h",
+      "asset_class": "crypto",
+      "asset_id": "0bbfd742-132b-46a4-8628-83e7961f2df2",
+      "candle_count": 17538,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-16T00:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 2.0005703855806525,
+      "min_years_required": 2.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "binance",
+      "symbol": "XRP/USDT",
+      "timeframe": "1d",
+      "asset_class": "crypto",
+      "asset_id": "0bbfd742-132b-46a4-8628-83e7961f2df2",
+      "candle_count": 2995,
+      "rejected_estimate": 10,
+      "first_ts": "2018-05-04T00:00:00+00:00",
+      "last_ts": "2026-07-15T00:00:00+00:00",
+      "span_years": 8.19712525667351,
+      "min_years_required": 4.0,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 0,
+      "notes": []
+    },
+    {
+      "source": "yahoo",
+      "symbol": "PETR4.SA",
+      "timeframe": "1d",
+      "asset_class": "stock",
+      "asset_id": "6f1c0d24-8326-4723-84f9-ac91bd5bc70c",
+      "candle_count": 1246,
+      "rejected_estimate": 10,
+      "first_ts": "2021-07-19T03:00:00+00:00",
+      "last_ts": "2026-07-15T03:00:00+00:00",
+      "span_years": 4.988364134154689,
+      "min_years_required": 5.0,
+      "coverage_status": "PARTIAL",
+      "gap_count_estimate": 577,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled",
+        "span_years=4.988 < min_years=5.0"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "asset_class": "stock",
+      "asset_id": "6f1c0d24-8326-4723-84f9-ac91bd5bc70c",
+      "candle_count": 3471,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-18T13:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 1.9936116814966918,
+      "min_years_required": 1.5,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 14006,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "VALE3.SA",
+      "timeframe": "1d",
+      "asset_class": "stock",
+      "asset_id": "6c1ddfbd-11a5-453d-b747-2972a535eb40",
+      "candle_count": 1246,
+      "rejected_estimate": 10,
+      "first_ts": "2021-07-19T03:00:00+00:00",
+      "last_ts": "2026-07-15T03:00:00+00:00",
+      "span_years": 4.988364134154689,
+      "min_years_required": 5.0,
+      "coverage_status": "PARTIAL",
+      "gap_count_estimate": 577,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled",
+        "span_years=4.988 < min_years=5.0"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "asset_class": "stock",
+      "asset_id": "6c1ddfbd-11a5-453d-b747-2972a535eb40",
+      "candle_count": 3470,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-18T13:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 1.9936116814966918,
+      "min_years_required": 1.5,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 14007,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "ITUB4.SA",
+      "timeframe": "1d",
+      "asset_class": "stock",
+      "asset_id": "f1c5645a-396f-41a3-8d32-17127dd9b42a",
+      "candle_count": 1246,
+      "rejected_estimate": 10,
+      "first_ts": "2021-07-19T03:00:00+00:00",
+      "last_ts": "2026-07-15T03:00:00+00:00",
+      "span_years": 4.988364134154689,
+      "min_years_required": 5.0,
+      "coverage_status": "PARTIAL",
+      "gap_count_estimate": 577,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled",
+        "span_years=4.988 < min_years=5.0"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "asset_class": "stock",
+      "asset_id": "f1c5645a-396f-41a3-8d32-17127dd9b42a",
+      "candle_count": 3471,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-18T13:00:00+00:00",
+      "last_ts": "2026-07-16T17:00:00+00:00",
+      "span_years": 1.9936116814966918,
+      "min_years_required": 1.5,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 14006,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "AAPL",
+      "timeframe": "1d",
+      "asset_class": "stock",
+      "asset_id": "287448e0-ad0c-4c80-b6fd-219e0684e194",
+      "candle_count": 1253,
+      "rejected_estimate": 10,
+      "first_ts": "2021-07-19T04:00:00+00:00",
+      "last_ts": "2026-07-15T04:00:00+00:00",
+      "span_years": 4.988364134154689,
+      "min_years_required": 5.0,
+      "coverage_status": "PARTIAL",
+      "gap_count_estimate": 570,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled",
+        "span_years=4.988 < min_years=5.0"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "AAPL",
+      "timeframe": "1h",
+      "asset_class": "stock",
+      "asset_id": "287448e0-ad0c-4c80-b6fd-219e0684e194",
+      "candle_count": 3468,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-18T13:30:00+00:00",
+      "last_ts": "2026-07-16T16:30:00+00:00",
+      "span_years": 1.9934976043805612,
+      "min_years_required": 1.5,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 14008,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "MSFT",
+      "timeframe": "1d",
+      "asset_class": "stock",
+      "asset_id": "a7c4007c-ee93-4b70-ba08-a12220af66fb",
+      "candle_count": 1253,
+      "rejected_estimate": 10,
+      "first_ts": "2021-07-19T04:00:00+00:00",
+      "last_ts": "2026-07-15T04:00:00+00:00",
+      "span_years": 4.988364134154689,
+      "min_years_required": 5.0,
+      "coverage_status": "PARTIAL",
+      "gap_count_estimate": 570,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled",
+        "span_years=4.988 < min_years=5.0"
+      ]
+    },
+    {
+      "source": "yahoo",
+      "symbol": "MSFT",
+      "timeframe": "1h",
+      "asset_class": "stock",
+      "asset_id": "a7c4007c-ee93-4b70-ba08-a12220af66fb",
+      "candle_count": 3468,
+      "rejected_estimate": 10,
+      "first_ts": "2024-07-18T13:30:00+00:00",
+      "last_ts": "2026-07-16T16:30:00+00:00",
+      "span_years": 1.9934976043805612,
+      "min_years_required": 1.5,
+      "coverage_status": "COMPLETE",
+      "gap_count_estimate": 14008,
+      "notes": [
+        "equity calendar gaps expected (weekends/holidays); not filled"
+      ]
+    }
+  ],
+  "notes": [
+    "Manifest frozen before holdout evaluation.",
+    "No parameter recalibration after freeze.",
+    "COST_MODEL_VERSION remains provisional.",
+    "experiment_id=r3d-real-validation-v1",
+    "Holdout consumed once at holdout_opened_at; reuse forbidden.",
+    "No cost/parameter changes after holdout opening.",
+    "Stock 1d PARTIAL (~4.988y) accepted for R3D as PARTIAL_ACCEPTED_FOR_R3D (human 2026-07-16)."
+  ],
+  "holdout_opened_at": "2026-07-16T18:27:55.890963+00:00",
+  "experiment_id": "r3d-real-validation-v1",
+  "holdout_consumed": true,
+  "holdout_reuse_forbidden": true,
+  "parameters_frozen_after_holdout": true,
+  "cost_model_frozen_after_holdout": true
+}

@@ -86,18 +86,40 @@ def build_geometries(
     return out
 
 
+def _normalized_atr_prefix(bars: Sequence[OHLCV], params: DetectorParams) -> list[float | None]:
+    """Normalized ATR at each index using only bars <= i (None if undefined)."""
+    n = len(bars)
+    out: list[float | None] = [None] * n
+    if n == 0:
+        return out
+    trs: list[float] = []
+    for i in range(n):
+        prev_c = bars[i - 1].close if i > 0 else None
+        trs.append(true_range(bars[i].high, bars[i].low, prev_c))
+        if i + 1 < params.atr_window:
+            continue
+        atr_i = _mean(trs[i - params.atr_window + 1 : i + 1])
+        if atr_i is None or bars[i].close <= params.epsilon:
+            continue
+        out[i] = atr_i / bars[i].close
+    return out
+
+
 def compute_context_at(
     bars: Sequence[OHLCV],
     index: int,
     params: DetectorParams,
     geometries: list[Geometry] | None = None,
+    *,
+    normalized_atr_series: list[float | None] | None = None,
 ) -> ContextFeatures:
     """Context for candle ``index`` using only bars[0:index+1]."""
     if index < 0 or index >= len(bars):
         raise IndexError("index out of range")
-    # Enforce no look-ahead by slicing.
-    hist = list(bars[: index + 1])
-    geoms = geometries[: index + 1] if geometries is not None else build_geometries(hist, params)
+    # No look-ahead: never read bars/geoms beyond ``index``.
+    geoms = geometries if geometries is not None else build_geometries(bars[: index + 1], params)
+    if len(geoms) <= index:
+        raise IndexError("geometries shorter than index")
     g = geoms[index]
     t = index
 
@@ -106,28 +128,26 @@ def compute_context_at(
     if t + 1 >= params.atr_window:
         trs: list[float] = []
         for i in range(t - params.atr_window + 1, t + 1):
-            prev_c = hist[i - 1].close if i > 0 else None
-            trs.append(true_range(hist[i].high, hist[i].low, prev_c))
+            prev_c = bars[i - 1].close if i > 0 else None
+            trs.append(true_range(bars[i].high, bars[i].low, prev_c))
         atr = _mean(trs)
 
     # SMA 20 including current
     sma: float | None = None
-    sma_prev: float | None = None
     slope: float | None = None
     distance: float | None = None
     w = params.sma_window
     if t + 1 >= w:
-        closes = [b.close for b in hist]
-        sma = _mean(closes[t - w + 1 : t + 1])
+        sma = _mean([bars[i].close for i in range(t - w + 1, t + 1)])
         if t >= w:
-            sma_prev = _mean(closes[t - w : t])
+            sma_prev = _mean([bars[i].close for i in range(t - w, t)])
             if sma is not None and sma_prev is not None and abs(sma_prev) > params.epsilon:
                 slope = (sma - sma_prev) / sma_prev
         if sma is not None and abs(sma) > params.epsilon:
-            distance = hist[t].close / sma - 1.0
+            distance = bars[t].close / sma - 1.0
 
-    ret5 = hist[t].close / hist[t - 5].close - 1.0 if t >= 5 else None
-    ret20 = hist[t].close / hist[t - 20].close - 1.0 if t >= 20 else None
+    ret5 = bars[t].close / bars[t - 5].close - 1.0 if t >= 5 else None
+    ret20 = bars[t].close / bars[t - 20].close - 1.0 if t >= 20 else None
 
     # Trend
     if slope is None or ret20 is None:
@@ -140,7 +160,7 @@ def compute_context_at(
         trend_direction = "SIDEWAYS"
 
     # Trend strength
-    close = hist[t].close
+    close = bars[t].close
     if atr is None or close <= params.epsilon or ret20 is None:
         trend_strength = "UNKNOWN"
     else:
@@ -157,9 +177,9 @@ def compute_context_at(
     volume_regime = "UNKNOWN"
     vw = params.volume_window
     if t + 1 >= vw:
-        vols = [b.volume for b in hist[t - vw + 1 : t + 1]]
+        vols = [bars[i].volume for i in range(t - vw + 1, t + 1)]
         mean_vol = _mean(vols)
-        cur_vol = hist[t].volume
+        cur_vol = bars[t].volume
         if mean_vol is None or mean_vol <= params.epsilon or cur_vol <= params.epsilon:
             vol_ratio = None
             volume_regime = "UNKNOWN"
@@ -174,29 +194,16 @@ def compute_context_at(
             else:
                 volume_regime = "EXTREME"
 
-    # Volatility regime — median of last 100 normalized ATR values at each prior point
+    # Volatility regime — median of last 100 normalized ATR values ending at t
     normalized_atr = (atr / close) if atr is not None and close > params.epsilon else None
     volatility_regime = "UNKNOWN"
     if normalized_atr is not None:
-        norms: list[float] = []
-        # Recompute historical normalized ATRs up to t (expensive but correct / no look-ahead)
-        for i in range(len(hist)):
-            if i + 1 < params.atr_window:
-                continue
-            trs_i = []
-            for j in range(i - params.atr_window + 1, i + 1):
-                prev_c = hist[j - 1].close if j > 0 else None
-                trs_i.append(true_range(hist[j].high, hist[j].low, prev_c))
-            atr_i = _mean(trs_i)
-            if atr_i is None or hist[i].close <= params.epsilon:
-                continue
-            norms.append(atr_i / hist[i].close)
+        series = normalized_atr_series or _normalized_atr_prefix(bars[: t + 1], params)
+        norms = [x for x in series[: t + 1] if x is not None]
         if len(norms) >= params.volatility_median_window:
             med = _median(norms[-params.volatility_median_window :])
-        elif norms:
-            med = None  # insufficient for official 100-window → UNKNOWN
         else:
-            med = None
+            med = None  # insufficient for official 100-window → UNKNOWN
         if med is not None and med > params.epsilon:
             vratio = normalized_atr / med
             if vratio < 0.75:
@@ -211,7 +218,7 @@ def compute_context_at(
     range_pos: float | None = None
     range_bucket = "UNKNOWN"
     if t + 1 >= rw:
-        window_bars = hist[t - rw + 1 : t + 1]
+        window_bars = bars[t - rw + 1 : t + 1]
         rh = max(b.high for b in window_bars)
         rl = min(b.low for b in window_bars)
         denom = rh - rl
@@ -219,7 +226,7 @@ def compute_context_at(
             range_pos = None
             range_bucket = "UNKNOWN"
         else:
-            range_pos = (hist[t].close - rl) / denom
+            range_pos = (bars[t].close - rl) / denom
             if range_pos <= 0.25:
                 range_bucket = "BOTTOM"
             elif range_pos >= 0.75:
@@ -245,3 +252,17 @@ def compute_context_at(
         range_position_bucket=range_bucket,
         geometry=g.to_dict(),
     )
+
+
+def compute_all_contexts(
+    bars: Sequence[OHLCV],
+    params: DetectorParams,
+    geometries: list[Geometry] | None = None,
+) -> list[ContextFeatures]:
+    """O(n) context series — identical results to per-index ``compute_context_at``."""
+    geoms = geometries if geometries is not None else build_geometries(bars, params)
+    natr = _normalized_atr_prefix(bars, params)
+    return [
+        compute_context_at(bars, i, params, geoms, normalized_atr_series=natr)
+        for i in range(len(bars))
+    ]
