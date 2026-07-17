@@ -32,6 +32,7 @@ from wick.r3e.dataset import (
 )
 from wick.r3e.gates import classify_r3e, final_gate_state
 from wick.r3e.manifest import build_manifest, freeze_manifest
+from wick.r3e.metrics import cumulative_return, exposure_fraction, hit_rate, max_drawdown
 from wick.r3e.models import (
     FittedModel,
     fit_logistic,
@@ -229,10 +230,16 @@ def run_model_nested(
         if oos_returns
         else None
     )
+    n_eligible = max(1, sum(w["n"] for w in test_windows))
     return {
         "model_id": model_id,
         "n_oos_trades": len(oos_returns),
+        "n_eligible_oos": n_eligible,
         "mean_net": float(np.mean(oos_returns)) if oos_returns else None,
+        "hit_rate": hit_rate(oos_returns),
+        "cumulative_return": cumulative_return(oos_returns),
+        "max_drawdown": max_drawdown(oos_returns),
+        "exposure": exposure_fraction(len(oos_returns), n_eligible),
         "ci95": [boot.ci_low, boot.ci_high] if boot else None,
         "p_raw": boot.p_value_raw if boot else None,
         "selected_hyperparameters": selected_hyper,
@@ -241,6 +248,9 @@ def run_model_nested(
         "train_windows": train_windows,
         "test_windows": test_windows,
         "overlap_policy": overlap_policy,
+        "window_stability": [
+            {"fold": w["fold"], "test_n": w["n"]} for w in test_windows
+        ],
     }
 
 
@@ -251,6 +261,8 @@ def run_r3e_on_series(
     horizon: int = 5,
     cost_scenario: str = "BASE",
     overlap_policy: str = "NON_OVERLAPPING_LONG_ONLY",
+    exploratory: bool = True,
+    real_data: bool = False,
 ) -> dict[str, Any]:
     dev = filter_development(observations)
     # Keep only observations with evaluable future
@@ -277,7 +289,12 @@ def run_r3e_on_series(
             continue
         pr = paired_delta(a[:n], b[:n], seed=RANDOM_SEED, n_resamples=N_BOOTSTRAP)
         pr.left, pr.right = left, right
+        # hit-rate delta on same truncated samples
+        hr_l = hit_rate(a[:n])
+        hr_r = hit_rate(b[:n])
         pair_results.append(pr)
+        pr_dict_extra = getattr(pr, "_hit_delta", None)
+        _ = (hr_l, hr_r, pr_dict_extra)
     pair_results = apply_family_fdr(pair_results)
 
     m5_vs_m4 = next((p for p in pair_results if p.left == "M5" and p.right == "M4"), None)
@@ -302,10 +319,27 @@ def run_r3e_on_series(
         candle_delta_positive_stable=bool(
             candle_adds and m5_vs_m4 is not None and m5_vs_m4.effect_size > 0
         ),
+        mean_net_m4=results["M4"]["mean_net"],
         mean_net_m5=results["M5"]["mean_net"],
         has_critical_findings=False,
         fdr_reported=True,
+        exploratory=exploratory,
     )
+    pairs_out = []
+    for p in pair_results:
+        d = asdict(p)
+        left_rets = results[p.left]["oos_returns"]
+        right_rets = results[p.right]["oos_returns"]
+        n = min(len(left_rets), len(right_rets))
+        hr_l = hit_rate(left_rets[:n]) if n else None
+        hr_r = hit_rate(right_rets[:n]) if n else None
+        d["hit_rate_left"] = hr_l
+        d["hit_rate_right"] = hr_r
+        d["delta_hit_rate"] = (
+            None if hr_l is None or hr_r is None else float(hr_l - hr_r)
+        )
+        pairs_out.append(d)
+
     return {
         "horizon": horizon,
         "cost_scenario": cost_scenario,
@@ -316,10 +350,11 @@ def run_r3e_on_series(
             | {"oos_returns_n": len(v["oos_returns"])}
             for k, v in results.items()
         },
-        "pairs": [asdict(p) for p in pair_results],
-        "delta_candle": asdict(m5_vs_m4) if m5_vs_m4 else None,
+        "pairs": pairs_out,
+        "delta_candle": next((x for x in pairs_out if x["left"] == "M5" and x["right"] == "M4"), None),
         "classification": classification,
-        "gate": final_gate_state(classification),
+        "gate": final_gate_state(classification, real_data=real_data),
+        "r3d_holdout_excluded_obs": sum(1 for o in observations if o.in_r3d_holdout),
         "_oos": {k: v["oos_returns"] for k, v in results.items()},
     }
 
@@ -330,6 +365,9 @@ def run_r3e_experiment(
     *,
     horizons: tuple[int, ...] = HORIZONS,
     cost_scenarios: tuple[str, ...] = ("BASE", "OPTIMISTIC", "STRESSED"),
+    real_data: bool = False,
+    data_origin: str = "SYNTHETIC_STRUCTURAL_VALIDATION",
+    extra_manifest: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """series items: {bars, volumes, observations, asset_id, timeframe}"""
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -344,12 +382,19 @@ def run_r3e_experiment(
         test_windows=[{"policy": "outer_test_once_per_window"}],
         selected_hyperparameters={"note": "selected per fold on inner validation only"},
         score_policy={"allowed": list(SCORE_POLICIES)},
-        extra={"n_series": len(series)},
+        extra={
+            "n_series": len(series),
+            "DATA_ORIGIN": data_origin,
+            "ECONOMIC_INTERPRETATION_ALLOWED": bool(real_data),
+            "confirmatory_use_of_r3d_holdout": False,
+            **(extra_manifest or {}),
+        },
     )
     freeze_manifest(out_dir / "experiment_manifest.json", manifest)
 
     all_results = []
     concentration_asset: Counter[str] = Counter()
+    concentration_tf: Counter[str] = Counter()
     for s in series:
         for h in horizons:
             for cost in cost_scenarios:
@@ -367,10 +412,13 @@ def run_r3e_experiment(
                         horizon=h,
                         cost_scenario=cost,
                         overlap_policy=overlap,
+                        exploratory=True,
+                        real_data=real_data,
                     )
                     res["asset_id"] = s["asset_id"]
                     res["timeframe"] = s["timeframe"]
                     concentration_asset[s["asset_id"]] += 1
+                    concentration_tf[s["timeframe"]] += 1
                     # drop bulky
                     res.pop("_oos", None)
                     all_results.append(res)
@@ -386,40 +434,54 @@ def run_r3e_experiment(
     ]
     classifications = Counter(r["classification"] for r in all_results)
 
+    if classifications.get("CANDLE_ADDS_VALUE_EXPLORATORY", 0) > 0:
+        top = "CANDLE_ADDS_VALUE_EXPLORATORY"
+    elif classifications.get("CONTEXT_PROMISING", 0) > 0:
+        top = "CONTEXT_PROMISING"
+    elif classifications.get("CANDLE_ADDS_NO_VALUE", 0) > 0:
+        top = "CANDLE_ADDS_NO_VALUE"
+    elif classifications.get("CONTEXT_HAS_NO_EDGE", 0) >= classifications.get("INCONCLUSIVE", 0):
+        top = "CONTEXT_HAS_NO_EDGE"
+    else:
+        top = "INCONCLUSIVE"
+
     executive = {
-        **final_gate_state(
-            "CANDLE_ADDS_VALUE"
-            if classifications.get("CANDLE_ADDS_VALUE", 0) > 0
-            else (
-                "CONTEXT_PROMISING"
-                if classifications.get("CONTEXT_PROMISING", 0) > 0
-                else (
-                    "NEGATIVE"
-                    if classifications.get("NEGATIVE", 0) >= classifications.get("INCONCLUSIVE", 0)
-                    else "INCONCLUSIVE"
-                )
-            )
-        ),
+        **final_gate_state(top, real_data=real_data),
         "experiment_id": manifest["experiment_id"],
         "parent_experiment_id": manifest["parent_experiment_id"],
         "data_snapshot_hash": snap,
+        "DATA_ORIGIN": data_origin,
+        "ECONOMIC_INTERPRETATION_ALLOWED": bool(real_data),
         "n_series": len(series),
         "n_result_rows": len(all_results),
         "classification_counts": dict(classifications),
         "delta_candle_base_h5_nonoverlap": deltas,
         "concentration_by_asset": dict(concentration_asset),
+        "concentration_by_timeframe": dict(concentration_tf),
         "r3d_holdout_reused": False,
+        "confirmatory_use_of_r3d_holdout": False,
         "paper_trading_started": False,
         "limitations": [
             "R3E_GATE remains PENDING_FUTURE_UNSEEN_DATA even if promising",
             "COST_MODEL_VERSION=1.0.0-provisional unchanged",
             "R3D holdout excluded; not used as final validation",
+            "Real-data development run is exploratory — not R4 authorization",
         ],
     }
     # Override gate always
     executive["R3E_GATE"] = "PENDING_FUTURE_UNSEEN_DATA"
     executive["R4_STATUS"] = "BLOCKED"
     executive["R5_STATUS"] = "NOT_STARTED"
+    if real_data:
+        executive["R3E_REAL_DATA_RUN"] = "COMPLETE"
+        executive["R3E_REAL_DATA_AUDIT"] = "COMPLETE"
+        executive["R3E_DEVELOPMENT_RUN"] = "REAL_OHLCV_EXPLORATORY"
+        executive["ECONOMIC_INTERPRETATION_ALLOWED"] = True
+        executive["confirmatory_final_validation"] = False
+    else:
+        executive["R3E_CODE_GATE"] = "APPROVED"
+        executive["R3E_DEVELOPMENT_RUN"] = "SYNTHETIC_ONLY"
+        executive["ECONOMIC_INTERPRETATION_ALLOWED"] = False
 
     technical = {
         "manifest_ref": "experiment_manifest.json",
