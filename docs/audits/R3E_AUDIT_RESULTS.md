@@ -41,11 +41,21 @@ Nenhum.
 ### LOW
 1. Logistic com fold single-class faz fallback para Ridge (evita crash; reportado no hyperparams kind).
 
+## Marcação dos relatórios sintéticos
+
+```text
+DATA_ORIGIN = SYNTHETIC_STRUCTURAL_VALIDATION
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
 ## Estado
 
 ```text
+R3E_CODE_GATE = APPROVED
 R3E_IMPLEMENTATION = COMPLETE
 R3E_AUDIT = COMPLETE
+R3E_DEVELOPMENT_RUN = SYNTHETIC_ONLY
+R3E_REAL_DATA_RUN = PENDING
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED

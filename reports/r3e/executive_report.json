@@ -95,5 +95,10 @@
     "R3E_GATE remains PENDING_FUTURE_UNSEEN_DATA even if promising",
     "COST_MODEL_VERSION=1.0.0-provisional unchanged",
     "R3D holdout excluded; not used as final validation"
-  ]
+  ],
+  "DATA_ORIGIN": "SYNTHETIC_STRUCTURAL_VALIDATION",
+  "ECONOMIC_INTERPRETATION_ALLOWED": false,
+  "R3E_CODE_GATE": "APPROVED",
+  "R3E_DEVELOPMENT_RUN": "SYNTHETIC_ONLY",
+  "R3E_REAL_DATA_RUN": "PENDING"
 }

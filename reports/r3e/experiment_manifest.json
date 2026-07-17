@@ -66,7 +66,11 @@
   "notes": [
     "R3D holdout excluded from R3E development and must not be reused as final validation.",
     "Grid and score policies frozen; do not widen after results.",
-    "R3E_GATE maximum = PENDING_FUTURE_UNSEEN_DATA."
+    "R3E_GATE maximum = PENDING_FUTURE_UNSEEN_DATA.",
+    "DATA_ORIGIN=SYNTHETIC_STRUCTURAL_VALIDATION",
+    "ECONOMIC_INTERPRETATION_ALLOWED=false"
   ],
-  "n_series": 5
+  "n_series": 5,
+  "DATA_ORIGIN": "SYNTHETIC_STRUCTURAL_VALIDATION",
+  "ECONOMIC_INTERPRETATION_ALLOWED": false
 }
