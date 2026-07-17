@@ -21,12 +21,12 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R2 | Detectores de padrões com contrato matemático versionado | **MERGED** (`R2_GATE = APPROVED`, tag `v0.2.0-r2`) |
 | R3A–C | Motor, estatística, relatórios e gates mecânicos | **MERGED** (`R3_IMPLEMENTATION/AUDIT = COMPLETE`, tag `v0.3.0-r3`) |
 | R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (`R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1`, tag `v0.4.0-r3d-real-validation`) |
-| R3E | Edge contextual + valor incremental do candle (nested WF) | **COMPLETE** (`R3E_GATE = PENDING_FUTURE_UNSEEN_DATA`) |
+| R3E | Motor contextual M0–M5 (nested WF) | **CODE APPROVED** (`v0.5.0-r3e-engine`); real-data run PENDING |
 | R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED** |
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
 
-## Estado oficial (pós-R3D / R3E)
+## Estado oficial (pós-R3D / R3E engine)
 
 | Campo | Valor |
 |-------|--------|
@@ -38,20 +38,24 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3D_IMPLEMENTATION | COMPLETE |
 | R3D_AUDIT | COMPLETE |
 | R3_GATE | **REJECTED_NO_MEASURABLE_EDGE_V1** |
+| R3E_CODE_GATE | **APPROVED** |
 | R3E_IMPLEMENTATION | COMPLETE |
 | R3E_AUDIT | COMPLETE |
+| R3E_DEVELOPMENT_RUN | **SYNTHETIC_ONLY** (`DATA_ORIGIN=SYNTHETIC_STRUCTURAL_VALIDATION`; `ECONOMIC_INTERPRETATION_ALLOWED=false`) |
+| R3E_REAL_DATA_RUN | PENDING |
 | R3E_GATE | **PENDING_FUTURE_UNSEEN_DATA** |
 | R4_STATUS | BLOCKED |
 | R5_STATUS | NOT_STARTED |
-| experiment_id | `r3d-real-validation-v1` |
+| experiment_id (R3D) | `r3d-real-validation-v1` |
+| experiment_id (R3E) | `r3e-contextual-edge-v1` |
 | detector_version / parameters_hash | `1.0.0` / `2f202cf99000ec16` |
 | cost_model_version | `1.0.0-provisional` (congelado pós-holdout) |
 | seed / bootstrap | `42` / `1000` |
-| holdout | consumido 1×; **reuso proibido** |
+| holdout R3D | consumido 1×; **reuso proibido** |
 | R3D mecânico | 0 PASSES / 568 FAILS / 3272 INCONCLUSIVE |
 | Ações 1d | `PARTIAL_ACCEPTED_FOR_R3D` (~4.988y) |
 | Paper trading | **não iniciado** |
-| Tags | `v0.1.0-r1`, `v0.2.0-r2`, `v0.3.0-r3`, `v0.4.0-r3d-real-validation` |
+| Tags | `v0.1.0-r1` … `v0.4.0-r3d-real-validation`, `v0.5.0-r3e-engine` |
 
 ## Encerramento R1
 
@@ -118,3 +122,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-17 | Iniciar R3E como experimento independente | Holdout R3D consumido; não reutilizar | `r3e-contextual-edge-v1`; nested WF |
 | 2026-07-17 | R3E: M0–M5, DELTA_CANDLE=M5−M4, grids/thresholds congelados | Spec `R3E_CONTEXTUAL_EDGE_SPECIFICATION` | Sem AutoML/árvores; custos `1.0.0-provisional` |
 | 2026-07-17 | `R3E_GATE = PENDING_FUTURE_UNSEEN_DATA` | Mesmo com resultados de desenvolvimento | R4 bloqueada; sem paper trading |
+| 2026-07-17 | R3E code gate APPROVED; development run SYNTHETIC_ONLY | Relatórios marcados sem interpretação econômica | Tag `v0.5.0-r3e-engine`; real-data run PENDING |
