@@ -154,7 +154,7 @@ def run_model_nested(
         else:
             feats = list(FEATURE_SETS[model_id])
             # Use logistic for hit + policy; primary economic score from selected trades
-            hp, pol, _ = select_hyperparams_logistic(
+            hp, pol, s_l = select_hyperparams_logistic(
                 train_rows,
                 val_rows,
                 y_tr_hit,
@@ -174,17 +174,6 @@ def run_model_nested(
                 seed=seed + fold_i,
             )
             # Choose better inner economic score between logistic and ridge
-            # Recompute logistic best score
-            est_l, prep_l, num_l, cat_l = fit_logistic(
-                train_rows,
-                y_tr_hit,
-                feature_names=feats,
-                C=hp["C"],
-                class_weight=hp["class_weight"],
-                seed=seed,
-            )
-            tmp_l = FittedModel("tmp", "logistic", feats, prep_l, est_l, hp, pol, num_l, cat_l)
-            s_l = mean_net(y_va_ret, select_by_policy(score_rows(tmp_l, val_rows, seed=seed), pol))
             if np.isfinite(s_r) and (not np.isfinite(s_l) or s_r > s_l):
                 est, prep, num, cat = fit_ridge(
                     _rows([observations[i] for i in tr]),
