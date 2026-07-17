@@ -120,6 +120,17 @@ def _load_series(session, *, safety_delay: int = 30) -> list[dict[str, Any]]:
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     settings = get_settings()
+    # Allow clean re-runs: archived frozen manifesto must not block a new freeze.
+    for stale in (
+        "experiment_manifest.json",
+        "executive_report.json",
+        "technical_report.json",
+    ):
+        p = OUT / stale
+        if p.exists():
+            bak = OUT / f"{stale}.prev"
+            bak.write_bytes(p.read_bytes())
+            p.unlink()
 
     with session_scope(settings) as session:
         snapshot = build_data_snapshot(session, out_dir=OUT)
