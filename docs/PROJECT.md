@@ -21,11 +21,12 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R2 | Detectores de padrões com contrato matemático versionado | **MERGED** (`R2_GATE = APPROVED`, tag `v0.2.0-r2`) |
 | R3A–C | Motor, estatística, relatórios e gates mecânicos | **MERGED** (`R3_IMPLEMENTATION/AUDIT = COMPLETE`, tag `v0.3.0-r3`) |
 | R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (`R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1`, tag `v0.4.0-r3d-real-validation`) |
-| R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED_NO_REAL_STRATEGY_APPROVED** |
+| R3E | Edge contextual + valor incremental do candle (nested WF) | **COMPLETE** (`R3E_GATE = PENDING_FUTURE_UNSEEN_DATA`) |
+| R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED** |
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
 
-## Estado oficial (pós-R3D)
+## Estado oficial (pós-R3D / R3E)
 
 | Campo | Valor |
 |-------|--------|
@@ -37,7 +38,10 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3D_IMPLEMENTATION | COMPLETE |
 | R3D_AUDIT | COMPLETE |
 | R3_GATE | **REJECTED_NO_MEASURABLE_EDGE_V1** |
-| R4_STATUS | BLOCKED_NO_REAL_STRATEGY_APPROVED |
+| R3E_IMPLEMENTATION | COMPLETE |
+| R3E_AUDIT | COMPLETE |
+| R3E_GATE | **PENDING_FUTURE_UNSEEN_DATA** |
+| R4_STATUS | BLOCKED |
 | R5_STATUS | NOT_STARTED |
 | experiment_id | `r3d-real-validation-v1` |
 | detector_version / parameters_hash | `1.0.0` / `2f202cf99000ec16` |
@@ -67,6 +71,8 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3D PR | https://github.com/multivacia/wick/pull/5 · tag `v0.4.0-r3d-real-validation` |
 | Custos | `1.0.0-provisional` — não alterar para reavaliar `r3d-real-validation-v1` |
 | R3_GATE | `REJECTED_NO_MEASURABLE_EDGE_V1` |
+| R3E | `feature/r3e-contextual-edge` · `experiment_id=r3e-contextual-edge-v1` |
+| R3E_GATE | `PENDING_FUTURE_UNSEEN_DATA` (holdout R3D **não** reutilizado) |
 | R4 / R5 | BLOCKED / NOT_STARTED |
 
 ## Gates
@@ -74,6 +80,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 - R1 → R2: **aprovado**; merges em `main` concluídos.
 - R2 → R3: **aprovado**.
 - R3 → R4: **rejeitado na v1** — sem edge mensurável sob metodologia/custos congelados; R4 bloqueada.
+- R3E: nested walk-forward; validação final exige dados futuros inéditos; R4 permanece bloqueada.
 - R4 → R5: paper signals auditáveis, sem execução real (não iniciado).
 - Qualquer uso de dinheiro real exige decisão humana explícita.
 
@@ -108,3 +115,6 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-16 | Parâmetros e custos **não** alterados após abertura do holdout | Holdout consumido 1×; reuso proibido | Experimento `r3d-real-validation-v1` congelado |
 | 2026-07-16 | Ações 1d ~4.988y → `PARTIAL_ACCEPTED_FOR_R3D` | Sem fill artificial; aceite humano para R3D | Não reclassifica COMPLETE |
 | 2026-07-16 | `R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1` | Autorização humana pós-auditoria R3D | R4/R5 não iniciados; sem paper trading |
+| 2026-07-17 | Iniciar R3E como experimento independente | Holdout R3D consumido; não reutilizar | `r3e-contextual-edge-v1`; nested WF |
+| 2026-07-17 | R3E: M0–M5, DELTA_CANDLE=M5−M4, grids/thresholds congelados | Spec `R3E_CONTEXTUAL_EDGE_SPECIFICATION` | Sem AutoML/árvores; custos `1.0.0-provisional` |
+| 2026-07-17 | `R3E_GATE = PENDING_FUTURE_UNSEEN_DATA` | Mesmo com resultados de desenvolvimento | R4 bloqueada; sem paper trading |

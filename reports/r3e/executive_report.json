@@ -1,0 +1,99 @@
+{
+  "R3E_IMPLEMENTATION": "COMPLETE",
+  "R3E_AUDIT": "COMPLETE",
+  "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
+  "R4_STATUS": "BLOCKED",
+  "R5_STATUS": "NOT_STARTED",
+  "classification": "INCONCLUSIVE",
+  "experiment_id": "r3e-contextual-edge-v1",
+  "parent_experiment_id": "r3d-real-validation-v1",
+  "data_snapshot_hash": "a0d749ae1d89c068",
+  "n_series": 5,
+  "n_result_rows": 40,
+  "classification_counts": {
+    "NEGATIVE": 15,
+    "INCONCLUSIVE": 22,
+    "CANDLE_ADDS_NO_VALUE": 3
+  },
+  "delta_candle_base_h5_nonoverlap": [
+    {
+      "left": "M5",
+      "right": "M4",
+      "n": 7,
+      "mean_left": 0.05128902178752505,
+      "mean_right": 0.051438905631773016,
+      "delta": -0.00014988384424796664,
+      "ci_low": -0.0001498838442480618,
+      "ci_high": 0.001263746685471055,
+      "p_raw": 0.226,
+      "p_adj": 0.5650000000000001,
+      "effect_size": -0.052882261943281855
+    },
+    {
+      "left": "M5",
+      "right": "M4",
+      "n": 9,
+      "mean_left": 0.04939849056972803,
+      "mean_right": 0.04939849056972803,
+      "delta": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "p_raw": 1.0,
+      "p_adj": 1.0,
+      "effect_size": 0.0
+    },
+    {
+      "left": "M5",
+      "right": "M4",
+      "n": 8,
+      "mean_left": 0.04820992960922603,
+      "mean_right": 0.04652347511509784,
+      "delta": 0.0016864544941281867,
+      "ci_low": -0.00019543321355619536,
+      "ci_high": 0.0038871098286929195,
+      "p_raw": 0.133,
+      "p_adj": 0.3325,
+      "effect_size": 0.3951775366247802
+    },
+    {
+      "left": "M5",
+      "right": "M4",
+      "n": 9,
+      "mean_left": 0.04997738780245543,
+      "mean_right": 0.0495725669057388,
+      "delta": 0.000404820896716624,
+      "ci_low": 0.000404820896716624,
+      "ci_high": 0.000809641793433248,
+      "p_raw": 0.000999000999000999,
+      "p_adj": 0.0024975024975024975,
+      "effect_size": 0.3333333333333333
+    },
+    {
+      "left": "M5",
+      "right": "M4",
+      "n": 7,
+      "mean_left": 0.05128902178752502,
+      "mean_right": 0.05143890563177295,
+      "delta": -0.00014988384424793492,
+      "ci_low": -0.00014988384424793492,
+      "ci_high": 0.001263746685471055,
+      "p_raw": 0.226,
+      "p_adj": 0.5650000000000001,
+      "effect_size": -0.05288226194327394
+    }
+  ],
+  "concentration_by_asset": {
+    "BTC/USDT": 8,
+    "ETH/USDT": 8,
+    "PETR4.SA": 8,
+    "AAPL": 8,
+    "MSFT": 8
+  },
+  "r3d_holdout_reused": false,
+  "paper_trading_started": false,
+  "limitations": [
+    "R3E_GATE remains PENDING_FUTURE_UNSEEN_DATA even if promising",
+    "COST_MODEL_VERSION=1.0.0-provisional unchanged",
+    "R3D holdout excluded; not used as final validation"
+  ]
+}

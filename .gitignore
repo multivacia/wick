@@ -26,3 +26,6 @@ data/
 !reports/r3d/
 !reports/r3d/**
 reports/r3d/*.log
+!reports/r3e/
+!reports/r3e/**
+reports/r3e/*.log
