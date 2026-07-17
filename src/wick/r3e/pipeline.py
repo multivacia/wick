@@ -69,10 +69,20 @@ def run_model_nested(
 ) -> dict[str, Any]:
     """Run nested WF for one model; returns OOS selected returns and metadata."""
     n = len(observations)
+    # Expanding nested WF: shrink windows on tiny panels; on long panels grow the
+    # outer test step so ~15 outer folds remain (still temporal, test-once-per-window).
+    # Grids / costs / seed / features stay frozen — only window sizing scales with n.
+    if n < 200:
+        outer_min_train = min(OUTER_MIN_TRAIN, max(40, n // 3))
+        outer_test_size = min(OUTER_TEST_SIZE, max(20, n // 8))
+    else:
+        target_folds = 15
+        outer_min_train = OUTER_MIN_TRAIN
+        outer_test_size = max(OUTER_TEST_SIZE, max(1, (n - OUTER_MIN_TRAIN) // target_folds))
     nested = nested_walk_forward(
         n,
-        outer_min_train=min(OUTER_MIN_TRAIN, max(40, n // 3)),
-        outer_test_size=min(OUTER_TEST_SIZE, max(20, n // 8)),
+        outer_min_train=outer_min_train,
+        outer_test_size=outer_test_size,
         inner_val_frac=INNER_VAL_FRAC,
     )
     oos_returns: list[float] = []
