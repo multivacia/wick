@@ -405,6 +405,19 @@ def run_r3e_experiment(
     all_results = []
     concentration_asset: Counter[str] = Counter()
     concentration_tf: Counter[str] = Counter()
+    planned = 0
+    for s in series:
+        for h in horizons:
+            for cost in cost_scenarios:
+                for overlap in ("ALL_SIGNALS", "NON_OVERLAPPING_LONG_ONLY"):
+                    if cost != "BASE" and overlap != "NON_OVERLAPPING_LONG_ONLY":
+                        continue
+                    if h not in (1, 5) and not (
+                        cost == "BASE" and overlap == "NON_OVERLAPPING_LONG_ONLY"
+                    ):
+                        continue
+                    planned += 1
+    done = 0
     for s in series:
         for h in horizons:
             for cost in cost_scenarios:
@@ -416,6 +429,11 @@ def run_r3e_experiment(
                         cost == "BASE" and overlap == "NON_OVERLAPPING_LONG_ONLY"
                     ):
                         continue
+                    print(
+                        f"[r3e] {done + 1}/{planned} {s['asset_id']} {s['timeframe']} "
+                        f"h={h} cost={cost} overlap={overlap}",
+                        flush=True,
+                    )
                     res = run_r3e_on_series(
                         s["bars"],
                         s["observations"],
@@ -432,6 +450,13 @@ def run_r3e_experiment(
                     # drop bulky
                     res.pop("_oos", None)
                     all_results.append(res)
+                    done += 1
+                    print(
+                        f"[r3e] done class={res['classification']} "
+                        f"m4_net={res['models']['M4']['mean_net']} "
+                        f"m5_net={res['models']['M5']['mean_net']}",
+                        flush=True,
+                    )
 
     # Aggregate M5-M4 across BASE/h5/non-overlap
     deltas = [
