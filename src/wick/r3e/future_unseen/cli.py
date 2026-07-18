@@ -14,6 +14,11 @@ from wick.r3e.future_unseen.initialization import initialize_collection
 from wick.r3e.future_unseen.ops_report import build_ops_report
 from wick.r3e.future_unseen.paths import REPORTS_DIR, SPEC_PATH
 from wick.r3e.future_unseen.protections import parse_market_ts
+from wick.r3e.future_unseen.readiness import (
+    default_report_path,
+    evaluate_readiness,
+    exit_code_for_status,
+)
 
 app = typer.Typer(
     name="future_unseen",
@@ -149,6 +154,61 @@ def collect_cmd(
             indent=2,
         )
     )
+
+
+@app.command("readiness")
+def readiness_cmd(
+    as_of: str | None = typer.Option(
+        None,
+        "--as-of",
+        help="Timezone-aware UTC timestamp for deterministic window/open-candle checks",
+    ),
+    output_report: Path | None = typer.Option(
+        None,
+        "--output-report",
+        help="Write full readiness JSON report to this path (default under reports/)",
+    ),
+    strict: bool = typer.Option(
+        False,
+        "--strict",
+        help="Escalate open/future candle findings from NOT_READY to BLOCKED",
+    ),
+    as_json: bool = typer.Option(
+        True,
+        "--json/--human",
+        help="Emit JSON summary (default) or a short human line",
+    ),
+) -> None:
+    """Operational readiness gate (READY|NOT_READY|BLOCKED). Read-only; never runs validate."""
+    as_of_dt = parse_market_ts(as_of) if as_of is not None else None
+    report = evaluate_readiness(as_of=as_of_dt, strict=strict)
+    out_path = output_report or default_report_path()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    summary = {
+        "readiness_status": report["readiness_status"],
+        "readiness_reason": report["readiness_reason"],
+        "window_days": report["window_days"],
+        "series_with_min_bars": report["series_with_min_bars"],
+        "required_series": report["required_series"],
+        "hash_status": report["hash_status"],
+        "manifest_status": report["manifest_status"],
+        "collector_status": report["collector_status"],
+        "validate_executed": report["scientific_safety"]["validation_command_executed"],
+        "effect_peeking_performed": report["scientific_safety"]["effect_peeking_performed"],
+        "VALIDATE_AUTHORIZED": False,
+        "report_path": str(out_path),
+    }
+    if as_json:
+        typer.echo(json.dumps(summary, indent=2))
+    else:
+        typer.echo(
+            f"{report['readiness_status']} reason={report['readiness_reason']} "
+            f"window_days={report['window_days']:.4f} "
+            f"complete_series={report['series_with_min_bars']}/{report['required_series']} "
+            f"hash={report['hash_status']} report={out_path}"
+        )
+    raise typer.Exit(code=exit_code_for_status(report["readiness_status"]))
 
 
 @app.command("validate")

@@ -1,0 +1,126 @@
+{
+  "report_kind": "FUTURE_UNSEEN_READINESS_GATE",
+  "task_id": "R3E-READINESS-001",
+  "backlog_item": "B2",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "as_of": "2026-07-18T18:36:51.072263+00:00",
+  "generated_at": "2026-07-18T18:36:51.073248+00:00",
+  "readiness_status": "NOT_READY",
+  "readiness_reason": "WINDOW_DAYS_INSUFFICIENT",
+  "strict": false,
+  "window_days": 0.7130911141550926,
+  "required_window_days": 90,
+  "eligible_series": 5,
+  "required_series": 16,
+  "series_with_min_bars": 0,
+  "required_min_bars": 200,
+  "series_complete": [],
+  "series_partial": [
+    "binance|BTC/USDT|1h",
+    "binance|ETH/USDT|1h",
+    "binance|SOL/USDT|1h",
+    "binance|BNB/USDT|1h",
+    "binance|XRP/USDT|1h"
+  ],
+  "series_missing": [
+    "binance|BTC/USDT|1d",
+    "binance|ETH/USDT|1d",
+    "binance|SOL/USDT|1d",
+    "binance|BNB/USDT|1d",
+    "binance|XRP/USDT|1d",
+    "yahoo|PETR4.SA|1d",
+    "yahoo|PETR4.SA|1h",
+    "yahoo|VALE3.SA|1d",
+    "yahoo|VALE3.SA|1h",
+    "yahoo|ITUB4.SA|1d",
+    "yahoo|ITUB4.SA|1h",
+    "yahoo|AAPL|1d",
+    "yahoo|AAPL|1h",
+    "yahoo|MSFT|1d",
+    "yahoo|MSFT|1h"
+  ],
+  "series_blocked": [],
+  "series_counts": {
+    "binance|BTC/USDT|1h": 14,
+    "binance|BTC/USDT|1d": 0,
+    "binance|ETH/USDT|1h": 14,
+    "binance|ETH/USDT|1d": 0,
+    "binance|SOL/USDT|1h": 14,
+    "binance|SOL/USDT|1d": 0,
+    "binance|BNB/USDT|1h": 14,
+    "binance|BNB/USDT|1d": 0,
+    "binance|XRP/USDT|1h": 14,
+    "binance|XRP/USDT|1d": 0,
+    "yahoo|PETR4.SA|1d": 0,
+    "yahoo|PETR4.SA|1h": 0,
+    "yahoo|VALE3.SA|1d": 0,
+    "yahoo|VALE3.SA|1h": 0,
+    "yahoo|ITUB4.SA|1d": 0,
+    "yahoo|ITUB4.SA|1h": 0,
+    "yahoo|AAPL|1d": 0,
+    "yahoo|AAPL|1h": 0,
+    "yahoo|MSFT|1d": 0,
+    "yahoo|MSFT|1h": 0
+  },
+  "n_observations_total": 70,
+  "hash_status": "OK",
+  "hash_errors": [],
+  "manifest_status": "OK",
+  "manifest_errors": [],
+  "gap_status": {
+    "counts": {
+      "INFORMATIONAL": 0,
+      "EXPECTED_MARKET_CLOSURE": 0,
+      "DATA_PROVIDER_LIMITATION": 0,
+      "CRITICAL": 0
+    },
+    "critical_present": false
+  },
+  "duplicates_flagged": 0,
+  "pre_cutoff_hits": 0,
+  "open_or_future_candle_hits": 0,
+  "collector_status": "IN_PROGRESS",
+  "origins_seen": [
+    "future-unseen-incremental-collect"
+  ],
+  "blockers": [],
+  "not_ready_reasons": [
+    {
+      "code": "WINDOW_DAYS_INSUFFICIENT",
+      "detail": "days=0.7131 < 90"
+    },
+    {
+      "code": "SERIES_INSUFFICIENT",
+      "detail": "complete=0 < 16"
+    },
+    {
+      "code": "BARS_INSUFFICIENT",
+      "detail": "partial_series=5 min_bars=200"
+    }
+  ],
+  "thresholds_source": {
+    "MIN_CALENDAR_DAYS_AFTER_CUTOFF": 90,
+    "MIN_SERIES_COMPLETE": 16,
+    "MIN_BARS_PER_SERIES": 200,
+    "authority": "src/wick/r3e/future_unseen/config.py + docs/specs/R3E_FUTURE_UNSEEN_VALIDATION_SPEC.md"
+  },
+  "scientific_safety": {
+    "validation_command_executed": false,
+    "effect_peeking_performed": false,
+    "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "R4_STATUS": "BLOCKED",
+    "R5_STATUS": "NOT_STARTED",
+    "VALIDATE_AUTHORIZED": false,
+    "HUMAN_AUTHORIZATION_REQUIRED": true
+  },
+  "store_roots": {
+    "raw": "/workspace/data/future_unseen/raw",
+    "validated": "/workspace/data/future_unseen/validated",
+    "manifests": "/workspace/data/future_unseen/manifests"
+  },
+  "effect_metrics_disclosed": false,
+  "gate_preview_disclosed": false,
+  "side_effects": false,
+  "read_only": true
+}
