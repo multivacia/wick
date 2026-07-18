@@ -51,7 +51,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_VALIDATION_AUDIT | **COMPLETE** |
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | R3E_READINESS_GATE | **IMPLEMENTED** (B2 / R3E-READINESS-001; status operacional separado do gate científico) |
-| R3E_COLLECTION_AUTOMATION | **IN_PROGRESS** (B4 / COLLECTION-AUTOMATION-001; impacto APPROVED; PR #19 draft; validate não autorizado) |
+| R3E_COLLECTION_AUTOMATION | **IMPLEMENTED** (B4 / COLLECTION-AUTOMATION-001; PR #19 MERGED `f773702`; validate não autorizado) |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
 | R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
@@ -159,3 +159,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | G1 impact assessment gate | Análise de impacto pré-implementação obrigatória | B4 fica IMPACT_ANALYSIS_REQUIRED até impacto aprovado |
 | 2026-07-18 | Merge PR #20 em `main` (`3e839a2`) | Gate G1 vigente | PR #19 B4 bloqueada até impacto aprovado; validate inalterado |
 | 2026-07-18 | B4 impacto APPROVE_WITH_CHANGES | Impacto aprovado; implementação autorizada com ajustes | PR #19 draft; merge não autorizado; validate inalterado |
+| 2026-07-18 | Merge PR #19 em `main` (`f773702`) | Automação `run-cycle` B4 incorporada | Scheduler não ativado; validate não autorizado; R4/R5 inalterados |
+| 2026-07-18 | Próximo item R3E pós-B4 ambíguo | Sem B5/TASK_ID oficial inequívoco | `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM`; sem implementação por inferência |
