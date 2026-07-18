@@ -242,17 +242,33 @@ def _update_collection_state() -> None:
     from wick.r3e.future_unseen.ops_report import build_ops_report
 
     report = build_ops_report()
+    prev_path = MANIFESTS_DIR / "collection_state.json"
+    prev = json.loads(prev_path.read_text(encoding="utf-8")) if prev_path.exists() else {}
+    # Once formally started (IN_PROGRESS/COMPLETE), do not regress to NOT_STARTED
+    # merely because a batch is empty of new accepts.
+    data_status = report["collection_status"]
+    formal = prev.get("R3E_FUTURE_DATA_COLLECTION")
+    if formal in {"IN_PROGRESS", "COMPLETE"} and data_status == "NOT_STARTED":
+        collection = formal
+    else:
+        collection = data_status if data_status != "NOT_STARTED" else (formal or data_status)
     state = {
-        "R3E_FUTURE_DATA_COLLECTION": report["collection_status"],
+        **{
+            k: v
+            for k, v in prev.items()
+            if k.startswith("R3E_") or k in {"cutoff", "engine_version"}
+        },
+        "R3E_FUTURE_DATA_COLLECTION": collection,
         "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
         "ECONOMIC_INTERPRETATION_ALLOWED": False,
         "R4_STATUS": "BLOCKED",
+        "R5_STATUS": "NOT_STARTED",
         "updated_at": datetime.now(UTC).isoformat(),
         "cutoff": FUTURE_UNSEEN_CUTOFF_ISO,
+        "validation_command_executed": False,
+        "effect_peeking_performed": False,
     }
-    (MANIFESTS_DIR / "collection_state.json").write_text(
-        json.dumps(state, indent=2) + "\n", encoding="utf-8"
-    )
+    prev_path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
 
 
 def write_cutoff_manifest(*, commit: str | None = None) -> Path:

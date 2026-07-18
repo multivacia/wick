@@ -1,0 +1,37 @@
+{
+  "kind": "FUTURE_UNSEEN_INITIALIZATION",
+  "experiment_id": "r3e-future-unseen-v1",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "commit": "d602eb99bea183f63efc7e23112d8da12a36203c",
+  "engine_version": "0.1.0",
+  "created_at": "2026-07-18T14:51:57.407137+00:00",
+  "idempotent": true,
+  "force_restart_marker": false,
+  "actions": {
+    "directories_ensured": true,
+    "cutoff_preserved": true,
+    "freeze_preserved_or_created": true,
+    "data_ingested": false,
+    "validate_executed": false,
+    "effect_metrics_computed": false
+  },
+  "artifacts": {
+    "cutoff_manifest": "/workspace/data/future_unseen/manifests/cutoff_manifest.json",
+    "cutoff_sha256": "b395bfa1ee2beb78986d4df7be7f6dd15e45cf0f49a931dff53b9f1e1f2085ac",
+    "model_freeze": "/workspace/data/future_unseen/manifests/model_freeze.json",
+    "freeze_sha256": "269a36ab9ca4b93e16cc3878fd6fcba0eb888751930e4da84549c7e236198a95",
+    "config_sha256": "4a63966e9c09a9d87211d1c908a1b2f4b0dae1d3bd81190c1ea62ea6e2bdcab2",
+    "spec_sha256": "da61289a93bab965d44bf924591afcd29e8719812d67b7ad663530fe4011b531",
+    "collection_state": "/workspace/data/future_unseen/manifests/collection_state.json"
+  },
+  "official_state": {
+    "R3E_FUTURE_VALIDATION_ENGINE": "COMPLETE",
+    "R3E_FUTURE_VALIDATION_AUDIT": "COMPLETE",
+    "R3E_FUTURE_DATA_COLLECTION": "IN_PROGRESS",
+    "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "R4_STATUS": "BLOCKED",
+    "R5_STATUS": "NOT_STARTED"
+  },
+  "sha256": "06ee48e52b3c0144ab7acd60aa07c1ca7fd78152f39aafddc8152ad098d8fc9d"
+}
