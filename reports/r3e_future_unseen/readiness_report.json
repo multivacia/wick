@@ -3,12 +3,12 @@
   "task_id": "R3E-READINESS-001",
   "backlog_item": "B2",
   "cutoff": "2026-07-18T01:30:00+00:00",
-  "as_of": "2026-07-18T18:46:46+00:00",
-  "generated_at": "2026-07-18T18:46:53.445435+00:00",
+  "as_of": "2026-07-18T19:24:20+00:00",
+  "generated_at": "2026-07-18T19:24:32.832200+00:00",
   "readiness_status": "NOT_READY",
   "readiness_reason": "WINDOW_DAYS_INSUFFICIENT",
   "strict": false,
-  "window_days": 0.7199768518518519,
+  "window_days": 0.7460648148148148,
   "required_window_days": 90,
   "eligible_series": 5,
   "required_series": 16,
@@ -41,15 +41,15 @@
   ],
   "series_blocked": [],
   "series_counts": {
-    "binance|BTC/USDT|1h": 14,
+    "binance|BTC/USDT|1h": 17,
     "binance|BTC/USDT|1d": 0,
-    "binance|ETH/USDT|1h": 14,
+    "binance|ETH/USDT|1h": 17,
     "binance|ETH/USDT|1d": 0,
-    "binance|SOL/USDT|1h": 14,
+    "binance|SOL/USDT|1h": 17,
     "binance|SOL/USDT|1d": 0,
-    "binance|BNB/USDT|1h": 14,
+    "binance|BNB/USDT|1h": 17,
     "binance|BNB/USDT|1d": 0,
-    "binance|XRP/USDT|1h": 14,
+    "binance|XRP/USDT|1h": 17,
     "binance|XRP/USDT|1d": 0,
     "yahoo|PETR4.SA|1d": 0,
     "yahoo|PETR4.SA|1h": 0,
@@ -62,7 +62,7 @@
     "yahoo|MSFT|1d": 0,
     "yahoo|MSFT|1h": 0
   },
-  "n_observations_total": 70,
+  "n_observations_total": 85,
   "hash_status": "OK",
   "hash_errors": [],
   "manifest_status": "OK",
@@ -87,7 +87,7 @@
   "not_ready_reasons": [
     {
       "code": "WINDOW_DAYS_INSUFFICIENT",
-      "detail": "days=0.7200 < 90"
+      "detail": "days=0.7461 < 90"
     },
     {
       "code": "SERIES_INSUFFICIENT",

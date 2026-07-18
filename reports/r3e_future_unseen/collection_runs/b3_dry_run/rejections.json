@@ -1,0 +1,33 @@
+{
+  "collection_run_id": "fu_collect_20260718T192420Z_534619c1",
+  "n": 5,
+  "rejections": [
+    {
+      "series": "binance|BTC/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|ETH/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|SOL/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|BNB/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|XRP/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    }
+  ],
+  "truncated": false,
+  "sha256": "b399f0cbf86f542e7159a9d4b1159ad39a0117289382f1b9659e748962ce07e7"
+}
