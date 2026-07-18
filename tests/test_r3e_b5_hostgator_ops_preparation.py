@@ -31,7 +31,10 @@ def test_systemd_units_exist_and_parse_required_fields():
     assert "User=wick" in svc
     assert "Group=wick" in svc
     assert "WorkingDirectory=/srv/wick/app" in svc
-    assert "EnvironmentFile=-/etc/wick/r3e-collector.env" in svc or "EnvironmentFile=/etc/wick/r3e-collector.env" in svc
+    assert (
+        "EnvironmentFile=-/etc/wick/r3e-collector.env" in svc
+        or "EnvironmentFile=/etc/wick/r3e-collector.env" in svc
+    )
     assert "ExecStart=/bin/bash /srv/wick/app/scripts/r3e_future_unseen_run_cycle.sh" in svc
     assert "Restart=no" in svc
     assert "NoNewPrivileges=true" in svc
@@ -117,7 +120,9 @@ def test_backup_script_fail_closed_and_atomic(tmp_path: Path):
     for d in (data / "raw", data / "validated", data / "manifests", reports, backups):
         d.mkdir(parents=True)
     (data / "raw" / "sample.json").write_text('{"ok":true}\n', encoding="utf-8")
-    (reports / "automation_state.json").write_text('{"updated_at":"2026-07-18T00:00:00+00:00"}\n', encoding="utf-8")
+    (reports / "automation_state.json").write_text(
+        '{"updated_at":"2026-07-18T00:00:00+00:00"}\n', encoding="utf-8"
+    )
 
     env = os.environ.copy()
     env["WICK_ROOT"] = str(root)
@@ -138,7 +143,9 @@ def test_backup_script_fail_closed_and_atomic(tmp_path: Path):
     bad = tmp_path / "bad"
     bad.mkdir()
     env["WICK_ROOT"] = str(bad)
-    proc2 = subprocess.run(["bash", str(BACKUP)], check=False, capture_output=True, text=True, env=env)
+    proc2 = subprocess.run(
+        ["bash", str(BACKUP)], check=False, capture_output=True, text=True, env=env
+    )
     assert proc2.returncode != 0
 
 
@@ -183,20 +190,26 @@ def test_healthcheck_statuses(tmp_path: Path):
     env["WICK_ROOT"] = str(root)
     env["ENV_FILE"] = str(env_file)
     env["MAX_RUN_AGE_SECONDS"] = "999999999"
-    proc = subprocess.run(["bash", str(HEALTH)], check=False, capture_output=True, text=True, env=env)
+    proc = subprocess.run(
+        ["bash", str(HEALTH)], check=False, capture_output=True, text=True, env=env
+    )
     assert "STATUS=HEALTHY" in proc.stdout, proc.stdout + proc.stderr
     assert proc.returncode == 0
 
     # LOCK present => DEGRADED
     (reports / "automation.lock").write_text("lock\n", encoding="utf-8")
-    proc2 = subprocess.run(["bash", str(HEALTH)], check=False, capture_output=True, text=True, env=env)
+    proc2 = subprocess.run(
+        ["bash", str(HEALTH)], check=False, capture_output=True, text=True, env=env
+    )
     assert "STATUS=DEGRADED" in proc2.stdout
     assert proc2.returncode == 10
 
     # Missing env => BLOCKED
     (reports / "automation.lock").unlink()
     env["ENV_FILE"] = str(tmp_path / "missing.env")
-    proc3 = subprocess.run(["bash", str(HEALTH)], check=False, capture_output=True, text=True, env=env)
+    proc3 = subprocess.run(
+        ["bash", str(HEALTH)], check=False, capture_output=True, text=True, env=env
+    )
     assert "STATUS=BLOCKED" in proc3.stdout
     assert proc3.returncode == 20
 
