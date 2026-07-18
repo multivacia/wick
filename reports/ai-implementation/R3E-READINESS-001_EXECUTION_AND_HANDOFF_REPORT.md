@@ -11,10 +11,14 @@ BACKLOG_ITEM = B2
 TASK_ID = R3E-READINESS-001
 TITLE = Future-Unseen Readiness Gate
 BRANCH = cursor/r3e-future-unseen-readiness-gate-2b14
-PR = TO_BE_RECORDED_EXTERNALLY
-COMMITS = TO_BE_RECORDED_EXTERNALLY
-CONTENT_REVIEWED_THROUGH_HEAD = 9635a8a8981aba50a79e253c9a773f51e00c5920
+PR = 15
+BASE_SHA = baf84763bd25a66c4371c2674866d13f059020cd
+IMPLEMENTATION_HEAD = 9635a8a8981aba50a79e253c9a773f51e00c5920
+CONTENT_REVIEWED_THROUGH_HEAD = cafa68b2fcca52fd442773ab0f29104518ba277e
+CURRENT_PR_HEAD = cafa68b2fcca52fd442773ab0f29104518ba277e
+FINAL_REPORT_PARENT_HEAD = cafa68b2fcca52fd442773ab0f29104518ba277e
 FINAL_REPORT_COMMIT = TO_BE_RECORDED_EXTERNALLY
+COMMITS = 9635a8a8981aba50a79e253c9a773f51e00c5920, 6c153d049bbae9b44f867c0f119067e53656a8c2, 7fe821c2d837bcffbc47dabfc14eddfb3e498e95, 6fcce59509dc20fa2fb10366e69b9cfa3ab23d15, cafa68b2fcca52fd442773ab0f29104518ba277e
 FILES_CREATED =
   src/wick/r3e/future_unseen/readiness.py
   tests/test_r3e_future_unseen_readiness.py
@@ -28,19 +32,28 @@ FILES_CREATED =
 FILES_UPDATED =
   src/wick/r3e/future_unseen/cli.py
   docs/PROJECT.md
+  docs/ai-specs/R3E-NEXT-ITEM-RECONCILIATION_SPEC.md
+  docs/ai-reviews/R3E-NEXT-ITEM-RECONCILIATION_TECHNICAL_REVIEW.md
+  reports/ai-implementation/R3E-NEXT-ITEM_AMBIGUITY_RECONCILIATION_REPORT.md
+  reports/ai-implementation/R3E-NEXT-ITEM_EXECUTION_AND_HANDOFF_REPORT.md
 TESTS = 57 PASSED
-CI_STATUS = TO_BE_RECORDED_EXTERNALLY
-GOVERNANCE_VALIDATOR = TO_BE_RECORDED_EXTERNALLY
+FULL_TEST_SUITE = 172 PASSED
+LINT_STATUS = PASS
+TYPECHECK_STATUS = NOT_CONFIGURED
+CI_STATUS = GREEN
+CI_WORKFLOW_RUN = R1 validate (PostgreSQL 16) SUCCESS on cafa68b2fcca52fd442773ab0f29104518ba277e
+GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
 READINESS_STATUS = NOT_READY
 READINESS_REASON = WINDOW_DAYS_INSUFFICIENT
-WINDOW_DAYS = 0.7130911141550926
+READINESS_AS_OF = 2026-07-18T18:46:46+00:00
+WINDOW_DAYS = 0.7199768518518519
 ELIGIBLE_SERIES = 5
 REQUIRED_SERIES = 16
 SERIES_WITH_MIN_BARS = 0
 REQUIRED_MIN_BARS = 200
 HASH_STATUS = OK
 MANIFEST_STATUS = OK
-GAP_STATUS = no_critical_gaps
+GAP_STATUS = OK_NO_CRITICAL
 COLLECTOR_STATUS = IN_PROGRESS
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
@@ -60,58 +73,9 @@ R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
 REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
-FINAL_RECOMMENDATION = keep collecting until completeness; do not run validate; human merge decision for this draft PR only after CI green
+FINAL_RECOMMENDATION = merge PR #15 after CI green on reconciliation commit; continue collection; do not run validate
 ```
 
-## 1. PR #14
+## Narrativa
 
-A PR documental #14 foi atualizada com a decisão humana B2 e mergeada:
-
-```text
-PR14_MERGE_COMMIT = baf84763bd25a66c4371c2674866d13f059020cd
-PR14_MERGED_AT = 2026-07-18T18:35:17Z
-```
-
-A trilha histórica `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM` foi preservada via addendum `RESOLVED_BY_HUMAN_AUTHORIZATION`.
-
-## 2. Implementação B2
-
-Branch nova a partir de `main` pós-PR #14:
-
-```text
-BRANCH = cursor/r3e-future-unseen-readiness-gate-2b14
-BASE = baf84763bd25a66c4371c2674866d13f059020cd
-IMPLEMENTATION_COMMIT = 9635a8a8981aba50a79e253c9a773f51e00c5920
-```
-
-Interface:
-
-```text
-python -m wick.r3e.future_unseen readiness
-```
-
-Exit codes: `0=READY`, `2=NOT_READY`, `3=BLOCKED`.
-
-Thresholds oficiais reconciliados de `config.py` + spec de validação futura (90 / 16 / 200).
-
-## 3. Testes
-
-```text
-pytest tests/test_r3e_future_unseen_readiness.py \
-       tests/test_r3e_future_unseen_collector.py \
-       tests/test_r3e_future_unseen.py \
-       tests/test_ai_governance_artifact_validator.py
-→ 57 PASSED
-```
-
-## 4. Segurança científica
-
-`validate` não foi executado. Nenhuma métrica de efeito. R4/R5 inalterados. Mesmo `READY` manteria `VALIDATE_AUTHORIZED=false`.
-
-## 5. Decisão
-
-```text
-REVIEW_STATUS = APPROVED
-MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
-AUTOMATIC_MERGE_AUTHORIZED = false
-```
+PR #14 resolveu a ambiguidade com autorização B2. A PR #15 implementa o readiness gate operacional. Nesta validação final, testes (57 + suite 172), ruff, validador de governança e CI do HEAD `cafa68b2fcca52fd442773ab0f29104518ba277e` estão verdes. Readiness reexecutado com `--as-of 2026-07-18T18:46:46+00:00` permanece `NOT_READY` por janela insuficiente, como esperado. Estado científico inalterado.

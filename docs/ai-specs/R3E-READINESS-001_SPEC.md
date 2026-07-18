@@ -11,8 +11,12 @@ SPEC_STATUS = APPROVED
 REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 REPOSITORY = multivacia/wick
+PULL_REQUEST = 15
 BASE_BRANCH = main
+BASE_SHA = baf84763bd25a66c4371c2674866d13f059020cd
 HEAD_BRANCH = cursor/r3e-future-unseen-readiness-gate-2b14
+HEAD_SHA = cafa68b2fcca52fd442773ab0f29104518ba277e
+CONTENT_REVIEWED_THROUGH_HEAD = cafa68b2fcca52fd442773ab0f29104518ba277e
 SEQUENCE_AFTER = R3E-B1 / PR #12
 VALIDATE_EXECUTION_AUTHORIZED = false
 R4_AUTHORIZED = false
@@ -20,6 +24,7 @@ R5_AUTHORIZED = false
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 CREATED_AT = 2026-07-18T18:40:00Z
+RECONCILED_AT = 2026-07-18T18:46:53Z
 ```
 
 ## Objetivo
@@ -52,3 +57,5 @@ Implementar gate operacional auditável que responde apenas `READY | NOT_READY |
 - [x] testes obrigatórios do prompt
 - [x] estado científico inalterado
 - [x] `VALIDATE_AUTHORIZED = false` mesmo em `READY`
+- [x] CI verde no HEAD revisado
+- [x] validador de governança errors=0 warnings=0

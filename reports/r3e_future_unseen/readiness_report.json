@@ -3,12 +3,12 @@
   "task_id": "R3E-READINESS-001",
   "backlog_item": "B2",
   "cutoff": "2026-07-18T01:30:00+00:00",
-  "as_of": "2026-07-18T18:36:51.072263+00:00",
-  "generated_at": "2026-07-18T18:36:51.073248+00:00",
+  "as_of": "2026-07-18T18:46:46+00:00",
+  "generated_at": "2026-07-18T18:46:53.445435+00:00",
   "readiness_status": "NOT_READY",
   "readiness_reason": "WINDOW_DAYS_INSUFFICIENT",
   "strict": false,
-  "window_days": 0.7130911141550926,
+  "window_days": 0.7199768518518519,
   "required_window_days": 90,
   "eligible_series": 5,
   "required_series": 16,
@@ -87,7 +87,7 @@
   "not_ready_reasons": [
     {
       "code": "WINDOW_DAYS_INSUFFICIENT",
-      "detail": "days=0.7131 < 90"
+      "detail": "days=0.7200 < 90"
     },
     {
       "code": "SERIES_INSUFFICIENT",
