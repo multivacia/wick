@@ -20,7 +20,18 @@ reports/*
 !reports/live_yahoo_sample.json
 !reports/r3/
 !reports/r3/**
-data/
+# Ignore local data dumps, but keep future-unseen tree scaffolding + manifests
+data/*
+!data/future_unseen/
+!data/future_unseen/**
+data/future_unseen/raw/*
+!data/future_unseen/raw/.gitkeep
+data/future_unseen/validated/*
+!data/future_unseen/validated/.gitkeep
+
+!reports/r3e_future_unseen/
+!reports/r3e_future_unseen/**
+reports/r3e_future_unseen/*.log
 .DS_Store
 
 !reports/r3d/
