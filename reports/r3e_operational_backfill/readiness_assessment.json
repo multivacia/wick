@@ -1,0 +1,29 @@
+{
+  "report_kind": "OPERATIONAL_READINESS_ASSESSMENT",
+  "experiment_id": "r3e-operational-backfill-90d-v1",
+  "acquisition_ok": true,
+  "universe_coverage_fraction": 1.0,
+  "normalization_ok": true,
+  "ingest_json_contract_ok": true,
+  "ohlcv_validation_ok": true,
+  "closed_candle_filter_exercised": true,
+  "gap_detection_exercised": true,
+  "duplicate_detection_exercised": true,
+  "hash_manifests_ok": true,
+  "official_future_unseen_unchanged": true,
+  "official_historical_reject_ok": true,
+  "ready_for_future_unseen_collection_plumbing": true,
+  "prospective_90d_window_satisfied_by_this_backfill": false,
+  "scientific_evidence_eligible": false,
+  "note": "Readiness refers to operational plumbing for prospective collection; historical bars do NOT satisfy the future-unseen 90-day window.",
+  "R3E_OPERATIONAL_BACKFILL_RUN": "COMPLETE",
+  "R3E_OPERATIONAL_BACKFILL_SCIENTIFIC_ELIGIBILITY": false,
+  "classification": {
+    "DATA_ORIGIN": "HISTORICAL_OPERATIONAL_BACKFILL",
+    "SCIENTIFIC_EVIDENCE_ELIGIBLE": false,
+    "FUTURE_UNSEEN_ELIGIBLE": false,
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "GATE_IMPACT_ALLOWED": false
+  },
+  "sha256": "a6cdbfcd2ca06b7af7af4cf3cb981611e63307efaaa9b830005ffd1700c02e36"
+}

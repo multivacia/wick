@@ -1,0 +1,36 @@
+{
+  "experiment_id": "r3e-operational-backfill-90d-v1",
+  "classification": {
+    "DATA_ORIGIN": "HISTORICAL_OPERATIONAL_BACKFILL",
+    "SCIENTIFIC_EVIDENCE_ELIGIBLE": false,
+    "FUTURE_UNSEEN_ELIGIBLE": false,
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "GATE_IMPACT_ALLOWED": false
+  },
+  "required_fields": [
+    "symbol",
+    "timeframe",
+    "source",
+    "market_ts",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "revision"
+  ],
+  "sample_size": 5,
+  "STRUCTURAL_SCHEMA_COMPATIBLE": true,
+  "FUTURE_UNSEEN_TEMPORALLY_ELIGIBLE": false,
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "note": "Structural compatibility means a record could be submitted to ingest-json schema validation; historical timestamps remain ineligible for the official gate.",
+  "sample_market_ts": [
+    "2026-04-20T00:00:00+00:00",
+    "2026-04-21T00:00:00+00:00",
+    "2026-04-22T00:00:00+00:00",
+    "2026-04-23T00:00:00+00:00",
+    "2026-04-24T00:00:00+00:00"
+  ],
+  "official_dirs_written": false,
+  "sha256": "2dff384ec61bc723022ced970287a857a1931ae6b0f142dcdaaeeda4c75b2710"
+}

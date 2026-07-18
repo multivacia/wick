@@ -40,7 +40,9 @@ data/operational_backfill/**/raw/*
 !data/operational_backfill/**/raw/.gitkeep
 data/operational_backfill/**/validated/*
 !data/operational_backfill/**/validated/.gitkeep
-# Keep manifests + small reports; large jsonl stays ignored via raw/validated rules
+# Large local indexes (regenerable from validated jsonl)
+data/operational_backfill/**/manifests/observation_index.json
+# Keep batch/run manifests + reports in git
 
 !reports/r3e_operational_backfill/
 !reports/r3e_operational_backfill/**

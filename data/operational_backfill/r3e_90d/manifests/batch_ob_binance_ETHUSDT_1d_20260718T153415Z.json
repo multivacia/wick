@@ -1,0 +1,48 @@
+{
+  "batch_id": "ob_binance_ETHUSDT_1d_20260718T153415Z",
+  "experiment_id": "r3e-operational-backfill-90d-v1",
+  "origin": "operational-backfill-collect",
+  "created_at": "2026-07-18T15:34:15.287749+00:00",
+  "accepted": 89,
+  "rejected": 0,
+  "rejections": [],
+  "duplicates_rejected": 0,
+  "revisions_accepted": 0,
+  "series_counts": {
+    "binance|ETH/USDT|1d": 89
+  },
+  "first_market_ts": "2026-04-20T00:00:00+00:00",
+  "last_market_ts": "2026-07-17T00:00:00+00:00",
+  "raw_path": "data/operational_backfill/r3e_90d/raw/ob_binance_ETHUSDT_1d_20260718T153415Z.jsonl",
+  "validated_path": "data/operational_backfill/r3e_90d/validated/ob_binance_ETHUSDT_1d_20260718T153415Z.jsonl",
+  "file_sha256": "9fccf8217dbcb3d99b8dbbc0e18f641792d2ad2a488ce01b509134b5a3bf9314",
+  "append_only": true,
+  "silent_overwrite_forbidden": true,
+  "classification": {
+    "DATA_ORIGIN": "HISTORICAL_OPERATIONAL_BACKFILL",
+    "SCIENTIFIC_EVIDENCE_ELIGIBLE": false,
+    "FUTURE_UNSEEN_ELIGIBLE": false,
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "GATE_IMPACT_ALLOWED": false
+  },
+  "series_meta": {
+    "series_key": "binance|ETH/USDT|1d",
+    "requested_start": "2026-04-19T01:30:00+00:00",
+    "requested_end": "2026-07-18T01:30:00+00:00",
+    "effective_start": "2026-04-20T00:00:00+00:00",
+    "effective_end": "2026-07-18T00:00:00+00:00",
+    "inclusion_rule": "market_ts in [start, end] AND market_ts <= FUTURE_UNSEEN_CUTOFF",
+    "alignment_reason": "provider actual_start/actual_end when available",
+    "provider_error": null,
+    "known_limitation": null,
+    "n_fetched": 90,
+    "n_open_rejected": 1,
+    "n_ohlcv_rejected": 0,
+    "n_post_cutoff_rejected": 0,
+    "n_policy_rejected": 0,
+    "n_accepted_candidate": 89,
+    "status": "COMPLETE",
+    "min_bars_operational": 80
+  },
+  "batch_sha256": "645cb0ed8d2a7ca5e7f06e4b985170bd92ae9cdc5b6c160535db958e7db6154e"
+}
