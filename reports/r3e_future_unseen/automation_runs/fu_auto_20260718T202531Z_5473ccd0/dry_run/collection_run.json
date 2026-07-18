@@ -1,0 +1,32 @@
+{
+  "kind": "FUTURE_UNSEEN_COLLECTION_RUN",
+  "collection_run_id": "fu_collect_20260718T202531Z_2133ae17",
+  "experiment_id": "r3e-future-unseen-v1",
+  "collector_version": "0.1.0",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "collection_run_at": "2026-07-18T20:25:31+00:00",
+  "commit": "21708e3b73d7c4c30470a1fc3cda5c235359b6cb",
+  "dry_run": true,
+  "run_status": "COMPLETE",
+  "n_series": 20,
+  "n_observations_before": 85,
+  "n_observations_after": 85,
+  "n_candidate_records": 10,
+  "persist": {
+    "dry_run": true,
+    "would_accept_candidates": 10,
+    "written": false,
+    "batch_id": null
+  },
+  "formal_collection_state": "IN_PROGRESS",
+  "data_driven_status": "IN_PROGRESS",
+  "validation_status": "NOT_RUN",
+  "validate_executed": false,
+  "effect_peeking_performed": false,
+  "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
+  "ECONOMIC_INTERPRETATION_ALLOWED": false,
+  "R4_STATUS": "BLOCKED",
+  "R5_STATUS": "NOT_STARTED",
+  "universe_size": 20,
+  "sha256": "6b407fcf4605c424c02a1e154586bf8da8f544439d52f548e42f8d106c362d60"
+}

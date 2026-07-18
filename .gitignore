@@ -32,6 +32,7 @@ data/future_unseen/validated/*
 !reports/r3e_future_unseen/
 !reports/r3e_future_unseen/**
 reports/r3e_future_unseen/*.log
+reports/r3e_future_unseen/automation.lock
 
 # Operational historical backfill sandbox (isolated from future_unseen)
 !data/operational_backfill/

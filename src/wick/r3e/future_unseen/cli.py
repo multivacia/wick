@@ -8,6 +8,7 @@ from pathlib import Path
 
 import typer
 
+from wick.r3e.future_unseen.automation import exit_code_for_cycle_status, run_cycle
 from wick.r3e.future_unseen.collector import run_collect
 from wick.r3e.future_unseen.ingest import ingest_batch
 from wick.r3e.future_unseen.initialization import initialize_collection
@@ -209,6 +210,89 @@ def readiness_cmd(
             f"hash={report['hash_status']} report={out_path}"
         )
     raise typer.Exit(code=exit_code_for_status(report["readiness_status"]))
+
+
+@app.command("run-cycle")
+def run_cycle_cmd(
+    as_of: str | None = typer.Option(
+        None,
+        "--as-of",
+        help="Timezone-aware UTC timestamp for deterministic closed-candle decisions",
+    ),
+    dry_run_only: bool = typer.Option(
+        False,
+        "--dry-run-only",
+        help="Run preflight + dry-run collect + readiness without writing the store",
+    ),
+    skip_idempotency_check: bool = typer.Option(
+        False,
+        "--skip-idempotency-check",
+        help="Skip the post-collect idempotent re-run (not recommended)",
+    ),
+    output_dir: Path | None = typer.Option(
+        None,
+        "--output-dir",
+        help="Directory for this cycle's immutable automation report",
+    ),
+    strict: bool = typer.Option(
+        False,
+        "--strict",
+        help="Escalate open/future candle findings from NOT_READY to BLOCKED",
+    ),
+    max_retries: int = typer.Option(3, "--max-retries", min=0, max=10),
+    timeout_seconds: int = typer.Option(
+        3000,
+        "--timeout-seconds",
+        min=1,
+        help="Hard wall-clock timeout for the automation cycle",
+    ),
+    as_json: bool = typer.Option(
+        True,
+        "--json/--human",
+        help="Emit JSON summary (default) or a short human line",
+    ),
+) -> None:
+    """Orchestrate collect + idempotency + ops + readiness. Never runs validate."""
+    as_of_dt = parse_market_ts(as_of) if as_of is not None else None
+    result = run_cycle(
+        as_of=as_of_dt,
+        dry_run_only=dry_run_only,
+        skip_idempotency_check=skip_idempotency_check,
+        output_dir=output_dir,
+        strict=strict,
+        max_retries=max_retries,
+        timeout_seconds=timeout_seconds,
+    )
+    summary = {
+        "run_id": result["run_id"],
+        "status": result["status"],
+        "as_of": result["as_of"],
+        "dry_run_candidates": result.get("dry_run_candidates"),
+        "observations_accepted": result.get("observations_accepted"),
+        "store_before": result.get("store_before"),
+        "store_after": result.get("store_after"),
+        "idempotency_status": result.get("idempotency_status"),
+        "readiness_status": result.get("readiness_status"),
+        "readiness_reason": result.get("readiness_reason"),
+        "readiness_transition": result.get("readiness_transition"),
+        "window_days": result.get("window_days"),
+        "hash_status": result.get("hash_status"),
+        "VALIDATE_AUTHORIZED": False,
+        "HUMAN_AUTHORIZATION_REQUIRED": result.get("HUMAN_AUTHORIZATION_REQUIRED"),
+        "validation_command_executed": False,
+        "effect_peeking_performed": False,
+        "run_dir": result.get("run_dir"),
+    }
+    if as_json:
+        typer.echo(json.dumps(summary, indent=2))
+    else:
+        typer.echo(
+            f"{result['status']} run_id={result['run_id']} "
+            f"readiness={result.get('readiness_status')} "
+            f"accepted={result.get('observations_accepted')} "
+            f"idempotency={result.get('idempotency_status')}"
+        )
+    raise typer.Exit(code=exit_code_for_cycle_status(result["status"]))
 
 
 @app.command("validate")
