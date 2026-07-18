@@ -1,0 +1,86 @@
+{
+  "experiment_id": "r3e-contextual-edge-v1",
+  "parent_experiment_id": "r3d-real-validation-v1",
+  "model_version": "1.0.0",
+  "feature_set_version": "1.0.0",
+  "cost_model_version": "1.0.0-provisional",
+  "detector_version": "1.0.0",
+  "parameters_hash": "2f202cf99000ec16",
+  "data_snapshot_hash": "9b99d4f723712d02",
+  "train_windows": [
+    {
+      "policy": "nested_walk_forward_expanding"
+    }
+  ],
+  "test_windows": [
+    {
+      "policy": "outer_test_once_per_window"
+    }
+  ],
+  "random_seed": 42,
+  "n_bootstrap": 1000,
+  "hyperparameter_grid": {
+    "logistic": {
+      "C": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ]
+    },
+    "ridge": {
+      "alpha": [
+        0.01,
+        0.1,
+        1.0,
+        10.0,
+        100.0
+      ]
+    }
+  },
+  "selected_hyperparameters": {
+    "note": "selected per fold on inner validation only"
+  },
+  "score_policy": {
+    "allowed": [
+      "TOP_10_PERCENT",
+      "TOP_20_PERCENT",
+      "PROBABILITY_055",
+      "PROBABILITY_060"
+    ]
+  },
+  "score_policies_allowed": [
+    "TOP_10_PERCENT",
+    "TOP_20_PERCENT",
+    "PROBABILITY_055",
+    "PROBABILITY_060"
+  ],
+  "holdout_policy": "R3D_HOLDOUT_EXCLUDED_FROM_R3E_FINAL; R3E_DEVELOPMENT=NESTED_WALK_FORWARD; R3E_FINAL_VALIDATION=PENDING_FUTURE_UNSEEN_DATA",
+  "created_at": "2026-07-17T23:56:33.319772+00:00",
+  "frozen_at": "2026-07-17T23:56:33.319834+00:00",
+  "r3d_holdout_reuse": false,
+  "notes": [
+    "R3D holdout excluded from R3E development and must not be reused as final validation.",
+    "Grid and score policies frozen; do not widen after results.",
+    "R3E_GATE maximum = PENDING_FUTURE_UNSEEN_DATA."
+  ],
+  "n_series": 20,
+  "DATA_ORIGIN": "REAL_OHLCV_HISTORICAL",
+  "ECONOMIC_INTERPRETATION_ALLOWED": true,
+  "confirmatory_use_of_r3d_holdout": false,
+  "run_kind": "R3E_REAL_DATA_DEVELOPMENT",
+  "data_snapshot_id": "r3e-real-20260717T235615Z",
+  "aggregate_hash_sha256": "c4c7c157a845b2a88c3f18b35b196c51d72e29204c1a62d2ea883da4edbf6dc7",
+  "provider_versions": {
+    "binance": "data-api.binance.vision",
+    "yahoo": "yfinance=1.5.1",
+    "ccxt": "4.5.65"
+  },
+  "r3d_holdout_intervals_ref": "r3d_holdout_intervals.json",
+  "r4_authorized": false,
+  "grids_thresholds_costs_seed_frozen": true
+}

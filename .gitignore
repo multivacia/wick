@@ -29,3 +29,9 @@ reports/r3d/*.log
 !reports/r3e/
 !reports/r3e/**
 reports/r3e/*.log
+!reports/r3e_real/
+!reports/r3e_real/**
+reports/r3e_real/*.log
+reports/r3e_real/*.prev
+reports/r3e_real/*.bak
+
