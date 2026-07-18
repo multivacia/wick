@@ -302,7 +302,9 @@ def _append_event(path: Path, event: dict[str, Any]) -> None:
         fh.write(json.dumps(event, sort_keys=True) + "\n")
 
 
-def _derive_state_from_run(run_doc: dict[str, Any], *, previous: dict[str, Any] | None) -> dict[str, Any]:
+def _derive_state_from_run(
+    run_doc: dict[str, Any], *, previous: dict[str, Any] | None
+) -> dict[str, Any]:
     return {
         "kind": "FUTURE_UNSEEN_AUTOMATION_STATE",
         "automation_version": AUTOMATION_VERSION,
@@ -614,14 +616,18 @@ def run_cycle(
         "store_after": store_after,
         "idempotency_status": idempotency_status,
         "collect_run_status": None if collect_result is None else collect_result.get("run_status"),
-        "collect_run_id": None if collect_result is None else collect_result.get("collection_run_id"),
+        "collect_run_id": None
+        if collect_result is None
+        else collect_result.get("collection_run_id"),
         "idempotency_run_id": None if idem_result is None else idem_result.get("collection_run_id"),
         "readiness_status": readiness_status,
         "readiness_reason": readiness_reason,
         "readiness_transition": transition,
         "window_days": None if readiness is None else readiness.get("window_days"),
         "eligible_series": None if readiness is None else readiness.get("eligible_series"),
-        "series_with_min_bars": None if readiness is None else readiness.get("series_with_min_bars"),
+        "series_with_min_bars": None
+        if readiness is None
+        else readiness.get("series_with_min_bars"),
         "required_series": None if readiness is None else readiness.get("required_series"),
         "required_min_bars": None if readiness is None else readiness.get("required_min_bars"),
         "hash_status": (
@@ -636,7 +642,9 @@ def run_cycle(
         ),
         "gap_status": None if readiness is None else readiness.get("gap_status"),
         "collector_status": None if readiness is None else readiness.get("collector_status"),
-        "provider_failures": 0 if collect_result is None else _count_provider_failures(collect_result),
+        "provider_failures": 0
+        if collect_result is None
+        else _count_provider_failures(collect_result),
         "retries": {"max_retries": max_retries},
         "hard_error": hard_error,
         "timed_out": timed_out,

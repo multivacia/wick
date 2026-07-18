@@ -552,7 +552,7 @@ def test_transition_not_ready_to_ready(auto_dirs):
     assert out["VALIDATE_AUTHORIZED"] is False
     events = auto_dirs["events"].read_text(encoding="utf-8")
     assert "READINESS_BECAME_READY" in events
-    assert "VALIDATE_AUTHORIZED\": false" in events or '"VALIDATE_AUTHORIZED": false' in events
+    assert 'VALIDATE_AUTHORIZED": false' in events or '"VALIDATE_AUTHORIZED": false' in events
 
 
 def test_transition_not_ready_to_blocked(auto_dirs):
