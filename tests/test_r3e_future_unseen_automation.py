@@ -768,7 +768,9 @@ def test_concurrent_cycles_second_skipped(auto_dirs):
     assert held.acquire()[0]
     first = run_cycle(
         as_of=datetime(2026, 7, 18, 6, 0, tzinfo=UTC),
-        collect_fn=lambda **_k: (_ for _ in ()).throw(AssertionError("must not collect under lock")),
+        collect_fn=lambda **_k: (_ for _ in ()).throw(
+            AssertionError("must not collect under lock")
+        ),
         readiness_fn=lambda **_k: _ready_report(),
         ops_fn=lambda **_k: {"hash_integrity_ok": True},
         lock_path=auto_dirs["lock"],
@@ -778,7 +780,9 @@ def test_concurrent_cycles_second_skipped(auto_dirs):
     )
     second = run_cycle(
         as_of=datetime(2026, 7, 18, 6, 1, tzinfo=UTC),
-        collect_fn=lambda **_k: (_ for _ in ()).throw(AssertionError("must not collect under lock")),
+        collect_fn=lambda **_k: (_ for _ in ()).throw(
+            AssertionError("must not collect under lock")
+        ),
         readiness_fn=lambda **_k: _ready_report(),
         ops_fn=lambda **_k: {"hash_integrity_ok": True},
         lock_path=auto_dirs["lock"],
