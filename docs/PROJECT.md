@@ -161,3 +161,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | B4 impacto APPROVE_WITH_CHANGES | Impacto aprovado; implementação autorizada com ajustes | PR #19 draft; merge não autorizado; validate inalterado |
 | 2026-07-18 | Merge PR #19 em `main` (`f773702`) | Automação `run-cycle` B4 incorporada | Scheduler não ativado; validate não autorizado; R4/R5 inalterados |
 | 2026-07-18 | Próximo item R3E pós-B4 ambíguo | Sem B5/TASK_ID oficial inequívoco | `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM`; sem implementação por inferência |
+| 2026-07-18 | Handoff pós-merge B4 (PR #22) | Merge PR #19 + reconciliação próximo item | Sem implementação; scheduler não ativado; validate/R4/R5 inalterados |
