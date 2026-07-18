@@ -111,7 +111,10 @@ Cada modelo reporta `window_stability` (folds outer com `test_n`). Não há prom
 ```text
 R3E_REAL_DATA_RUN = COMPLETE
 R3E_REAL_DATA_AUDIT = COMPLETE
+ECONOMIC_INTERPRETATION_ALLOWED = false
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
 ```
+
+Ratificação humana (2026-07-18): sem evidência estatística de valor incremental do candle; interpretação econômica **não** aprovada; R4 permanece bloqueada; gate final depende de dados futuros inéditos.

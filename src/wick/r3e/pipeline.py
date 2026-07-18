@@ -382,7 +382,7 @@ def run_r3e_experiment(
         extra={
             "n_series": len(series),
             "DATA_ORIGIN": data_origin,
-            "ECONOMIC_INTERPRETATION_ALLOWED": bool(real_data),
+            "ECONOMIC_INTERPRETATION_ALLOWED": False,
             "confirmatory_use_of_r3d_holdout": False,
             **(extra_manifest or {}),
         },
@@ -473,7 +473,8 @@ def run_r3e_experiment(
         "parent_experiment_id": manifest["parent_experiment_id"],
         "data_snapshot_hash": snap,
         "DATA_ORIGIN": data_origin,
-        "ECONOMIC_INTERPRETATION_ALLOWED": bool(real_data),
+        # Exploratory development never approves economic interpretation or R4.
+        "ECONOMIC_INTERPRETATION_ALLOWED": False,
         "n_series": len(series),
         "n_result_rows": len(all_results),
         "classification_counts": dict(classifications),
@@ -488,6 +489,7 @@ def run_r3e_experiment(
             "COST_MODEL_VERSION=1.0.0-provisional unchanged",
             "R3D holdout excluded; not used as final validation",
             "Real-data development run is exploratory — not R4 authorization",
+            "ECONOMIC_INTERPRETATION_ALLOWED=false until future unseen confirmatory data",
         ],
     }
     # Override gate always
@@ -498,7 +500,7 @@ def run_r3e_experiment(
         executive["R3E_REAL_DATA_RUN"] = "COMPLETE"
         executive["R3E_REAL_DATA_AUDIT"] = "COMPLETE"
         executive["R3E_DEVELOPMENT_RUN"] = "REAL_OHLCV_EXPLORATORY"
-        executive["ECONOMIC_INTERPRETATION_ALLOWED"] = True
+        executive["ECONOMIC_INTERPRETATION_ALLOWED"] = False
         executive["confirmatory_final_validation"] = False
     else:
         executive["R3E_CODE_GATE"] = "APPROVED"

@@ -89,9 +89,26 @@ Interpretação exploratória: contexto ocasionalmente positivo em alguns 1d (ex
 ```text
 R3E_REAL_DATA_RUN = COMPLETE
 R3E_REAL_DATA_AUDIT = COMPLETE
+ECONOMIC_INTERPRETATION_ALLOWED = false
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
+```
+
+## Ratificação humana (2026-07-18)
+
+```text
+R3E exploratory real-data execution completed and audited.
+
+No statistically significant evidence was found that candle-derived
+features add incremental value over contextual features under the
+frozen R3E protocol.
+
+This result does not approve economic interpretation and does not
+open R4. Final gating remains dependent on future unseen data.
+
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
+R4_STATUS = BLOCKED
 ```
 
 Validação confirmatória final permanece exigindo dados futuros inéditos. Paper trading não iniciado.
