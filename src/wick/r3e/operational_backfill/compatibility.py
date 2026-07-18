@@ -25,7 +25,9 @@ def build_schema_compatibility_report(
 ) -> dict[str, Any]:
     records = load_all_validated(output)
     sample = records[:sample_size]
-    structural_ok = all(is_structurally_compatible_with_future_unseen(r) for r in sample) if sample else False
+    structural_ok = (
+        all(is_structurally_compatible_with_future_unseen(r) for r in sample) if sample else False
+    )
 
     # Temporal eligibility for future-unseen is always false for this sandbox window.
     temporally_eligible = False

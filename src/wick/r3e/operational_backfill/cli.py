@@ -53,9 +53,7 @@ def collect_cmd(
 
     schema = build_schema_compatibility_report(output=output)
     probe = run_official_reject_probe(output=output)
-    probe["OFFICIAL_COLLECTION_STATE_UNCHANGED"] = isolation[
-        "OFFICIAL_COLLECTION_STATE_UNCHANGED"
-    ]
+    probe["OFFICIAL_COLLECTION_STATE_UNCHANGED"] = isolation["OFFICIAL_COLLECTION_STATE_UNCHANGED"]
     (REPORTS_DIR / "official_reject_probe.json").write_text(
         json.dumps(probe, indent=2) + "\n", encoding="utf-8"
     )
@@ -110,7 +108,9 @@ def report_cmd(
         raise typer.Exit(code=1)
     run = json.loads(man.read_text(encoding="utf-8"))
     # Minimal reconstruct for report builder
-    series_results = [{"meta": s, "records": [], "rejections": [], "gaps": []} for s in run["series"]]
+    series_results = [
+        {"meta": s, "records": [], "rejections": [], "gaps": []} for s in run["series"]
+    ]
     collect_result = {
         "run_manifest": run,
         "mapping": build_provider_mapping_safe(),

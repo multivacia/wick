@@ -26,9 +26,7 @@ def build_provider_mapping() -> dict[str, Any]:
             market_hours = "B3 session (America/Sao_Paulo)"
         else:
             market_hours = "US equities session (America/New_York)"
-        closed_rule = (
-            "open_time + timeframe_duration <= now_utc - safety_delay_seconds(30)"
-        )
+        closed_rule = "open_time + timeframe_duration <= now_utc - safety_delay_seconds(30)"
         series.append(
             {
                 "series_key": f"{spec.source}|{spec.symbol}|{spec.timeframe}",

@@ -77,8 +77,7 @@ def store_batch(
     assert_not_official_path(roots["manifests"])
 
     batch_id = (
-        batch_id
-        or f"ob_{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_{uuid.uuid4().hex[:8]}"
+        batch_id or f"ob_{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}_{uuid.uuid4().hex[:8]}"
     )
     now = datetime.now(UTC).isoformat()
     index = _load_index(roots["manifests"])
@@ -92,22 +91,20 @@ def store_batch(
         try:
             rec = validate_structural_record(raw)
             key = (
-                _series_key(rec["symbol"], rec["timeframe"], rec["source"])
-                + "|"
-                + rec["market_ts"]
+                _series_key(rec["symbol"], rec["timeframe"], rec["source"]) + "|" + rec["market_ts"]
             )
             if key in index:
                 prev = index[key]
-                same = all(abs(float(prev[k]) - float(rec[k])) < 1e-12 for k in (
-                    "open", "high", "low", "close", "volume"
-                ))
+                same = all(
+                    abs(float(prev[k]) - float(rec[k])) < 1e-12
+                    for k in ("open", "high", "low", "close", "volume")
+                )
                 if same:
                     duplicates += 1
                     raise StructuralValidationError("duplicate observation (identical OHLCV)")
                 if int(rec["revision"]) <= int(prev.get("revision", 1)):
                     raise StructuralValidationError(
-                        "provider correction requires incremented revision; "
-                        "silent update forbidden"
+                        "provider correction requires incremented revision; silent update forbidden"
                     )
                 revisions += 1
             rec["ingested_at"] = now

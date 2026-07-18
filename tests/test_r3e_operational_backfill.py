@@ -144,9 +144,7 @@ def test_timezone_naive_rejected():
 
 def test_unknown_series_rejected():
     with pytest.raises(StructuralValidationError):
-        validate_structural_record(
-            _rec(BACKFILL_START + timedelta(hours=1), symbol="DOGE/USDT")
-        )
+        validate_structural_record(_rec(BACKFILL_START + timedelta(hours=1), symbol="DOGE/USDT"))
 
 
 def test_store_duplicate_and_revision(ob_dirs):
@@ -168,7 +166,10 @@ def test_post_cutoff_bar_rejected_in_sandbox(ob_dirs):
     ts = BACKFILL_END + timedelta(hours=1)
     result = store_batch([_rec(ts)], output=ob_dirs)
     assert result.accepted == 0
-    assert any("after FUTURE_UNSEEN_CUTOFF" in r.reason or "after backfill end" in r.reason for r in result.rejections)
+    assert any(
+        "after FUTURE_UNSEEN_CUTOFF" in r.reason or "after backfill end" in r.reason
+        for r in result.rejections
+    )
 
 
 def test_directory_isolation_assert():

@@ -103,9 +103,7 @@ def build_all_reports(
 
     complete = [r for r in series_coverage_rows if r["status"] == "COMPLETE"]
     partial = [r for r in series_coverage_rows if r["status"] == "PARTIAL"]
-    missing = [
-        r for r in series_coverage_rows if r["status"] in {"MISSING", "PROVIDER_FAILURE"}
-    ]
+    missing = [r for r in series_coverage_rows if r["status"] in {"MISSING", "PROVIDER_FAILURE"}]
 
     # Hash integrity across validated files
     hash_ok = collect_result["hash_integrity_ok"]
