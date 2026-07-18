@@ -1,12 +1,16 @@
 {
   "R3E_FUTURE_VALIDATION_ENGINE": "COMPLETE",
   "R3E_FUTURE_VALIDATION_AUDIT": "COMPLETE",
-  "R3E_FUTURE_DATA_COLLECTION": "NOT_STARTED",
+  "R3E_FUTURE_DATA_COLLECTION": "IN_PROGRESS",
   "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
   "ECONOMIC_INTERPRETATION_ALLOWED": false,
   "R4_STATUS": "BLOCKED",
   "R5_STATUS": "NOT_STARTED",
-  "updated_at": "2026-07-18T01:27:50.327698+00:00",
   "cutoff": "2026-07-18T01:30:00+00:00",
-  "infrastructure_commit": "a868f31ccd02b243d129fabe662f8a1f7b4f0bf6"
+  "engine_version": "0.1.0",
+  "commit": "2cf41f30647e84a5bd4b8e218f276d81feea0b77",
+  "updated_at": "2026-07-18T14:51:36.277826+00:00",
+  "validation_command_executed": false,
+  "effect_peeking_performed": false,
+  "initialization": "FORMAL_START"
 }

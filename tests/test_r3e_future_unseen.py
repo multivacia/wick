@@ -280,3 +280,42 @@ def test_manifest_hash_stable(fu_dirs):
 def test_collection_not_started_state(fu_dirs):
     report = build_ops_report()
     assert report["collection_status"] == "NOT_STARTED"
+
+
+def test_initialize_collection_idempotent_sets_in_progress(fu_dirs, monkeypatch):
+    import wick.r3e.future_unseen.initialization as init_mod
+
+    monkeypatch.setattr(init_mod, "MANIFESTS_DIR", fu_dirs / "manifests")
+    monkeypatch.setattr(init_mod, "REPORTS_DIR", fu_dirs / "reports")
+    (fu_dirs / "reports").mkdir(exist_ok=True)
+    a = init_mod.initialize_collection()
+    b = init_mod.initialize_collection()
+    assert a["collection_state"]["R3E_FUTURE_DATA_COLLECTION"] == "IN_PROGRESS"
+    assert b["collection_state"]["R3E_FUTURE_DATA_COLLECTION"] == "IN_PROGRESS"
+    assert a["collection_state"]["ECONOMIC_INTERPRETATION_ALLOWED"] is False
+    assert a["collection_state"]["R4_STATUS"] == "BLOCKED"
+    assert a["collection_state"]["validation_command_executed"] is False
+    assert (fu_dirs / "manifests" / "initialization_manifest.json").exists()
+    # cutoff not rewritten to a different value
+    cut = json.loads((fu_dirs / "manifests" / "cutoff_manifest.json").read_text())
+    assert cut["FUTURE_UNSEEN_CUTOFF"] == fu_config.FUTURE_UNSEEN_CUTOFF_ISO
+
+
+def test_validate_not_ready_without_collection(fu_dirs, monkeypatch, tmp_path):
+    """validate must not approve with empty/incomplete future data."""
+    import wick.r3e.future_unseen.initialization as init_mod
+    import wick.r3e.future_unseen.validate as val_mod
+
+    monkeypatch.setattr(init_mod, "MANIFESTS_DIR", fu_dirs / "manifests")
+    monkeypatch.setattr(init_mod, "REPORTS_DIR", fu_dirs / "reports")
+    monkeypatch.setattr(val_mod, "REPORTS_DIR", fu_dirs / "reports")
+    (fu_dirs / "reports").mkdir(exist_ok=True)
+    init_mod.initialize_collection()
+    out = val_mod.run_validation(out_dir=fu_dirs / "reports", force_evaluate=False)
+    assert out["gate"]["R3E_GATE"] == "PENDING_FUTURE_UNSEEN_DATA"
+    assert out["gate"]["ECONOMIC_INTERPRETATION_ALLOWED"] is False
+    assert out["gate"]["R4_STATUS"] == "BLOCKED"
+    assert (
+        out["gate"]["decision"] in {"NOT_READY", "INCONCLUSIVE", "PENDING_FUTURE_UNSEEN_DATA"}
+        or out["gate"].get("final_decision") is False
+    )
