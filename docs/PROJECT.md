@@ -22,6 +22,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3A–C | Motor, estatística, relatórios e gates mecânicos | **MERGED** (`R3_IMPLEMENTATION/AUDIT = COMPLETE`, tag `v0.3.0-r3`) |
 | R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (`R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1`, tag `v0.4.0-r3d-real-validation`) |
 | R3E | Motor contextual M0–M5 (nested WF) | **CODE APPROVED** (`v0.5.0-r3e-engine`); real-data run **COMPLETE** (exploratório) |
+| R3E-FU | Infra de validação final com dados futuros não vistos | **ENGINE COMPLETE** (coleta `NOT_STARTED`) |
 | R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED** |
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
@@ -44,12 +45,17 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_DEVELOPMENT_RUN | **REAL_OHLCV_EXPLORATORY** (sintético prévio: `SYNTHETIC_ONLY`) |
 | R3E_REAL_DATA_RUN | **COMPLETE** |
 | R3E_REAL_DATA_AUDIT | **COMPLETE** |
-| ECONOMIC_INTERPRETATION_ALLOWED | **false** (ratificado; execução exploratória não aprova interpretação econômica) |
+| ECONOMIC_INTERPRETATION_ALLOWED | **false** |
 | R3E_GATE | **PENDING_FUTURE_UNSEEN_DATA** |
+| R3E_FUTURE_VALIDATION_ENGINE | **COMPLETE** |
+| R3E_FUTURE_VALIDATION_AUDIT | **COMPLETE** |
+| R3E_FUTURE_DATA_COLLECTION | **NOT_STARTED** |
+| FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R4_STATUS | **BLOCKED** |
 | R5_STATUS | NOT_STARTED |
 | experiment_id (R3D) | `r3d-real-validation-v1` |
 | experiment_id (R3E) | `r3e-contextual-edge-v1` |
+| experiment_id (R3E-FU) | `r3e-future-unseen-v1` |
 | detector_version / parameters_hash | `1.0.0` / `2f202cf99000ec16` |
 | cost_model_version | `1.0.0-provisional` (congelado pós-holdout) |
 | seed / bootstrap | `42` / `1000` |
@@ -131,3 +137,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | R3E real-data exploratory run COMPLETE | Nested WF em OHLCV real; holdout R3D excluído | `CANDLE_ADDS_NO_VALUE`; R4 permanece BLOCKED |
 | 2026-07-18 | Ratificação humana: sem evidência de valor incremental do candle | Protocolo R3E congelado; FDR sem Δ(M5−M4) significativo | `ECONOMIC_INTERPRETATION_ALLOWED=false`; `R3E_GATE=PENDING_FUTURE_UNSEEN_DATA`; `R4_STATUS=BLOCKED` |
 | 2026-07-18 | Merge PR #7 em `main` | Registro da execução exploratória real + auditoria apenas | Não autoriza interpretação econômica, gate final R3E nem R4 |
+| 2026-07-18 | Infra R3E future-unseen | Cutoff `2026-07-18T01:30:00Z`; ingestão append-only; ops sem peeking; gate automático | Coleta `NOT_STARTED`; R4 bloqueada; sem usar histórico como futuro |

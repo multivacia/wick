@@ -1,0 +1,9 @@
+{
+  "FUTURE_UNSEEN_CUTOFF": "2026-07-18T01:30:00+00:00",
+  "experiment_id": "r3e-future-unseen-v1",
+  "immutable": true,
+  "rule": "market_ts must be strictly greater than cutoff; ingest time is not a substitute",
+  "commit": null,
+  "created_at": "2026-07-18T01:27:49.206829+00:00",
+  "sha256": "b395bfa1ee2beb78986d4df7be7f6dd15e45cf0f49a931dff53b9f1e1f2085ac"
+}

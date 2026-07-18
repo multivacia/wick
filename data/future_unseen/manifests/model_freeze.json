@@ -1,0 +1,187 @@
+{
+  "experiment_id": "r3e-future-unseen-v1",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "commit": "5d3327a87e6f20c3530084b797c8a83be094eb83",
+  "frozen_at": "2026-07-18T01:28:25.424490+00:00",
+  "frozen": true,
+  "models": {
+    "M4": {
+      "features": [
+        "sma_20_slope",
+        "distance_from_sma_20",
+        "return_5",
+        "return_20",
+        "volume_ratio_20",
+        "atr_14",
+        "normalized_atr",
+        "range_position_20",
+        "trend_direction",
+        "trend_strength",
+        "volume_regime",
+        "volatility_regime",
+        "range_position_bucket",
+        "asset_id",
+        "timeframe"
+      ],
+      "role": "context_only"
+    },
+    "M5": {
+      "features": [
+        "sma_20_slope",
+        "distance_from_sma_20",
+        "return_5",
+        "return_20",
+        "volume_ratio_20",
+        "atr_14",
+        "normalized_atr",
+        "range_position_20",
+        "trend_direction",
+        "trend_strength",
+        "volume_regime",
+        "volatility_regime",
+        "range_position_bucket",
+        "asset_id",
+        "timeframe",
+        "pattern_type",
+        "signal",
+        "confirmation_variant"
+      ],
+      "role": "context_plus_candle"
+    }
+  },
+  "protocol": {
+    "parent_experiment_id": "r3e-contextual-edge-v1",
+    "grandparent_experiment_id": "r3d-real-validation-v1",
+    "model_version": "1.0.0",
+    "feature_set_version": "1.0.0",
+    "cost_model_version": "1.0.0-provisional",
+    "detector_version": "1.0.0",
+    "random_seed": 42,
+    "n_bootstrap": 1000,
+    "horizons": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "cost_scenarios": [
+      "OPTIMISTIC",
+      "BASE",
+      "STRESSED"
+    ],
+    "score_policies": [
+      "TOP_10_PERCENT",
+      "TOP_20_PERCENT",
+      "PROBABILITY_055",
+      "PROBABILITY_060"
+    ],
+    "logistic_grid": {
+      "C": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ]
+    },
+    "ridge_grid": {
+      "alpha": [
+        0.01,
+        0.1,
+        1.0,
+        10.0,
+        100.0
+      ]
+    },
+    "feature_sets_m4": [
+      "sma_20_slope",
+      "distance_from_sma_20",
+      "return_5",
+      "return_20",
+      "volume_ratio_20",
+      "atr_14",
+      "normalized_atr",
+      "range_position_20",
+      "trend_direction",
+      "trend_strength",
+      "volume_regime",
+      "volatility_regime",
+      "range_position_bucket",
+      "asset_id",
+      "timeframe"
+    ],
+    "feature_sets_m5": [
+      "sma_20_slope",
+      "distance_from_sma_20",
+      "return_5",
+      "return_20",
+      "volume_ratio_20",
+      "atr_14",
+      "normalized_atr",
+      "range_position_20",
+      "trend_direction",
+      "trend_strength",
+      "volume_regime",
+      "volatility_regime",
+      "range_position_bucket",
+      "asset_id",
+      "timeframe",
+      "pattern_type",
+      "signal",
+      "confirmation_variant"
+    ],
+    "tuning_after_cutoff_forbidden": true,
+    "optional_stopping_forbidden": true,
+    "historical_as_future_forbidden": true
+  },
+  "preprocessing": {
+    "fit_on_train_only": true,
+    "unknown_category_explicit": true,
+    "impute_train_statistics_only": true
+  },
+  "walk_forward": {
+    "nested_expanding": true,
+    "hyperparams_inner_only": true,
+    "defined_before_unblinding": true,
+    "uses_only_information_available_at_time_t": true
+  },
+  "artifacts": [
+    {
+      "path": "src/wick/r3e/config.py",
+      "sha256": "bffd1a0362132655303249cb5689219de9094de6e838703690aa9b93b12746df"
+    },
+    {
+      "path": "src/wick/r3e/models.py",
+      "sha256": "373dddeecfeed4ef7c46a50fb1af13c621eaead24561f03fb12ffa1f16bd25fe"
+    },
+    {
+      "path": "src/wick/r3e/preprocess.py",
+      "sha256": "b71dfe3d6887cfa1606111498903370e8d0e78b7e26b2b22786ba87222e310a0"
+    },
+    {
+      "path": "src/wick/r3e/scoring.py",
+      "sha256": "74548113960061eb60b01ad1045c0bcaa7a315c72bc074c2e321c56f528c7c88"
+    },
+    {
+      "path": "src/wick/r3e/compare.py",
+      "sha256": "c426014232142d42df1aed25fee527c0e76e60a60bf1b16155c4f945ebce0f7e"
+    },
+    {
+      "path": "src/wick/r3e/pipeline.py",
+      "sha256": "54a9f6d042d9d4ebb7d6e2d4d5716b61841bba9a750620e92b5dda184c2e0e43"
+    },
+    {
+      "path": "src/wick/r3e/future_unseen/config.py",
+      "sha256": "4a63966e9c09a9d87211d1c908a1b2f4b0dae1d3bd81190c1ea62ea6e2bdcab2"
+    },
+    {
+      "path": "docs/specs/R3E_FUTURE_UNSEEN_VALIDATION_SPEC.md",
+      "sha256": "da61289a93bab965d44bf924591afcd29e8719812d67b7ad663530fe4011b531"
+    }
+  ],
+  "tuning_after_cutoff_forbidden": true,
+  "freeze_sha256": "269a36ab9ca4b93e16cc3878fd6fcba0eb888751930e4da84549c7e236198a95"
+}
