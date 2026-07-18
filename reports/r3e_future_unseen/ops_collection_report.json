@@ -1,7 +1,7 @@
 {
   "report_kind": "OPERATIONAL_COLLECTION_ONLY",
   "cutoff": "2026-07-18T01:30:00+00:00",
-  "generated_at": "2026-07-18T14:51:58.372106+00:00",
+  "generated_at": "2026-07-18T14:53:40.758473+00:00",
   "collection_status": "NOT_STARTED",
   "series_received": [],
   "series_missing": [
@@ -59,7 +59,7 @@
   "temporal_coverage": {
     "first_market_ts_by_series": {},
     "last_market_ts_by_series": {},
-    "days_elapsed_since_cutoff": 0.5569256030787038,
+    "days_elapsed_since_cutoff": 0.558110630474537,
     "min_calendar_days_required": 90,
     "calendar_ready": false
   },

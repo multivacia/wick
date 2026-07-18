@@ -16,6 +16,7 @@ Incorporação da PR #8 em `main` e inicialização formal da coleta.
 | CI no merge | GREEN (checks SUCCESS) |
 | Tag | nenhuma criada nesta incorporação |
 | Force push | não |
+| PR de inicialização formal | #9 MERGED (`20201e1e74afafbe3574ca9e364beac4128f8370`, `2026-07-18T14:53:24Z`) |
 
 ## Freeze / cutoff
 
