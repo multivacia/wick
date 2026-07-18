@@ -152,3 +152,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Autorização humana B2 / R3E-READINESS-001 | Ambiguidade pós-PR #12 resolvida | Próximo item = Future-Unseen Readiness Gate; validate/R4/R5 não autorizados |
 | 2026-07-18 | Implementação B2 readiness gate | `python -m wick.r3e.future_unseen readiness` | Gate operacional READY/NOT_READY/BLOCKED; validate/R4/R5 inalterados |
 | 2026-07-18 | Validação final PR #15 readiness | CI GREEN; 172 pytest; readiness NOT_READY | Merge autorizado por gates; validate/R4/R5 inalterados |
+| 2026-07-18 | Merge PR #15 em `main` (`9220a14`) | Readiness gate B2 incorporado | Coleta permanece IN_PROGRESS; validate não autorizado; R4/R5 inalterados |
