@@ -7,5 +7,6 @@
   "R4_STATUS": "BLOCKED",
   "R5_STATUS": "NOT_STARTED",
   "updated_at": "2026-07-18T01:27:50.327698+00:00",
-  "cutoff": "2026-07-18T01:30:00+00:00"
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "infrastructure_commit": "a868f31ccd02b243d129fabe662f8a1f7b4f0bf6"
 }
