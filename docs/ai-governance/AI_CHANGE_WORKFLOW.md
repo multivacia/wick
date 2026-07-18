@@ -127,7 +127,70 @@ Após o merge, registrar:
 - itens que permaneceram bloqueados;
 - próximos passos.
 
-## 10. Regra de parada
+## 10. Identidade Git obrigatória em artefatos
+
+Campos derivados de Git/GitHub/CI/testes **não** podem ser preenchidos apenas com texto de prompt. Devem ser consultados na fonte.
+
+Campos mínimos em specs, relatórios e revisões:
+
+```text
+REPOSITORY
+PULL_REQUEST
+BASE_BRANCH
+HEAD_BRANCH
+BASE_SHA_AT_REVIEW
+HEAD_SHA_AT_REVIEW
+CURRENT_PR_HEAD
+ORIGINAL_IMPLEMENTATION_COMMITS
+REVIEW_COMMITS
+CI_STATUS
+CI_CHECKED_AT
+TESTS_DECLARED_PREVIOUSLY / DECLARED_PREVIOUS_TESTS
+TESTS_EXECUTED_THIS_REVIEW
+VALIDATION_COMMAND_EXECUTED
+EFFECT_PEEKING_PERFORMED
+SCIENTIFIC_STATE (R3E_GATE, ECONOMIC_INTERPRETATION_ALLOWED, R4_STATUS, R5_STATUS)
+MERGE_STATUS
+```
+
+### Validade da revisão pelo HEAD
+
+Uma revisão só é válida para `HEAD_SHA_AT_REVIEW`.
+
+Se `CURRENT_PR_HEAD != HEAD_SHA_AT_REVIEW`, a revisão deve:
+
+```text
+A. reconciliar formalmente os commits adicionais como não materiais; ou
+B. realizar revisão complementar; ou
+C. voltar para REVIEW_STATUS = CHANGES_REQUIRED
+```
+
+Erros a impedir:
+
+1. revisão aprovada para commit antigo sem reconciliação do tip;
+2. relatório histórico com status atual ambíguo;
+3. evidência declarada apresentada como teste reexecutado;
+4. CI antigo confundido com CI do tip atual;
+5. revisão documental autorizando merge implicitamente;
+6. alteração posterior de código sem nova revisão;
+7. hashes inventados ou desatualizados;
+8. atualização de status sem timestamp/evidência;
+9. execução acidental de validação científica em revisão operacional.
+
+Ordem operacional:
+
+1. consultar estado real do Git e da PR;
+2. implementar;
+3. executar testes permitidos;
+4. gerar relatório com hashes reais;
+5. atualizar branch com a base, quando necessário;
+6. obter tip definitivo;
+7. revisar o tip definitivo;
+8. confirmar CI do mesmo tip;
+9. gerar revisão formal;
+10. bloquear merge até decisão humana.
+
+## 11. Regra de parada
 
 Se qualquer etapa detectar mudança fora do escopo, quebra científica, teste insuficiente ou evidência contraditória:
 

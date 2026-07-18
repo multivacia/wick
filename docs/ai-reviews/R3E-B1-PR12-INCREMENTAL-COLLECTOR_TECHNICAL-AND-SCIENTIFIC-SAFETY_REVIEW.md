@@ -13,14 +13,28 @@ REVIEWER = Cursor executor com revisão materializada para validação independe
 REPOSITORY = multivacia/wick
 PULL_REQUEST = 12
 BASE_BRANCH = main
+BASE_SHA_AT_REVIEW = 0c06d3222b20038785edb5507c0177353f8a649a
 HEAD_BRANCH = feature/r3e-future-unseen-incremental-collector
-HEAD_COMMIT = 25135e15d2a9339370542d00013dfae00df34a1c
+PREVIOUSLY_REVIEWED_HEAD = 25135e15d2a9339370542d00013dfae00df34a1c
+HEAD_SHA_AT_REVIEW = 69636de475c1985d50281245a8279605c6b37d5a
+CURRENT_PR_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
+ORIGINAL_IMPLEMENTATION_COMMITS = 1020313a8753f8beb6fa0fe64bb1f674ca01cf41, a44cfec911a04a92938c82dcada4ba7146a0133b
+REVIEW_COMMITS = f86d1ae2b16f5a72970f89f595a3887f96d875a0, 7b1646d3d32d18166636b10f9dca97c60bb220ab, 69636de475c1985d50281245a8279605c6b37d5a
 REVIEWED_AT = 2026-07-18T17:28:12Z
-ORIGINAL_FEATURE_COMMITS = 1020313a8753f8beb6fa0fe64bb1f674ca01cf41, a44cfec911a04a92938c82dcada4ba7146a0133b
+RECONCILED_AT = 2026-07-18T17:36:26Z
+CI_STATUS = GREEN
+CI_CHECKED_AT = 2026-07-18T17:39:16Z
+DECLARED_PREVIOUS_TESTS = 148 PASSED
+TESTS_EXECUTED_THIS_REVIEW = 33 PASSED
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
+ECONOMIC_INTERPRETATION_ALLOWED = false
+R4_STATUS = BLOCKED
+R5_STATUS = NOT_STARTED
 PR_13_STATUS = MERGED
 PR_13_MERGE_COMMIT = 0c06d3222b20038785edb5507c0177353f8a649a
 PR_13_MERGED_AT = 2026-07-18T17:27:57Z
-PR_13_CI = GREEN
 ```
 
 ## 1. Objetivo
@@ -29,7 +43,7 @@ Revisar tecnicamente e sob segurança científica o coletor incremental oficial 
 
 ## 2. Materiais revisados
 
-- `docs/ai-governance/` (framework já mergeado via PR #13);
+- `docs/ai-governance/` (framework mergeado via PR #13);
 - `docs/runbooks/R3E_FUTURE_UNSEEN_INCREMENTAL_COLLECTION_RUNBOOK.md`;
 - `docs/audits/R3E_FUTURE_UNSEEN_INCREMENTAL_COLLECTOR_AUDIT.md`;
 - `reports/r3e_future_unseen/collection_runs/`;
@@ -38,7 +52,8 @@ Revisar tecnicamente e sob segurança científica o coletor incremental oficial 
 - `src/wick/r3e/future_unseen/discovery.py`;
 - `src/wick/r3e/future_unseen/cli.py`;
 - `tests/test_r3e_future_unseen_collector.py`;
-- estado oficial em `data/future_unseen/manifests/collection_state.json` e ops-report.
+- estado oficial em `data/future_unseen/manifests/collection_state.json` e ops-report;
+- tip atual e CI via GitHub API.
 
 ## 3. Escopo
 
@@ -47,9 +62,13 @@ Coleta incremental operacional pós-cutoff (`collect`, `--dry-run`, persistênci
 ## 4. Evidências
 
 ```text
-TESTS_DECLARED = 148 PASSED
-TECHNICAL_TESTS_THIS_REVIEW = 33 PASSED
-  (tests/test_r3e_future_unseen_collector.py + tests/test_r3e_future_unseen.py)
+DECLARED_PREVIOUS_TESTS = 148 PASSED
+TESTS_EXECUTED_THIS_REVIEW = 37 PASSED
+TESTS_EXECUTED_COMMANDS =
+  pytest tests/test_ai_governance_artifact_validator.py tests/test_r3e_future_unseen_collector.py tests/test_r3e_future_unseen.py
+TESTS_BREAKDOWN =
+  4 PASSED governance artifact validator
+  33 PASSED future_unseen collector + store tests
 DRY_RUN_CANDIDATES = 70
 DRY_RUN_STORE_WRITES = 0
 REAL_COLLECTION_ACCEPTED = 70
@@ -57,59 +76,80 @@ REAL_COLLECTION_SERIES = 5 crypto 1h
 RERUN_NEW_RECORDS = 0
 STORE_TOTAL_AFTER_RERUN = 70
 YAHOO_ELIGIBLE_CLOSED_BARS = 0
-CI_ON_FEATURE_TIP_BEFORE_MAIN_MERGE = SUCCESS (R1 validate)
+CI_STATUS = GREEN
+CI_CHECKED_AT = 2026-07-18T17:39:16Z
+CI_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 ```
 
-Branch atualizada com `origin/main` após merge da PR #13 via merge commit não destrutivo (`25135e1`). Sem force-push.
+## 4.1 Reconciliação formal de HEAD
+
+```text
+PREVIOUSLY_REVIEWED_HEAD = 25135e15d2a9339370542d00013dfae00df34a1c
+CURRENT_REVIEWED_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
+CURRENT_PR_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
+COMMITS_RECONCILED =
+  f86d1ae2b16f5a72970f89f595a3887f96d875a0 docs(r3e-b1): add PR12 review specification
+  7b1646d3d32d18166636b10f9dca97c60bb220ab docs(r3e-b1): record incremental collector review
+  69636de475c1985d50281245a8279605c6b37d5a docs(r3e-b1): normalize PR12 implementation report
+CHANGE_CLASSIFICATION = DOCUMENTATION_AND_GOVERNANCE_ONLY
+TECHNICAL_REVIEW_REMAINS_VALID = true
+SCIENTIFIC_SAFETY_REVIEW_REMAINS_VALID = true
+```
+
+Evidência: `git diff --name-status 25135e1..69636de` contém somente:
+
+- `docs/ai-specs/R3E-B1-PR12-INCREMENTAL-COLLECTOR_REVIEW_SPEC.md`
+- `docs/ai-reviews/R3E-B1-PR12-INCREMENTAL-COLLECTOR_TECHNICAL-AND-SCIENTIFIC-SAFETY_REVIEW.md`
+- `reports/ai-implementation/R3E-B1-PR12-INCREMENTAL-COLLECTOR_IMPLEMENTATION_REPORT.md`
+
+Sem alteração de código, testes, CLI, store ou comportamento.
 
 ## 5. Análise do diff
 
-O diff da PR #12 adiciona:
+O diff da PR #12 (código/feature) adiciona:
 
 - descoberta incremental e coleta (`discovery.py`, `collector.py`);
 - comando CLI `collect` com opções permitidas;
 - testes de cutoff, candle fechado, dry-run, idempotência, falha parcial e anti-peeking;
 - runbook, auditoria e relatórios de collection runs;
-- artefatos operacionais do store (`batch_*`, `observation_index`, ops overlays).
+- artefatos operacionais do store.
 
-Não altera:
-
-- cutoff imutável;
-- model freeze / thresholds / grids / custos;
-- runner de efeito / gate decision paths como parte de `collect`;
-- estados R4/R5.
+Não altera cutoff, freeze, thresholds, grids, custos, R4/R5.
 
 `validate` permanece comando CLI separado com import lazy; `collector.py` e `discovery.py` não importam `validate`, `gate`, `pipeline` ou `compare`.
 
 ## 6. Testes e CI
 
-- Testes técnicos permitidos executados nesta revisão: **33 passed**.
-- CI da PR #12 no tip de feature anterior à incorporação da main: **SUCCESS**.
-- Após merge de `main` (governança), novo CI será reavaliado no GitHub; confirmação visual antes do merge humano permanece condição operacional.
+```text
+DECLARED_PREVIOUS_TESTS = 148 PASSED   # implementação original; não reexecutada como 148 nesta revisão
+TESTS_EXECUTED_THIS_REVIEW = 37 PASSED # 33 collector/store + 4 validator; não confundir com 148
+CI_STATUS = GREEN                      # tip 69636de no momento da verificação pré-commit desta reconciliação
+CI_CHECKED_AT = 2026-07-18T17:39:16Z
+```
 
 `python -m wick.r3e.future_unseen validate` **não** foi executado.
 
 ## 7. Idempotência
 
-Confirmado por teste (`test_idempotent_second_collect`) e pela evidência de execução real: reexecução imediata produziu 0 candidatos novos e manteve `n_observations = 70`. Persistência via `ingest_batch` rejeita duplicatas idênticas.
+Confirmado por teste (`test_idempotent_second_collect`) e evidência de execução real: reexecução imediata com 0 candidatos novos e `n_observations = 70`.
 
 ## 8. Comportamento do dry-run
 
-`--dry-run` calcula candidatos, gera relatório sob `collection_runs/dry_*`, e **não** escreve raw/validated/manifestos oficiais de lote (`written=false`, `n_observations` inalterado). Teste `test_dry_run_does_not_write` passa.
+`--dry-run` não escreve raw/validated/manifestos oficiais de lote. Teste `test_dry_run_does_not_write` passa.
 
 ## 9. Tratamento de barras abertas
 
-Candles abertos são filtrados por `filter_closed_candles` e rejeitados com motivo `CANDLE_NOT_CLOSED`. Timestamps `<= cutoff` rejeitados com `NOT_STRICTLY_AFTER_FUTURE_UNSEEN_CUTOFF`.
+Candles abertos → `CANDLE_NOT_CLOSED`. `market_ts <= cutoff` → `NOT_STRICTLY_AFTER_FUTURE_UNSEEN_CUTOFF`.
 
 ## 10. Tratamento de provedores
 
-Falha de uma série isola o erro (`PROVIDER_ERROR` / `PARTIAL`) sem impedir demais séries. Retry limitado (default 3) via `retry_call`. Yahoo sem barras fechadas elegíveis aparece como ausência operacional (`NO_NEW_CLOSED_CANDLES` / sem candidatos), não como resultado científico.
+Falha isolada por série (`PROVIDER_ERROR` / `PARTIAL`). Yahoo sem barras elegíveis = estado operacional, não resultado científico.
 
 ## 11. Persistência e integridade do store
 
-Append-only via `ingest_batch` em `data/future_unseen/{raw,validated,manifests}/`. Hashes SHA-256 por lote. Relatórios de run incluem `hash_manifest.json`. Ops-report mantém `hash_integrity_ok` e `effect_metrics_disclosed=false`.
+Append-only via `ingest_batch`; hashes SHA-256; ops-report com `effect_metrics_disclosed=false`.
 
 ## 12. Segurança científica
 
@@ -123,7 +163,7 @@ VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 ```
 
-Relatórios de coleta bloqueiam chaves científicas proibidas (`FORBIDDEN_REPORT_KEYS`). Sem flags `--ignore-cutoff`, `--allow-historical`, `--unlock-r4`, `--overwrite`, `--disable-hashes` no CLI de `collect`.
+Sem flags inseguras equivalentes a `--ignore-cutoff`, `--allow-historical`, `--unlock-r4`, `--overwrite`, `--disable-hashes`, `--force`, `--skip-closed-candle-check`.
 
 ## 13. Achados
 
@@ -141,12 +181,12 @@ Nenhum.
 
 ### Baixos
 
-- Confirmar visualmente no GitHub o CI após o merge de `main` (PR #13) na branch da PR #12 antes da autorização humana de merge.
-- Yahoo ainda sem barras fechadas elegíveis pós-cutoff: estado operacional esperado; não bloqueia o coletor.
+- Yahoo ainda sem barras fechadas elegíveis pós-cutoff: estado operacional esperado.
+- Observação processada: tip documental (`69636de`) reconciliado formalmente com revisão técnica prévia (`25135e1`).
 
 ## 14. Riscos remanescentes
 
-- Cobertura Yahoo só poderá ser exercitada quando houver sessão/barras fechadas posteriores ao cutoff.
+- Cobertura Yahoo depende de sessões futuras.
 - Completude prospectiva (90 dias / 200 barras) permanece pendente e fora desta revisão.
 
 ## 15. Decisão
@@ -160,8 +200,8 @@ A aprovação técnica/documental **não** autoriza merge automático da PR #12.
 
 ## 16. Condições antes do merge
 
-- CI verde no GitHub no tip atual da PR #12;
-- sem alterações fora do escopo do coletor;
+- CI verde no tip `CURRENT_PR_HEAD` (= `HEAD_SHA_AT_REVIEW`);
+- sem commits materiais após `HEAD_SHA_AT_REVIEW` sem nova revisão/reconciliação;
 - decisão final de merge humana;
 - não executar `validate` como parte do merge;
 - manter R4/R5 bloqueados e sem interpretação econômica.
