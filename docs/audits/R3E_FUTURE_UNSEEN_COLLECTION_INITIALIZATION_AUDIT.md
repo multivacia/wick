@@ -95,7 +95,8 @@ Confirmado: sem Δ/p-values/métricas econômicas; `effect_metrics_disclosed=fal
 | Falhas | 0 |
 | Duração | ~3.2s |
 | Específicos future-unseen | **19 passed** |
-| Commit testado (merge tip) | `2cf41f30647e84a5bd4b8e218f276d81feea0b77` |
+| Commit testado (init formal) | `d602eb99bea183f63efc7e23112d8da12a36203c` |
+| Merge incorporado | `2cf41f30647e84a5bd4b8e218f276d81feea0b77` |
 
 ## Evidência de não-execução de validate
 
