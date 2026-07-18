@@ -16,7 +16,7 @@ BRANCH = cursor/r3e-future-unseen-collection-automation-2b14
 PR = 19
 BASE_SHA = 8c6cb4966fdb13abd34a4c066597ceea4c4cfaf9
 IMPLEMENTATION_HEAD = 21708e3b73d7c4c30470a1fc3cda5c235359b6cb
-CONTENT_REVIEWED_THROUGH_HEAD = TO_BE_RECORDED_EXTERNALLY
+CONTENT_REVIEWED_THROUGH_HEAD = 32a9139e1c3f7a944d52d080c5d8818948a169d8
 FINAL_CANDIDATE_HEAD = TO_BE_RECORDED_EXTERNALLY
 ADJUSTMENTS_APPLIED = G1_metadata,checkpoint_timeout_docs,atomic_state_write,extra_lock_tests,exit_code_alignment,main_rebase
 TIMEOUT_MODEL = PROVIDER_TIMEOUT=delegated_to_provider_retry_layer;CYCLE_TIMEOUT=3000_seconds_checkpointed;HARD_CANCEL_MID_FLIGHT=false
