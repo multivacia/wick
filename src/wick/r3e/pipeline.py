@@ -395,7 +395,7 @@ def run_r3e_experiment(
     concentration_asset: Counter[str] = Counter()
     concentration_tf: Counter[str] = Counter()
     planned = 0
-    for s in series:
+    for _s in series:
         for h in horizons:
             for cost in cost_scenarios:
                 for overlap in ("ALL_SIGNALS", "NON_OVERLAPPING_LONG_ONLY"):
