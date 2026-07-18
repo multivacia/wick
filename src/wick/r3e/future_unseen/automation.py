@@ -5,6 +5,7 @@ Operational orchestration only. Never imports or executes scientific validate/ga
 
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import socket
@@ -17,7 +18,12 @@ from typing import Any
 
 from wick.r3e.future_unseen.collector import run_collect
 from wick.r3e.future_unseen.ops_report import build_ops_report
-from wick.r3e.future_unseen.paths import COLLECTION_STATE_PATH, MANIFESTS_DIR, REPORTS_DIR, ensure_dirs
+from wick.r3e.future_unseen.paths import (
+    COLLECTION_STATE_PATH,
+    MANIFESTS_DIR,
+    REPORTS_DIR,
+    ensure_dirs,
+)
 from wick.r3e.future_unseen.readiness import evaluate_readiness
 
 AUTOMATION_VERSION = "0.1.0"
@@ -127,9 +133,7 @@ def _is_stale_lock(meta: dict[str, Any], *, now: datetime) -> bool:
         except ValueError:
             return True
     pid = int(meta.get("pid") or 0)
-    if pid and not _pid_alive(pid):
-        return True
-    return False
+    return bool(pid and not _pid_alive(pid))
 
 
 class AutomationLock:
@@ -184,10 +188,8 @@ class AutomationLock:
             with os.fdopen(fd, "w", encoding="utf-8") as fh:
                 fh.write(json.dumps(payload, indent=2) + "\n")
         except OSError as exc:
-            try:
+            with contextlib.suppress(OSError):
                 self.path.unlink(missing_ok=True)
-            except OSError:
-                pass
             return False, f"lock_write_failed:{exc}"
         self.acquired = True
         self.meta = payload
@@ -196,12 +198,10 @@ class AutomationLock:
     def release(self) -> None:
         if not self.acquired:
             return
-        try:
+        with contextlib.suppress(OSError):
             current = _read_json(self.path) or {}
             if current.get("run_id") == self.run_id:
                 self.path.unlink(missing_ok=True)
-        except OSError:
-            pass
         self.acquired = False
 
 
