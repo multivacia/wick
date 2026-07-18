@@ -12,6 +12,8 @@ Declarar incidente quando uma IA:
 - remove testes;
 - introduz segredo;
 - muda cutoff, freeze ou thresholds sem aprovação;
+- implementa código MEDIUM/HIGH/CRITICAL sem impacto aprovado;
+- declara `IMPLEMENTATION_AUTHORIZED=true` sem aprovação do impacto;
 - declara conclusão com evidência falsa ou inexistente.
 
 ## 2. Contenção imediata

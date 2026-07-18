@@ -6,6 +6,9 @@
 TASK_ID =
 REVIEW_STATUS = PENDING
 MERGE_STATUS = BLOCKED
+CHANGE_RISK =
+IMPACT_ASSESSMENT_STATUS =
+IMPLEMENTATION_AUTHORIZED =
 REVIEWER =
 REPOSITORY =
 PULL_REQUEST =
@@ -30,11 +33,18 @@ Regra: se `CURRENT_PR_HEAD != HEAD_SHA_AT_REVIEW`, reconciliar, revisar compleme
 ## Materiais revisados
 
 - especificação;
+- análise de impacto aprovada (quando exigida);
 - diff;
 - relatório de implementação;
 - testes;
 - CI;
 - documentação.
+
+## Conformidade com o impacto aprovado
+
+- [ ] desenho aprovado foi seguido
+- [ ] riscos residuais permanecem aceitáveis
+- [ ] rollback ainda é viável
 
 ## Conformidade com o escopo
 
