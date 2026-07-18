@@ -154,3 +154,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Validação final PR #15 readiness | CI GREEN; 172 pytest; readiness NOT_READY | Merge autorizado por gates; validate/R4/R5 inalterados |
 | 2026-07-18 | Merge PR #15 em `main` (`9220a14`) | Readiness gate B2 incorporado | Coleta permanece IN_PROGRESS; validate não autorizado; R4/R5 inalterados |
 | 2026-07-18 | B3 coleta incremental continuity | dry-run+collect+idempotency; 70→85 obs | Readiness NOT_READY (window); validate não executado |
+| 2026-07-18 | Merge PR #17 em `main` (`d32e027`) | Continuação B3 + reconciliação imutável `bc6a0d0` | Coleta permanece IN_PROGRESS; validate não autorizado; R4/R5 inalterados |
