@@ -47,6 +47,11 @@ data/operational_backfill/**/manifests/observation_index.json
 !reports/r3e_operational_backfill/
 !reports/r3e_operational_backfill/**
 reports/r3e_operational_backfill/*.log
+
+# AI governance implementation reports (documentation only)
+!reports/ai-implementation/
+!reports/ai-implementation/**
+
 .DS_Store
 
 !reports/r3d/
