@@ -21,7 +21,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R2 | Detectores de padrões com contrato matemático versionado | **MERGED** (`R2_GATE = APPROVED`, tag `v0.2.0-r2`) |
 | R3A–C | Motor, estatística, relatórios e gates mecânicos | **MERGED** (`R3_IMPLEMENTATION/AUDIT = COMPLETE`, tag `v0.3.0-r3`) |
 | R3D | Validação em dados históricos reais (sem recalibrar) | **COMPLETE** (`R3_GATE = REJECTED_NO_MEASURABLE_EDGE_V1`, tag `v0.4.0-r3d-real-validation`) |
-| R3E | Motor contextual M0–M5 (nested WF) | **CODE APPROVED** (`v0.5.0-r3e-engine`); real-data run PENDING |
+| R3E | Motor contextual M0–M5 (nested WF) | **CODE APPROVED** (`v0.5.0-r3e-engine`); real-data run **COMPLETE** (exploratório) |
 | R4 | Paper trading / simulação temporal sem ordem real | **BLOCKED** |
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
@@ -41,10 +41,12 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_CODE_GATE | **APPROVED** |
 | R3E_IMPLEMENTATION | COMPLETE |
 | R3E_AUDIT | COMPLETE |
-| R3E_DEVELOPMENT_RUN | **SYNTHETIC_ONLY** (`DATA_ORIGIN=SYNTHETIC_STRUCTURAL_VALIDATION`; `ECONOMIC_INTERPRETATION_ALLOWED=false`) |
-| R3E_REAL_DATA_RUN | PENDING |
+| R3E_DEVELOPMENT_RUN | **REAL_OHLCV_EXPLORATORY** (sintético prévio: `SYNTHETIC_ONLY`) |
+| R3E_REAL_DATA_RUN | **COMPLETE** |
+| R3E_REAL_DATA_AUDIT | **COMPLETE** |
+| ECONOMIC_INTERPRETATION_ALLOWED | **false** (ratificado; execução exploratória não aprova interpretação econômica) |
 | R3E_GATE | **PENDING_FUTURE_UNSEEN_DATA** |
-| R4_STATUS | BLOCKED |
+| R4_STATUS | **BLOCKED** |
 | R5_STATUS | NOT_STARTED |
 | experiment_id (R3D) | `r3d-real-validation-v1` |
 | experiment_id (R3E) | `r3e-contextual-edge-v1` |
@@ -75,8 +77,10 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3D PR | https://github.com/multivacia/wick/pull/5 · tag `v0.4.0-r3d-real-validation` |
 | Custos | `1.0.0-provisional` — não alterar para reavaliar `r3d-real-validation-v1` |
 | R3_GATE | `REJECTED_NO_MEASURABLE_EDGE_V1` |
-| R3E | `feature/r3e-contextual-edge` · `experiment_id=r3e-contextual-edge-v1` |
-| R3E_GATE | `PENDING_FUTURE_UNSEEN_DATA` (holdout R3D **não** reutilizado) |
+| R3E engine | PR #6 · tag `v0.5.0-r3e-engine` · `experiment_id=r3e-contextual-edge-v1` |
+| R3E real-data | PR #7 · `CANDLE_ADDS_NO_VALUE` · 0 `CANDLE_ADDS_VALUE_EXPLORATORY` · sem evidência de valor incremental do candle |
+| R3E_GATE | `PENDING_FUTURE_UNSEEN_DATA` (holdout R3D **não** reutilizado; validação final = dados futuros) |
+| Interpretação econômica | **não aprovada** |
 | R4 / R5 | BLOCKED / NOT_STARTED |
 
 ## Gates
@@ -122,4 +126,7 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-17 | Iniciar R3E como experimento independente | Holdout R3D consumido; não reutilizar | `r3e-contextual-edge-v1`; nested WF |
 | 2026-07-17 | R3E: M0–M5, DELTA_CANDLE=M5−M4, grids/thresholds congelados | Spec `R3E_CONTEXTUAL_EDGE_SPECIFICATION` | Sem AutoML/árvores; custos `1.0.0-provisional` |
 | 2026-07-17 | `R3E_GATE = PENDING_FUTURE_UNSEEN_DATA` | Mesmo com resultados de desenvolvimento | R4 bloqueada; sem paper trading |
-| 2026-07-17 | R3E code gate APPROVED; development run SYNTHETIC_ONLY | Relatórios marcados sem interpretação econômica | Tag `v0.5.0-r3e-engine`; real-data run PENDING |
+| 2026-07-17 | R3E code gate APPROVED; development run SYNTHETIC_ONLY | Relatórios marcados sem interpretação econômica | Tag `v0.5.0-r3e-engine` |
+| 2026-07-17 | Merge PR #6 + tag `v0.5.0-r3e-engine` | Encerramento motor R3E | Real-data run autorizado em seguida |
+| 2026-07-18 | R3E real-data exploratory run COMPLETE | Nested WF em OHLCV real; holdout R3D excluído | `CANDLE_ADDS_NO_VALUE`; R4 permanece BLOCKED |
+| 2026-07-18 | Ratificação humana: sem evidência de valor incremental do candle | Protocolo R3E congelado; FDR sem Δ(M5−M4) significativo | `ECONOMIC_INTERPRETATION_ALLOWED=false`; `R3E_GATE=PENDING_FUTURE_UNSEEN_DATA`; `R4_STATUS=BLOCKED` |

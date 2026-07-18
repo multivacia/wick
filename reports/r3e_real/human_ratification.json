@@ -1,0 +1,8 @@
+{
+  "status": "HUMAN_RATIFIED",
+  "date_utc": "2026-07-18",
+  "statement": "R3E exploratory real-data execution completed and audited. No statistically significant evidence was found that candle-derived features add incremental value over contextual features under the frozen R3E protocol. This result does not approve economic interpretation and does not open R4. Final gating remains dependent on future unseen data.",
+  "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
+  "R4_STATUS": "BLOCKED",
+  "ECONOMIC_INTERPRETATION_ALLOWED": false
+}

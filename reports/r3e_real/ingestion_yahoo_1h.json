@@ -1,0 +1,1020 @@
+{
+  "run_id": "ing_b62d02e609ee4a90",
+  "source": "yahoo",
+  "status": "PARTIAL",
+  "assets": [
+    "PETR4.SA",
+    "VALE3.SA",
+    "ITUB4.SA",
+    "AAPL",
+    "MSFT"
+  ],
+  "timeframes": [
+    "1h"
+  ],
+  "coverage": [
+    {
+      "symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "status": "PARTIAL",
+      "requested_start": "2024-07-16T00:00:00+00:00",
+      "requested_end": "2026-07-16T23:59:59+00:00",
+      "actual_start": "2024-07-18T13:00:00+00:00",
+      "actual_end": "2026-07-16T19:00:00+00:00",
+      "candles_received": 3473,
+      "candles_inserted": 3473,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 0,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": "Yahoo intraday (1h) history is limited; requested start 2024-07-16T00:00:00+00:00 clamped to 2024-07-18T23:38:50.461451+00:00",
+      "gaps": [
+        {
+          "asset_symbol": "PETR4.SA",
+          "timeframe": "1h",
+          "gap_start": "2024-11-14T20:00:00+00:00",
+          "gap_end": "2024-11-18T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "PETR4.SA",
+          "timeframe": "1h",
+          "gap_start": "2025-02-28T20:00:00+00:00",
+          "gap_end": "2025-03-05T16:00:00+00:00",
+          "expected_bars": 116,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "PETR4.SA",
+          "timeframe": "1h",
+          "gap_start": "2025-04-17T20:00:00+00:00",
+          "gap_end": "2025-04-22T13:00:00+00:00",
+          "expected_bars": 113,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "PETR4.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-02-13T20:00:00+00:00",
+          "gap_end": "2026-02-18T16:00:00+00:00",
+          "expected_bars": 116,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "PETR4.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-04-02T20:00:00+00:00",
+          "gap_end": "2026-04-06T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "PETR4.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-04-30T20:00:00+00:00",
+          "gap_end": "2026-05-04T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        }
+      ],
+      "error": null,
+      "series_used": "adjusted_close_when_available"
+    },
+    {
+      "symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "status": "PARTIAL",
+      "requested_start": "2024-07-16T00:00:00+00:00",
+      "requested_end": "2026-07-16T23:59:59+00:00",
+      "actual_start": "2024-07-18T13:00:00+00:00",
+      "actual_end": "2026-07-16T19:00:00+00:00",
+      "candles_received": 3472,
+      "candles_inserted": 3472,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 0,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": "Yahoo intraday (1h) history is limited; requested start 2024-07-16T00:00:00+00:00 clamped to 2024-07-18T23:38:53.482787+00:00",
+      "gaps": [
+        {
+          "asset_symbol": "VALE3.SA",
+          "timeframe": "1h",
+          "gap_start": "2024-11-14T20:00:00+00:00",
+          "gap_end": "2024-11-18T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "VALE3.SA",
+          "timeframe": "1h",
+          "gap_start": "2025-02-28T20:00:00+00:00",
+          "gap_end": "2025-03-05T16:00:00+00:00",
+          "expected_bars": 116,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "VALE3.SA",
+          "timeframe": "1h",
+          "gap_start": "2025-04-17T20:00:00+00:00",
+          "gap_end": "2025-04-22T13:00:00+00:00",
+          "expected_bars": 113,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "VALE3.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-02-13T20:00:00+00:00",
+          "gap_end": "2026-02-18T16:00:00+00:00",
+          "expected_bars": 116,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "VALE3.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-04-02T20:00:00+00:00",
+          "gap_end": "2026-04-06T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "VALE3.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-04-30T20:00:00+00:00",
+          "gap_end": "2026-05-04T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        }
+      ],
+      "error": null,
+      "series_used": "adjusted_close_when_available"
+    },
+    {
+      "symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "status": "PARTIAL",
+      "requested_start": "2024-07-16T00:00:00+00:00",
+      "requested_end": "2026-07-16T23:59:59+00:00",
+      "actual_start": "2024-07-18T13:00:00+00:00",
+      "actual_end": "2026-07-16T19:00:00+00:00",
+      "candles_received": 3473,
+      "candles_inserted": 3473,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 0,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": "Yahoo intraday (1h) history is limited; requested start 2024-07-16T00:00:00+00:00 clamped to 2024-07-18T23:38:56.418284+00:00",
+      "gaps": [
+        {
+          "asset_symbol": "ITUB4.SA",
+          "timeframe": "1h",
+          "gap_start": "2024-11-14T20:00:00+00:00",
+          "gap_end": "2024-11-18T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "ITUB4.SA",
+          "timeframe": "1h",
+          "gap_start": "2025-02-28T20:00:00+00:00",
+          "gap_end": "2025-03-05T16:00:00+00:00",
+          "expected_bars": 116,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "ITUB4.SA",
+          "timeframe": "1h",
+          "gap_start": "2025-04-17T20:00:00+00:00",
+          "gap_end": "2025-04-22T13:00:00+00:00",
+          "expected_bars": 113,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "ITUB4.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-02-13T20:00:00+00:00",
+          "gap_end": "2026-02-18T16:00:00+00:00",
+          "expected_bars": 116,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "ITUB4.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-04-02T20:00:00+00:00",
+          "gap_end": "2026-04-06T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "ITUB4.SA",
+          "timeframe": "1h",
+          "gap_start": "2026-04-30T20:00:00+00:00",
+          "gap_end": "2026-05-04T13:00:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        }
+      ],
+      "error": null,
+      "series_used": "adjusted_close_when_available"
+    },
+    {
+      "symbol": "AAPL",
+      "timeframe": "1h",
+      "status": "PARTIAL",
+      "requested_start": "2024-07-16T00:00:00+00:00",
+      "requested_end": "2026-07-16T23:59:59+00:00",
+      "actual_start": "2024-07-18T13:30:00+00:00",
+      "actual_end": "2026-07-16T19:30:00+00:00",
+      "candles_received": 3471,
+      "candles_inserted": 3471,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 0,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": "Yahoo intraday (1h) history is limited; requested start 2024-07-16T00:00:00+00:00 clamped to 2024-07-18T23:38:59.405282+00:00",
+      "gaps": [
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2024-08-30T20:30:00+00:00",
+          "gap_end": "2024-09-03T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2025-01-17T21:30:00+00:00",
+          "gap_end": "2025-01-21T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2025-02-14T21:30:00+00:00",
+          "gap_end": "2025-02-18T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2025-04-17T20:30:00+00:00",
+          "gap_end": "2025-04-21T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2025-05-23T20:30:00+00:00",
+          "gap_end": "2025-05-27T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2025-07-03T16:30:00+00:00",
+          "gap_end": "2025-07-07T13:30:00+00:00",
+          "expected_bars": 93,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2025-08-29T20:30:00+00:00",
+          "gap_end": "2025-09-02T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2026-01-16T21:30:00+00:00",
+          "gap_end": "2026-01-20T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2026-02-13T21:30:00+00:00",
+          "gap_end": "2026-02-17T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2026-04-02T20:30:00+00:00",
+          "gap_end": "2026-04-06T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2026-05-22T20:30:00+00:00",
+          "gap_end": "2026-05-26T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2026-06-18T20:30:00+00:00",
+          "gap_end": "2026-06-22T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "AAPL",
+          "timeframe": "1h",
+          "gap_start": "2026-07-02T20:30:00+00:00",
+          "gap_end": "2026-07-06T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        }
+      ],
+      "error": null,
+      "series_used": "adjusted_close_when_available"
+    },
+    {
+      "symbol": "MSFT",
+      "timeframe": "1h",
+      "status": "PARTIAL",
+      "requested_start": "2024-07-16T00:00:00+00:00",
+      "requested_end": "2026-07-16T23:59:59+00:00",
+      "actual_start": "2024-07-18T13:30:00+00:00",
+      "actual_end": "2026-07-16T19:30:00+00:00",
+      "candles_received": 3471,
+      "candles_inserted": 3471,
+      "candles_updated": 0,
+      "candles_rejected": 0,
+      "candles_unchanged": 0,
+      "open_candles_rejected": 0,
+      "invalid_rejected": 0,
+      "known_limitation": "Yahoo intraday (1h) history is limited; requested start 2024-07-16T00:00:00+00:00 clamped to 2024-07-18T23:39:02.378005+00:00",
+      "gaps": [
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2024-08-30T20:30:00+00:00",
+          "gap_end": "2024-09-03T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2025-01-17T21:30:00+00:00",
+          "gap_end": "2025-01-21T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2025-02-14T21:30:00+00:00",
+          "gap_end": "2025-02-18T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2025-04-17T20:30:00+00:00",
+          "gap_end": "2025-04-21T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2025-05-23T20:30:00+00:00",
+          "gap_end": "2025-05-27T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2025-07-03T16:30:00+00:00",
+          "gap_end": "2025-07-07T13:30:00+00:00",
+          "expected_bars": 93,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2025-08-29T20:30:00+00:00",
+          "gap_end": "2025-09-02T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2026-01-16T21:30:00+00:00",
+          "gap_end": "2026-01-20T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2026-02-13T21:30:00+00:00",
+          "gap_end": "2026-02-17T14:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2026-04-02T20:30:00+00:00",
+          "gap_end": "2026-04-06T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2026-05-22T20:30:00+00:00",
+          "gap_end": "2026-05-26T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2026-06-18T20:30:00+00:00",
+          "gap_end": "2026-06-22T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        },
+        {
+          "asset_symbol": "MSFT",
+          "timeframe": "1h",
+          "gap_start": "2026-07-02T20:30:00+00:00",
+          "gap_end": "2026-07-06T13:30:00+00:00",
+          "expected_bars": 89,
+          "asset_type": "stock",
+          "severity": "info",
+          "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+        }
+      ],
+      "error": null,
+      "series_used": "adjusted_close_when_available"
+    }
+  ],
+  "candles_received": 17360,
+  "candles_inserted": 17360,
+  "candles_updated": 0,
+  "candles_rejected": 0,
+  "pages_fetched": 5,
+  "retries": 0,
+  "gaps": [
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2024-11-14T20:00:00+00:00",
+      "gap_end": "2024-11-18T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2025-02-28T20:00:00+00:00",
+      "gap_end": "2025-03-05T16:00:00+00:00",
+      "expected_bars": 116,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2025-04-17T20:00:00+00:00",
+      "gap_end": "2025-04-22T13:00:00+00:00",
+      "expected_bars": 113,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-02-13T20:00:00+00:00",
+      "gap_end": "2026-02-18T16:00:00+00:00",
+      "expected_bars": 116,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-02T20:00:00+00:00",
+      "gap_end": "2026-04-06T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-30T20:00:00+00:00",
+      "gap_end": "2026-05-04T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2024-11-14T20:00:00+00:00",
+      "gap_end": "2024-11-18T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2025-02-28T20:00:00+00:00",
+      "gap_end": "2025-03-05T16:00:00+00:00",
+      "expected_bars": 116,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2025-04-17T20:00:00+00:00",
+      "gap_end": "2025-04-22T13:00:00+00:00",
+      "expected_bars": 113,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-02-13T20:00:00+00:00",
+      "gap_end": "2026-02-18T16:00:00+00:00",
+      "expected_bars": 116,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-02T20:00:00+00:00",
+      "gap_end": "2026-04-06T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-30T20:00:00+00:00",
+      "gap_end": "2026-05-04T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2024-11-14T20:00:00+00:00",
+      "gap_end": "2024-11-18T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2025-02-28T20:00:00+00:00",
+      "gap_end": "2025-03-05T16:00:00+00:00",
+      "expected_bars": 116,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2025-04-17T20:00:00+00:00",
+      "gap_end": "2025-04-22T13:00:00+00:00",
+      "expected_bars": 113,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-02-13T20:00:00+00:00",
+      "gap_end": "2026-02-18T16:00:00+00:00",
+      "expected_bars": 116,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-02T20:00:00+00:00",
+      "gap_end": "2026-04-06T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-30T20:00:00+00:00",
+      "gap_end": "2026-05-04T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2024-08-30T20:30:00+00:00",
+      "gap_end": "2024-09-03T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2025-01-17T21:30:00+00:00",
+      "gap_end": "2025-01-21T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2025-02-14T21:30:00+00:00",
+      "gap_end": "2025-02-18T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2025-04-17T20:30:00+00:00",
+      "gap_end": "2025-04-21T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2025-05-23T20:30:00+00:00",
+      "gap_end": "2025-05-27T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2025-07-03T16:30:00+00:00",
+      "gap_end": "2025-07-07T13:30:00+00:00",
+      "expected_bars": 93,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2025-08-29T20:30:00+00:00",
+      "gap_end": "2025-09-02T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-01-16T21:30:00+00:00",
+      "gap_end": "2026-01-20T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-02-13T21:30:00+00:00",
+      "gap_end": "2026-02-17T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-04-02T20:30:00+00:00",
+      "gap_end": "2026-04-06T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-05-22T20:30:00+00:00",
+      "gap_end": "2026-05-26T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-06-18T20:30:00+00:00",
+      "gap_end": "2026-06-22T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-07-02T20:30:00+00:00",
+      "gap_end": "2026-07-06T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2024-08-30T20:30:00+00:00",
+      "gap_end": "2024-09-03T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2025-01-17T21:30:00+00:00",
+      "gap_end": "2025-01-21T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2025-02-14T21:30:00+00:00",
+      "gap_end": "2025-02-18T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2025-04-17T20:30:00+00:00",
+      "gap_end": "2025-04-21T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2025-05-23T20:30:00+00:00",
+      "gap_end": "2025-05-27T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2025-07-03T16:30:00+00:00",
+      "gap_end": "2025-07-07T13:30:00+00:00",
+      "expected_bars": 93,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2025-08-29T20:30:00+00:00",
+      "gap_end": "2025-09-02T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-01-16T21:30:00+00:00",
+      "gap_end": "2026-01-20T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-02-13T21:30:00+00:00",
+      "gap_end": "2026-02-17T14:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-04-02T20:30:00+00:00",
+      "gap_end": "2026-04-06T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-05-22T20:30:00+00:00",
+      "gap_end": "2026-05-26T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-06-18T20:30:00+00:00",
+      "gap_end": "2026-06-22T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-07-02T20:30:00+00:00",
+      "gap_end": "2026-07-06T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    }
+  ],
+  "error_summary": null,
+  "started_at": "2026-07-17T23:38:50.459069+00:00",
+  "finished_at": "2026-07-17T23:39:05.359707+00:00",
+  "notes": [
+    "PETR4.SA/1h: stock gap check is partial (trading calendar not implemented)",
+    "VALE3.SA/1h: stock gap check is partial (trading calendar not implemented)",
+    "ITUB4.SA/1h: stock gap check is partial (trading calendar not implemented)",
+    "AAPL/1h: stock gap check is partial (trading calendar not implemented)",
+    "MSFT/1h: stock gap check is partial (trading calendar not implemented)"
+  ]
+}

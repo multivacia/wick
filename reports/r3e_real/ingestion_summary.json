@@ -1,0 +1,34 @@
+[
+  {
+    "source": "binance",
+    "timeframe": "1h",
+    "status": "SUCCESS",
+    "report": "reports/r3d/ingestion_binance_1h.json",
+    "candles_inserted": 87720,
+    "candles_rejected": 0
+  },
+  {
+    "source": "binance",
+    "timeframe": "1d",
+    "status": "PARTIAL",
+    "report": "reports/r3d/ingestion_binance_1d.json",
+    "candles_inserted": 14519,
+    "candles_rejected": 0
+  },
+  {
+    "source": "yahoo",
+    "timeframe": "1d",
+    "status": "PARTIAL",
+    "report": "reports/r3d/ingestion_yahoo_1d.json",
+    "candles_inserted": 6249,
+    "candles_rejected": 0
+  },
+  {
+    "source": "yahoo",
+    "timeframe": "1h",
+    "status": "PARTIAL",
+    "report": "reports/r3d/ingestion_yahoo_1h.json",
+    "candles_inserted": 17360,
+    "candles_rejected": 0
+  }
+]

@@ -127,26 +127,32 @@ def select_hyperparams_logistic(
     policies: tuple[str, ...],
     seed: int = 42,
 ) -> tuple[dict[str, Any], str, float]:
+    """Grid search with preprocess fit once on train (leakage-safe, same grid)."""
     best = {"C": 1.0, "class_weight": None}
     best_policy = policies[0]
     best_score = float("-inf")
+    numeric, categorical = _split_feature_types(feature_names)
+    prep = fit_preprocess(train_rows, numeric_features=numeric, categorical_features=categorical)
+    x_tr, _ = transform(prep, train_rows)
+    x_va, _ = transform(prep, val_rows)
+    y = y_train.astype(int)
+    single_class = len(np.unique(y)) < 2
     for C in LOGISTIC_GRID["C"]:
         for cw in LOGISTIC_GRID["class_weight"]:
-            est, prep, num, cat = fit_logistic(
-                train_rows, y_train, feature_names=feature_names, C=C, class_weight=cw, seed=seed
-            )
-            fitted = FittedModel(
-                model_id="tmp",
-                kind="logistic",
-                features=feature_names,
-                preprocess=prep,
-                estimator=est,
-                hyperparams={"C": C, "class_weight": cw},
-                score_policy="TOP_20_PERCENT",
-                numeric_features=num,
-                categorical_features=cat,
-            )
-            scores = score_rows(fitted, val_rows, seed=seed)
+            if single_class:
+                est = Ridge(alpha=1.0)
+                est.fit(x_tr, y.astype(float))
+                scores = est.predict(x_va).astype(float)
+            else:
+                est = LogisticRegression(
+                    C=C,
+                    class_weight=cw,
+                    solver="lbfgs",
+                    max_iter=500,
+                    random_state=seed,
+                )
+                est.fit(x_tr, y)
+                scores = est.predict_proba(x_va)[:, 1]
             for pol in policies:
                 mask = select_by_policy(scores, pol)
                 m = mean_net(y_val_ret, mask)
@@ -169,25 +175,20 @@ def select_hyperparams_ridge(
     policies: tuple[str, ...],
     seed: int = 42,
 ) -> tuple[dict[str, Any], str, float]:
+    """Grid search with preprocess fit once on train (leakage-safe, same grid)."""
+    _ = seed
     best = {"alpha": 1.0}
     best_policy = policies[0]
     best_score = float("-inf")
+    numeric, categorical = _split_feature_types(feature_names)
+    prep = fit_preprocess(train_rows, numeric_features=numeric, categorical_features=categorical)
+    x_tr, _ = transform(prep, train_rows)
+    x_va, _ = transform(prep, val_rows)
+    y = y_train_ret.astype(float)
     for alpha in RIDGE_GRID["alpha"]:
-        est, prep, num, cat = fit_ridge(
-            train_rows, y_train_ret, feature_names=feature_names, alpha=alpha
-        )
-        fitted = FittedModel(
-            model_id="tmp",
-            kind="ridge",
-            features=feature_names,
-            preprocess=prep,
-            estimator=est,
-            hyperparams={"alpha": alpha},
-            score_policy="TOP_20_PERCENT",
-            numeric_features=num,
-            categorical_features=cat,
-        )
-        scores = score_rows(fitted, val_rows, seed=seed)
+        est = Ridge(alpha=alpha)
+        est.fit(x_tr, y)
+        scores = est.predict(x_va).astype(float)
         for pol in policies:
             # For ridge, PROBABILITY_* thresholds are not probability — skip those
             if pol.startswith("PROBABILITY_"):
