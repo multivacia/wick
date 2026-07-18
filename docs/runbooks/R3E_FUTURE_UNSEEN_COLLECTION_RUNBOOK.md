@@ -28,7 +28,16 @@ python -m wick.r3e.future_unseen init
 
 Idempotente: preserva cutoff/freeze; não ingere dados; não executa validate; marca coleta formal como `IN_PROGRESS`.
 
-## Ingestão
+## Coleta incremental (preferencial)
+
+```bash
+python -m wick.r3e.future_unseen collect --dry-run
+python -m wick.r3e.future_unseen collect
+```
+
+Detalhes: `docs/runbooks/R3E_FUTURE_UNSEEN_INCREMENTAL_COLLECTION_RUNBOOK.md`.
+
+## Ingestão manual (JSON)
 
 Comando oficial:
 

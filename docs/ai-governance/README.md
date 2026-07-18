@@ -32,6 +32,11 @@ As regras se aplicam a ChatGPT, Codex, Cursor, GitHub Copilot e qualquer outro a
 6. `AI_INCIDENT_AND_ROLLBACK.md`
    Procedimento para falhas, comportamento inesperado e reversão.
 
+7. `AI_REVIEW_IDENTITY_AND_RECONCILIATION.md`
+   Identidade Git obrigatória, validade por HEAD e reconciliação de tip.
+
+Enforcement offline: `scripts/validate_ai_governance_artifacts.py`.
+
 ## Regra soberana
 
 Nenhuma IA possui autoridade final para alterar o estado oficial do projeto.

@@ -4,9 +4,13 @@
 
 - [ ] Task ID informado
 - [ ] Branch dedicada
-- [ ] Commit-base identificado
+- [ ] Commit-base identificado (`BASE_SHA_AT_REVIEW`)
+- [ ] `HEAD_SHA_AT_REVIEW` = tip efetivamente revisado
+- [ ] `CURRENT_PR_HEAD` consultado no GitHub/Git
+- [ ] Se `CURRENT_PR_HEAD != HEAD_SHA_AT_REVIEW`, há reconciliação/revisão complementar/`CHANGES_REQUIRED`
 - [ ] PR em draft
 - [ ] Escopo compatível com a especificação
+- [ ] Campos Git/CI/testes preenchidos a partir de fonte real (não só prompt)
 
 ## Diff
 
@@ -31,10 +35,11 @@
 
 - [ ] Testes novos foram adicionados
 - [ ] Testes existentes continuam passando
-- [ ] Resultado real dos testes foi registrado
+- [ ] `TESTS_EXECUTED_THIS_REVIEW` registra apenas o que foi reexecutado agora
+- [ ] `DECLARED_PREVIOUS_TESTS` não é apresentado como reexecução
 - [ ] Testes cobrem casos negativos
 - [ ] Testes cobrem limites
-- [ ] CI está verde
+- [ ] `CI_STATUS` / `CI_CHECKED_AT` referem-se ao tip atual (`CURRENT_PR_HEAD`)
 - [ ] Nenhum teste foi removido para “fazer passar”
 
 ## Documentação
