@@ -1,0 +1,39 @@
+{
+  "experiment_id": "r3e-operational-backfill-90d-v1",
+  "classification": {
+    "DATA_ORIGIN": "HISTORICAL_OPERATIONAL_BACKFILL",
+    "SCIENTIFIC_EVIDENCE_ELIGIBLE": false,
+    "FUTURE_UNSEEN_ELIGIBLE": false,
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "GATE_IMPACT_ALLOWED": false
+  },
+  "n_rejections": 5,
+  "rejections": [
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|BTC/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|ETH/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|SOL/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|BNB/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|XRP/USDT|1d"
+    }
+  ],
+  "truncated": false
+}

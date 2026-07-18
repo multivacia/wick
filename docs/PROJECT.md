@@ -51,6 +51,9 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_VALIDATION_AUDIT | **COMPLETE** |
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
+| R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
+| R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
+| R3E_OPERATIONAL_BACKFILL_SCIENTIFIC_ELIGIBILITY | **false** |
 | R4_STATUS | **BLOCKED** |
 | R5_STATUS | NOT_STARTED |
 | experiment_id (R3D) | `r3d-real-validation-v1` |
@@ -140,3 +143,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Infra R3E future-unseen | Cutoff `2026-07-18T01:30:00Z`; ingestão append-only; ops sem peeking; gate automático | Coleta `NOT_STARTED`; R4 bloqueada; sem usar histórico como futuro |
 | 2026-07-18 | Merge PR #8 em `main` (`2cf41f3`) | Infra de validação futura incorporada | Cutoff/freeze preservados; sem evidência científica |
 | 2026-07-18 | Init formal da coleta future-unseen | `python -m wick.r3e.future_unseen init` (PR #9 → `20201e1`) | `R3E_FUTURE_DATA_COLLECTION=IN_PROGRESS`; `validate` não executado |
+| 2026-07-18 | Backfill operacional 90d histórico | `python -m wick.r3e.operational_backfill collect` | 20/20 séries; 13725 barras; sandbox isolada; gate inalterado |

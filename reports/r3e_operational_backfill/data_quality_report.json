@@ -1,0 +1,148 @@
+{
+  "report_kind": "OPERATIONAL_DATA_QUALITY",
+  "experiment_id": "r3e-operational-backfill-90d-v1",
+  "gaps": [
+    {
+      "asset_symbol": "PETR4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-30T20:00:00+00:00",
+      "gap_end": "2026-05-04T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "VALE3.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-30T20:00:00+00:00",
+      "gap_end": "2026-05-04T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "ITUB4.SA",
+      "timeframe": "1h",
+      "gap_start": "2026-04-30T20:00:00+00:00",
+      "gap_end": "2026-05-04T13:00:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-05-22T20:30:00+00:00",
+      "gap_end": "2026-05-26T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-06-18T20:30:00+00:00",
+      "gap_end": "2026-06-22T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "AAPL",
+      "timeframe": "1h",
+      "gap_start": "2026-07-02T20:30:00+00:00",
+      "gap_end": "2026-07-06T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-05-22T20:30:00+00:00",
+      "gap_end": "2026-05-26T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-06-18T20:30:00+00:00",
+      "gap_end": "2026-06-22T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    },
+    {
+      "asset_symbol": "MSFT",
+      "timeframe": "1h",
+      "gap_start": "2026-07-02T20:30:00+00:00",
+      "gap_end": "2026-07-06T13:30:00+00:00",
+      "expected_bars": 89,
+      "asset_type": "stock",
+      "severity": "info",
+      "note": "Potential gap; trading calendar not implemented \u2014 stock gap check is partial"
+    }
+  ],
+  "gaps_truncated": false,
+  "duplicates": 0,
+  "rejections_sample": [
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|BTC/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|ETH/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|SOL/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|BNB/USDT|1d"
+    },
+    {
+      "reason": "candle_not_closed",
+      "market_ts": "2026-07-18T00:00:00+00:00",
+      "series": "binance|XRP/USDT|1d"
+    }
+  ],
+  "rejections_truncated": false,
+  "ohlcv_rules": [
+    "high >= open",
+    "high >= close",
+    "high >= low",
+    "low <= open",
+    "low <= close",
+    "volume >= 0",
+    "finite numerics",
+    "timezone-aware market_ts",
+    "closed candle only",
+    "official universe membership"
+  ],
+  "hash_integrity_ok": true,
+  "schema_compatible_sample": true,
+  "classification": {
+    "DATA_ORIGIN": "HISTORICAL_OPERATIONAL_BACKFILL",
+    "SCIENTIFIC_EVIDENCE_ELIGIBLE": false,
+    "FUTURE_UNSEEN_ELIGIBLE": false,
+    "ECONOMIC_INTERPRETATION_ALLOWED": false,
+    "GATE_IMPACT_ALLOWED": false
+  },
+  "sha256": "41543ad1d275647148714a4e712407bc59158c524d80c088a51128f7b2369034"
+}
