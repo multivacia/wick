@@ -52,6 +52,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | R3E_READINESS_GATE | **IMPLEMENTED** (B2 / R3E-READINESS-001; status operacional separado do gate científico) |
 | R3E_COLLECTION_AUTOMATION | **IMPLEMENTED** (B4 / COLLECTION-AUTOMATION-001; PR #19 MERGED `f773702`; validate não autorizado) |
+| R3E_COLLECTION_SCHEDULER | **IMPACT_ANALYSIS_BLOCKED** (B5 / COLLECTION-SCHEDULER-ACTIVATION-001; host/owner não nomeados; ativação não autorizada) |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
 | R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
@@ -162,3 +163,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Merge PR #19 em `main` (`f773702`) | Automação `run-cycle` B4 incorporada | Scheduler não ativado; validate não autorizado; R4/R5 inalterados |
 | 2026-07-18 | Próximo item R3E pós-B4 ambíguo | Sem B5/TASK_ID oficial inequívoco | `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM`; sem implementação por inferência |
 | 2026-07-18 | Handoff pós-merge B4 (PR #22) | Merge PR #19 + reconciliação próximo item | Sem implementação; scheduler não ativado; validate/R4/R5 inalterados |
+| 2026-07-18 | Humano nomeia B5 / COLLECTION-SCHEDULER-ACTIVATION-001 | Próximo item oficial pós-B4 | Impacto HIGH; `IMPACT_ASSESSMENT_STATUS=BLOCKED` até owner/host; sem ativação |
+| 2026-07-18 | Impacto B5 scheduler (draft PR) | Comparação de hosts/store/secrets/rollback | Ativação bloqueada; validate/R4/R5 inalterados |
