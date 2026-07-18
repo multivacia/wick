@@ -1,7 +1,7 @@
 {
   "report_kind": "OPERATIONAL_COLLECTION_ONLY",
   "cutoff": "2026-07-18T01:30:00+00:00",
-  "generated_at": "2026-07-18T19:24:32.050353+00:00",
+  "generated_at": "2026-07-18T19:57:12.464053+00:00",
   "collection_status": "IN_PROGRESS",
   "series_received": [
     "binance|BTC/USDT|1h",
@@ -72,7 +72,7 @@
       "binance|BNB/USDT|1h": "2026-07-18T18:00:00+00:00",
       "binance|XRP/USDT|1h": "2026-07-18T18:00:00+00:00"
     },
-    "days_elapsed_since_cutoff": 0.7462042864930556,
+    "days_elapsed_since_cutoff": 0.7688942598726852,
     "min_calendar_days_required": 90,
     "calendar_ready": false
   },
@@ -82,9 +82,5 @@
     "ready_for_final_validation": false
   },
   "effect_metrics_disclosed": false,
-  "gate_preview_disclosed": false,
-  "formal_collection_state": "IN_PROGRESS",
-  "validation_status": "NOT_RUN",
-  "effect_evaluation_status": "NOT_EVALUATED",
-  "last_collection_run_id": "fu_collect_20260718T192420Z_f4d4edd6"
+  "gate_preview_disclosed": false
 }

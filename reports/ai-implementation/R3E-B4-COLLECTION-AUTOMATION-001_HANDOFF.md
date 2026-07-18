@@ -1,0 +1,91 @@
+# COLLECTION-AUTOMATION-001 — Handoff
+
+## Bloco resumido
+
+```text
+STATUS = COMPLETE
+RELEASE = R3E
+BACKLOG_ITEM = B4
+TASK_ID = COLLECTION-AUTOMATION-001
+TITLE = Future-Unseen Collection Automation and Readiness Monitoring
+BRANCH = cursor/r3e-future-unseen-collection-automation-2b14
+PR = TO_BE_RECORDED_EXTERNALLY
+BASE_SHA = fd4cf1df3961a2411c3e367fd675b89ef05858a6
+IMPLEMENTATION_HEAD = 85d3f47d8dd0f30e04ac8b39063b9bb344dbc8de
+CONTENT_REVIEWED_THROUGH_HEAD = TO_BE_RECORDED_EXTERNALLY
+FINAL_CANDIDATE_HEAD = TO_BE_RECORDED_EXTERNALLY
+COMMITS = 4d021ff12babeaed2a01b126ac429c0890381441, 85d3f47d8dd0f30e04ac8b39063b9bb344dbc8de, <docs>
+FILES_CREATED =
+  src/wick/r3e/future_unseen/automation.py
+  tests/test_r3e_future_unseen_automation.py
+  scripts/r3e_future_unseen_run_cycle.sh
+  docs/ai-specs/R3E-B4-COLLECTION-AUTOMATION-001_SPEC.md
+  docs/ai-reviews/R3E-B4-COLLECTION-AUTOMATION-001_REVIEW.md
+  docs/runbooks/R3E_FUTURE_UNSEEN_AUTOMATION_RUNBOOK.md
+  reports/ai-implementation/R3E-B4-COLLECTION-AUTOMATION-001_IMPLEMENTATION_REPORT.md
+  reports/ai-implementation/R3E-B4-COLLECTION-AUTOMATION-001_FINAL_VALIDATION_REPORT.md
+  reports/ai-implementation/R3E-B4-COLLECTION-AUTOMATION-001_HANDOFF.md
+  reports/r3e_future_unseen/automation_runs/fu_auto_20260718T195710Z_a141bf40/
+  reports/r3e_future_unseen/automation_state.json
+FILES_UPDATED =
+  src/wick/r3e/future_unseen/cli.py
+  docs/PROJECT.md
+  .gitignore
+  reports/r3e_future_unseen/ops_report.json
+  reports/r3e_future_unseen/ops_collection_report.json
+  reports/r3e_future_unseen/readiness_report.json
+COMMAND = python -m wick.r3e.future_unseen run-cycle
+SCHEDULER_STRATEGY = local_cron_or_systemd_hourly_at_minute_15
+SCHEDULER_IMPLEMENTED = documented_runner_script
+LOCK_STRATEGY = atomic_file_lock_ttl_stale_recovery
+AUTOMATION_STATUS = OPERATIONAL
+LAST_RUN_ID = fu_auto_20260718T195710Z_a141bf40
+LAST_RUN_STATUS = COMPLETE
+OBSERVATIONS_ACCEPTED = 0
+IDEMPOTENCY_STATUS = SKIPPED
+READINESS_STATUS = NOT_READY
+READINESS_REASON = WINDOW_DAYS_INSUFFICIENT
+WINDOW_DAYS = 0.7688657407407408
+ELIGIBLE_SERIES = 5
+SERIES_WITH_MIN_BARS = 0
+HASH_STATUS = OK
+MANIFEST_STATUS = OK
+TESTS = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
+FULL_TEST_SUITE = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
+LINT_STATUS = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
+CI_STATUS = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
+GOVERNANCE_VALIDATOR = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+SCIENTIFIC_STATE_BEFORE =
+  R3E_FUTURE_DATA_COLLECTION=IN_PROGRESS
+  R3E_GATE=PENDING_FUTURE_UNSEEN_DATA
+  ECONOMIC_INTERPRETATION_ALLOWED=false
+  R4_STATUS=BLOCKED
+  R5_STATUS=NOT_STARTED
+SCIENTIFIC_STATE_AFTER =
+  R3E_FUTURE_DATA_COLLECTION=IN_PROGRESS
+  R3E_GATE=PENDING_FUTURE_UNSEEN_DATA
+  ECONOMIC_INTERPRETATION_ALLOWED=false
+  R4_STATUS=BLOCKED
+  R5_STATUS=NOT_STARTED
+R4_STATUS = BLOCKED
+R5_STATUS = NOT_STARTED
+REVIEW_STATUS = APPROVED
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+BLOCKERS = none
+FINAL_RECOMMENDATION = schedule local hourly run-cycle; continue until readiness READY; do not run validate without human authorization; do not merge without human review
+```
+
+## Exit codes
+
+```text
+0 = COMPLETE | PARTIAL | NO_NEW_DATA
+1 = FAILED
+3 = BLOCKED
+4 = SKIPPED_LOCKED
+```
+
+## Nota de freeze
+
+`FINAL_CANDIDATE_HEAD` / `CONTENT_REVIEWED_THROUGH_HEAD` / `PR` são registrados externamente no corpo da PR após o tip imutável, para evitar chase de self-hash.

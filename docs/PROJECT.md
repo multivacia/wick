@@ -51,6 +51,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_VALIDATION_AUDIT | **COMPLETE** |
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | R3E_READINESS_GATE | **IMPLEMENTED** (B2 / R3E-READINESS-001; status operacional separado do gate científico) |
+| R3E_COLLECTION_AUTOMATION | **IMPLEMENTED** (B4 / COLLECTION-AUTOMATION-001; `run-cycle`; validate não autorizado) |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
 | R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
@@ -155,3 +156,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Merge PR #15 em `main` (`9220a14`) | Readiness gate B2 incorporado | Coleta permanece IN_PROGRESS; validate não autorizado; R4/R5 inalterados |
 | 2026-07-18 | B3 coleta incremental continuity | dry-run+collect+idempotency; 70→85 obs | Readiness NOT_READY (window); validate não executado |
 | 2026-07-18 | Merge PR #17 em `main` (`d32e027`) | Continuação B3 + reconciliação imutável `bc6a0d0` | Coleta permanece IN_PROGRESS; validate não autorizado; R4/R5 inalterados |
+| 2026-07-18 | B4 automação de coleta + readiness | `python -m wick.r3e.future_unseen run-cycle` | Lock/histórico/scheduler docs; validate não autorizado; R4/R5 inalterados |

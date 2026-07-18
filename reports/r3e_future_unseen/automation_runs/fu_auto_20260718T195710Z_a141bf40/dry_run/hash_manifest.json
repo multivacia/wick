@@ -1,0 +1,12 @@
+{
+  "collection_run_id": "fu_collect_20260718T195710Z_ec82c4f8",
+  "persist": {
+    "dry_run": true,
+    "would_accept_candidates": 0,
+    "written": false,
+    "batch_id": null
+  },
+  "ops_hash_integrity_ok": true,
+  "ops_hash_errors": [],
+  "sha256": "b0ecd30c37df8de743848e582ff7669261f43549c68cd269995204a94485e879"
+}
