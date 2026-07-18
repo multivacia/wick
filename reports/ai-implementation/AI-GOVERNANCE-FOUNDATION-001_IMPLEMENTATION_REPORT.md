@@ -120,6 +120,18 @@ adc0598 docs(ai): add AI governance and execution framework
 - [x] PR será aberta como draft; merge bloqueado
 
 
-## Anexo — git status após instalação
+## Anexo — validação estrutural
 
+```text
+docs/ai-governance/     7 files
+docs/ai-specs/          1 file
+docs/ai-reviews/        1 file
+prompts/cursor/         1 file
+prompts/codex/          1 file
+reports/ai-implementation/ README + this report
+templates/              4 files
+base package file count = 16
+wrapper wick-ai-governance/ not present in repo
+ZIP not tracked
+```
 
