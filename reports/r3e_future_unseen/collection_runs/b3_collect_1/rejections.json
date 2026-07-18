@@ -1,0 +1,63 @@
+{
+  "collection_run_id": "fu_collect_20260718T192420Z_e8893ed5",
+  "n": 10,
+  "rejections": [
+    {
+      "series": "binance|BTC/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|ETH/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|SOL/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|BNB/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|XRP/USDT|1h",
+      "reason": "CANDLE_NOT_CLOSED",
+      "market_ts": "2026-07-18T19:00:00+00:00"
+    },
+    {
+      "series": "binance|BTC/USDT|1h",
+      "reason": "duplicate observation (identical OHLCV)",
+      "market_ts": "2026-07-18T15:00:00+00:00",
+      "stage": "store"
+    },
+    {
+      "series": "binance|ETH/USDT|1h",
+      "reason": "duplicate observation (identical OHLCV)",
+      "market_ts": "2026-07-18T15:00:00+00:00",
+      "stage": "store"
+    },
+    {
+      "series": "binance|SOL/USDT|1h",
+      "reason": "duplicate observation (identical OHLCV)",
+      "market_ts": "2026-07-18T15:00:00+00:00",
+      "stage": "store"
+    },
+    {
+      "series": "binance|BNB/USDT|1h",
+      "reason": "duplicate observation (identical OHLCV)",
+      "market_ts": "2026-07-18T15:00:00+00:00",
+      "stage": "store"
+    },
+    {
+      "series": "binance|XRP/USDT|1h",
+      "reason": "duplicate observation (identical OHLCV)",
+      "market_ts": "2026-07-18T15:00:00+00:00",
+      "stage": "store"
+    }
+  ],
+  "truncated": false,
+  "sha256": "8be201f29b766a9db2a96173b99156c5a0788c3863ea3ac47b57f29fb62ff223"
+}

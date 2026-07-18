@@ -1,0 +1,26 @@
+{
+  "collection_run_id": "fu_collect_20260718T192420Z_e8893ed5",
+  "persist": {
+    "dry_run": false,
+    "written": true,
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "n_accepted": 15,
+    "n_store_rejected": 5,
+    "duplicates_in_batch_rejections": 5,
+    "file_sha256": "64c3b80f6376edf7b308efe59bea36b2a98c97dfbdb94012e559bdd7daf65047",
+    "batch_sha256": "974d49bfdcc3da2bc85d073c7a2c657e515734990232ab7f3b4386f8b4ac70d7",
+    "raw_path": "/workspace/data/future_unseen/raw/fu_collect_20260718T192420Z_e8893ed5.jsonl",
+    "validated_path": "/workspace/data/future_unseen/validated/fu_collect_20260718T192420Z_e8893ed5.jsonl",
+    "manifest_path": "/workspace/data/future_unseen/manifests/batch_fu_collect_20260718T192420Z_e8893ed5.json",
+    "store_rejection_reasons": [
+      "duplicate observation (identical OHLCV)",
+      "duplicate observation (identical OHLCV)",
+      "duplicate observation (identical OHLCV)",
+      "duplicate observation (identical OHLCV)",
+      "duplicate observation (identical OHLCV)"
+    ]
+  },
+  "ops_hash_integrity_ok": true,
+  "ops_hash_errors": [],
+  "sha256": "3993f7d5d8a942f535e9394cab56bab3cc2f2610d29867d3402985cecff8a71a"
+}

@@ -181,6 +181,45 @@
     "revision": 1,
     "volume": 2006.341
   },
+  "binance|BNB/USDT|1h|2026-07-18T16:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 571.18,
+    "high": 571.47,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 570.06,
+    "market_ts": "2026-07-18T16:00:00+00:00",
+    "open": 570.86,
+    "previous_record_id": null,
+    "record_id": "4e11bdf0-eeea-443d-9cef-ef5ad6f883d1",
+    "revision": 1,
+    "volume": 1861.263
+  },
+  "binance|BNB/USDT|1h|2026-07-18T17:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 571.38,
+    "high": 572.75,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 570.55,
+    "market_ts": "2026-07-18T17:00:00+00:00",
+    "open": 571.19,
+    "previous_record_id": null,
+    "record_id": "173b6290-4dab-4a85-a628-2c620b315ad2",
+    "revision": 1,
+    "volume": 2940.506
+  },
+  "binance|BNB/USDT|1h|2026-07-18T18:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 570.61,
+    "high": 572.74,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 570.35,
+    "market_ts": "2026-07-18T18:00:00+00:00",
+    "open": 571.39,
+    "previous_record_id": null,
+    "record_id": "3f0b7984-4c51-4775-b909-eeb5ddef5f1a",
+    "revision": 1,
+    "volume": 2714.364
+  },
   "binance|BTC/USDT|1h|2026-07-18T02:00:00+00:00": {
     "batch_id": "fu_collect_20260718T162252Z_56bc9f23",
     "close": 63967.61,
@@ -362,6 +401,45 @@
     "record_id": "9a4a66ea-cb06-4d3e-a981-fa04c28b6338",
     "revision": 1,
     "volume": 202.91031
+  },
+  "binance|BTC/USDT|1h|2026-07-18T16:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 64303.47,
+    "high": 64314.0,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 64091.48,
+    "market_ts": "2026-07-18T16:00:00+00:00",
+    "open": 64123.13,
+    "previous_record_id": null,
+    "record_id": "5eb9634c-ea63-4aa6-8a74-924448f34e51",
+    "revision": 1,
+    "volume": 325.76583
+  },
+  "binance|BTC/USDT|1h|2026-07-18T17:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 64480.29,
+    "high": 64492.0,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 64280.22,
+    "market_ts": "2026-07-18T17:00:00+00:00",
+    "open": 64303.48,
+    "previous_record_id": null,
+    "record_id": "997db046-3bb1-4cef-bf28-3af119737cc6",
+    "revision": 1,
+    "volume": 572.40254
+  },
+  "binance|BTC/USDT|1h|2026-07-18T18:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 64512.41,
+    "high": 64669.5,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 64462.0,
+    "market_ts": "2026-07-18T18:00:00+00:00",
+    "open": 64480.28,
+    "previous_record_id": null,
+    "record_id": "9d123c31-4d47-4c58-bcbe-ba8f41f4c035",
+    "revision": 1,
+    "volume": 531.00754
   },
   "binance|ETH/USDT|1h|2026-07-18T02:00:00+00:00": {
     "batch_id": "fu_collect_20260718T162252Z_56bc9f23",
@@ -545,6 +623,45 @@
     "revision": 1,
     "volume": 3802.5871
   },
+  "binance|ETH/USDT|1h|2026-07-18T16:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 1846.11,
+    "high": 1847.14,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 1841.51,
+    "market_ts": "2026-07-18T16:00:00+00:00",
+    "open": 1844.15,
+    "previous_record_id": null,
+    "record_id": "a0c0d2d9-7182-4585-a8b6-54daefcf8d36",
+    "revision": 1,
+    "volume": 3407.5633
+  },
+  "binance|ETH/USDT|1h|2026-07-18T17:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 1852.82,
+    "high": 1853.48,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 1843.54,
+    "market_ts": "2026-07-18T17:00:00+00:00",
+    "open": 1846.11,
+    "previous_record_id": null,
+    "record_id": "cff7ddb9-13dc-46f6-9308-4213de932cb4",
+    "revision": 1,
+    "volume": 5045.3976
+  },
+  "binance|ETH/USDT|1h|2026-07-18T18:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 1857.54,
+    "high": 1867.58,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 1850.01,
+    "market_ts": "2026-07-18T18:00:00+00:00",
+    "open": 1852.83,
+    "previous_record_id": null,
+    "record_id": "68ee3e73-013d-44dd-920f-219d40fe6037",
+    "revision": 1,
+    "volume": 14122.0506
+  },
   "binance|SOL/USDT|1h|2026-07-18T02:00:00+00:00": {
     "batch_id": "fu_collect_20260718T162252Z_56bc9f23",
     "close": 75.21,
@@ -727,6 +844,45 @@
     "revision": 1,
     "volume": 19994.63
   },
+  "binance|SOL/USDT|1h|2026-07-18T16:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 75.17,
+    "high": 75.29,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 74.84,
+    "market_ts": "2026-07-18T16:00:00+00:00",
+    "open": 74.96,
+    "previous_record_id": null,
+    "record_id": "353cab7a-9591-47fc-aa05-e99eaf8200a7",
+    "revision": 1,
+    "volume": 50772.559
+  },
+  "binance|SOL/USDT|1h|2026-07-18T17:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 75.35,
+    "high": 75.41,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 75.06,
+    "market_ts": "2026-07-18T17:00:00+00:00",
+    "open": 75.17,
+    "previous_record_id": null,
+    "record_id": "10319e97-57d1-44f2-9e98-9dc3f3f602f6",
+    "revision": 1,
+    "volume": 51531.416
+  },
+  "binance|SOL/USDT|1h|2026-07-18T18:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 75.29,
+    "high": 75.67,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 75.18,
+    "market_ts": "2026-07-18T18:00:00+00:00",
+    "open": 75.36,
+    "previous_record_id": null,
+    "record_id": "c0c02cbe-a7fa-48ac-a6a1-01d8477a007f",
+    "revision": 1,
+    "volume": 60282.568
+  },
   "binance|XRP/USDT|1h|2026-07-18T02:00:00+00:00": {
     "batch_id": "fu_collect_20260718T162252Z_56bc9f23",
     "close": 1.0902,
@@ -908,5 +1064,44 @@
     "record_id": "d1d5b803-b260-486a-8e9d-0a9122f2ab8e",
     "revision": 1,
     "volume": 660000.7
+  },
+  "binance|XRP/USDT|1h|2026-07-18T16:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 1.0898,
+    "high": 1.0909,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 1.0865,
+    "market_ts": "2026-07-18T16:00:00+00:00",
+    "open": 1.0865,
+    "previous_record_id": null,
+    "record_id": "ae7de74d-a381-49e2-96e8-f1465d173f3c",
+    "revision": 1,
+    "volume": 858877.8
+  },
+  "binance|XRP/USDT|1h|2026-07-18T17:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 1.0935,
+    "high": 1.0944,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 1.0877,
+    "market_ts": "2026-07-18T17:00:00+00:00",
+    "open": 1.0899,
+    "previous_record_id": null,
+    "record_id": "292fd4a0-705f-4eb9-9d6f-5d20bdb971fc",
+    "revision": 1,
+    "volume": 1365449.1
+  },
+  "binance|XRP/USDT|1h|2026-07-18T18:00:00+00:00": {
+    "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+    "close": 1.0908,
+    "high": 1.0961,
+    "ingested_at": "2026-07-18T19:24:30.342424+00:00",
+    "low": 1.09,
+    "market_ts": "2026-07-18T18:00:00+00:00",
+    "open": 1.0936,
+    "previous_record_id": null,
+    "record_id": "496b53a5-de8d-4ad4-9d97-e8975b755473",
+    "revision": 1,
+    "volume": 1698067.8
   }
 }

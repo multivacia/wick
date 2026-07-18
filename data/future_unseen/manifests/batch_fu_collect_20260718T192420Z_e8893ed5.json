@@ -1,0 +1,102 @@
+{
+  "batch_id": "fu_collect_20260718T192420Z_e8893ed5",
+  "experiment_id": "r3e-future-unseen-v1",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "origin": "future-unseen-incremental-collect",
+  "created_at": "2026-07-18T19:24:30.342424+00:00",
+  "accepted": 15,
+  "rejected": 5,
+  "rejections": [
+    {
+      "reason": "duplicate observation (identical OHLCV)",
+      "record": {
+        "symbol": "BTC/USDT",
+        "timeframe": "1h",
+        "source": "binance",
+        "market_ts": "2026-07-18T15:00:00+00:00",
+        "open": 64126.0,
+        "high": 64163.99,
+        "low": 64037.45,
+        "close": 64123.12,
+        "volume": 202.91031,
+        "revision": 1
+      }
+    },
+    {
+      "reason": "duplicate observation (identical OHLCV)",
+      "record": {
+        "symbol": "ETH/USDT",
+        "timeframe": "1h",
+        "source": "binance",
+        "market_ts": "2026-07-18T15:00:00+00:00",
+        "open": 1845.95,
+        "high": 1846.35,
+        "low": 1842.12,
+        "close": 1844.15,
+        "volume": 3802.5871,
+        "revision": 1
+      }
+    },
+    {
+      "reason": "duplicate observation (identical OHLCV)",
+      "record": {
+        "symbol": "SOL/USDT",
+        "timeframe": "1h",
+        "source": "binance",
+        "market_ts": "2026-07-18T15:00:00+00:00",
+        "open": 74.99,
+        "high": 75.04,
+        "low": 74.81,
+        "close": 74.97,
+        "volume": 19994.63,
+        "revision": 1
+      }
+    },
+    {
+      "reason": "duplicate observation (identical OHLCV)",
+      "record": {
+        "symbol": "BNB/USDT",
+        "timeframe": "1h",
+        "source": "binance",
+        "market_ts": "2026-07-18T15:00:00+00:00",
+        "open": 570.85,
+        "high": 570.92,
+        "low": 569.72,
+        "close": 570.86,
+        "volume": 2006.341,
+        "revision": 1
+      }
+    },
+    {
+      "reason": "duplicate observation (identical OHLCV)",
+      "record": {
+        "symbol": "XRP/USDT",
+        "timeframe": "1h",
+        "source": "binance",
+        "market_ts": "2026-07-18T15:00:00+00:00",
+        "open": 1.0889,
+        "high": 1.0895,
+        "low": 1.0858,
+        "close": 1.0864,
+        "volume": 660000.7,
+        "revision": 1
+      }
+    }
+  ],
+  "gaps_detected": [],
+  "series_counts": {
+    "binance|BTC/USDT|1h": 3,
+    "binance|ETH/USDT|1h": 3,
+    "binance|SOL/USDT|1h": 3,
+    "binance|BNB/USDT|1h": 3,
+    "binance|XRP/USDT|1h": 3
+  },
+  "first_market_ts": "2026-07-18T16:00:00+00:00",
+  "last_market_ts": "2026-07-18T18:00:00+00:00",
+  "raw_path": "/workspace/data/future_unseen/raw/fu_collect_20260718T192420Z_e8893ed5.jsonl",
+  "validated_path": "/workspace/data/future_unseen/validated/fu_collect_20260718T192420Z_e8893ed5.jsonl",
+  "file_sha256": "64c3b80f6376edf7b308efe59bea36b2a98c97dfbdb94012e559bdd7daf65047",
+  "append_only": true,
+  "silent_overwrite_forbidden": true,
+  "batch_sha256": "974d49bfdcc3da2bc85d073c7a2c657e515734990232ab7f3b4386f8b4ac70d7"
+}
