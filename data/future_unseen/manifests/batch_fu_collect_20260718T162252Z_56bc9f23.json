@@ -1,0 +1,26 @@
+{
+  "batch_id": "fu_collect_20260718T162252Z_56bc9f23",
+  "experiment_id": "r3e-future-unseen-v1",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "origin": "future-unseen-incremental-collect",
+  "created_at": "2026-07-18T16:22:57.273786+00:00",
+  "accepted": 70,
+  "rejected": 0,
+  "rejections": [],
+  "gaps_detected": [],
+  "series_counts": {
+    "binance|BTC/USDT|1h": 14,
+    "binance|ETH/USDT|1h": 14,
+    "binance|SOL/USDT|1h": 14,
+    "binance|BNB/USDT|1h": 14,
+    "binance|XRP/USDT|1h": 14
+  },
+  "first_market_ts": "2026-07-18T02:00:00+00:00",
+  "last_market_ts": "2026-07-18T15:00:00+00:00",
+  "raw_path": "/workspace/data/future_unseen/raw/fu_collect_20260718T162252Z_56bc9f23.jsonl",
+  "validated_path": "/workspace/data/future_unseen/validated/fu_collect_20260718T162252Z_56bc9f23.jsonl",
+  "file_sha256": "96b169bef9223722d9e9fa166664a0c3eca4e29dd32eb71929c3f09fc80a36a6",
+  "append_only": true,
+  "silent_overwrite_forbidden": true,
+  "batch_sha256": "3f33905b53e232c1292cadf3edc4ad2cf430f4af6b2139d47072a8215b37aa86"
+}

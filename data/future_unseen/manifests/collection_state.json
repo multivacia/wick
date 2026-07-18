@@ -3,14 +3,13 @@
   "R3E_FUTURE_VALIDATION_AUDIT": "COMPLETE",
   "R3E_FUTURE_DATA_COLLECTION": "IN_PROGRESS",
   "R3E_GATE": "PENDING_FUTURE_UNSEEN_DATA",
+  "cutoff": "2026-07-18T01:30:00+00:00",
+  "engine_version": "0.1.0",
   "ECONOMIC_INTERPRETATION_ALLOWED": false,
   "R4_STATUS": "BLOCKED",
   "R5_STATUS": "NOT_STARTED",
-  "cutoff": "2026-07-18T01:30:00+00:00",
-  "engine_version": "0.1.0",
-  "commit": "20201e1e74afafbe3574ca9e364beac4128f8370",
-  "updated_at": "2026-07-18T14:53:39.753454+00:00",
+  "updated_at": "2026-07-18T16:23:06.922905+00:00",
   "validation_command_executed": false,
   "effect_peeking_performed": false,
-  "initialization": "FORMAL_START"
+  "validation_status": "NOT_RUN"
 }

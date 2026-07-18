@@ -1,0 +1,20 @@
+{
+  "collection_run_id": "fu_collect_20260718T162252Z_56bc9f23",
+  "persist": {
+    "dry_run": false,
+    "written": true,
+    "batch_id": "fu_collect_20260718T162252Z_56bc9f23",
+    "n_accepted": 70,
+    "n_store_rejected": 0,
+    "duplicates_in_batch_rejections": 0,
+    "file_sha256": "96b169bef9223722d9e9fa166664a0c3eca4e29dd32eb71929c3f09fc80a36a6",
+    "batch_sha256": "3f33905b53e232c1292cadf3edc4ad2cf430f4af6b2139d47072a8215b37aa86",
+    "raw_path": "/workspace/data/future_unseen/raw/fu_collect_20260718T162252Z_56bc9f23.jsonl",
+    "validated_path": "/workspace/data/future_unseen/validated/fu_collect_20260718T162252Z_56bc9f23.jsonl",
+    "manifest_path": "/workspace/data/future_unseen/manifests/batch_fu_collect_20260718T162252Z_56bc9f23.json",
+    "store_rejection_reasons": []
+  },
+  "ops_hash_integrity_ok": true,
+  "ops_hash_errors": [],
+  "sha256": "6381602ae2656103e1abcec384467c2116b7f35580a9cd17c4939c99dacb4369"
+}

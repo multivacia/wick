@@ -144,3 +144,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Merge PR #8 em `main` (`2cf41f3`) | Infra de validação futura incorporada | Cutoff/freeze preservados; sem evidência científica |
 | 2026-07-18 | Init formal da coleta future-unseen | `python -m wick.r3e.future_unseen init` (PR #9 → `20201e1`) | `R3E_FUTURE_DATA_COLLECTION=IN_PROGRESS`; `validate` não executado |
 | 2026-07-18 | Backfill operacional 90d histórico | `python -m wick.r3e.operational_backfill collect` | 20/20 séries; 13725 barras; sandbox isolada; gate inalterado |
+| 2026-07-18 | Merge PR #11 em `main` (`132bbb1`) | Backfill operacional incorporado | Scientific eligibility=false; future-unseen intacto |
+| 2026-07-18 | Coletor incremental future-unseen | `python -m wick.r3e.future_unseen collect` | 70 obs pós-cutoff (crypto 1h); validate não executado |
