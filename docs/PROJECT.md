@@ -148,3 +148,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Coletor incremental future-unseen | `python -m wick.r3e.future_unseen collect` | 70 obs pós-cutoff (crypto 1h); validate não executado |
 | 2026-07-18 | Merge PR #12 em `main` (`a258e71`) | Coletor incremental + governança de revisão incorporados | Coleta permanece `IN_PROGRESS`; `validate` não executado; R4/R5 inalterados |
 | 2026-07-18 | Próximo item R3E formalmente ambíguo | Fontes oficiais conflitam (coleta contínua vs readiness vs validate) | `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM`; sem implementação por inferência |
+| 2026-07-18 | Autorização humana B2 / R3E-READINESS-001 | Ambiguidade pós-PR #12 resolvida | Próximo item = Future-Unseen Readiness Gate; validate/R4/R5 não autorizados |

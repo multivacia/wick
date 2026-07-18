@@ -14,7 +14,9 @@ PR12_MERGED_AT = 2026-07-18T18:12:24Z
 CREATED_AT = 2026-07-18T18:12:34Z
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
-NEXT_ITEM_STATUS = BLOCKED_BY_AMBIGUOUS_NEXT_ITEM
+NEXT_ITEM_STATUS = RESOLVED_BY_HUMAN_AUTHORIZATION
+RESOLVED_NEXT_ITEM = R3E-READINESS-001
+RESOLVED_BACKLOG_ITEM = B2
 ```
 
 ## Conclusão
@@ -22,7 +24,9 @@ NEXT_ITEM_STATUS = BLOCKED_BY_AMBIGUOUS_NEXT_ITEM
 ```text
 NEXT_ITEM_ID = <undefined>
 NEXT_ITEM_TITLE = <undefined>
-NEXT_ITEM_STATUS = BLOCKED_BY_AMBIGUOUS_NEXT_ITEM
+NEXT_ITEM_STATUS = RESOLVED_BY_HUMAN_AUTHORIZATION
+RESOLVED_NEXT_ITEM = R3E-READINESS-001
+RESOLVED_BACKLOG_ITEM = B2
 IMPLEMENTATION_PERFORMED = false
 ```
 
@@ -75,3 +79,28 @@ Não foi possível determinar, sem inferência indevida, um próximo item oficia
 ## Decisão pendente (humana)
 
 Escolher e versionar explicitamente o próximo `TASK_ID` / `BACKLOG_ITEM` antes de qualquer implementação futura.
+
+## Addendum — Decisão humana formal (B2)
+
+```text
+DECISION_AT = 2026-07-18T18:33:00Z
+PREVIOUS_STATUS = BLOCKED_BY_AMBIGUOUS_NEXT_ITEM
+RESOLUTION_STATUS = RESOLVED_BY_HUMAN_AUTHORIZATION
+BACKLOG_ITEM = B2
+TASK_ID = R3E-READINESS-001
+TITLE = Future-Unseen Readiness Gate
+SEQUENCE_AFTER = R3E-B1 / PR #12
+IMPLEMENTATION_AUTHORIZED = true
+VALIDATE_EXECUTION_AUTHORIZED = false
+R4_AUTHORIZED = false
+R5_AUTHORIZED = false
+IMPLEMENTATION_BRANCH_REQUIRED = feature/r3e-future-unseen-readiness-gate
+IMPLEMENTATION_ON_THIS_PR = false
+```
+
+Decisão anterior (preservada): ambiguidade pós-PR #12 sem `BACKLOG_ITEM` oficial.
+
+Decisão humana posterior: autoriza B2 / `R3E-READINESS-001` em **branch e PR novas**, sem executar `validate`, sem abrir R4/R5.
+
+Efeito sobre o backlog: `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM` encerrado; próximo item oficial = B2.
+

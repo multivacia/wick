@@ -46,8 +46,31 @@ Registrar formalmente que, após o merge da PR #12, **não existe** um próximo 
 
 ## Decisão requerida (humana)
 
-Autorizar explicitamente **um** dos candidatos abaixo (ou outro item versionado futuro) antes de qualquer implementação:
+**Resolvida** pela autorização humana formal de B2 / `R3E-READINESS-001` (Future-Unseen Readiness Gate).
 
-1. continuação operacional da coleta incremental até completude;
-2. protocolo/checklist de readiness pré-validação (`R3E-READINESS-*` ainda não especificado como tarefa oficial);
-3. execução de `validate` somente após completude formal.
+Candidatos não eleitos neste momento: continuação operacional pura sem gate; execução de `validate`.
+
+## Addendum — Decisão humana formal (B2)
+
+```text
+DECISION_AT = 2026-07-18T18:33:00Z
+PREVIOUS_STATUS = BLOCKED_BY_AMBIGUOUS_NEXT_ITEM
+RESOLUTION_STATUS = RESOLVED_BY_HUMAN_AUTHORIZATION
+BACKLOG_ITEM = B2
+TASK_ID = R3E-READINESS-001
+TITLE = Future-Unseen Readiness Gate
+SEQUENCE_AFTER = R3E-B1 / PR #12
+IMPLEMENTATION_AUTHORIZED = true
+VALIDATE_EXECUTION_AUTHORIZED = false
+R4_AUTHORIZED = false
+R5_AUTHORIZED = false
+IMPLEMENTATION_BRANCH_REQUIRED = feature/r3e-future-unseen-readiness-gate
+IMPLEMENTATION_ON_THIS_PR = false
+```
+
+Decisão anterior (preservada): ambiguidade pós-PR #12 sem `BACKLOG_ITEM` oficial.
+
+Decisão humana posterior: autoriza B2 / `R3E-READINESS-001` em **branch e PR novas**, sem executar `validate`, sem abrir R4/R5.
+
+Efeito sobre o backlog: `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM` encerrado; próximo item oficial = B2.
+
