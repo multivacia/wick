@@ -32,6 +32,19 @@ data/future_unseen/validated/*
 !reports/r3e_future_unseen/
 !reports/r3e_future_unseen/**
 reports/r3e_future_unseen/*.log
+
+# Operational historical backfill sandbox (isolated from future_unseen)
+!data/operational_backfill/
+!data/operational_backfill/**
+data/operational_backfill/**/raw/*
+!data/operational_backfill/**/raw/.gitkeep
+data/operational_backfill/**/validated/*
+!data/operational_backfill/**/validated/.gitkeep
+# Keep manifests + small reports; large jsonl stays ignored via raw/validated rules
+
+!reports/r3e_operational_backfill/
+!reports/r3e_operational_backfill/**
+reports/r3e_operational_backfill/*.log
 .DS_Store
 
 !reports/r3d/
