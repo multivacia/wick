@@ -179,7 +179,7 @@ IMPLEMENTATION_AUTHORIZED = true
 VALIDATE_EXECUTION_AUTHORIZED = false
 R4_AUTHORIZED = false
 R5_AUTHORIZED = false
-IMPLEMENTATION_BRANCH_REQUIRED = feature/r3e-future-unseen-readiness-gate
+IMPLEMENTATION_BRANCH_REQUIRED = cursor/r3e-future-unseen-readiness-gate-2b14
 IMPLEMENTATION_ON_THIS_PR = false
 ```
 

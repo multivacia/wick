@@ -10,7 +10,7 @@ PR14_MERGED_AT = 2026-07-18T18:35:17Z
 BACKLOG_ITEM = B2
 TASK_ID = R3E-READINESS-001
 TITLE = Future-Unseen Readiness Gate
-BRANCH = feature/r3e-future-unseen-readiness-gate
+BRANCH = cursor/r3e-future-unseen-readiness-gate-2b14
 PR = TO_BE_RECORDED_EXTERNALLY
 COMMITS = TO_BE_RECORDED_EXTERNALLY
 CONTENT_REVIEWED_THROUGH_HEAD = 9635a8a8981aba50a79e253c9a773f51e00c5920
@@ -79,7 +79,7 @@ A trilha histórica `BLOCKED_BY_AMBIGUOUS_NEXT_ITEM` foi preservada via addendum
 Branch nova a partir de `main` pós-PR #14:
 
 ```text
-BRANCH = feature/r3e-future-unseen-readiness-gate
+BRANCH = cursor/r3e-future-unseen-readiness-gate-2b14
 BASE = baf84763bd25a66c4371c2674866d13f059020cd
 IMPLEMENTATION_COMMIT = 9635a8a8981aba50a79e253c9a773f51e00c5920
 ```
