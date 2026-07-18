@@ -3,15 +3,17 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 
 import typer
 
+from wick.r3e.future_unseen.collector import run_collect
 from wick.r3e.future_unseen.ingest import ingest_batch
 from wick.r3e.future_unseen.initialization import initialize_collection
 from wick.r3e.future_unseen.ops_report import build_ops_report
 from wick.r3e.future_unseen.paths import REPORTS_DIR, SPEC_PATH
-from wick.r3e.future_unseen.validate import run_validation
+from wick.r3e.future_unseen.protections import parse_market_ts
 
 app = typer.Typer(
     name="future_unseen",
@@ -100,6 +102,55 @@ def ingest_json_cmd(
     )
 
 
+@app.command("collect")
+def collect_cmd(
+    dry_run: bool = typer.Option(False, "--dry-run", help="Do not write to official store"),
+    series: str | None = typer.Option(
+        None, "--series", help="Filter by official symbol (does not alter frozen universe)"
+    ),
+    provider: str | None = typer.Option(
+        None, "--provider", help="Filter by source (binance|yahoo)"
+    ),
+    as_of: str | None = typer.Option(
+        None,
+        "--as-of",
+        help="Timezone-aware UTC timestamp for deterministic closed-candle decisions",
+    ),
+    output_report: Path | None = typer.Option(
+        None, "--output-report", help="Directory for this run's operational reports"
+    ),
+    max_retries: int = typer.Option(3, "--max-retries", min=0, max=10),
+) -> None:
+    """Incrementally collect closed post-cutoff OHLCV into the official store."""
+    as_of_dt: datetime | None = None
+    if as_of is not None:
+        as_of_dt = parse_market_ts(as_of)
+    result = run_collect(
+        dry_run=dry_run,
+        series_filter=series,
+        provider_filter=provider,
+        as_of=as_of_dt,
+        max_retries=max_retries,
+        output_report_dir=output_report,
+    )
+    typer.echo(
+        json.dumps(
+            {
+                "collection_run_id": result["collection_run_id"],
+                "run_status": result["run_status"],
+                "dry_run": result["dry_run"],
+                "n_before": result["n_observations_before"],
+                "n_after": result["n_observations_after"],
+                "n_candidates": result["n_candidates"],
+                "persist": result["persist"],
+                "ops": result["ops"],
+                "validate_executed": False,
+            },
+            indent=2,
+        )
+    )
+
+
 @app.command("validate")
 def validate_cmd(
     manifest: Path | None = typer.Option(None, "--manifest"),
@@ -107,6 +158,10 @@ def validate_cmd(
     out_dir: Path = typer.Option(REPORTS_DIR, "--out-dir"),
 ) -> None:
     """Run final validation when collection completeness is met."""
+    # Lazy import: keep collect path free of validate/gate imports at module load for tests
+    # that inspect collector dependencies; validate remains available as an explicit command.
+    from wick.r3e.future_unseen.validate import run_validation
+
     out = run_validation(manifest_path=manifest, spec_path=spec, out_dir=out_dir)
     gate = out["gate"]
     typer.echo(
