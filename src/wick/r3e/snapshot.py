@@ -28,7 +28,9 @@ def _pkg_version(name: str) -> str | None:
 def _series_hash(session: Session, asset_id: Any, timeframe: str) -> str:
     rows = session.scalars(
         select(Candle)
-        .where(Candle.asset_id == asset_id, Candle.timeframe == timeframe, Candle.is_closed.is_(True))
+        .where(
+            Candle.asset_id == asset_id, Candle.timeframe == timeframe, Candle.is_closed.is_(True)
+        )
         .order_by(Candle.timestamp)
     ).all()
     h = hashlib.sha256()

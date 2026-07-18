@@ -194,16 +194,25 @@ def main() -> int:
     (OUT / "executive_report.json").write_text(
         json.dumps(executive, indent=2, default=str) + "\n", encoding="utf-8"
     )
-    print(json.dumps({k: executive[k] for k in (
-        "classification",
-        "R3E_GATE",
-        "R3E_REAL_DATA_RUN",
-        "R4_STATUS",
-        "classification_counts",
-        "n_series",
-        "n_result_rows",
-        "DATA_ORIGIN",
-    ) if k in executive}, indent=2))
+    print(
+        json.dumps(
+            {
+                k: executive[k]
+                for k in (
+                    "classification",
+                    "R3E_GATE",
+                    "R3E_REAL_DATA_RUN",
+                    "R4_STATUS",
+                    "classification_counts",
+                    "n_series",
+                    "n_result_rows",
+                    "DATA_ORIGIN",
+                )
+                if k in executive
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

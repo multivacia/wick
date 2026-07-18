@@ -28,9 +28,7 @@ def classify_r3e(
         return "CANDLE_ADDS_NO_VALUE"
     if context_promising:
         return "CONTEXT_PROMISING"
-    if mean_net_m4 is not None and mean_net_m4 <= 0 and (
-        mean_net_m5 is None or mean_net_m5 <= 0
-    ):
+    if mean_net_m4 is not None and mean_net_m4 <= 0 and (mean_net_m5 is None or mean_net_m5 <= 0):
         return "CONTEXT_HAS_NO_EDGE"
     return "INCONCLUSIVE"
 

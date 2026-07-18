@@ -247,9 +247,7 @@ def run_model_nested(
         "train_windows": train_windows,
         "test_windows": test_windows,
         "overlap_policy": overlap_policy,
-        "window_stability": [
-            {"fold": w["fold"], "test_n": w["n"]} for w in test_windows
-        ],
+        "window_stability": [{"fold": w["fold"], "test_n": w["n"]} for w in test_windows],
     }
 
 
@@ -334,9 +332,7 @@ def run_r3e_on_series(
         hr_r = hit_rate(right_rets[:n]) if n else None
         d["hit_rate_left"] = hr_l
         d["hit_rate_right"] = hr_r
-        d["delta_hit_rate"] = (
-            None if hr_l is None or hr_r is None else float(hr_l - hr_r)
-        )
+        d["delta_hit_rate"] = None if hr_l is None or hr_r is None else float(hr_l - hr_r)
         pairs_out.append(d)
 
     return {
@@ -350,7 +346,9 @@ def run_r3e_on_series(
             for k, v in results.items()
         },
         "pairs": pairs_out,
-        "delta_candle": next((x for x in pairs_out if x["left"] == "M5" and x["right"] == "M4"), None),
+        "delta_candle": next(
+            (x for x in pairs_out if x["left"] == "M5" and x["right"] == "M4"), None
+        ),
         "classification": classification,
         "gate": final_gate_state(classification, real_data=real_data),
         "r3d_holdout_excluded_obs": sum(1 for o in observations if o.in_r3d_holdout),
