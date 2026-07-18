@@ -16,12 +16,13 @@ def main(argv: list[str] | None = None) -> int:
         "paths",
         nargs="*",
         type=Path,
-        help="Markdown artifacts to validate (default: known PR12 review trio if present)",
+        help="Markdown artifacts to validate (default: known governance/impact samples if present)",
     )
     args = parser.parse_args(argv)
     paths = list(args.paths)
     if not paths:
         defaults = [
+            Path("docs/ai-impact/IMPACT-ASSESSMENT-001_IMPACT_ASSESSMENT.md"),
             Path("docs/ai-specs/R3E-B1-PR12-INCREMENTAL-COLLECTOR_REVIEW_SPEC.md"),
             Path(
                 "docs/ai-reviews/R3E-B1-PR12-INCREMENTAL-COLLECTOR_TECHNICAL-AND-SCIENTIFIC-SAFETY_REVIEW.md"
