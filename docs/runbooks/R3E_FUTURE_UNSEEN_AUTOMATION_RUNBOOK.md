@@ -44,23 +44,53 @@ Ordem fixa:
 9. estado resumido `reports/r3e_future_unseen/automation_state.json`
 10. eventos de transição em `automation_events.jsonl`
 
-## Status e exit codes
+## Status e exit codes (`run-cycle`)
+
+Contrato aprovado pela análise de impacto (não misturar com exit codes do comando `readiness`):
 
 ```text
-COMPLETE / PARTIAL / NO_NEW_DATA -> exit 0
-FAILED                          -> exit 1
-BLOCKED                         -> exit 3
-SKIPPED_LOCKED                  -> exit 4
+0 = COMPLETE
+0 = PARTIAL
+0 = NO_NEW_DATA
+1 = FAILED
+3 = BLOCKED
+4 = SKIPPED_LOCKED
 ```
+
+A saída JSON sempre inclui o campo textual `status`.
+
+Exit codes do comando `readiness` permanecem separados (`0=READY`, `2=NOT_READY`, `3=BLOCKED`).
+
+## Timeout (checkpoint model)
+
+```text
+PROVIDER_TIMEOUT = delegated_to_provider_retry_layer
+CYCLE_TIMEOUT = 3000_seconds_checkpointed
+HARD_CANCEL_MID_FLIGHT = false
+TIMEOUT_LIMITATION = execution_in_progress_is_checked_at_safe_checkpoints
+```
+
+- o timeout **não** interrompe uma chamada de provedor já em execução;
+- após expiração, novas etapas do ciclo não iniciam;
+- o lock é liberado no encerramento seguro;
+- timeout é registrado em `timed_out` / `hard_error` e classifica `FAILED`;
+- hard-cancel mid-flight fica como backlog futuro separado (não nesta entrega).
 
 ## Lock
 
 Arquivo: `reports/r3e_future_unseen/automation.lock`
 
+```text
+LOCK_PATH = reports/r3e_future_unseen/automation.lock
+LOCK_MECHANISM = atomic_file_O_CREAT_EXCL
+LOCK_TTL = 3300_seconds
+```
+
 - aquisição atômica (`O_CREAT|O_EXCL`)
 - owner = hostname:pid
 - TTL default 55 minutos
 - stale lock recuperável (expirado ou pid morto)
+- liberação normal ao fim do ciclo / interrupção tratada
 
 ## Frequência recomendada
 
@@ -73,6 +103,12 @@ Universo oficial mistura `1h` e `1d`.
 - Não executar mais de um ciclo sobreposto (lock impede)
 
 ## Scheduler (estratégia)
+
+```text
+RUNNER_STRATEGY = local_agnostic_script
+SCHEDULER_STRATEGY = cron_or_systemd_hourly_minute_15
+STORE_OWNERSHIP = durable_host_volume_not_github_actions
+```
 
 ### Prioridade 1 — runner local / cron / systemd
 

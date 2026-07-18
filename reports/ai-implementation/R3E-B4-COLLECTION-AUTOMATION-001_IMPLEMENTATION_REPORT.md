@@ -7,45 +7,37 @@ RELEASE = R3E
 BACKLOG_ITEM = B4
 TASK_ID = COLLECTION-AUTOMATION-001
 IMPLEMENTATION_STATUS = COMPLETE
-REVIEW_STATUS = APPROVED
-MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
-BASE_SHA = fd4cf1df3961a2411c3e367fd675b89ef05858a6
-IMPLEMENTATION_HEAD = 85d3f47d8dd0f30e04ac8b39063b9bb344dbc8de
+CHANGE_RISK = HIGH
+IMPACT_ASSESSMENT_PATH = docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+REVIEW_STATUS = PENDING
+MERGE_STATUS = BLOCKED
+BASE_SHA = 8c6cb4966fdb13abd34a4c066597ceea4c4cfaf9
 COMMAND = python -m wick.r3e.future_unseen run-cycle
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
-CREATED_AT = 2026-07-18T19:58:00Z
+UPDATED_AT = 2026-07-18T20:24:30Z
 ```
 
-## Entregas
+Impact path: `docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md`
 
-- módulo `automation.py` com lock atômico, preflight, ciclo completo, histórico e estado
-- CLI `run-cycle` com flags operacionais seguras
-- testes cobrindo ciclo, lock, stale, timeout, retries, transições, anti-validate
-- runbook + `scripts/r3e_future_unseen_run_cycle.sh`
-- evidência dry-run-only sem mutar store (85→85)
+## Ajustes aplicados (APPROVE_WITH_CHANGES)
 
-## Scheduler
+- metadados G1 em artefatos B4
+- timeout checkpoint formalizado no código/runbook/relatório (`HARD_CANCEL_MID_FLIGHT=false`)
+- exit codes alinhados e documentados (separados de readiness)
+- escrita atômica de JSON + falha de alias não destrói histórico
+- testes extras: concorrência, pid morto, timeout model, alias failure
+- branch atualizada com main (G1)
 
-```text
-SCHEDULER_STRATEGY = local_cron_or_systemd_hourly_at_minute_15
-SCHEDULER_IMPLEMENTED = documented_runner_script
-GITHUB_ACTIONS_STORE_PERSISTENCE = not_implemented_by_design
-```
-
-## Evidência operacional
+## Scheduler / Lock
 
 ```text
-LAST_RUN_ID = fu_auto_20260718T195710Z_a141bf40
-LAST_RUN_STATUS = COMPLETE
-DRY_RUN_ONLY = true
-OBSERVATIONS_ACCEPTED = 0
-STORE_BEFORE = 85
-STORE_AFTER = 85
-READINESS_STATUS = NOT_READY
-READINESS_REASON = WINDOW_DAYS_INSUFFICIENT
-HASH_STATUS = OK
-MANIFEST_STATUS = OK
+SCHEDULER_STRATEGY = cron_or_systemd_hourly_minute_15
+RUNNER_STRATEGY = local_agnostic_script
+STORE_OWNERSHIP = durable_host_volume_not_github_actions
+LOCK_STRATEGY = atomic_file_O_CREAT_EXCL_ttl_3300s
 ```

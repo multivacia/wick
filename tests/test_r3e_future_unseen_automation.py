@@ -761,3 +761,101 @@ def test_lock_owner_fields(auto_dirs):
     assert "expires_at" in meta
     lock.release()
     assert not auto_dirs["lock"].exists()
+
+
+def test_concurrent_cycles_second_skipped(auto_dirs):
+    held = AutomationLock(auto_dirs["lock"], run_id="holder", ttl_seconds=600)
+    assert held.acquire()[0]
+    first = run_cycle(
+        as_of=datetime(2026, 7, 18, 6, 0, tzinfo=UTC),
+        collect_fn=lambda **_k: (_ for _ in ()).throw(AssertionError("must not collect under lock")),
+        readiness_fn=lambda **_k: _ready_report(),
+        ops_fn=lambda **_k: {"hash_integrity_ok": True},
+        lock_path=auto_dirs["lock"],
+        state_path=auto_dirs["state"],
+        runs_dir=auto_dirs["runs"],
+        events_path=auto_dirs["events"],
+    )
+    second = run_cycle(
+        as_of=datetime(2026, 7, 18, 6, 1, tzinfo=UTC),
+        collect_fn=lambda **_k: (_ for _ in ()).throw(AssertionError("must not collect under lock")),
+        readiness_fn=lambda **_k: _ready_report(),
+        ops_fn=lambda **_k: {"hash_integrity_ok": True},
+        lock_path=auto_dirs["lock"],
+        state_path=auto_dirs["state"],
+        runs_dir=auto_dirs["runs"],
+        events_path=auto_dirs["events"],
+    )
+    assert first["status"] == STATUS_SKIPPED_LOCKED
+    assert second["status"] == STATUS_SKIPPED_LOCKED
+    assert auto_dirs["lock"].exists()
+    held.release()
+
+
+def test_dead_pid_stale_lock(auto_dirs):
+    dead = {
+        "run_id": "dead-pid",
+        "pid": 2_147_483_647,
+        "acquired_at": "2026-07-18T00:00:00+00:00",
+        "expires_at": "2099-01-01T00:00:00+00:00",
+        "owner": "dead:2147483647",
+    }
+    auto_dirs["lock"].write_text(json.dumps(dead), encoding="utf-8")
+    out = run_cycle(
+        as_of=datetime(2026, 7, 18, 6, 0, tzinfo=UTC),
+        collect_fn=lambda **kwargs: _base_collect_result(dry_run=bool(kwargs.get("dry_run"))),
+        readiness_fn=lambda **_k: _ready_report(),
+        ops_fn=lambda **_k: {"hash_integrity_ok": True, "n_observations_total": 12},
+        skip_idempotency_check=True,
+        lock_path=auto_dirs["lock"],
+        state_path=auto_dirs["state"],
+        runs_dir=auto_dirs["runs"],
+        events_path=auto_dirs["events"],
+    )
+    assert out["status"] in {STATUS_COMPLETE, STATUS_PARTIAL, STATUS_NO_NEW_DATA}
+    assert not auto_dirs["lock"].exists()
+
+
+def test_timeout_model_documented_in_report(auto_dirs):
+    out = run_cycle(
+        as_of=datetime(2026, 7, 18, 6, 0, tzinfo=UTC),
+        collect_fn=lambda **kwargs: _base_collect_result(dry_run=bool(kwargs.get("dry_run"))),
+        readiness_fn=lambda **_k: _ready_report(),
+        ops_fn=lambda **_k: {"hash_integrity_ok": True, "n_observations_total": 12},
+        skip_idempotency_check=True,
+        lock_path=auto_dirs["lock"],
+        state_path=auto_dirs["state"],
+        runs_dir=auto_dirs["runs"],
+        events_path=auto_dirs["events"],
+    )
+    model = out["timeout_model"]
+    assert model["HARD_CANCEL_MID_FLIGHT"] is False
+    assert "checkpoint" in model["TIMEOUT_LIMITATION"]
+    assert model["PROVIDER_TIMEOUT"] == "delegated_to_provider_retry_layer"
+
+
+def test_state_alias_failure_preserves_immutable_history(auto_dirs, monkeypatch):
+    real_write = automation_mod._write_json
+
+    def flaky_write(path, doc):
+        if path.name == "automation_state.json":
+            raise OSError("simulated alias failure")
+        return real_write(path, doc)
+
+    monkeypatch.setattr(automation_mod, "_write_json", flaky_write)
+    out = run_cycle(
+        as_of=datetime(2026, 7, 18, 6, 0, tzinfo=UTC),
+        collect_fn=lambda **kwargs: _base_collect_result(dry_run=bool(kwargs.get("dry_run"))),
+        readiness_fn=lambda **_k: _ready_report(),
+        ops_fn=lambda **_k: {"hash_integrity_ok": True, "n_observations_total": 12},
+        skip_idempotency_check=True,
+        lock_path=auto_dirs["lock"],
+        state_path=auto_dirs["state"],
+        runs_dir=auto_dirs["runs"],
+        events_path=auto_dirs["events"],
+    )
+    report = Path(out["run_dir"]) / "cycle_report.json"
+    assert report.is_file()
+    body = json.loads(report.read_text(encoding="utf-8"))
+    assert body["automation_state_update_ok"] is False
+    assert "simulated alias failure" in body["automation_state_update_error"]

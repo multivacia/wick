@@ -8,24 +8,29 @@ BACKLOG_ITEM = B4
 TASK_ID = COLLECTION-AUTOMATION-001
 TITLE = Future-Unseen Collection Automation and Readiness Monitoring
 SPEC_STATUS = APPROVED
-REVIEW_STATUS = APPROVED
-MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+CHANGE_RISK = HIGH
+IMPACT_ASSESSMENT_PATH = docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+REVIEW_STATUS = PENDING
+MERGE_STATUS = BLOCKED
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA = fd4cf1df3961a2411c3e367fd675b89ef05858a6
+BASE_SHA = 8c6cb4966fdb13abd34a4c066597ceea4c4cfaf9
 HEAD_BRANCH = cursor/r3e-future-unseen-collection-automation-2b14
-FEATURE_BRANCH_ALIAS = feature/r3e-future-unseen-collection-automation
+PULL_REQUEST = 19
 VALIDATE_EXECUTION_AUTHORIZED = false
 R4_AUTHORIZED = false
 R5_AUTHORIZED = false
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 CREATED_AT = 2026-07-18T19:54:17Z
+UPDATED_AT = 2026-07-18T20:24:30Z
 ```
 
 ## Objetivo
 
-Automatizar o ciclo operacional seguro de coleta incremental + readiness, eliminando rodadas manuais frequentes, sem autorizar validação científica.
+Automatizar o ciclo operacional seguro de coleta incremental + readiness, com lock, histórico auditável e scheduler documentado, sem autorizar validação científica.
 
 ## Escopo
 
@@ -34,21 +39,32 @@ Automatizar o ciclo operacional seguro de coleta incremental + readiness, elimin
 - dry-run → collect → idempotência → ops → readiness
 - histórico imutável + estado resumido derivável
 - detecção de transições READY/BLOCKED
-- runbook de scheduler (cron/systemd; Actions não persiste store)
+- runbook de scheduler local (cron/systemd)
+- ajustes pós-impacto: metadados G1, timeout checkpoint documentado, contratos alinhados
 
 ## Não escopo
 
 - `validate`
-- alteração de cutoff/freeze/universo/thresholds/grids/custos
+- hard-cancel mid-flight de provider calls
+- GitHub Actions persistindo store oficial
+- alteração de cutoff/freeze/universo/thresholds
 - R4 / R5
-- persistência do store oficial via GitHub Actions hosted
+- merge automático
+
+## Contratos aprovados
+
+```text
+TIMEOUT_MODEL = checkpointed_3000s_no_hard_cancel
+EXIT_CODES = 0_complete_partial_nonewdata__1_failed__3_blocked__4_skipped_locked
+SCHEDULER_STRATEGY = cron_or_systemd_hourly_minute_15
+LOCK_PATH = reports/r3e_future_unseen/automation.lock
+```
 
 ## Critérios de aceite
 
 - [x] orquestração oficial implementada
-- [x] lock testado (ativo + stale)
-- [x] ciclo auditável
-- [x] readiness integrado sem validate
-- [x] testes cobrindo cenários obrigatórios
-- [x] artefatos de governança
-- [x] PR draft (sem merge automático)
+- [x] impacto HIGH aprovado com IMPLEMENTATION_AUTHORIZED=true
+- [x] ajustes G1/timeout/contratos aplicados
+- [ ] revisão independente do tip definitivo
+- [ ] CI verde no tip
+- [ ] merge somente com autorização humana

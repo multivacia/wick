@@ -44,6 +44,12 @@ DEFAULT_LOCK_TTL_SECONDS = 3300  # 55 minutes — under hourly cadence
 DEFAULT_TIMEOUT_SECONDS = 3000
 DEFAULT_MAX_RETRIES = 3
 
+# Checkpoint timeout model (approved IMPACT ADJUST): do not kill in-flight provider calls.
+PROVIDER_TIMEOUT = "delegated_to_provider_retry_layer"
+CYCLE_TIMEOUT_MODEL = "3000_seconds_checkpointed"
+HARD_CANCEL_MID_FLIGHT = False
+TIMEOUT_LIMITATION = "execution_in_progress_is_checked_at_safe_checkpoints"
+
 LOCK_NAME = "automation.lock"
 STATE_NAME = "automation_state.json"
 RUNS_DIRNAME = "automation_runs"
@@ -117,8 +123,11 @@ def _read_json(path: Path) -> dict[str, Any] | None:
 
 
 def _write_json(path: Path, doc: dict[str, Any]) -> None:
+    """Atomic JSON write (temp file + replace) so partial writes do not corrupt targets."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+    tmp = path.with_name(f".{path.name}.tmp.{os.getpid()}.{uuid.uuid4().hex[:8]}")
+    tmp.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(path)
 
 
 def _is_stale_lock(meta: dict[str, Any], *, now: datetime) -> bool:
@@ -602,6 +611,12 @@ def run_cycle(
         "skip_idempotency_check": skip_idempotency_check,
         "strict": strict,
         "timeout_seconds": timeout_seconds,
+        "timeout_model": {
+            "PROVIDER_TIMEOUT": PROVIDER_TIMEOUT,
+            "CYCLE_TIMEOUT": CYCLE_TIMEOUT_MODEL,
+            "HARD_CANCEL_MID_FLIGHT": HARD_CANCEL_MID_FLIGHT,
+            "TIMEOUT_LIMITATION": TIMEOUT_LIMITATION,
+        },
         "lock": lock.meta,
         "preflight": {
             "ok": bool((preflight or {}).get("ok")),
@@ -665,15 +680,20 @@ def run_cycle(
     if readiness is not None:
         _write_json(run_dir / "readiness_report.json", readiness)
         # Keep latest readiness alias current for operators
-        _write_json(REPORTS_DIR / "readiness_report.json", readiness)
+        with contextlib.suppress(OSError):
+            _write_json(REPORTS_DIR / "readiness_report.json", readiness)
 
-    # Do not overwrite historical automation_state with SKIPPED_LOCKED no-ops beyond last_skip note
+    # Immutable run history is already persisted above. Alias update failures must not erase it.
+    doc["automation_state_path"] = str(state_file)
+    doc["automation_state_update_ok"] = True
     if status != STATUS_SKIPPED_LOCKED:
         state_doc = _derive_state_from_run(doc, previous=previous_state)
-        _write_json(state_file, state_doc)
-        doc["automation_state_path"] = str(state_file)
-    else:
-        doc["automation_state_path"] = str(state_file)
+        try:
+            _write_json(state_file, state_doc)
+        except OSError as exc:
+            doc["automation_state_update_ok"] = False
+            doc["automation_state_update_error"] = f"{type(exc).__name__}: {exc}"
+            _write_json(run_dir / "cycle_report.json", doc)
 
     # Touch manifests dir reference so tests can assert no scientific state mutation intent
     _ = MANIFESTS_DIR
