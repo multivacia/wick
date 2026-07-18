@@ -15,10 +15,10 @@ BASE_BRANCH = main
 HEAD_BRANCH = feature/r3e-future-unseen-incremental-collector
 ORIGINAL_IMPLEMENTATION_COMMITS = 1020313a8753f8beb6fa0fe64bb1f674ca01cf41, a44cfec911a04a92938c82dcada4ba7146a0133b
 PREVIOUSLY_REVIEWED_HEAD = 25135e15d2a9339370542d00013dfae00df34a1c
-CURRENT_PR_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
-HEAD_SHA_AT_REVIEW = 69636de475c1985d50281245a8279605c6b37d5a
+CURRENT_PR_HEAD = a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
+HEAD_SHA_AT_REVIEW = a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
 CREATED_AT = 2026-07-18T17:28:12Z
-RECONCILED_AT = 2026-07-18T17:36:26Z
+RECONCILED_AT = 2026-07-18T17:41:14Z
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 ```
@@ -77,22 +77,24 @@ EFFECT_PEEKING_PERFORMED = false
 
 ```text
 PREVIOUSLY_REVIEWED_HEAD = 25135e15d2a9339370542d00013dfae00df34a1c
-CURRENT_PR_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
-COMMITS_RECONCILED = f86d1ae2b16f5a72970f89f595a3887f96d875a0, 7b1646d3d32d18166636b10f9dca97c60bb220ab, 69636de475c1985d50281245a8279605c6b37d5a
-CHANGE_CLASSIFICATION = DOCUMENTATION_AND_GOVERNANCE_ONLY
+CURRENT_PR_HEAD = a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
+COMMITS_RECONCILED = f86d1ae2b16f5a72970f89f595a3887f96d875a0, 7b1646d3d32d18166636b10f9dca97c60bb220ab, 69636de475c1985d50281245a8279605c6b37d5a, 8be78410ca67c0cefa001a2a75a1db1a6ffdbec7, a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
+CHANGE_CLASSIFICATION = DOCUMENTATION_AND_GOVERNANCE_WITH_OFFLINE_VALIDATOR
+COLLECTOR_CODE_UNCHANGED_SINCE = 25135e15d2a9339370542d00013dfae00df34a1c
+SCIENTIFIC_CODE_CHANGED = false
 TECHNICAL_REVIEW_REMAINS_VALID = true
 SCIENTIFIC_SAFETY_REVIEW_REMAINS_VALID = true
 ```
 
-Justificativa: `git diff --name-status 25135e1..69636de` altera apenas os três artefatos documentais de revisão/especificação/relatório. Sem mudança de código, testes, CLI, store ou comportamento.
+Justificativa: `25135e1..69636de` é só documentação PR12; `69636de..a769ba6` adiciona governança + validador offline. Código científico do coletor (`collector`/`discovery`/store/cutoff) permanece inalterado desde `25135e1`.
 
 Regra: uma revisão só é válida para `HEAD_SHA_AT_REVIEW`. Se `CURRENT_PR_HEAD != HEAD_SHA_AT_REVIEW`, reconciliar formalmente, revisar complementarmente, ou voltar para `CHANGES_REQUIRED`.
 
 ## Critérios de aceite
 
-Estado verificado em `2026-07-18T17:39:16Z` sobre tip `69636de`:
+Estado verificado em `2026-07-18T17:41:14Z` sobre tip `a769ba6`:
 
-- [x] CI verde no tip atual (`R1 validate` SUCCESS no head `69636de`);
+- [x] CI verde no tip atual (`R1 validate` SUCCESS no head `a769ba6`);
 - [x] somente barras fechadas são aceitas (testes técnicos + inspeção do coletor);
 - [x] dry-run não escreve no store;
 - [x] reexecução é idempotente;

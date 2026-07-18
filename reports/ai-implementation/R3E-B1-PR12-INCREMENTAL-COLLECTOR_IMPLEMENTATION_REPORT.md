@@ -18,9 +18,12 @@ BRANCH = feature/r3e-future-unseen-incremental-collector
 BASE_BRANCH = main
 BASE_SHA_AT_FEATURE_START = 132bbb147289c65d6b1d02643a9ee998ec63d7b3
 HEAD_AFTER_MAIN_MERGE = 25135e15d2a9339370542d00013dfae00df34a1c
-CURRENT_PR_HEAD = 69636de475c1985d50281245a8279605c6b37d5a
+PREVIOUSLY_REVIEWED_HEAD = 25135e15d2a9339370542d00013dfae00df34a1c
+CURRENT_PR_HEAD = a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
+HEAD_SHA_AT_REVIEW = a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
+COMMITS_RECONCILED = f86d1ae2b16f5a72970f89f595a3887f96d875a0, 7b1646d3d32d18166636b10f9dca97c60bb220ab, 69636de475c1985d50281245a8279605c6b37d5a, 8be78410ca67c0cefa001a2a75a1db1a6ffdbec7, a769ba6254079ea7fe8f8771edf8b79ab3b7eecc
 CREATED_AT = 2026-07-18T17:28:12Z
-UPDATED_AT = 2026-07-18T17:36:26Z
+UPDATED_AT = 2026-07-18T17:41:14Z
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
@@ -95,4 +98,5 @@ EFFECT_PEEKING_PERFORMED = false
 - [x] `validate` não executado
 - [x] Sem peeking de efeito
 - [x] Merge da PR #12 não realizado
-- [x] Commits após `25135e1` são apenas documentais (reconciliados)
+- [x] Commits após `25135e1` até `a769ba6` são documentação/governança + validador offline (reconciliados); código científico do coletor inalterado
+- [x] Nenhuma reimplementação do coletor nesta tarefa de validação final
