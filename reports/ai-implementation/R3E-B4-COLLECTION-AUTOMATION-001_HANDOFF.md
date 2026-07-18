@@ -8,84 +8,49 @@ RELEASE = R3E
 BACKLOG_ITEM = B4
 TASK_ID = COLLECTION-AUTOMATION-001
 TITLE = Future-Unseen Collection Automation and Readiness Monitoring
+CHANGE_RISK = HIGH
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+IMPACT_ASSESSMENT_PATH = docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md
 BRANCH = cursor/r3e-future-unseen-collection-automation-2b14
 PR = 19
-BASE_SHA = fd4cf1df3961a2411c3e367fd675b89ef05858a6
-IMPLEMENTATION_HEAD = 85d3f47d8dd0f30e04ac8b39063b9bb344dbc8de
-CONTENT_REVIEWED_THROUGH_HEAD = 7e10bcf175b22c15702a5a919fee02829f57241e
+BASE_SHA = 8c6cb4966fdb13abd34a4c066597ceea4c4cfaf9
+IMPLEMENTATION_HEAD = 21708e3b73d7c4c30470a1fc3cda5c235359b6cb
+CONTENT_REVIEWED_THROUGH_HEAD = TO_BE_RECORDED_EXTERNALLY
 FINAL_CANDIDATE_HEAD = TO_BE_RECORDED_EXTERNALLY
-COMMITS = 4d021ff12babeaed2a01b126ac429c0890381441, 85d3f47d8dd0f30e04ac8b39063b9bb344dbc8de, 7e10bcf175b22c15702a5a919fee02829f57241e, <FINAL_CANDIDATE_HEAD>
-FILES_CREATED =
-  src/wick/r3e/future_unseen/automation.py
-  tests/test_r3e_future_unseen_automation.py
-  scripts/r3e_future_unseen_run_cycle.sh
-  docs/ai-specs/R3E-B4-COLLECTION-AUTOMATION-001_SPEC.md
-  docs/ai-reviews/R3E-B4-COLLECTION-AUTOMATION-001_REVIEW.md
-  docs/runbooks/R3E_FUTURE_UNSEEN_AUTOMATION_RUNBOOK.md
-  reports/ai-implementation/R3E-B4-COLLECTION-AUTOMATION-001_IMPLEMENTATION_REPORT.md
-  reports/ai-implementation/R3E-B4-COLLECTION-AUTOMATION-001_FINAL_VALIDATION_REPORT.md
-  reports/ai-implementation/R3E-B4-COLLECTION-AUTOMATION-001_HANDOFF.md
-  reports/r3e_future_unseen/automation_runs/fu_auto_20260718T195710Z_a141bf40/
-  reports/r3e_future_unseen/automation_state.json
-FILES_UPDATED =
-  src/wick/r3e/future_unseen/cli.py
-  docs/PROJECT.md
-  .gitignore
-  reports/r3e_future_unseen/ops_report.json
-  reports/r3e_future_unseen/ops_collection_report.json
-  reports/r3e_future_unseen/readiness_report.json
-COMMAND = python -m wick.r3e.future_unseen run-cycle
-SCHEDULER_STRATEGY = local_cron_or_systemd_hourly_at_minute_15
-SCHEDULER_IMPLEMENTED = documented_runner_script
-LOCK_STRATEGY = atomic_file_lock_ttl_stale_recovery
-AUTOMATION_STATUS = OPERATIONAL
-LAST_RUN_ID = fu_auto_20260718T195710Z_a141bf40
+ADJUSTMENTS_APPLIED = G1_metadata,checkpoint_timeout_docs,atomic_state_write,extra_lock_tests,exit_code_alignment,main_rebase
+TIMEOUT_MODEL = PROVIDER_TIMEOUT=delegated_to_provider_retry_layer;CYCLE_TIMEOUT=3000_seconds_checkpointed;HARD_CANCEL_MID_FLIGHT=false
+EXIT_CODES = 0=COMPLETE|PARTIAL|NO_NEW_DATA;1=FAILED;3=BLOCKED;4=SKIPPED_LOCKED
+SCHEDULER_STRATEGY = cron_or_systemd_hourly_minute_15
+LOCK_STRATEGY = atomic_file_O_CREAT_EXCL_ttl_3300s
+LAST_RUN_ID = fu_auto_20260718T202531Z_5473ccd0
 LAST_RUN_STATUS = COMPLETE
+STORE_BEFORE = 85
+STORE_AFTER = 85
 OBSERVATIONS_ACCEPTED = 0
 IDEMPOTENCY_STATUS = SKIPPED
 READINESS_STATUS = NOT_READY
 READINESS_REASON = WINDOW_DAYS_INSUFFICIENT
-WINDOW_DAYS = 0.7688657407407408
-ELIGIBLE_SERIES = 5
-SERIES_WITH_MIN_BARS = 0
 HASH_STATUS = OK
 MANIFEST_STATUS = OK
-TESTS = 78 PASSED
-FULL_TEST_SUITE = 193 PASSED
+RELEVANT_TESTS = 93 PASSED
+FULL_TEST_SUITE = 208 PASSED
 LINT_STATUS = PASS
 CI_STATUS = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
-GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
+GOVERNANCE_VALIDATOR = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
-SCIENTIFIC_STATE_BEFORE =
-  R3E_FUTURE_DATA_COLLECTION=IN_PROGRESS
-  R3E_GATE=PENDING_FUTURE_UNSEEN_DATA
-  ECONOMIC_INTERPRETATION_ALLOWED=false
-  R4_STATUS=BLOCKED
-  R5_STATUS=NOT_STARTED
-SCIENTIFIC_STATE_AFTER =
-  R3E_FUTURE_DATA_COLLECTION=IN_PROGRESS
-  R3E_GATE=PENDING_FUTURE_UNSEEN_DATA
-  ECONOMIC_INTERPRETATION_ALLOWED=false
-  R4_STATUS=BLOCKED
-  R5_STATUS=NOT_STARTED
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
 REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 BLOCKERS = none
-FINAL_RECOMMENDATION = schedule local hourly run-cycle; continue until readiness READY; do not run validate without human authorization; do not merge without human review
+FINAL_RECOMMENDATION = await human merge authorization for PR #19; schedule local hourly run-cycle; do not run validate; hard-cancel timeout remains future backlog
 ```
 
-## Exit codes
+Impact path: `docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md`
 
-```text
-0 = COMPLETE | PARTIAL | NO_NEW_DATA
-1 = FAILED
-3 = BLOCKED
-4 = SKIPPED_LOCKED
-```
+## Freeze
 
-## Nota de freeze
-
-`FINAL_CANDIDATE_HEAD` / `CONTENT_REVIEWED_THROUGH_HEAD` / `PR` são registrados externamente no corpo da PR após o tip imutável, para evitar chase de self-hash.
+`CONTENT_REVIEWED_THROUGH_HEAD` / `FINAL_CANDIDATE_HEAD` / `CI_STATUS` registrados externamente no corpo da PR após o tip imutável.
