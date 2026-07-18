@@ -87,7 +87,12 @@ Nenhum `pytest`, coleta, `validate` ou comando científico foi executado.
 
 ## Resultado de git status
 
-Registrado no momento da instalação (pré-commit final); ver commits da branch.
+Após o commit dos 16 arquivos-base + `.gitignore` (`adc0598`), working tree limpa exceto este relatório (commit seguinte `6e7b3e4`).
+
+```text
+adc0598 docs(ai): add AI governance and execution framework
+6e7b3e4 docs(ai): record governance installation report
+```
 
 ## Falhas encontradas
 
