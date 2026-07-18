@@ -1,0 +1,78 @@
+# IMPACT-ASSESSMENT-001 — Handoff
+
+## Bloco resumido
+
+```text
+STATUS = COMPLETE
+RELEASE = AI-GOVERNANCE
+BACKLOG_ITEM = G1
+TASK_ID = IMPACT-ASSESSMENT-001
+TITLE = Mandatory Pre-Implementation Impact Assessment
+BRANCH = cursor/ai-governance-impact-assessment-gate-2b14
+PR = TO_BE_RECORDED_EXTERNALLY
+BASE_SHA = fd4cf1df3961a2411c3e367fd675b89ef05858a6
+IMPLEMENTATION_HEAD = 01881f57e2cb71ac58cabe61cd491b3c0b6d81a6
+CONTENT_REVIEWED_THROUGH_HEAD = 01881f57e2cb71ac58cabe61cd491b3c0b6d81a6
+FINAL_CANDIDATE_HEAD = TO_BE_RECORDED_EXTERNALLY
+FILES_CREATED =
+  templates/AI_IMPACT_ASSESSMENT_TEMPLATE.md
+  docs/ai-impact/README.md
+  docs/ai-impact/IMPACT-ASSESSMENT-001_IMPACT_ASSESSMENT.md
+  reports/ai-implementation/AI-GOV-G1-IMPACT-001_HANDOFF.md
+FILES_UPDATED =
+  docs/ai-governance/README.md
+  docs/ai-governance/AI_CHANGE_WORKFLOW.md
+  docs/ai-governance/AI_REVIEW_CHECKLIST.md
+  docs/ai-governance/AI_AGENT_GUARDRAILS.md
+  docs/ai-governance/AI_ROLES_AND_RESPONSIBILITIES.md
+  docs/ai-governance/AI_REVIEW_IDENTITY_AND_RECONCILIATION.md
+  docs/ai-governance/AI_INCIDENT_AND_ROLLBACK.md
+  templates/AI_REVIEW_TEMPLATE.md
+  templates/AI_IMPLEMENTATION_REPORT_TEMPLATE.md
+  templates/AI_TASK_SPEC_TEMPLATE.md
+  src/wick/ai_governance/artifact_validator.py
+  src/wick/ai_governance/__init__.py
+  scripts/validate_ai_governance_artifacts.py
+  tests/test_ai_governance_artifact_validator.py
+  docs/PROJECT.md
+VALIDATOR_UPDATED = true
+TESTS = 16 PASSED
+FULL_TEST_SUITE = PENDING_FULL_SUITE
+LINT_STATUS = PASS
+CI_STATUS = TO_BE_VERIFIED_EXTERNALLY_ON_TIP
+GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
+ENFORCEMENT_EFFECTIVE_FROM = AFTER_MERGE_OF_IMPACT_ASSESSMENT_GATE
+LEGACY_COMPATIBILITY = LEGACY_PRE_IMPACT_GATE_or_absent_fields
+B4_STATUS = IMPACT_ANALYSIS_REQUIRED
+CHANGE_RISK = HIGH
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+REVIEW_STATUS = APPROVED
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+BLOCKERS = none
+FINAL_RECOMMENDATION = merge this governance gate; then require docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md before any further B4 implementation advancement; do not auto-merge
+```
+
+## Impact path
+
+```text
+docs/ai-impact/IMPACT-ASSESSMENT-001_IMPACT_ASSESSMENT.md
+```
+
+## B4 note
+
+PR #19 (B4 automation) must be treated as:
+
+```text
+PHASE = IMPACT_ANALYSIS_ONLY
+IMPLEMENTATION_AUTHORIZED = false
+B4_STATUS = IMPACT_ANALYSIS_REQUIRED
+```
+
+after this gate merges, until an approved impact assessment exists for `COLLECTION-AUTOMATION-001`.
+
+## Freeze note
+
+`PR` / `IMPLEMENTATION_HEAD` / `FINAL_CANDIDATE_HEAD` are recorded externally in the PR body to avoid self-hash chase.

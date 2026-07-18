@@ -10,6 +10,8 @@ Definir o processo obrigatório para qualquer mudança criada ou apoiada por IA.
 docs/
 ├── ai-specs/
 │   └── <TASK_ID>_SPEC.md
+├── ai-impact/
+│   └── <TASK_ID>_IMPACT_ASSESSMENT.md
 ├── ai-reviews/
 │   └── <TASK_ID>_REVIEW.md
 └── ai-governance/
@@ -29,12 +31,29 @@ reports/
 
 ```text
 SPEC_STATUS = DRAFT | APPROVED
+CHANGE_RISK = LOW | MEDIUM | HIGH | CRITICAL
+IMPACT_ASSESSMENT_STATUS =
+  NOT_REQUIRED | DRAFT | PENDING_REVIEW | APPROVED | CHANGES_REQUIRED | BLOCKED
+IMPLEMENTATION_AUTHORIZED = false | true
 IMPLEMENTATION_STATUS = NOT_STARTED | IN_PROGRESS | COMPLETE | BLOCKED
 REVIEW_STATUS = PENDING | APPROVED | CHANGES_REQUIRED | BLOCKED
 MERGE_STATUS = BLOCKED | AWAITING_HUMAN_AUTHORIZATION | MERGED
 ```
 
-## 4. Etapa 1 — Especificação
+## 4. Sequência obrigatória
+
+```text
+1. Especificação
+2. Análise de Impacto Arquitetural
+3. Aprovação da Análise de Impacto
+4. Prompt de Implementação
+5. Implementação
+6. Revisão Independente
+7. Autorização Humana
+8. Pós-merge
+```
+
+## 5. Etapa 1 — Especificação
 
 A especificação deve definir:
 
@@ -48,15 +67,68 @@ A especificação deve definir:
 - riscos;
 - restrições científicas;
 - ações proibidas;
-- estado esperado após a implementação.
+- estado esperado após a implementação;
+- `CHANGE_RISK` preliminar.
 
 Nenhuma implementação começa com `SPEC_STATUS = DRAFT`.
 
-## 5. Etapa 2 — Prompt de execução
+## 6. Etapa 2 — Análise de Impacto Arquitetural
+
+Antes do código, a análise responde:
+
+```text
+WHAT_WILL_CHANGE
+WHAT_CAN_BREAK
+WHICH_CONTRACTS_ARE_AFFECTED
+WHICH_ARCHITECTURE_WILL_BE_USED
+WHICH_RISKS_REMAIN
+HOW_TO_TEST
+HOW_TO_ROLL_BACK
+```
+
+### Classificação de risco
+
+| CHANGE_RISK | Exigência |
+|---|---|
+| LOW | Análise simplificada na spec (`IMPACT_ASSESSMENT_STATUS=NOT_REQUIRED`) |
+| MEDIUM | Arquivo independente em `docs/ai-impact/` |
+| HIGH | Arquivo independente + revisão + autorização explícita |
+| CRITICAL | Análise reforçada + autorização humana específica |
+
+Durante a análise:
+
+```text
+PHASE = IMPACT_ANALYSIS_ONLY
+IMPLEMENTATION_AUTHORIZED = false
+```
+
+Proibido nesta fase: alterar código, migrations, dados, abrir PR de implementação.
+
+Se houver ambiguidade material:
+
+```text
+IMPACT_ASSESSMENT_STATUS = BLOCKED
+```
+
+e solicitar decisão humana.
+
+### Gate de autorização
+
+Para `CHANGE_RISK = MEDIUM | HIGH | CRITICAL`:
+
+```text
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+```
+
+são obrigatórios **antes** de qualquer alteração de código.
+
+## 7. Etapa 3 — Prompt de execução
 
 O prompt para Cursor ou Codex deve:
 
-- referenciar a especificação;
+- referenciar a especificação **e** o impacto aprovado;
+- declarar `IMPLEMENTATION_AUTHORIZED = true` somente se o impacto estiver aprovado;
 - proibir expansão de escopo;
 - exigir branch dedicada;
 - exigir relatório de implementação;
@@ -64,48 +136,46 @@ O prompt para Cursor ou Codex deve:
 - exigir testes;
 - impedir merge automático.
 
-## 6. Etapa 3 — Implementação
+## 8. Etapa 4 — Implementação
 
 O executor deve:
 
 1. confirmar branch e commit-base;
-2. implementar apenas o escopo;
-3. executar testes;
-4. registrar falhas;
-5. gerar o relatório de implementação;
-6. abrir PR draft quando aplicável;
-7. parar sem fazer merge.
+2. confirmar impacto aprovado / autorização;
+3. implementar apenas o escopo;
+4. executar testes;
+5. registrar falhas;
+6. gerar o relatório de implementação;
+7. abrir PR draft quando aplicável;
+8. parar sem fazer merge.
 
-## 7. Etapa 4 — Revisão independente
+## 9. Etapa 5 — Revisão independente
 
-A revisão deve comparar:
+A revisão pós-implementação responde:
+
+```text
+WAS_THE_APPROVED_DESIGN_FOLLOWED
+IS_THE_IMPLEMENTATION_CORRECT
+ARE_THE_EVIDENCES_SUFFICIENT
+```
+
+E compara:
 
 - especificação;
+- análise de impacto aprovada;
 - diff;
 - testes;
 - relatório de implementação;
 - CI;
 - restrições científicas.
 
-O revisor deve emitir uma decisão:
+Decisão:
 
 ```text
-REVIEW_STATUS = APPROVED
+REVIEW_STATUS = APPROVED | CHANGES_REQUIRED | BLOCKED
 ```
 
-ou:
-
-```text
-REVIEW_STATUS = CHANGES_REQUIRED
-```
-
-ou:
-
-```text
-REVIEW_STATUS = BLOCKED
-```
-
-## 8. Etapa 5 — Autorização humana
+## 10. Etapa 6 — Autorização humana
 
 Mesmo com revisão aprovada:
 
@@ -115,7 +185,7 @@ MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 
 Somente uma pessoa autorizada pode decidir o merge.
 
-## 9. Etapa 6 — Pós-merge
+## 11. Etapa 7 — Pós-merge
 
 Após o merge, registrar:
 
@@ -127,7 +197,21 @@ Após o merge, registrar:
 - itens que permaneceram bloqueados;
 - próximos passos.
 
-## 10. Identidade Git obrigatória em artefatos
+## 12. Compatibilidade histórica
+
+```text
+ENFORCEMENT_EFFECTIVE_FROM = AFTER_MERGE_OF_IMPACT_ASSESSMENT_GATE
+```
+
+Artefatos anteriores ao merge do gate G1 podem declarar:
+
+```text
+LEGACY_PRE_IMPACT_GATE = true
+```
+
+Não reescrever a história. Novas tarefas após a vigência devem seguir o gate.
+
+## 13. Identidade Git obrigatória em artefatos
 
 Campos derivados de Git/GitHub/CI/testes **não** podem ser preenchidos apenas com texto de prompt. Devem ser consultados na fonte.
 
@@ -141,6 +225,9 @@ HEAD_BRANCH
 BASE_SHA_AT_REVIEW
 HEAD_SHA_AT_REVIEW
 CURRENT_PR_HEAD
+CHANGE_RISK
+IMPACT_ASSESSMENT_STATUS
+IMPLEMENTATION_AUTHORIZED
 ORIGINAL_IMPLEMENTATION_COMMITS
 REVIEW_COMMITS
 CI_STATUS
@@ -165,36 +252,12 @@ B. realizar revisão complementar; ou
 C. voltar para REVIEW_STATUS = CHANGES_REQUIRED
 ```
 
-Erros a impedir:
+## 14. Regra de parada
 
-1. revisão aprovada para commit antigo sem reconciliação do tip;
-2. relatório histórico com status atual ambíguo;
-3. evidência declarada apresentada como teste reexecutado;
-4. CI antigo confundido com CI do tip atual;
-5. revisão documental autorizando merge implicitamente;
-6. alteração posterior de código sem nova revisão;
-7. hashes inventados ou desatualizados;
-8. atualização de status sem timestamp/evidência;
-9. execução acidental de validação científica em revisão operacional.
-
-Ordem operacional:
-
-1. consultar estado real do Git e da PR;
-2. implementar;
-3. executar testes permitidos;
-4. gerar relatório com hashes reais;
-5. atualizar branch com a base, quando necessário;
-6. obter tip definitivo;
-7. revisar o tip definitivo;
-8. confirmar CI do mesmo tip;
-9. gerar revisão formal;
-10. bloquear merge até decisão humana.
-
-## 11. Regra de parada
-
-Se qualquer etapa detectar mudança fora do escopo, quebra científica, teste insuficiente ou evidência contraditória:
+Se qualquer etapa detectar mudança fora do escopo, quebra científica, teste insuficiente, impacto ausente/não aprovado ou evidência contraditória:
 
 ```text
 IMPLEMENTATION_STATUS = BLOCKED
 MERGE_STATUS = BLOCKED
+IMPLEMENTATION_AUTHORIZED = false
 ```

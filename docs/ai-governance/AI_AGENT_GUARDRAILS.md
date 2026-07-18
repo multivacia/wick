@@ -113,8 +113,29 @@ O agente que implementa não deve ser a única fonte de aprovação.
 Fluxo mínimo:
 
 ```text
-Especificação → Implementação → Revisão independente → Autorização humana
+Especificação → Análise de Impacto → Aprovação do Impacto →
+Implementação → Revisão independente → Autorização humana
 ```
+
+## 6.1 Gate de impacto (obrigatório)
+
+Antes de alterar código para `CHANGE_RISK = MEDIUM | HIGH | CRITICAL`:
+
+```text
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+```
+
+Durante `PHASE = IMPACT_ANALYSIS_ONLY` o agente **não pode**:
+
+- alterar código de produção;
+- criar implementação parcial;
+- criar migration;
+- alterar dados;
+- executar mudança operacional;
+- abrir PR de implementação.
+
+Pode ler código/docs, mapear dependências e produzir o relatório de impacto.
 
 ## 7. Estado padrão
 
@@ -123,5 +144,7 @@ Na dúvida:
 ```text
 MERGE_STATUS = BLOCKED
 REVIEW_STATUS = PENDING
+IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = DRAFT
 SCIENTIFIC_ACTIONS_ALLOWED = false
 ```

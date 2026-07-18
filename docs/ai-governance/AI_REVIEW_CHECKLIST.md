@@ -10,6 +10,10 @@
 - [ ] Se `CURRENT_PR_HEAD != HEAD_SHA_AT_REVIEW`, há reconciliação/revisão complementar/`CHANGES_REQUIRED`
 - [ ] PR em draft
 - [ ] Escopo compatível com a especificação
+- [ ] `CHANGE_RISK` classificado
+- [ ] Impacto pré-implementação presente/aprovado quando exigido (`MEDIUM|HIGH|CRITICAL`)
+- [ ] `IMPLEMENTATION_AUTHORIZED = true` somente após impacto aprovado
+- [ ] Revisão confirma que o desenho aprovado no impacto foi seguido
 - [ ] Campos Git/CI/testes preenchidos a partir de fonte real (não só prompt)
 
 ## Diff
