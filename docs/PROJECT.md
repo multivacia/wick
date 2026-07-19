@@ -56,6 +56,11 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | TYPESCRIPT_FIXTURE_IMPLEMENTATION_AUTHORIZED | **false** |
 | OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
+| I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **IN_PROGRESS** (draft PR #66) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION** (recommended; not authorized yet) |
+| I3_IMPLEMENTATION_AUTHORIZED | **false** |
+| I3_PREREQUISITE_DECISION | **I3_REQUIRED_BEFORE_I5_AND_I6C** (assessment) |
+| I6D_DECISION | **BLOCKED** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I1 complete; no further increment authorized) |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -89,8 +94,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR kickoff paralelo I2/I5A/I6A | https://github.com/multivacia/wick/pull/58 (**MERGED** `d2a52cc`) |
 | PR I2 design tokens assessment | https://github.com/multivacia/wick/pull/55 (**MERGED** `ca24cc4`) |
 | PR I5A shell/nav architecture | https://github.com/multivacia/wick/pull/56 (**MERGED** `134c93a`) |
+| PR I6A Overview data/fixtures | https://github.com/multivacia/wick/pull/57 (**MERGED** `4bf15db`) |
+| Autorização I2/I3/I5/I6 | https://github.com/multivacia/wick/pull/66 (**DRAFT**) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e `I2_IMPLEMENTATION_AUTHORIZED=false`; I5A architecture está **MERGED** com `AUTHORIZED_WITH_CONDITIONS`, `I5_IMPLEMENTATION_AUTHORIZED=false` e `ROUTER_INSTALLATION_AUTHORIZED=false`; I6A permanece draft (PR #57).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e `I2_IMPLEMENTATION_AUTHORIZED=false`; I5A architecture está **MERGED** com `AUTHORIZED_WITH_CONDITIONS`, `I5_IMPLEMENTATION_AUTHORIZED=false` e `ROUTER_INSTALLATION_AUTHORIZED=false`; I6A data preparation está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e runtime/screen/ViewModel/fixture flags **false**. Avaliação cross-increment I2/I3/I5/I6 de autorização de implementação está **IN_PROGRESS** (docs-only); próximo incremento recomendado: I2 tokens/themes em tarefa separada — **não** autorizado ainda.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -262,3 +269,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #55 I2 design tokens assessment | Docs-only; condições C1–C8; sem CSS/tokens | `I2_STATUS=ASSESSMENT_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I2_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I5A PR56 |
 | 2026-07-19 | Merge PR #56 I5A shell/nav architecture | Docs-only; condições C1–C8; sem router/shell | `I5A_STATUS=ARCHITECTURE_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I5_IMPLEMENTATION_AUTHORIZED=false`; `ROUTER_INSTALLATION_AUTHORIZED=false`; NEXT=I6A PR57 |
 | 2026-07-19 | Merge PR #57 I6A Overview data/fixtures | Docs-only; condições C1–C8; sem ViewModel/TS/screen | `I6A_STATUS=DATA_PREPARATION_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `RUNTIME_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I2/I5/I6 implementation authorization assessment |
+| 2026-07-19 | Abrir avaliação autorização I2/I3/I5/I6 | Docs-only; decomposição não monolítica; I6D BLOCKED | `NEXT_RECOMMENDED_TASK=I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION`; todas flags de implementação permanecem false |
