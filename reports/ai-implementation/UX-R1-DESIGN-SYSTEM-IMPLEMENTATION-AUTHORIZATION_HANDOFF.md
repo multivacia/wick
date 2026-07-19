@@ -1,0 +1,53 @@
+# UX-R1 Design System Implementation Authorization — Handoff
+
+```text
+STATUS = AUTHORIZATION_ASSESSMENT_READY_FOR_HUMAN_REVIEW
+RELEASE = UX-R1
+RELEASE_NAME = WICK OPERATIONAL EXPERIENCE
+BACKLOG_ITEM = UX-B2
+TASK_ID = DESIGN-SYSTEM-FOUNDATION-001
+PHASE = IMPLEMENTATION_AUTHORIZATION_ASSESSMENT
+REPOSITORY_STRATEGY = A_FRONTEND_INSIDE_WICK (frontend/; packages/wick-ds)
+FRONTEND_FRAMEWORK = React
+LANGUAGE = TypeScript (strict)
+PACKAGE_MANAGER = pnpm
+BUILD_TOOL = Vite
+CSS_STRATEGY = CSS_CUSTOM_PROPERTIES (--wick-*)
+HEADLESS_PRIMITIVE_STRATEGY = SELECTED Radix UI primitives (install from I3; not I1)
+TEST_STRATEGY = Vitest + Testing Library + axe-core + Playwright (visual regression phase-2)
+TOKEN_IMPLEMENTATION_CONTRACT = CSS semantic-first; DESIGN_TOKEN_CONTRACT_VERSION semver; light/dark; status tokens locked
+INITIAL_COMPONENT_BOUNDARY = I1 none; I3 foundation; I4 operational status; I5–I6 require UI auth
+UX_B3_B4_INTEGRATION = docs independent; UI consumes DS after I2–I4; no invented contracts
+SCIENTIFIC_SAFETY_GATES = PASS (policy)
+ACCESSIBILITY_GATES = PASS (WCAG 2.2 AA policy)
+SECURITY_GATES = PASS (masking + no secrets in client); license review blocks I3 installs
+CI_CD_PLAN = additive frontend-validate job; Python r1-validate unchanged in this task
+IMPLEMENTATION_INCREMENTS = I1 scaffold/CI; I2 tokens; I3 foundation+Radix; I4 operational; I5 shell; I6 first screen
+AUTHORIZATION_DECISION = AUTHORIZED_FOR_INCREMENT_I1_ONLY
+AUTHORIZED_INCREMENT = I1
+IMPACT_ASSESSMENT = docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md
+SPEC = docs/ai-specs/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_SPEC.md
+REVIEW = docs/ai-reviews/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_REVIEW.md
+REVIEW_STATUS = APPROVED
+BRANCH = cursor/ux-r1-b2-implementation-authorization-0819
+PR = 43
+BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
+IMPLEMENTATION_HEAD = 0eb114d760854620069a57efa9b62e31fd34f15a
+CONTENT_REVIEWED_THROUGH_HEAD = 0eb114d760854620069a57efa9b62e31fd34f15a
+FINAL_CANDIDATE_HEAD = 0eb114d760854620069a57efa9b62e31fd34f15a
+FULL_TEST_SUITE = PASS (249 passed, 0 skipped)
+LINT_STATUS = PASS
+GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
+CI_STATUS = GREEN
+PR_MERGEABLE = true
+UX_B2_IMPLEMENTATION_AUTHORIZED = false
+UI_IMPLEMENTATION_AUTHORIZED = false
+HOST_DISCOVERY = DEFERRED
+OPERATIONAL_DEBT = OPEN
+SCHEDULER_ACTIVATION = BLOCKED
+R3E_SCIENTIFIC_STATE_CHANGE = false
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+BLOCKERS = Human merge of this assessment; separate I1 implementation task required before scaffold; UX_B2_IMPLEMENTATION_AUTHORIZED=false; UI unauthorized
+FINAL_RECOMMENDATION = Merge authorization docs after human review; then open a separate I1-only scaffold task; do not install Radix/tokens/components in I1
+CREATED_AT = 2026-07-19T13:31:35Z
+```
