@@ -18,9 +18,14 @@ DESIGN_SYSTEM_IMPLEMENTATION_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
+OLD_BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
+NEW_BASE_SHA = 1bad329e93fbd8d7e8693a593f00ed6d021bb6e9
+BASE_SHA = 1bad329e93fbd8d7e8693a593f00ed6d021bb6e9
+REBASED_AT = 2026-07-19T15:35:00Z
+REBASING_STATUS = COMPLETE
 ANALYZED_AT = 2026-07-19T13:30:00Z
 APPROVED_AT = 2026-07-19T13:45:00Z
+RECONCILED_AT = 2026-07-19T15:40:00Z
 ANALYZED_BY = cursor-agent
 APPROVED_BY = cursor-agent-independent-review
 VALIDATION_COMMAND_EXECUTED = false
@@ -32,9 +37,12 @@ R5_STATUS = NOT_STARTED
 HOST_DISCOVERY = DEFERRED
 OPERATIONAL_DEBT = OPEN
 SCHEDULER_ACTIVATION = BLOCKED
+UX_B2_AUTHORIZATION_STATUS = MERGED
+UX_B4_STATUS = INDEPENDENT_TRACK
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 RECOMMENDED_DECISION = APPROVED
 RECOMMENDED_DATA_ACCESS = GENERATED_OPERATIONAL_INDEX_PLUS_CLI_READ_ONLY
+RECOMMENDED_DATA_ACCESS_SCOPE = ARCHITECTURAL_RECOMMENDATION_ONLY
 DECISION = APPROVED
 ```
 
@@ -135,13 +143,19 @@ Fora de escopo desta tarefa: Experimento R3E (UX-B9), Backups/Incidentes complet
 
 ```text
 RECOMMENDED = D + B
+RECOMMENDED_DATA_ACCESS = GENERATED_OPERATIONAL_INDEX_PLUS_CLI_READ_ONLY
+SCOPE = ARCHITECTURAL_RECOMMENDATION_ONLY
+INDEX_GENERATED_IN_THIS_TASK = false
+ADAPTER_IMPLEMENTED_IN_THIS_TASK = false
+API_IMPLEMENTED_IN_THIS_TASK = false
 PRIMARY = generated operational index (normalized screen DTOs from existing artifacts)
 SECONDARY = CLI read-only commands for lock-status / history / backup-verify when index stale or missing
 DEFERRED = lightweight local API (C) until UI authorization + multi-client need
 REJECTED_FOR_MVP = pure A without normalization (fragile cross-path, inconsistent shapes)
+FUTURE_REQUIREMENT = any future index/adapter/API implementation requires its own impact assessment and explicit authorization
 ```
 
-Justificativa: artefatos atuais são ricos mas heterogêneos; um índice normalizado preserva proveniência, melhora testabilidade com fixtures, e evita expor filesystem cru à UI. CLI cobre diagnóstico vivo sem mudar comportamento científico.
+Justificativa: artefatos atuais são ricos mas heterogêneos; um índice normalizado preserva proveniência, melhora testabilidade com fixtures, e evita expor filesystem cru à UI. CLI cobre diagnóstico vivo sem mudar comportamento científico. Esta recomendação **não** cria o índice nem implementa adapter/API nesta tarefa.
 
 ## SECURITY_IMPACT
 
@@ -193,10 +207,22 @@ Fontes: docs de discovery, checklist de ativação, `SCHEDULER_ACTIVATION_AUTHOR
 | Dependência | Status |
 |-------------|--------|
 | UX-B1 Experience Foundation | MERGED |
-| UX-B2 Design System impact | MERGED; implementation blocked |
+| UX-B2 Design System impact | MERGED |
+| UX-B2 I1 implementation authorization | MERGED as parallel track (`AUTHORIZED_FOR_INCREMENT_I1_ONLY`; execution still blocked) |
+| UX-B4 operational language / microcopy | INDEPENDENT_TRACK (PR #42 draft; parallel) |
 | R3E readiness / automation artifacts | CURRENTLY_AVAILABLE (read-only) |
 | UI implementation authorization | false |
 | Host discovery on real host | DEFERRED (não bloqueia contratos) |
+
+### Integration boundaries (parallel tracks)
+
+```text
+UX-B2 = future frontend / design-system architecture (tokens, primitives, I1 scaffold when separately authorized)
+UX-B3 = screen and data contracts (this task)
+UX-B4 = terminology and microcopy (operational language catalogs)
+```
+
+UX-B3 remains valid without merge of UX-B4 and without I1 execution. Future UI implementation must consume all approved contracts from B2+B3+B4 when available.
 
 ## IMPLEMENTATION_BOUNDARY
 

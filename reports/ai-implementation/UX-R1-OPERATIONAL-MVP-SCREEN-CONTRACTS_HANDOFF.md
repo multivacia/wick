@@ -1,7 +1,7 @@
 # UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS — Handoff
 
 ```text
-STATUS = SPECIFICATION_COMPLETE_AWAITING_HUMAN_MERGE
+STATUS = REBASED_SPECIFICATION_READY_FOR_HUMAN_REVIEW
 RELEASE = UX-R1
 BACKLOG_ITEM = UX-B3
 TASK_ID = OPERATIONAL-MVP-SCREEN-CONTRACTS-001
@@ -19,15 +19,18 @@ IMPACT_ASSESSMENT_STATUS = APPROVED
 REVIEW = docs/ai-reviews/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS_REVIEW.md
 REVIEW_STATUS = APPROVED
 BRANCH = cursor/ux-r1-b3-operational-mvp-screen-contracts-123e
-PR = https://github.com/multivacia/wick/pull/44
-BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
-IMPLEMENTATION_HEAD = e946c385c25fbea406f69b1516091d5dc672e6d0
-CONTENT_REVIEWED_THROUGH_HEAD = e946c385c25fbea406f69b1516091d5dc672e6d0
-FINAL_CANDIDATE_HEAD = e946c385c25fbea406f69b1516091d5dc672e6d0
-FULL_TEST_SUITE = PASS
-LINT_STATUS = PASS
-GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
-CI_STATUS = GREEN
+PR = 44
+OLD_BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
+NEW_BASE_SHA = 1bad329e93fbd8d7e8693a593f00ed6d021bb6e9
+IMPLEMENTATION_HEAD = TO_BE_RECORDED_EXTERNALLY
+CONTENT_REVIEWED_THROUGH_HEAD = TO_BE_RECORDED_EXTERNALLY
+FINAL_CANDIDATE_HEAD = TO_BE_RECORDED_EXTERNALLY
+PR_TIP = TO_BE_RECORDED_EXTERNALLY
+FULL_TEST_SUITE = PENDING
+LINT_STATUS = PENDING
+GOVERNANCE_VALIDATOR = PENDING
+CI_STATUS = PENDING
+PR_MERGEABLE = PENDING
 UX_B3_IMPLEMENTATION_AUTHORIZED = false
 UI_IMPLEMENTATION_AUTHORIZED = false
 HOST_DISCOVERY = DEFERRED
@@ -37,16 +40,27 @@ R3E_SCIENTIFIC_STATE_CHANGE = false
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
-BLOCKERS = none for specification; UI blocked until explicit authorization; live host discovery still deferred for real ops data
-FINAL_RECOMMENDATION = Merge documentation contracts after human review. Do not authorize UI implementation yet. Next UI work requires UX_B3_IMPLEMENTATION_AUTHORIZED=true and preferably UX-B2 implementation authorization or explicit fixtures-only exception. Keep scheduler inactive and validate unauthorized.
+BLOCKERS = none for specification; UI blocked until explicit authorization; live host discovery still deferred for real ops data; UX-B4 language track parallel (not a B3 blocker)
+FINAL_RECOMMENDATION = PR #44 rebased and mergeable candidate after human review. Do not authorize UI implementation. Do not merge automatically. Future UI must consume UX-B2 architecture + UX-B3 contracts + UX-B4 language when authorized. Keep scheduler inactive and validate unauthorized. Data-access recommendation remains architectural only (no index/adapter in this PR).
 ```
 
 ## Summary
 
-UX-B3 delivers **specification-only** contracts for the four MVP operational screens, grounded in existing R3E future-unseen artifacts and ops docs. No UI code, no backend mutation, no scientific state change.
+UX-B3 screen contracts rebased onto `main` (`1bad329`), reconciled with UX-B2 I1 authorization track and UX-B4 independent language track. Specification-only; no UI code.
 
-## Decision notes
+## Parallel tracks
 
-- `IMPLEMENTATION_AUTHORIZED=true` satisfies G1 for MEDIUM APPROVED impact and authorizes only these docs.
-- `UX_B3_IMPLEMENTATION_AUTHORIZED=false` and `UI_IMPLEMENTATION_AUTHORIZED=false` remain mandatory.
-- Recommended future data access: generated operational index + CLI read-only fallbacks.
+```text
+UX-B2 = future frontend / design-system architecture (I1 auth merged; execution blocked)
+UX-B3 = screen and data contracts (this PR)
+UX-B4 = terminology and microcopy (independent track / PR #42)
+```
+
+## Data access
+
+```text
+RECOMMENDED_DATA_ACCESS = GENERATED_OPERATIONAL_INDEX_PLUS_CLI_READ_ONLY
+SCOPE = ARCHITECTURAL_RECOMMENDATION_ONLY
+INDEX_GENERATED_IN_THIS_TASK = false
+ADAPTER_IMPLEMENTED_IN_THIS_TASK = false
+```

@@ -478,8 +478,13 @@ See impact assessment. Spec locks:
 
 ```text
 RECOMMENDED_DATA_ACCESS = GENERATED_OPERATIONAL_INDEX_PLUS_CLI_READ_ONLY
+SCOPE = ARCHITECTURAL_RECOMMENDATION_ONLY
 INDEX_ARTIFACT_NAME = ops_ui_index_v1.json (future; not created in this task)
+INDEX_GENERATED_IN_THIS_TASK = false
+ADAPTER_IMPLEMENTED_IN_THIS_TASK = false
+API_IMPLEMENTED_IN_THIS_TASK = false
 CLI_FALLBACKS = history, lock-status, backup-verify (read-only)
+FUTURE_REQUIREMENT = separate impact assessment + authorization before building index/adapter/API
 ```
 
 Proposed index sections (future DTO, not implemented):
@@ -494,6 +499,16 @@ provenance
 generated_at
 source_heads[]
 ```
+
+## 14.1 Parallel-track integration boundaries
+
+```text
+UX-B2 = future frontend / design-system architecture
+UX-B3 = screen and data contracts (this document)
+UX-B4 = terminology and microcopy (operational language; independent track)
+```
+
+UX-B3 does not depend on UX-B4 merge or UX-B2 I1 execution to remain valid. Future UI implementation must consume approved B2+B3+B4 contracts.
 
 ## 15. Acceptance criteria
 
