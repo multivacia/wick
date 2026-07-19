@@ -147,9 +147,10 @@ pnpm --dir web test:a11y = PASS (1 test)
 pnpm --dir web build = PASS
 pnpm --dir web audit = PASS (no known vulnerabilities)
 pnpm --dir web licenses = PASS (react/react-dom/scheduler = MIT)
-uv run pytest = recorded at final validation
-uv run ruff check . = recorded at final validation
-uv run python scripts/validate_ai_governance_artifacts.py <artifacts> = recorded at final validation
+uv run ruff check . = PASS
+uv run ruff format --check . = PASS
+uv run pytest = PASS (249 passed)
+uv run python scripts/validate_ai_governance_artifacts.py <I1 artifacts> = PASS (errors=0 warnings=0)
 ```
 
 ## Segurança / segurança científica / operacional
