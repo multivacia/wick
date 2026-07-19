@@ -52,7 +52,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | R3E_READINESS_GATE | **IMPLEMENTED** (B2 / R3E-READINESS-001; status operacional separado do gate científico) |
 | R3E_COLLECTION_AUTOMATION | **IMPLEMENTED** (B4 / COLLECTION-AUTOMATION-001; PR #19 MERGED `f773702`; validate não autorizado) |
-| R3E_COLLECTION_SCHEDULER | **LOCAL_DISCOVERY_PREP** (B5-D1; PR #27 MERGED; discovery scripts ready; HostGator deferred; timer não ativado) |
+| R3E_COLLECTION_SCHEDULER | **AWAITING_OPERATOR_DISCOVERY** (B5-D1; PR #28 MERGED `83308f5`; Gustavo deve rodar discovery no host real; timer não ativado) |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
 | R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
@@ -173,3 +173,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | B5 troca para LOCAL_PERSISTENT_HOST | HostGator deferred; path `$HOME/wick-r3e` | Preparação local apenas; scheduler não ativado; validate/R4/R5 inalterados |
 | 2026-07-19 | Merge PR #27 em `main` (`134f066`) | Preparação local B5 incorporada | Timer não habilitado; discovery no host real ainda pendente |
 | 2026-07-19 | B5-D1 discovery preparation | Scripts read-only sh/ps1 + runbook | Resultado gerado só no host operacional; sem ativação |
+| 2026-07-19 | Merge PR #28 em `main` (`83308f5`) | Discovery prep B5-D1 incorporada | Pacote operador publicado; discovery no Cursor não executada |
+| 2026-07-19 | Pacote de execução operador B5-D1 | Guia copy-paste Windows/Linux | Aguardando `R3E_LOCAL_HOST_DISCOVERY_RESULT.md` do host real |
