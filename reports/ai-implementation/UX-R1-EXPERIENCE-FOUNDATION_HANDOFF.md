@@ -18,10 +18,10 @@ IMPACT_ASSESSMENT = docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.m
 REVIEW = docs/ai-reviews/UX-R1-EXPERIENCE-FOUNDATION_REVIEW.md (APPROVED)
 MVP_SCOPE = Visão Geral; Execuções da Coleta; Prontidão; Host e Automação; Experimento R3E (explicativo)
 BRANCH = cursor/ux-r1-experience-foundation-af17
-PR = TO_BE_RECORDED
+PR = https://github.com/multivacia/wick/pull/31
 BASE_SHA = 05fd22e2db2eca1368414ffcb8ea693110291e4a
-IMPLEMENTATION_HEAD = TO_BE_RECORDED
-FINAL_CANDIDATE_HEAD = TO_BE_RECORDED
+IMPLEMENTATION_HEAD = a5855cae51c9bfdb76504164378fe58c8d51bf66
+FINAL_CANDIDATE_HEAD = a5855cae51c9bfdb76504164378fe58c8d51bf66
 RELEVANT_TESTS = N/A (documentation-only; no src/tests/alembic changes)
 FULL_TEST_SUITE = NOT_RUN (docs-only foundation; scientific suite untouched)
 LINT_STATUS = NOT_APPLICABLE (no Python/UI code changes)
@@ -34,6 +34,7 @@ MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 BLOCKERS = Human approval of impact assessment; UI implementation remains unauthorized; frontend stack undecided (future UX-B2/B3)
 FINAL_RECOMMENDATION = Merge foundation docs after human review; do not authorize UI until impact APPROVED and explicit UI_IMPLEMENTATION_AUTHORIZED=true; next item UX-B2 Design System Foundation
 CREATED_AT = 2026-07-19T03:13:15Z
+UPDATED_AT = 2026-07-19T03:20:00Z
 ```
 
 ## Entrega
