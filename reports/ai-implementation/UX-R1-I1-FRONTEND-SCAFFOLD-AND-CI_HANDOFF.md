@@ -13,7 +13,7 @@ IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPLEMENTATION_AUTHORIZED = true
 BASE_SHA = 2fbf91c248acc381e940d433934633279338ef3b
 BRANCH = feature/ux-r1-i1-frontend-scaffold-and-ci
-PR = PENDING_DRAFT
+PR = https://github.com/multivacia/wick/pull/51
 NODE_VERSION = 22
 PNPM_VERSION = 10.33.3
 FRONTEND_FRAMEWORK = React
@@ -49,7 +49,7 @@ R3E_SCIENTIFIC_STATE_CHANGE = false
 BLOCKERS = none for I1 scaffold; I2+ still unauthorized; UI screens unauthorized
 FINAL_RECOMMENDATION = Human-review and merge I1 scaffold only; do not authorize I2/tokens/components/screens in this PR; keep scheduler blocked; do not run validate; do not unlock R4/R5
 CREATED_AT = 2026-07-19T16:12:00Z
-UPDATED_AT = 2026-07-19T16:15:26Z
+UPDATED_AT = 2026-07-19T16:16:19Z
 ```
 
 Impact path: `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md`
