@@ -46,8 +46,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I2_STATUS | **ASSESSMENT_MERGED** (PR #55 → `ca24cc4`) |
 | I2_AUTHORIZATION_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I2_IMPLEMENTATION_AUTHORIZED | **false** |
-| I5A_STATUS | **ARCHITECTURE_IN_PROGRESS** (draft PR #56) |
+| I5A_STATUS | **ARCHITECTURE_MERGED** (PR #56 → `134c93a`) |
+| I5_ARCHITECTURE_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I5_IMPLEMENTATION_AUTHORIZED | **false** |
+| ROUTER_INSTALLATION_AUTHORIZED | **false** |
 | I6A_STATUS | **DATA_PREPARATION_IN_PROGRESS** (draft PR #57) |
 | I6_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
@@ -83,8 +85,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR I1 scaffold + CI | https://github.com/multivacia/wick/pull/51 (**MERGED** `c283592`) |
 | PR kickoff paralelo I2/I5A/I6A | https://github.com/multivacia/wick/pull/58 (**MERGED** `d2a52cc`) |
 | PR I2 design tokens assessment | https://github.com/multivacia/wick/pull/55 (**MERGED** `ca24cc4`) |
+| PR I5A shell/nav architecture | https://github.com/multivacia/wick/pull/56 (**MERGED** `134c93a`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e `I2_IMPLEMENTATION_AUTHORIZED=false`; I5A/I6A permanecem draft (PRs #56/#57).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e `I2_IMPLEMENTATION_AUTHORIZED=false`; I5A architecture está **MERGED** com `AUTHORIZED_WITH_CONDITIONS`, `I5_IMPLEMENTATION_AUTHORIZED=false` e `ROUTER_INSTALLATION_AUTHORIZED=false`; I6A permanece draft (PR #57).
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -254,3 +257,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #60 kickoff merge-complete record | Coordenação I2/I5A/I6A encerrada no track de kickoff | `PR58+PR59+PR60=MERGED`; PRs #55/#56/#57 `OPEN_DRAFT_REBASE_REQUIRED`; sem MAIN_TIP-only follow-up |
 | 2026-07-19 | Merge PR #61 kickoff final-closure | Track de kickoff paralelo COMPLETE em `main` | `PARALLEL_KICKOFF_STATUS=COMPLETE`; PRs #55/#56/#57 abertos; implementação não autorizada |
 | 2026-07-19 | Merge PR #55 I2 design tokens assessment | Docs-only; condições C1–C8; sem CSS/tokens | `I2_STATUS=ASSESSMENT_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I2_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I5A PR56 |
+| 2026-07-19 | Merge PR #56 I5A shell/nav architecture | Docs-only; condições C1–C8; sem router/shell | `I5A_STATUS=ARCHITECTURE_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I5_IMPLEMENTATION_AUTHORIZED=false`; `ROUTER_INSTALLATION_AUTHORIZED=false`; NEXT=I6A PR57 |
