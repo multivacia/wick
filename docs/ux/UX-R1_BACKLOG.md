@@ -40,7 +40,7 @@ Protótipo funcional inicial (somente estas telas):
 
 ```text
 TASK_ID = UX-RELEASE-FOUNDATION-001
-STATUS = IN_PROGRESS
+STATUS = READY_FOR_HUMAN_MERGE_REVIEW
 PRIORITY = P0
 MVP = REQUIRED
 ```
@@ -307,7 +307,9 @@ UX-B7 / UX-B8 após o core, se capacidade permitir
 ## Autorizações
 
 ```text
-IMPLEMENTATION_AUTHORIZED = false   # até impacto/review humanos autorizarem próxima fase
+IMPLEMENTATION_AUTHORIZED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
+UX_FOUNDATION_MERGE_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
+UX_B2_STATUS = BLOCKED_PENDING_UX_B1_MERGE_AND_AUTHORIZATION
 ```

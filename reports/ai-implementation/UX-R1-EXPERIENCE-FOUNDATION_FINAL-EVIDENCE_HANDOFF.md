@@ -1,4 +1,4 @@
-# UX-R1 Experience Foundation — Handoff
+# UX-R1 Experience Foundation — Final Evidence Handoff
 
 ```text
 STATUS = READY_FOR_HUMAN_MERGE_REVIEW
@@ -8,6 +8,7 @@ RELEASE_STATUS = PLANNING
 BACKLOG_ITEM = UX-B1
 TASK_ID = UX-RELEASE-FOUNDATION-001
 CHANGE_RISK = MEDIUM
+DECISION = APPROVED
 UX_PRINCIPLES = docs/ux/WICK_UX_PRINCIPLES.md (v1.0.0)
 PERSONAS = docs/ux/WICK_UX_PERSONAS.md (v1.0.0)
 LANGUAGE_GUIDE = docs/ux/WICK_UX_LANGUAGE_AND_TERMINOLOGY_GUIDE.md (v1.0.0)
@@ -41,23 +42,38 @@ R3E_SCIENTIFIC_STATE_CHANGE = false
 UX_B2_STATUS = BLOCKED_PENDING_UX_B1_MERGE_AND_AUTHORIZATION
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 BLOCKERS = Human authorization required to merge PR #31; UI implementation unauthorized; UX-B2 blocked until UX-B1 merge and authorization
-FINAL_RECOMMENDATION = Human may merge foundation docs after reviewing frozen evidence; do not authorize UI or start UX-B2 until explicit UI_IMPLEMENTATION_AUTHORIZED=true
-CREATED_AT = 2026-07-19T03:13:15Z
-UPDATED_AT = 2026-07-19T03:25:00Z
+FINAL_RECOMMENDATION = Merge PR #31 only after human authorization; keep UI and UX-B2 blocked
+CREATED_AT = 2026-07-19T03:25:00Z
 ```
 
-## Entrega
+## Foundation completeness
 
-- Release UX-R1 registrada
-- Princípios, personas, linguagem, visual, IA e backlog publicados
-- Impacto reconciliado para `APPROVED` com seções G1 completas
-- Review independente alinhada ao impacto
-- `docs/PROJECT.md` com `UX-B1_STATUS=READY_FOR_HUMAN_MERGE_REVIEW`
-- Nenhuma implementação de tela
-- Estado científico R3E inalterado
+```text
+PLAIN_LANGUAGE_FIRST = true
+TECHNICAL_TERMS_AVAILABLE = true
+NOT_READY_NOT_FAILURE = true
+RED_ONLY_FOR_REAL_FAILURE = true
+NO_HOME_BROKER_CASINO_DIRECTION = true
+NO_FABRICATED_SCIENTIFIC_OR_ECONOMIC_RESULTS = true
+DEMO_FIXTURES_LABELED = true
+MOBILE_EXPLICITLY_DESIGNED = true
+ACCESSIBILITY_BASELINE = true
+UX_R1_PARALLEL_TO_R3E = true
+UX_B2_BLOCKED = true
+NO_UI_IMPLEMENTATION = true
+```
 
-## Limitações
+## Evidence commands
 
-- `UX_FOUNDATION_MERGE_AUTHORIZED=false` até autorização humana
-- Stack frontend não escolhida
-- Sem protótipo visual nesta tarefa
+```text
+uv run pytest
+uv run ruff check .
+uv run python scripts/validate_ai_governance_artifacts.py \
+  docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md \
+  docs/ai-reviews/UX-R1-EXPERIENCE-FOUNDATION_REVIEW.md \
+  docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md \
+  reports/ai-implementation/UX-R1-EXPERIENCE-FOUNDATION_HANDOFF.md \
+  reports/ai-implementation/UX-R1-EXPERIENCE-FOUNDATION_FINAL-EVIDENCE_HANDOFF.md
+```
+
+Results frozen after execution in a follow-up commit on this branch.
