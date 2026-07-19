@@ -12,6 +12,7 @@ from wick.r3e.future_unseen.automation import exit_code_for_cycle_status, run_cy
 from wick.r3e.future_unseen.collector import run_collect
 from wick.r3e.future_unseen.ingest import ingest_batch
 from wick.r3e.future_unseen.initialization import initialize_collection
+from wick.r3e.future_unseen.ops_hardening import diagnose_lock, summarize_run_history
 from wick.r3e.future_unseen.ops_report import build_ops_report
 from wick.r3e.future_unseen.paths import REPORTS_DIR, SPEC_PATH
 from wick.r3e.future_unseen.protections import parse_market_ts
@@ -293,6 +294,53 @@ def run_cycle_cmd(
             f"idempotency={result.get('idempotency_status')}"
         )
     raise typer.Exit(code=exit_code_for_cycle_status(result["status"]))
+
+
+@app.command("history")
+def history_cmd(
+    as_json: bool = typer.Option(
+        True,
+        "--json/--human",
+        help="Emit JSON summary (default) or a short human line",
+    ),
+) -> None:
+    """Summarize existing automation run artifacts. Read-only; never collect/validate."""
+    summary = summarize_run_history()
+    if as_json:
+        typer.echo(json.dumps(summary, indent=2))
+    else:
+        typer.echo(
+            f"last_run_id={summary.get('last_run_id')} "
+            f"last_run_status={summary.get('last_run_status')} "
+            f"last_success_at={summary.get('last_success_at')} "
+            f"readiness={summary.get('readiness_status')} "
+            f"store_observations={summary.get('store_observations')} "
+            f"scheduler_activation_authorized=false"
+        )
+
+
+@app.command("lock-status")
+def lock_status_cmd(
+    as_json: bool = typer.Option(
+        True,
+        "--json/--human",
+        help="Emit JSON summary (default) or KEY=VALUE lines",
+    ),
+) -> None:
+    """Read-only automation lock diagnostic. Never deletes or overrides the lock."""
+    result = diagnose_lock()
+    if as_json:
+        typer.echo(json.dumps(result, indent=2))
+    else:
+        for key in (
+            "LOCK_STATUS",
+            "LOCK_PATH",
+            "LOCK_OWNER_PID",
+            "LOCK_CREATED_AT",
+            "LOCK_AGE_SECONDS",
+            "RECOMMENDED_ACTION",
+        ):
+            typer.echo(f"{key} = {result.get(key)}")
 
 
 @app.command("validate")
