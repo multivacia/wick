@@ -248,3 +248,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Fechamento coordenado UX-B2/B3/B4 | B2 COMPLETE (I1-only); B3+B4 MERGED | `NEXT_ITEM=I1 FRONTEND-SCAFFOLD-AND-CI` (tarefa separada); scheduler/validate inalterados |
 | 2026-07-19 | Merge PR #58 kickoff paralelo I2/I5A/I6A | Coordenação docs-only; PRs #55/#56/#57 permanecem draft | `I2_STATUS=ASSESSMENT_IN_PROGRESS`; `I5A_STATUS=ARCHITECTURE_IN_PROGRESS`; `I6A_STATUS=DATA_PREPARATION_IN_PROGRESS`; implementação não autorizada |
 | 2026-07-19 | Merge PR #59 kickoff final-merge handoff | Status I2/I5A/I6A reconciliado em `main`; workstreams ainda draft | `PR58+PR59=MERGED`; PRs #55/#56/#57 `OPEN_DRAFT`; implementação não autorizada |
+| 2026-07-19 | Merge PR #60 kickoff merge-complete record | Coordenação I2/I5A/I6A encerrada no track de kickoff | `PR58+PR59+PR60=MERGED`; PRs #55/#56/#57 `OPEN_DRAFT_REBASE_REQUIRED`; sem MAIN_TIP-only follow-up |
