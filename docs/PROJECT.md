@@ -35,8 +35,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 |-------|--------|
 | RELEASE_ID | UX-R1 |
 | RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
-| UX-R1_STATUS | **PLANNING** |
-| UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
+| UX_R1_STATUS / UX-R1_STATUS | **PLANNING** |
+| UX_B1_STATUS / UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
 | UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
 | UX_B2_AUTHORIZATION_STATUS | **MERGED** (PR #43 → `34ce0e7`) |
 | UX_B2_AUTHORIZATION_DECISION | **AUTHORIZED_FOR_INCREMENT_I1_ONLY** |
@@ -44,21 +44,24 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I1_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
-| UX-B3_STATUS | **INDEPENDENT_TRACK** |
-| UX-B4_STATUS | **INDEPENDENT_TRACK** |
-| HOST_DISCOVERY | **DEFERRED** |
-| OPERATIONAL_DEBT | **OPEN** |
-| SCHEDULER_ACTIVATION | **BLOCKED** |
+| UX_B3_STATUS / UX-B3_STATUS | **INDEPENDENT_TRACK** (parallel; screen contracts) |
+| UX_B4_STATUS / UX-B4_STATUS | **CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW** (`OPERATIONAL-LANGUAGE-MICROCOPY-001`) |
+| UX_B4_IMPLEMENTATION_AUTHORIZED | **false** |
 | RELEASE_OWNER | Gustavo Almeida |
 | UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
 | UI_IMPLEMENTATION_AUTHORIZED | **false** |
+| HOST_DISCOVERY | **DEFERRED** |
+| OPERATIONAL_DEBT | **OPEN** |
+| SCHEDULER_ACTIVATION | **BLOCKED** |
 | R3E_SCIENTIFIC_STATE | **UNCHANGED** |
 | Spec | `docs/releases/UX-R1_SPEC.md` |
 | Backlog UX | `docs/ux/UX-R1_BACKLOG.md` |
 | Fundação | `docs/ux/` · `docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md` |
+| Linguagem operacional B4 | `docs/ux/UX-R1-OPERATIONAL-LANGUAGE-GUIDE.md` (+ catálogos status/empty/failure/guardrails) |
 | Impacto B1 | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
 | Impacto B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`; implementação não autorizada) |
 | Autorização B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md` (`AUTHORIZED_FOR_INCREMENT_I1_ONLY`; **MERGED** PR #43) |
+| Impacto B4 | `docs/ai-impact/UX-R1-OPERATIONAL-LANGUAGE-MICROCOPY-001_IMPACT_ASSESSMENT.md` (`APPROVED`; UI não autorizada) |
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
 | PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**MERGED** `5bcb088`) |
 | PR autorização I1 | https://github.com/multivacia/wick/pull/43 (**MERGED** `34ce0e7`) |
@@ -224,3 +227,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Avaliação de autorização de implementação UX-B2 | I1-only; stack locked; sem código UI | `UX_B2_AUTHORIZATION_ASSESSMENT_STATUS=IN_PROGRESS`; `AUTHORIZATION_DECISION=AUTHORIZED_FOR_INCREMENT_I1_ONLY` |
 | 2026-07-19 | Merge PR #43 autorização I1 UX-B2 | Docs-only; I1 future task only | `UX_B2_AUTHORIZATION_STATUS=MERGED`; `I1_IMPLEMENTATION_STATUS=BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION` |
 | 2026-07-19 | Post-merge + merge-complete autorização I1 UX-B2 | PR #45 handoff; I1 ainda bloqueado | `NEXT_ITEM=I1 FRONTEND-SCAFFOLD-AND-CI`; UI não autorizada |
+| 2026-07-19 | UX-B4 linguagem operacional e microcopy | Catálogos docs-only; trilha independente de B2/B3 | `UX_B4_STATUS=CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW`; `UX_B4_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada; R3E inalterado |
