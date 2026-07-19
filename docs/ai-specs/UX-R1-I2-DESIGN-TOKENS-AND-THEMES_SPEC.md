@@ -38,7 +38,11 @@ FRONTEND_LOCATION = web/
 DESIGN_TOKEN_CONTRACT_VERSION = 1.0.0
 SPEC_VERSION = 1.0.0
 CREATED_AT = 2026-07-19T16:54:33Z
-BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+RECONCILED_AT = 2026-07-19T17:32:00Z
+OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+NEW_BASE_SHA = 1866e7f841a76cfc8187bcb7fd520b0f292713f5
+BASE_SHA = 1866e7f841a76cfc8187bcb7fd520b0f292713f5
+PARALLEL_KICKOFF_STATUS = COMPLETE
 ```
 
 G1 note: `IMPLEMENTATION_AUTHORIZED=true` covers **this specification document package** only. It does **not** authorize token CSS, theme files, components, Radix, or screens. `I2_IMPLEMENTATION_AUTHORIZED=false` is binding until an explicit human flip after docs merge.
@@ -90,6 +94,49 @@ NO_R3E_SCIENTIFIC_CHANGES
 | `docs/ai-specs/UX-R1-DESIGN-SYSTEM-FOUNDATION_DRAFT_SPEC.md` | `--wick-*`; status model; WCAG 2.2 AA |
 | Authorization impact I2 section | tokens, light/dark, contrast tests, `DESIGN_TOKEN_CONTRACT_VERSION` |
 | I1 execution | `FRONTEND_LOCATION = web/` (not `frontend/`) |
+
+### 2.1 Visual direction (binding)
+
+```text
+70_PERCENT = OPERATIONS_CENTER
+20_PERCENT = SCIENTIFIC_LAB
+10_PERCENT = INSTITUTIONAL_FINANCE
+0_PERCENT = CASINO_OR_HOME_BROKER
+LIGHT_PRIMARY = true
+DARK_THEME = supported but secondary
+DEEP_BLUE_OR_PETROL = structural
+SUBTLE_CYAN = informational
+GREEN = completion/healthy
+AMBER = attention
+PURPLE_OR_GRAY = blocked/deferred
+RED = real fault only
+```
+
+No flashy trading visuals, glowing charts, 3D, gauges, or decorative financial imagery.
+
+### 2.2 Mandatory semantic safeguards
+
+```text
+NOT_READY != ERROR
+BLOCKED != FAILED
+WARNING != FAILURE
+READY != VALIDATION_AUTHORIZED
+SUCCESS != PROFIT
+COLLECTION_COMPLETE != SCIENTIFIC_VALIDATION
+SCIENTIFIC_VALIDATION != ECONOMIC_RETURN
+```
+
+Status color policy:
+
+```text
+GREEN = completed/healthy only
+AMBER = attention/not-ready/warning
+PURPLE_OR_GRAY = blocked/deferred/unknown
+RED = confirmed fault/error only
+CYAN = informational/active operational context
+```
+
+Color must never be the sole carrier of meaning (text and/or icon required at component layer).
 
 ## 3. Token architecture
 
@@ -496,6 +543,16 @@ Also export version in a tiny TS constant at I2 code time for unit tests (e.g. `
 DEPRECATION = mark in comments + keep alias for one increment grace
 REMOVAL = next MAJOR after grace
 FORBIDDEN = silent removal of status semantic keys
+```
+
+### Rollback
+
+```text
+ROLLBACK =
+  - docs package: revert PR / restore PROJECT.md I2 row
+  - future I2 code: revert token CSS files; restore scaffold colors if needed
+  - if consumers already depend on renamed semantic tokens: bump major contract version
+  - never roll back via R3E / validate / scheduler changes
 ```
 
 ## 18. CSS output strategy

@@ -32,14 +32,20 @@ R5_STATUS = NOT_STARTED
 R3E_SCIENTIFIC_STATE_CHANGE = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+NEW_BASE_SHA = 1866e7f841a76cfc8187bcb7fd520b0f292713f5
+BASE_SHA = 1866e7f841a76cfc8187bcb7fd520b0f292713f5
+REBASED_AT = 2026-07-19T17:32:00Z
+REBASING_STATUS = COMPLETE
 ANALYZED_AT = 2026-07-19T16:54:33Z
+RECONCILED_AT = 2026-07-19T17:32:00Z
 ANALYZED_BY = cursor-agent
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 AUTHORIZATION_DECISION = AUTHORIZED_WITH_CONDITIONS
+PARALLEL_KICKOFF_STATUS = COMPLETE
 FRONTEND_LOCATION = web/
 DESIGN_TOKEN_CONTRACT_VERSION = 1.0.0
 ```
@@ -83,7 +89,11 @@ CODE_IMPLEMENTATION = NOT_AUTHORIZED
 I1_IMPLEMENTATION_STATUS = MERGED
 I1_PR = 51
 I1_MERGE_COMMIT = c283592 (ancestor of main tip)
-MAIN_TIP_AT_ASSESSMENT = 221aacc7141697403e9bbbc9f8690953b683e3a9
+MAIN_TIP_AT_ORIGINAL_ASSESSMENT = 221aacc7141697403e9bbbc9f8690953b683e3a9
+MAIN_TIP_AT_REBASE = 1866e7f841a76cfc8187bcb7fd520b0f292713f5
+PARALLEL_KICKOFF_STATUS = COMPLETE (PRs #58–#61 merged)
+I5A_STATUS = ARCHITECTURE_IN_PROGRESS (draft PR #56; untouched by this PR)
+I6A_STATUS = DATA_PREPARATION_IN_PROGRESS (draft PR #57; untouched by this PR)
 FRONTEND_LOCATION = web/ (locked by I1; supersedes earlier frontend/ plan for path only)
 WEB_SCAFFOLD = present (React+TS+Vite+pnpm+ESLint+Vitest+axe harness)
 TOKEN_CSS = absent
@@ -353,22 +363,76 @@ RADIX = not in I2
 AUTHORIZATION_DECISION = AUTHORIZED_WITH_CONDITIONS
 ```
 
-Condições: (1) merge humano deste assessment/spec; (2) flip explícito `I2_IMPLEMENTATION_AUTHORIZED=true` em tarefa futura; (3) implementação I2 respeita mandatory constraints e testes de contraste/versão; (4) sem Radix/componentes/telas na PR de tokens.
+## AUTHORIZATION_CONDITIONS
+
+Each condition behind `AUTHORIZATION_DECISION = AUTHORIZED_WITH_CONDITIONS`:
+
+```text
+CONDITION_ID = C1_DOCS_MERGE
+DESCRIPTION = Human merges this I2 assessment/spec/review/handoff docs package into main
+OWNER = Gustavo Almeida
+VERIFICATION_METHOD = PR #55 merge commit present on main
+STATUS = OPEN
+
+CONDITION_ID = C2_I2_FLAG_FLIP
+DESCRIPTION = Explicit human sets I2_IMPLEMENTATION_AUTHORIZED=true before any token/theme CSS lands
+OWNER = Gustavo Almeida
+VERIFICATION_METHOD = docs/PROJECT.md flag flip in a separate authorization/implementation task
+STATUS = OPEN
+
+CONDITION_ID = C3_SCOPE_TOKENS_ONLY
+DESCRIPTION = Future I2 code PR limited to tokens/themes/token tests; no components, Radix, screens, router
+OWNER = cursor-agent + Gustavo Almeida
+VERIFICATION_METHOD = PR file diff review against MANDATORY_CONSTRAINTS
+STATUS = SATISFIED (docs contract); OPEN (enforcement at code PR)
+
+CONDITION_ID = C4_CONTRACT_VERSION_AND_PREFIX
+DESCRIPTION = DESIGN_TOKEN_CONTRACT_VERSION=1.0.0 and CSS prefix --wick-* at first token ship
+OWNER = implementing agent (future I2 code)
+VERIFICATION_METHOD = unit test + file inspection
+STATUS = SATISFIED (specified); OPEN (code)
+
+CONDITION_ID = C5_STATUS_SEMANTICS
+DESCRIPTION = Preserve NOT_READY!=ERROR, BLOCKED!=FAILED, SUCCESS!=PROFIT, READY!=VALIDATION_AUTHORIZED and status color policy
+OWNER = implementing agent (future I2 code)
+VERIFICATION_METHOD = semantic-status tests + review checklist
+STATUS = SATISFIED (specified); OPEN (code)
+
+CONDITION_ID = C6_CONTRAST_WCAG
+DESCRIPTION = Light/dark contrast pairs pass WCAG 2.2 AA; color never sole status carrier
+OWNER = implementing agent (future I2 code)
+VERIFICATION_METHOD = contrast unit tests + a11y suite
+STATUS = SATISFIED (test plan in spec); OPEN (code)
+
+CONDITION_ID = C7_SCIENTIFIC_OPERATIONAL_INVARIANTS
+DESCRIPTION = R3E_SCIENTIFIC_STATE_CHANGE=false; HOST_DISCOVERY=DEFERRED; OPERATIONAL_DEBT=OPEN; SCHEDULER_ACTIVATION=BLOCKED; R3E_GATE pending; R4 blocked; R5 not started
+OWNER = all agents
+VERIFICATION_METHOD = PROJECT.md + artifact metadata review
+STATUS = SATISFIED
+
+CONDITION_ID = C8_NO_SCREEN_AUTH
+DESCRIPTION = UI_SCREEN_IMPLEMENTATION_AUTHORIZED remains false; I2 must not ship screens
+OWNER = Gustavo Almeida
+VERIFICATION_METHOD = PROJECT.md + PR file list
+STATUS = SATISFIED
+```
+
+No condition is silently omitted. `STATUS=OPEN` conditions block code execution, not docs merge.
 
 ## 18. Critérios para autorizar implementação
 
 Antes de qualquer PR de código I2, todos devem ser verdadeiros:
 
-1. Este impacto `IMPACT_ASSESSMENT_STATUS=APPROVED` mergeado em `main`
-2. Spec I2 mergeada e estável
-3. Humano define `I2_IMPLEMENTATION_AUTHORIZED=true` (hoje **false**)
-4. `UI_SCREEN_IMPLEMENTATION_AUTHORIZED=false` permanece (sem telas)
-5. Escopo limitado a tokens/temas/testes de token — sem componentes, sem Radix, sem screens
-6. `DESIGN_TOKEN_CONTRACT_VERSION=1.0.0` e prefixo `--wick-*`
-7. Status semantics binding documentado (SUCCESS≠profit; ERROR=real failure only)
-8. Contrast/WCAG 2.2 AA test plan included in I2 implementation PR
-9. `R3E_SCIENTIFIC_STATE_CHANGE=false` preservado
-10. `SCHEDULER_ACTIVATION=BLOCKED`, `HOST_DISCOVERY=DEFERRED`, `OPERATIONAL_DEBT=OPEN` inalterados
+1. Este impacto `IMPACT_ASSESSMENT_STATUS=APPROVED` mergeado em `main` (C1)
+2. Spec I2 mergeada e estável (C1)
+3. Humano define `I2_IMPLEMENTATION_AUTHORIZED=true` (hoje **false**) (C2)
+4. `UI_SCREEN_IMPLEMENTATION_AUTHORIZED=false` permanece (sem telas) (C8)
+5. Escopo limitado a tokens/temas/testes de token — sem componentes, sem Radix, sem screens (C3)
+6. `DESIGN_TOKEN_CONTRACT_VERSION=1.0.0` e prefixo `--wick-*` (C4)
+7. Status semantics binding documentado e testado (C5)
+8. Contrast/WCAG 2.2 AA test plan included in I2 implementation PR (C6)
+9. `R3E_SCIENTIFIC_STATE_CHANGE=false` preservado (C7)
+10. `SCHEDULER_ACTIVATION=BLOCKED`, `HOST_DISCOVERY=DEFERRED`, `OPERATIONAL_DEBT=OPEN` inalterados (C7)
 
 ```text
 AUTHORIZATION_DECISION = AUTHORIZED_WITH_CONDITIONS
