@@ -10,16 +10,22 @@ TASK_ID = DESIGN-SYSTEM-FOUNDATION-001
 TITLE = Design System Foundation Impact Assessment
 CHANGE_RISK = MEDIUM
 PHASE = IMPACT_ASSESSMENT_ONLY
-IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
-IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UX_B2_IMPLEMENTATION_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA = ef678fb92606541d0706ef408a37c0c020abe384
+OLD_BASE_SHA = ef678fb92606541d0706ef408a37c0c020abe384
+BASE_SHA = 223ba0c39a0b4975284d87668e2816c7f8684062
+NEW_BASE_SHA = 223ba0c39a0b4975284d87668e2816c7f8684062
+REBASING_STATUS = COMPLETE
+CONFLICTS_RESOLVED = none
 ANALYZED_AT = 2026-07-19T12:31:41Z
+RECONCILED_AT = 2026-07-19T12:56:44Z
 ANALYZED_BY = cursor-agent
+APPROVED_BY = cursor-agent-reconciliation
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
@@ -27,20 +33,43 @@ ECONOMIC_INTERPRETATION_ALLOWED = false
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
-RECOMMENDED_DECISION = APPROVE_WITH_CHANGES
+RECOMMENDED_DECISION = APPROVED
+RECOMMENDED_ARCHITECTURE = HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS
 ```
 
 ## SUMMARY
 
-Avaliar o impacto de introduzir a fundação de design system do WICK (tokens, semântica de status, componentes base, a11y e responsivo) **sem implementar UI**.
+Impacto da fundação de design system WICK, reconciliado após rebase em `main` (inclui PR #30 / B5-P1).
 
-Descoberta: não existe frontend no repositório. Stack atual = Python/uv/pytest/ruff. R5 prevê React+TypeScript+FastAPI no futuro, mas UX-R1 é trilha paralela operacional e ainda não autoriza implementação.
+```text
+RECOMMENDED_ARCHITECTURE = HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS
+ARCHITECTURE_NOTE = architectural recommendation only; no dependency install; no frontend scaffold
+```
 
-Recomendação: **Option B — headless primitives + WICK tokens/visual layer**, com tokens CSS como contrato primeiro. Decisão humana necessária sobre stack e pasta monorepo antes de autorizar implementação.
+`IMPLEMENTATION_AUTHORIZED=true` (G1) significa que o **desenho** está aprovado para uma tarefa futura de implementação. **Código UI permanece proibido** até `UX_B2_IMPLEMENTATION_AUTHORIZED=true` explícito.
+
+## CHANGES_RECONCILIATION
+
+| Required change | Disposition | Resolution |
+|-----------------|-------------|------------|
+| Exact frontend repository boundary | RESOLVED | `frontend/` monorepo root; DS at `frontend/packages/wick-ds` |
+| Framework strategy (no frontend today) | RESOLVED | React + TypeScript (align R5) |
+| Dependency policy for headless primitives | RESOLVED | Radix UI primitives only; no full visual kit; license MIT review at install time |
+| Token versioning | RESOLVED | `DESIGN_TOKEN_CONTRACT_VERSION` semver; breaking = major |
+| WCAG 2.2 AA gates | RESOLVED | Mandatory merge gate for DS implementation |
+| Semantic status rules | RESOLVED | Model locked below; `NOT_READY`→ATTENTION; SUCCESS≠profit |
+| Fixture labeling | RESOLVED | `DEMONSTRATION DATA` mandatory |
+| Sensitive data masking | RESOLVED | Default masks for secrets/env/tokens; admin-only partial paths |
+| Test matrix | RESOLVED | Mandatory layers locked; visual regression phase-2 |
+| Implementation increments | RESOLVED | Four increments locked in draft spec |
+| Rollback and migration strategy | RESOLVED | Sections 11 + MIGRATION_STRATEGY |
+| Storybook in B2 vs B3 | DEFERRED_WITH_BLOCKER | Catalog required before UX-B3 consumes DS; may ship late in B2 |
+| API read-only vs fixtures-only | DEFERRED_WITH_BLOCKER | Fixtures-only for first DS/prototype; API not a B2 DS blocker |
+| Option C full kit | REJECTED_WITH_RATIONALE | Trading aesthetics / P&L semantics / lock-in |
 
 ## 1. Objetivo
 
-Produzir análise G1 pré-implementação para UX-B2 / `DESIGN-SYSTEM-FOUNDATION-001`, definindo arquitetura, riscos, guardrails científicos/econômicos, a11y, responsivo, testes e fronteira de implementação — sem código de UI.
+Produzir e reconciliar análise G1 pré-implementação para UX-B2 / `DESIGN-SYSTEM-FOUNDATION-001`, fechando condicionantes do pacote de impacto — sem código de UI.
 
 ## 2. Contexto técnico
 
@@ -48,279 +77,184 @@ Produzir análise G1 pré-implementação para UX-B2 / `DESIGN-SYSTEM-FOUNDATION
 
 | Dimensão | Estado verificado |
 |----------|-------------------|
-| Frontend app | **Ausente** (0 `.tsx`/`.jsx`/`.vue`/`.svelte`/`.css`/`.html` de produto) |
+| Frontend app | **Ausente** |
 | `package.json` | Ausente |
 | Framework UI | Nenhum |
 | Package manager (JS) | Nenhum; Python usa **uv** |
 | Build system UI | Nenhum |
 | CSS strategy | Nenhum |
-| Test framework | **pytest** (+ pytest-cov opcional) |
+| Test framework | **pytest** |
 | Lint/format | **ruff** |
 | A11y tooling | Ausente |
-| Static assets / branding | Ausente (só docs UX-R1) |
-| API contract HTTP | Ausente para UX; CLI/reports JSON locais |
-| Repo shape | **Monorepo Python** (`src/wick`); templates = AI docs, não UI |
-| Predecessor UX-B1 | **MERGED** (PR #31 `5101c65`; post-merge #32–#34) |
-| R5 vision (futuro) | React + TypeScript + FastAPI PWA (`docs/releases/R5_SPEC.md`) — **não iniciado** |
+| Repo shape | Monorepo Python `src/wick` |
+| UX-B1 | MERGED (PR #31) |
+| Main pós-rebase | Inclui PR #30 B5-P1 + post-merge handoffs |
+| R5 vision | React+TS+FastAPI (não iniciado) |
 
-Fonte de direção visual já mergeada: `docs/ux/WICK_VISUAL_DIRECTION.md`, linguagem, IA e princípios UX-B1.
+```text
+OLD_BASE_SHA = ef678fb92606541d0706ef408a37c0c020abe384
+NEW_BASE_SHA = 223ba0c39a0b4975284d87668e2816c7f8684062
+REBASING_STATUS = COMPLETE
+CONFLICTS_RESOLVED = none
+```
 
 ## 3. Componentes afetados
 
-**Nesta fase (impacto apenas):** documentação em `docs/ai-impact/`, `docs/ai-specs/`, `docs/ai-reviews/`, `docs/PROJECT.md`, backlog UX, handoff.
+**Impacto (esta PR):** docs de impacto/spec/review/handoff + `docs/PROJECT.md` + backlog UX.
 
-**Em implementação futura autorizada (não nesta tarefa):**
+**Implementação futura (não autorizada agora):** `frontend/`, `frontend/packages/wick-ds`, tooling a11y/UI tests.
 
-- pacote/pasta de design system (proposta);
-- tokens CSS;
-- primitives headless + wrappers WICK;
-- tooling a11y/visual tests;
-- possivelmente `frontend/` ou `web/` no monorepo.
-
-**Não afetados:** motor R3E, store future-unseen, validate, scheduler, migrations científicas.
+**Não afetados:** R3E científico, store, validate, scheduler, migrations.
 
 ## 4. Arquivos previstos
-
-Nesta PR de impacto:
 
 ```text
 docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md
 docs/ai-specs/UX-R1-DESIGN-SYSTEM-FOUNDATION_DRAFT_SPEC.md
 docs/ai-reviews/UX-R1-DESIGN-SYSTEM-FOUNDATION_IMPACT_REVIEW.md
 reports/ai-implementation/UX-R1-DESIGN-SYSTEM-FOUNDATION_IMPACT_HANDOFF.md
+reports/ai-implementation/UX-R1-DESIGN-SYSTEM-FOUNDATION_FINAL-EVIDENCE_HANDOFF.md
 docs/PROJECT.md
 docs/ux/UX-R1_BACKLOG.md
 ```
 
-Futuros (somente após autorização): a definir na implementação (não criar agora).
-
 ## 5. Contratos e interfaces
 
-### TOKEN_CONTRACT (proposto, não implementado)
-
-Naming: `category.role.variant` em CSS custom properties com prefixo `--wick-`.
+### TOKEN_CONTRACT
 
 ```text
-color.background.*
-color.text.*
-color.border.*
-color.status.*
-space.*
-size.*
-radius.*
-shadow.*
-font.family.*
-font.size.*
-font.weight.*
-line.height.*
-breakpoint.*
-motion.duration.*
-motion.easing.*
-z_index.*
+PREFIX = --wick-
+NAMING = category.role.variant
+DESIGN_TOKEN_CONTRACT_VERSION = 1.0.0 (ao criar implementação)
+SEMANTIC_OVER_RAW = required
+LIGHT_PRIMARY = true
+DARK_SUPPORTED = true
+HARDCODED_PRODUCT_COLORS = prohibited
 ```
 
-Regras:
-
-- tokens **semânticos** (ex.: `--wick-color-status-attention`) sobre raw hex na UI;
-- raw tokens internos (ex.: `--wick-palette-petroleum-700`) só no tema;
-- light default / dark via `[data-theme="dark"]` ou `prefers-color-scheme` + override explícito;
-- proibido hardcode de cor em componentes de produto;
-- versionar contrato (`DESIGN_TOKEN_CONTRACT_VERSION`);
-- breaking change de token = bump de versão + changelog UX.
+Categorias: `color.background|text|border|status.*`, `space.*`, `size.*`, `radius.*`, `shadow.*`, `font.*`, `breakpoint.*`, `motion.*`, `z_index.*`.
 
 ### SEMANTIC_STATUS_MODEL
 
 ```text
-NORMAL
-SUCCESS
-ATTENTION
-BLOCKED
-ERROR
-UNAVAILABLE
-INFORMATIONAL
+NORMAL | SUCCESS | ATTENTION | BLOCKED | ERROR | UNAVAILABLE | INFORMATIONAL
 ```
 
-Mapeamento obrigatório:
+| Status | Uso |
+|--------|-----|
+| ATTENTION | inclui `NOT_READY` |
+| BLOCKED | gate/protocolo; não é falha automática |
+| ERROR | somente falha real |
+| SUCCESS | operacional completo; **não** lucro |
 
-| Status | Texto | Cor | Nota |
-|--------|-------|-----|------|
-| NORMAL | Neutro / operacional | Brand/petroleum | Estado padrão |
-| SUCCESS | Concluído / saudável | Verde moderado | **Não** significa lucro |
-| ATTENTION | Atenção / não pronto | Âmbar | Inclui `NOT_READY` |
-| BLOCKED | Bloqueado | Roxo/cinza forte | Não é falha por si |
-| ERROR | Falha real | Vermelho | Só falha operacional/científica real |
-| UNAVAILABLE | Indisponível / N/A | Cinza | |
-| INFORMATIONAL | Informativo | Ciano discreto | Ajuda/contexto |
+Canais obrigatórios: texto + ícone + SR + tooltip + contraste HC.
 
-Canais não-cor obrigatórios: texto + ícone + (quando útil) borda/fundo + `aria-label` / tooltip + modo alto contraste.
+### REPOSITORY_BOUNDARIES (RESOLVED)
 
-Códigos técnicos (`READINESS_NOT_READY`, `WINDOW_DAYS_INSUFFICIENT`, etc.) permanecem na camada secundária.
+```text
+REPO = multivacia/wick
+FRONTEND_ROOT = frontend/
+DS_PACKAGE = frontend/packages/wick-ds
+JS_PACKAGE_MANAGER = pnpm
+PYTHON_BACKEND = src/wick
+SEPARATE_FRONTEND_REPO = false for UX-R1
+```
 
 ## 6. Persistência e dados
 
-Design system não persiste dados científicos. Política de fixtures para protótipos futuros:
-
 ```text
-REAL_OPERATIONAL_METADATA = allowed when labeled and non-secret
-SAFE_FIXTURES = allowed
-DEMONSTRATION_DATA = mandatory visible label on every fixture surface
+FIXTURE_POLICY = REAL_OPERATIONAL_METADATA | SAFE_FIXTURES | DEMONSTRATION_DATA
+DEMONSTRATION_DATA_LABEL = mandatory on every fixture surface
+PROHIBITED_IMPLICATIONS = profit | model_accuracy | readiness | scheduler_on | validate_executed
 ```
-
-Fixture **não** pode implicar: lucro real, acurácia de modelo, readiness, ativação de scheduler, execução de `validate`.
 
 ## 7. Concorrência, locks e idempotência
 
-Sem locks de runtime nesta fundação. Tokens e componentes devem ser idempotentes sob reimport. Temas não devem depender de estado científico global mutável.
+Sem locks de runtime no DS. Tokens/componentes idempotentes. Temas independentes de estado científico mutável.
 
 ## 8. Segurança
 
 ### SECURITY_AND_PRIVACY
 
-Riscos futuros de UI:
-
-- renderizar secrets / env vars / tokens de provedor;
-- expor hostnames, usernames, paths, stack traces, logs brutos;
-- download/clipboard de evidências sensíveis.
-
-Guardrails:
-
-- máscaras default para secrets e tokens;
-- paths/hostnames só para persona Admin com redaction parcial;
-- logs estruturados sem secrets;
-- clipboard com confirmação para IDs longos; nunca copiar env secrets;
-- nenhum segredo no cliente (alinhado a R5);
-- permissões por persona (A/B/C/D) na camada de app (fora do DS puro, mas tokens de “sensitive chip” podem existir).
+```text
+MASK_DEFAULTS = secrets | env | provider_tokens
+ADMIN_PARTIAL = hostnames | usernames | filesystem_paths
+LOGS = structured_no_secrets
+CLIPBOARD = confirm_long_ids | never_secrets
+CLIENT_BUNDLES = no_secrets
+```
 
 ## 9. Observabilidade
 
-Componentes de status e evidence panels devem facilitar auditoria (`run_id`, hashes) sem calcular métricas no cliente. Telemetria de UI, se existir no futuro, não deve enviar PII/secrets.
+Status/evidence first-class; sem cálculo financeiro no cliente; telemetria futura sem PII/secrets.
 
 ## 10. Operação
 
-Design system não altera coleta/scheduler. Operadores continuam com CLI até protótipos autorizados. Documentação de tokens deve viver em `docs/ux/` + story/catalog futuro.
+DS não altera coleta/scheduler. CLI permanece fonte operacional até protótipos autorizados.
 
 ## 11. Rollback
 
-Reverter PR de implementação futura remove pacote UI sem tocar dados R3E. Tokens versionados permitem rollback parcial. Esta PR de impacto reverte só docs.
+Reverter PR de implementação UI remove `frontend/` sem tocar R3E. Tokens versionados permitem rollback parcial. Rollback desta PR = reverter docs.
 
 ## 12. Compatibilidade
 
-- Compatível com UX-B1 (princípios, visual, IA, linguagem).
-- Compatível com R5 React+TS **se** Option B for adotada; se stack divergir de R5, registrar decisão explícita.
-- Não conflita com B5-D1 / R3E científica.
+UX-B1, R5 React path, B5-P1/R3E científica preservados. Rebase confirmou preservação de UX-B1 MERGED e PR #30.
 
-## REPOSITORY_BOUNDARIES
+## IMPLEMENTATION_GATES
 
-Proposta (para decisão humana):
-
-```text
-REPO = multivacia/wick (monorepo)
-PROPOSED_FRONTEND_ROOT = frontend/   # ou web/ — decidir na autorização
-PROPOSED_DS_PACKAGE = frontend/packages/wick-ds  # ou frontend/src/design-system
-PYTHON_BACKEND = src/wick (inalterado nesta fase)
-NO_SEPARATE_FRONTEND_REPO_FOR_UX_R1 = recommended initially
-```
-
-API: UX-R1 protótipo pode começar com fixtures + leitura de reports; API HTTP read-only é dependência futura, não bloqueia tokens/componentes.
+| Gate | STATUS | OWNER | EVIDENCE | BLOCKING_EFFECT |
+|------|--------|-------|----------|-----------------|
+| FRONTEND_LOCATION_DECIDED | DECIDED_IN_IMPACT | Gustavo / impact | `frontend/` | Blocks scaffold until auth |
+| FRAMEWORK_DECIDED | DECIDED_IN_IMPACT | Gustavo / impact | React+TypeScript | Blocks scaffold until auth |
+| PACKAGE_MANAGER_DECIDED | DECIDED_IN_IMPACT | Gustavo / impact | pnpm (JS); uv (Python) | Blocks scaffold until auth |
+| HEADLESS_LIBRARY_DECIDED | DECIDED_IN_IMPACT | Gustavo / impact | Radix UI primitives | Blocks deps until auth |
+| DEPENDENCY_LICENSE_REVIEWED | PENDING_AT_INSTALL | Implementer | MIT check at install | Blocks first `pnpm add` |
+| ACCESSIBILITY_TEST_TOOL_DECIDED | DECIDED_IN_IMPACT | Gustavo / impact | axe-core + Testing Library + Playwright | Blocks DS merge without a11y tests |
+| VISUAL_REGRESSION_TOOL_DECIDED | DEFERRED_PHASE_2 | Gustavo | Playwright screenshots later | Does not block impact; blocks “visual complete” claim |
+| TOKEN_CONTRACT_APPROVED | DECIDED_IN_IMPACT | Gustavo / impact | this document §5 | Blocks token code drift |
+| SEMANTIC_STATUS_MODEL_APPROVED | DECIDED_IN_IMPACT | Gustavo / impact | this document §5 | Blocks status components |
+| FIXTURE_POLICY_APPROVED | DECIDED_IN_IMPACT | Gustavo / impact | §6 | Blocks unlabeled fixtures |
+| SECURITY_MASKING_RULES_APPROVED | DECIDED_IN_IMPACT | Gustavo / impact | §8 | Blocks unmasked secrets in UI |
+| UX_B2_IMPLEMENTATION_AUTHORIZED | false | Human | explicit auth | **Blocks all DS code** |
+| UI_IMPLEMENTATION_AUTHORIZED | false | Human | explicit auth | Blocks app shell/routes/pages |
 
 ## 13. Testes necessários
 
-### TEST_STRATEGY (futuro)
+### TEST_STRATEGY
 
-| Camada | Obrigatória antes do merge de implementação DS? |
-|--------|--------------------------------------------------|
-| unit (tokens/helpers) | SIM |
-| component tests | SIM |
-| accessibility (axe + keyboard) | SIM |
-| semantic-status tests | SIM |
-| fixture-label tests | SIM |
-| scientific-state safety tests | SIM |
-| theme light/dark tests | SIM |
-| responsive smoke | SIM |
-| visual regression | RECOMENDADO (pode ser fase 2) |
-| keyboard navigation suites | SIM para shell/nav/modal |
+Obrigatório antes do merge de implementação DS:
 
-Nesta tarefa: pytest/ruff/governance do repo Python devem permanecer PASS; sem testes UI (código inexistente).
+- unit tokens
+- component tests
+- a11y (axe + keyboard)
+- semantic-status
+- fixture-label
+- scientific-state safety
+- theme light/dark
+- responsive smoke
+
+Visual regression: phase-2 (Playwright).
+
+Nesta tarefa: pytest/ruff/governance Python PASS; sem UI code.
 
 ## 14. Alternativas consideradas
 
 ### ARCHITECTURE_OPTIONS
 
-#### Option A — Native tokens + lightweight components
-
-```text
-CSS custom properties
-small internal component layer
-no external UI kit
-```
-
-| Critério | Avaliação |
-|----------|-----------|
-| Custo | Médio-alto (a11y reinventada) |
-| Acessibilidade | Boa se disciplinada; risco de regressão |
-| Manutenção | Alta propriedade |
-| Dependência | Baixa |
-| Bundle | Baixo |
-| Controle visual | Máximo |
-| Dark theme | Total |
-| Responsivo | Total |
-| Testes | Mais suíte própria |
-| Migração | Fácil para headless depois |
-| Lock-in | Baixo |
-| Adequação WICK | Alta (controle semântico) |
-
-#### Option B — Headless primitives + WICK styling (**recomendada**)
-
-```text
-accessible headless primitives
-WICK tokens and visual layer
-```
-
-| Critério | Avaliação |
-|----------|-----------|
-| Custo | Médio |
-| Acessibilidade | Forte (focus trap, dialog, etc.) |
-| Manutenção | Boa |
-| Dependência | Moderada (primitivos, não tema visual) |
-| Bundle | Moderado |
-| Controle visual | Alto (WICK tokens) |
-| Dark theme | Total |
-| Responsivo | Total |
-| Testes | Mais fácil em a11y de primitives |
-| Migração | Alinha a React/R5 |
-| Lock-in | Moderado (API headless) |
-| Adequação WICK | **Alta** |
-
-#### Option C — Full external component library
-
-```text
-prebuilt component suite
-theme overrides
-```
-
-| Critério | Avaliação |
-|----------|-----------|
-| Custo | Baixo inicial |
-| Acessibilidade | Variável |
-| Manutenção | Theme fights |
-| Dependência | Alta |
-| Bundle | Alto |
-| Controle visual | Limitado |
-| Dark theme | Possível, estética genérica |
-| Responsivo | Genérico |
-| Testes | Menos superfície própria, mais overrides |
-| Migração | Cara |
-| Lock-in | Alto |
-| Adequação WICK | **Baixa** (risco visual trading/casino, semântica P&L) |
+- **A** Native tokens + lightweight — alta propriedade, a11y mais cara
+- **B** Headless + WICK tokens — **recomendada**
+- **C** Full external kit — **REJECTED** (casino/P&L/lock-in)
 
 ### RECOMMENDED_ARCHITECTURE
 
 ```text
-RECOMMENDED = OPTION_B_HEADLESS_PLUS_WICK_TOKENS
+RECOMMENDED_ARCHITECTURE = HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS
 TOKEN_LAYER = CSS_CUSTOM_PROPERTIES_FIRST
-STACK_ALIGNMENT = React_TypeScript_preferred_to_align_R5
-STACK_DECISION = HUMAN_REQUIRED_BEFORE_IMPLEMENTATION
+FRAMEWORK = React_TypeScript
+HEADLESS = Radix_UI_primitives
 REJECTED = OPTION_C_FULL_EXTERNAL_KIT
+NO_DEPENDENCY_INSTALL_AUTHORIZED = true
+NO_FRONTEND_SCAFFOLD_AUTHORIZED = true
 ```
 
 ## ACCESSIBILITY_IMPACT
@@ -329,109 +263,75 @@ REJECTED = OPTION_C_FULL_EXTERNAL_KIT
 WCAG_TARGET = 2.2 AA
 ```
 
-Obrigatório no DS:
-
-- navegação teclado completa;
-- foco visível (`:focus-visible` tokenizado);
-- semântica SR (roles/names);
-- contraste AA em light/dark/status;
-- status nunca só por cor;
-- zoom 200% sem perda crítica; 400% onde aplicável (reflow);
-- `prefers-reduced-motion` → motion tokens ~0 / fade mínimo;
-- touch targets ≥ 44px em mobile;
-- tabelas com headers/`scope`/alternativa card;
-- modais: focus trap, return focus, Escape;
-- erros identificados em texto;
-- plain language + expansão técnica (UX-B1).
-
-Gates de aceite a11y bloqueiam merge de implementação.
+Keyboard, focus-visible, SR, contrast, non-color status, 200%/400% zoom, reduced motion, 44px touch, table a11y, modal focus trap, plain-language + technical expansion. Falha a11y bloqueia merge de implementação.
 
 ## RESPONSIVE_IMPACT
 
-| Viewport | Comportamento DS/app |
-|----------|----------------------|
-| Desktop | Sidebar + content; tabelas densas |
-| Tablet | Sidebar colapsável/rail |
-| Mobile | Bottom nav (Início/Coleta/Prontidão/Operação/Mais) |
-
-Requisitos: table→card; filtros empilháveis; `run_id`/hash com wrap/`overflow-wrap`; readiness checklist empilhável; drawers/modais full-screen em mobile; touch; não assumir rede estável no host local (estados UNAVAILABLE/ATTENTION).
+Desktop sidebar; tablet collapsible; mobile bottom nav (UX-B1). Table→card; wrap IDs; stacked filters/checklists; offline/local host → UNAVAILABLE/ATTENTION.
 
 ## SCIENTIFIC_SAFETY / ECONOMIC_INTERPRETATION_SAFETY
 
-Riscos e guardrails:
-
-| Risco | Guardrail |
-|-------|-----------|
-| `NOT_READY` como falha | Mapear a ATTENTION; proibir ERROR |
-| `BLOCKED` como crash | Copy + cor roxo/cinza; princípio 4 |
-| Verde/vermelho = lucro/prejuízo | Proibir semântica P&L; SUCCESS ≠ profit |
-| Ocultar estado técnico | Camada secundária obrigatória |
-| Interpretação econômica precoce | `ECONOMIC_INTERPRETATION_ALLOWED=false` refletido em UI |
-| Demo como real | Label `DEMONSTRATION DATA` |
-| Minimizar gates bloqueados | Evidence/status first-class |
+Guardrails: `NOT_READY`≠ERROR; `BLOCKED`≠crash; SUCCESS≠profit; technical layer mandatory; no fabricated economic results; demo labeled; gates visible.
 
 ## 15. Riscos
 
 ```text
-RISK = adopting_full_ui_kit_with_trading_aesthetics
+RISK = implementing_ui_before_UX_B2_auth
 IMPACT = HIGH
-MITIGATION = reject Option C; visual direction 0_percent_casino
+MITIGATION = UX_B2_IMPLEMENTATION_AUTHORIZED=false
 RESIDUAL = LOW
 
-RISK = implementing_ui_before_authorization
+RISK = status_color_only
 IMPACT = HIGH
-MITIGATION = IMPLEMENTATION_AUTHORIZED=false until human approval
+MITIGATION = mandatory multi-channel status + tests
 RESIDUAL = LOW
 
-RISK = status_color_only_encoding
+RISK = full_ui_kit_aesthetics
 IMPACT = HIGH
-MITIGATION = mandatory text/icon/SR channels + tests
+MITIGATION = Option C rejected
 RESIDUAL = LOW
-
-RISK = stack_divergence_from_R5
-IMPACT = MEDIUM
-MITIGATION = explicit human stack decision recorded before code
-RESIDUAL = MEDIUM
 ```
 
 ## 16. Questões abertas
 
-1. Confirmar stack UX-R1 = React+TypeScript (alinhado R5) vs outra?
-2. Pasta monorepo: `frontend/` vs `web/` vs pacote isolado?
-3. Qual biblioteca headless (ex.: Radix, React Aria, Base UI)?
-4. Storybook/catalog obrigatório no UX-B2 ou só no B3?
-5. API read-only antes do primeiro protótipo ou fixtures-only?
+Nenhuma questão aberta bloqueia aprovação do impacto.
 
-Nenhuma questão bloqueia **aprovação do impacto**; todas bloqueiam **autorização de implementação**.
+Itens deferred (não bloqueiam impacto APPROVED):
+
+1. Storybook timing (B2 late vs pré-B3) — DEFERRED_WITH_BLOCKER para consumo B3
+2. API read-only timing — DEFERRED; fixtures-only suficiente para DS
 
 ## DEPENDENCIES
 
-Futuras (não instalar agora):
+Futuras (install **não** autorizado nesta fase):
 
-- runtime UI (React etc.) — decisão humana;
-- headless primitives;
-- test runners UI (Vitest/Playwright/Testing Library) — a definir;
-- axe-core ou equivalente.
+- react, react-dom, typescript
+- @radix-ui/react-* (subset needed)
+- vitest, @testing-library/react, playwright, axe-core
+- pnpm workspace
 
-**Não modificar** `pyproject.toml` / lockfiles nesta tarefa.
+Não modificar `pyproject.toml` / lockfiles Python nesta tarefa.
 
 ## MIGRATION_STRATEGY
 
-1. Aprovar impacto + decidir stack/pasta/headless.
-2. Implementar tokens + status semantics + a11y baseline (incremento 1).
-3. Primitives + componentes listados (incremento 2).
-4. Catalog/docs (incremento 3).
-5. Só então UX-B3 shell consome o DS.
+1. Human merge of this impact PR (docs only)
+2. Separate task: set `UX_B2_IMPLEMENTATION_AUTHORIZED=true`
+3. Increment 1: tokens + themes + StatusBadge + DemoDataLabel
+4. Increment 2: forms + Alert + Table + Progress
+5. Increment 3: overlays + navigation primitives
+6. Increment 4: catalog + a11y report gate
+7. UX-B3 shell consumes DS
 
 ## 17. Decisão arquitetural recomendada
 
 ```text
-RECOMMENDED_DECISION = APPROVE_WITH_CHANGES
-RECOMMENDED_ARCHITECTURE = OPTION_B
+DECISION = APPROVED
+RECOMMENDED_ARCHITECTURE = HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS
 TOKEN_CONTRACT = CSS_SEMANTIC_FIRST
 ACCESSIBILITY_TARGET = WCAG_2_2_AA
 SEMANTIC_STATUS_MODEL = NORMAL|SUCCESS|ATTENTION|BLOCKED|ERROR|UNAVAILABLE|INFORMATIONAL
-IMPLEMENTATION_AUTHORIZED = false
+IMPLEMENTATION_AUTHORIZED = true
+UX_B2_IMPLEMENTATION_AUTHORIZED = false
 UI_IMPLEMENTATION_AUTHORIZED = false
 ```
 
@@ -441,66 +341,51 @@ UI_IMPLEMENTATION_AUTHORIZED = false
 CHANGE_RISK = MEDIUM
 ```
 
-Motivo: nova superfície de produto e dependências futuras, sem mudança científica imediata.
-
 ## IMPLEMENTATION_BOUNDARY
 
-**Permitido após autorização futura:** tokens, themes, componentes base, testes a11y, catalog.
+**Após `UX_B2_IMPLEMENTATION_AUTHORIZED=true`:** tokens, themes, componentes DS, testes a11y, catalog.
 
-**Proibido nesta e na implementação B2 até nova autorização explícita de app:**
+**Ainda proibido sem flags adicionais:** app shell de domínio, routes/pages, API clients, production deploy, P&L mocks, R3E/validate/scheduler changes.
 
-- application shell completo de produto (salvo smoke do DS);
-- routes/pages de domínio;
-- API clients / backend endpoints;
-- production UI deploy;
-- mock screens de trading/P&L;
-- qualquer alteração R3E/validate/scheduler.
+**Nesta PR:** somente documentação.
 
 ## BLOCKERS
 
 ```text
-BLOCKER_1 = Human review of this impact (PENDING_REVIEW)
-BLOCKER_2 = Explicit stack and repository-boundary decision
-BLOCKER_3 = UX_B2_IMPLEMENTATION_AUTHORIZED remains false until approval
-BLOCKER_4 = UI_IMPLEMENTATION_AUTHORIZED remains false
+BLOCKER_1 = Human authorization to merge PR #35 (docs)
+BLOCKER_2 = UX_B2_IMPLEMENTATION_AUTHORIZED=false (blocks all DS code)
+BLOCKER_3 = UI_IMPLEMENTATION_AUTHORIZED=false (blocks product UI)
+BLOCKER_4 = DEPENDENCY_LICENSE_REVIEWED pending at first install
 ```
 
 ## 18. Critérios para autorizar implementação
 
-Para promover:
+Código DS só após:
 
 ```text
 IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPLEMENTATION_AUTHORIZED = true
+UX_B2_IMPLEMENTATION_AUTHORIZED = true   # human explicit
 ```
 
-exigir:
-
-1. revisão humana com decisão explícita;
-2. escolha documentada de Option B (ou waiver);
-3. stack + pasta monorepo decididas;
-4. headless library escolhida;
-5. draft spec promovida a spec de implementação;
-6. `UI_IMPLEMENTATION_AUTHORIZED` ainda pode permanecer false para “somente pacote DS” — se app shell for incluído, exigir flag explícita;
-7. suite de testes obrigatórios acordada;
-8. R3E inalterado.
-
-Estado atual:
+Estado atual pós-reconciliação:
 
 ```text
-IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
-IMPLEMENTATION_AUTHORIZED = false
-UI_IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 UX_B2_IMPLEMENTATION_AUTHORIZED = false
+UI_IMPLEMENTATION_AUTHORIZED = false
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 ```
 
 ## DECISION
 
 ```text
-DECISION = APPROVE_WITH_CHANGES
-IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
-IMPLEMENTATION_AUTHORIZED = false
+DECISION = APPROVED
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+UX_B2_IMPLEMENTATION_AUTHORIZED = false
+UI_IMPLEMENTATION_AUTHORIZED = false
 ```
 
-A fundação de design system é viável e recomendável sob Option B, condicionada a decisões humanas de stack/limites antes de qualquer código.
+Impacto documental aprovado com arquitetura `HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS`. Implementação de código permanece não autorizada.

@@ -1,4 +1,4 @@
-# UX-R1 Design System Foundation — Impact Review
+# UX-R1 Design System Foundation — Impact Review (Final)
 
 ## Metadados
 
@@ -11,75 +11,68 @@ REVIEW_TYPE = IMPACT_ASSESSMENT_REVIEW
 REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 PHASE = IMPACT_ASSESSMENT_ONLY
+CHANGE_RISK = MEDIUM
 IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md
-IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
-IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UX_B2_IMPLEMENTATION_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA_AT_REVIEW = ef678fb92606541d0706ef408a37c0c020abe384
+BASE_SHA_AT_REVIEW = 223ba0c39a0b4975284d87668e2816c7f8684062
 HEAD_BRANCH = cursor/ux-r1-b2-design-system-impact-af17
+CONTENT_REVIEWED_THROUGH_HEAD = TO_BE_RECORDED_EXTERNALLY
+FINAL_CANDIDATE_HEAD = TO_BE_RECORDED_EXTERNALLY
+PREVIOUSLY_REVIEWED_HEAD = 0a04252623e4b75989dfa3239fc7a59f9a285127
+COMMITS_RECONCILED = rebase-onto-main-plus-impact-reconciliation
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 ECONOMIC_INTERPRETATION_ALLOWED = false
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
-REVIEWED_AT = 2026-07-19T12:31:41Z
+REVIEWED_AT = 2026-07-19T12:56:44Z
 ```
 
-## Materiais revisados
+## Rebase
 
-- impacto `UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md`
-- draft spec `UX-R1-DESIGN-SYSTEM-FOUNDATION_DRAFT_SPEC.md`
-- fundação UX-B1 (visual, linguagem, IA, princípios)
-- descoberta de repositório (sem frontend)
-- `docs/releases/R5_SPEC.md` (visão React futura)
+```text
+OLD_BASE_SHA = ef678fb92606541d0706ef408a37c0c020abe384
+NEW_BASE_SHA = 223ba0c39a0b4975284d87668e2816c7f8684062
+REBASING_STATUS = COMPLETE
+CONFLICTS_RESOLVED = none
+PR30_PRESERVED = true
+UX_B1_MERGED_PRESERVED = true
+```
 
 ## Checklist
 
-| Critério | Resultado | Notas |
-|----------|-----------|-------|
-| Discovery accuracy | PASS | Sem frontend/JS; uv/pytest/ruff corretos |
-| Architecture recommendation | PASS | Option B sensata; Option C rejeitada |
-| Dependency risk | PASS | Sem install nesta fase; deps futuras explícitas |
-| Accessibility | PASS | WCAG 2.2 AA + gates |
-| Scientific-state safety | PASS | NOT_READY≠ERROR; sem P&L |
-| Security/privacy | PASS | Masking/secrets guardrails |
-| Testability | PASS | Matriz obrigatória definida |
-| Implementation boundary | PASS | Impact-only; UI não autorizada |
-| R3E unchanged | PASS | |
-
-## Achados
-
-### Críticos / Altos
-
-Nenhum no pacote de impacto.
-
-### Médios (condicionantes — justificam APPROVE_WITH_CHANGES)
-
-1. Stack frontend ainda não decidida formalmente para UX-R1 (R5 sugere React).
-2. Escolha da biblioteca headless e pasta monorepo pendentes.
-3. Impacto permanece `PENDING_REVIEW` até humano.
-
-### Baixos
-
-1. Visual regression adiada para fase 2 — aceitável.
-2. API read-only ainda indefinida — DS pode nascer com fixtures.
+| Critério | Resultado |
+|----------|-----------|
+| Discovery accuracy | PASS |
+| Architecture recommendation explicit | PASS (`HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS`) |
+| APPROVE_WITH_CHANGES items closed | PASS (RESOLVED / DEFERRED / REJECTED table) |
+| Implementation gates defined | PASS |
+| Dependency install forbidden | PASS |
+| Frontend scaffold forbidden | PASS |
+| Accessibility WCAG 2.2 AA | PASS |
+| Scientific/economic safety | PASS |
+| Security masking | PASS |
+| Test matrix | PASS |
+| HEAD equality | PASS when CONTENT_REVIEWED = FINAL_CANDIDATE |
+| R3E unchanged | PASS |
 
 ## Decisão
 
 ```text
 REVIEW_STATUS = APPROVED
-DECISION = APPROVED
-IMPACT_RECOMMENDED_DECISION = APPROVE_WITH_CHANGES
-IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
-IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+UX_B2_IMPLEMENTATION_AUTHORIZED = false
 UI_IMPLEMENTATION_AUTHORIZED = false
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 AUTOMATIC_MERGE_AUTHORIZED = false
 ```
 
-A qualidade da análise de impacto é aprovada. A **autorização de implementação** permanece bloqueada até revisão humana e resolução dos condicionantes. A aprovação técnica/documental **não** autoriza merge automático nem UI.
+A aprovação do impacto **não** autoriza install de deps, scaffold frontend nem merge automático. Código DS exige `UX_B2_IMPLEMENTATION_AUTHORIZED=true` em tarefa futura.

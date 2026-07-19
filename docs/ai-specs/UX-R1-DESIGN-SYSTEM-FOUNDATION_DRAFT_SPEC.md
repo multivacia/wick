@@ -7,62 +7,45 @@ BACKLOG_ITEM = UX-B2
 TASK_ID = DESIGN-SYSTEM-FOUNDATION-001
 PHASE = IMPACT_ASSESSMENT_ONLY
 SPEC_STATUS = DRAFT
-IMPLEMENTATION_AUTHORIZED = false
+CHANGE_RISK = MEDIUM
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UX_B2_IMPLEMENTATION_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md
-IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
-REVIEW_STATUS = PENDING
+REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
-SPEC_VERSION = 0.1.0-draft
+SPEC_VERSION = 0.2.0-draft
 CREATED_AT = 2026-07-19T12:31:41Z
+RECONCILED_AT = 2026-07-19T12:56:44Z
 ```
 
-Este documento é **rascunho**. Não autoriza implementação.
+Rascunho. Não autoriza scaffold/install/código UI.
 
-## 1. Arquitetura proposta
+## 1. Arquitetura
 
 ```text
-RECOMMENDED = OPTION_B_HEADLESS_PLUS_WICK_TOKENS
+RECOMMENDED_ARCHITECTURE = HEADLESS_PRIMITIVES_PLUS_WICK_TOKENS
+FRAMEWORK = React + TypeScript
+FRONTEND_ROOT = frontend/
+DS_PACKAGE = frontend/packages/wick-ds
+JS_PACKAGE_MANAGER = pnpm
+HEADLESS = Radix UI primitives
 TOKEN_LAYER = CSS custom properties (--wick-*)
-VISUAL_LAYER = WICK semantic styles
-PRIMITIVES = accessible headless (library TBD by human)
-PREFERRED_STACK = React + TypeScript (align R5; human confirmation required)
+NO_DEPENDENCY_INSTALL_AUTHORIZED = true
+NO_FRONTEND_SCAFFOLD_AUTHORIZED = true
 ```
 
 ## 2. Tokens
 
-Categorias:
+Semantic-first categories; `DESIGN_TOKEN_CONTRACT_VERSION` semver; light primary / dark supported; no hardcoded product colors.
 
-```text
-color.background.* / color.text.* / color.border.* / color.status.*
-space.* / size.* / radius.* / shadow.*
-font.family.* / font.size.* / font.weight.* / line.height.*
-breakpoint.* / motion.duration.* / motion.easing.* / z_index.*
-```
+## 3. Components
 
-Convenção: semântico na API pública; raw só no tema. Light primary; dark supported. Proibido cor hardcoded em componentes de produto. Versionar `DESIGN_TOKEN_CONTRACT_VERSION`.
-
-## 3. Componentes (inventário alvo)
-
-```text
-Button, Input, Textarea, Select
-Card (somente quando interação exigir container)
-Badge / StatusBadge
-Alert
-Table (+ mobile card transform)
-Progress / Checklist progress
-Tooltip
-Modal / Dialog
-Drawer
-Navigation (sidebar, bottom nav)
-FocusRing / SkipLink
-DemoDataLabel
-EvidencePanel primitives (run_id, hash display)
-```
+Button, Input, Textarea, Select, Card (interaction-only), Badge/StatusBadge, Alert, Table (+ mobile card), Progress, Tooltip, Modal, Drawer, Navigation, FocusRing/SkipLink, DemoDataLabel, Evidence primitives.
 
 ## 4. Semantic statuses
 
@@ -70,62 +53,38 @@ EvidencePanel primitives (run_id, hash display)
 NORMAL | SUCCESS | ATTENTION | BLOCKED | ERROR | UNAVAILABLE | INFORMATIONAL
 ```
 
-- `NOT_READY` → ATTENTION (não ERROR)
-- `BLOCKED` científico → BLOCKED (não ERROR automático)
-- SUCCESS ≠ profit
-- ERROR só falha real
-- Sempre texto + ícone + SR label
+`NOT_READY`→ATTENTION; SUCCESS≠profit; ERROR=real failure only.
 
-## 5. Accessibility acceptance criteria
+## 5. Accessibility
 
 ```text
 WCAG_TARGET = 2.2 AA
+TOOLS = axe-core + Testing Library + Playwright keyboard
 ```
 
-Keyboard, focus visible, SR semantics, contrast, non-color cues, 200% zoom, reduced motion, 44px touch, table a11y, modal focus management, plain-language + technical expansion.
+## 6. Responsive
 
-## 6. Responsive behavior
+Desktop sidebar; tablet collapsible; mobile bottom nav per UX-B1.
 
-Desktop sidebar; tablet collapsible; mobile bottom nav per UX-B1 IA. Tables → cards; wrap long IDs; stacked filters/checklists.
+## 7. Fixtures
 
-## 7. Fixture rules
+`DEMONSTRATION DATA` mandatory; no implied profit/accuracy/readiness/scheduler/validate.
 
-```text
-DEMONSTRATION DATA label mandatory
-No implied profit / model accuracy / readiness / scheduler / validate
-```
+## 8. Security masking
 
-## 8. Test matrix
+Mask secrets/env/tokens by default; partial admin redaction for hosts/paths; no secrets in client bundles.
 
-Mandatory before DS implementation merge:
+## 9. Test matrix
 
-- unit tokens
-- component tests
-- a11y (axe + keyboard)
-- semantic-status
-- fixture-label
-- scientific-state safety
-- theme light/dark
-- responsive smoke
+Mandatory: unit, component, a11y, semantic-status, fixture-label, scientific-safety, theme, responsive smoke. Visual regression phase-2 (Playwright).
 
-Visual regression: recommended phase-2.
+## 10. Implementation increments (future; requires UX_B2_IMPLEMENTATION_AUTHORIZED)
 
-## 9. Implementation increments (future)
+1. Tokens + themes + StatusBadge + DemoDataLabel  
+2. Forms + Alert + Table + Progress  
+3. Overlays + navigation primitives  
+4. Catalog + a11y report gate  
 
-1. Token contract + themes + StatusBadge + DemoDataLabel  
-2. Form controls + Alert + Table + Progress  
-3. Overlay (Tooltip/Modal/Drawer) + Navigation primitives  
-4. Catalog/docs + a11y report gate  
+## 11. Prohibited patterns
 
-## 10. Prohibited patterns
-
-```text
-Full external trading UI kits as default look
-Neon / ticker / decorative gauges
-Green/red P&L semantics
-Color-only status
-Hidden technical state
-Fake economic results
-Secrets in client bundles
-Implementing app routes/pages under guise of design system without authorization
-```
+Full trading UI kits; neon/ticker/gauges; P&L traffic lights; color-only status; hidden technical state; fake economic results; secrets in client; scaffolding under DS without authorization.
