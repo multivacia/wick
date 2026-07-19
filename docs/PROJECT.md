@@ -37,7 +37,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
 | UX-R1_STATUS | **PLANNING** |
 | UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
-| UX-B2_STATUS | **IMPACT_ASSESSMENT_READY_FOR_HUMAN_REVIEW** (`DESIGN-SYSTEM-FOUNDATION-001`) |
+| UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
+| UX-B2_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_EXPLICIT_AUTHORIZATION** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
 | RELEASE_OWNER | Gustavo Almeida |
 | UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
@@ -49,7 +50,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | Impacto B1 | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
 | Impacto B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`; implementação não autorizada) |
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
-| PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**OPEN draft**; AWAITING_HUMAN_AUTHORIZATION) |
+| PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**MERGED** `5bcb088`) |
 
 MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo).
 
@@ -207,3 +208,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Iniciar impacto UX-B2 Design System Foundation | Fase IMPACT_ASSESSMENT_ONLY; sem UI | `UX-B2_STATUS=IMPACT_ASSESSMENT_IN_PROGRESS`; implementação não autorizada |
 | 2026-07-19 | Reconciliar impacto UX-B2 (rebase + APPROVED) | Option B locked; gates definidos; sem código UI | `UX-B2_STATUS=IMPACT_ASSESSMENT_READY_FOR_HUMAN_REVIEW`; `UX_B2_IMPLEMENTATION_AUTHORIZED=false` |
 | 2026-07-19 | Congelar evidência final UX-B2 (PR #35) | Revalidação local PASS; backlog alinhado; merge humano pendente | `IMPACT_ASSESSMENT_STATUS=APPROVED`; `UI_IMPLEMENTATION_AUTHORIZED=false` |
+| 2026-07-19 | Merge PR #35 UX-B2 Design System impact | Docs-only; Option B locked; sem código UI | `UX_B2_IMPACT_STATUS=MERGED`; `UX_B2_IMPLEMENTATION_STATUS=BLOCKED_PENDING_EXPLICIT_AUTHORIZATION` |
