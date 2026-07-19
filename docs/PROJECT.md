@@ -36,17 +36,17 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | RELEASE_ID | UX-R1 |
 | RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
 | UX-R1_STATUS | **PLANNING** |
-| UX-B1_STATUS | **READY_FOR_HUMAN_MERGE_REVIEW** (`UX-RELEASE-FOUNDATION-001`) |
-| UX-B2_STATUS | **BLOCKED_PENDING_UX_B1_MERGE_AND_AUTHORIZATION** |
+| UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
+| UX-B2_STATUS | **BLOCKED_PENDING_SEPARATE_IMPACT_AND_AUTHORIZATION** |
 | RELEASE_OWNER | Gustavo Almeida |
-| UX_FOUNDATION_MERGE_AUTHORIZED | **false** |
+| UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
 | UI_IMPLEMENTATION_AUTHORIZED | **false** |
 | R3E_SCIENTIFIC_STATE | **UNCHANGED** |
 | Spec | `docs/releases/UX-R1_SPEC.md` |
 | Backlog UX | `docs/ux/UX-R1_BACKLOG.md` |
 | Fundação | `docs/ux/` · `docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md` |
 | Impacto | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
-| PR fundação | https://github.com/multivacia/wick/pull/31 (draft; merge humano pendente) |
+| PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
 
 MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo).
 
@@ -200,3 +200,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Pacote de execução operador B5-D1 | Guia copy-paste Windows/Linux | Aguardando `R3E_LOCAL_HOST_DISCOVERY_RESULT.md` do host real |
 | 2026-07-19 | Abrir trilha paralela UX-R1 (Operational Experience) | Fundação UX-B1; sem UI; R3E inalterado | `UX-R1_STATUS=PLANNING`; `UI_IMPLEMENTATION_AUTHORIZED=false` |
 | 2026-07-19 | Reconciliar impacto UX-B1 e congelar evidência final | Impacto APPROVED; review alinhada; PR #31 draft | `UX-B1_STATUS=READY_FOR_HUMAN_MERGE_REVIEW`; UX-B2 bloqueado; merge humano pendente |
+| 2026-07-19 | Merge PR #31 UX-B1 Experience Foundation | Autorização humana; docs-only; R3E inalterado | `UX-B1_STATUS=MERGED`; UX-B2 bloqueado até impacto/autorização separados; UI não autorizada |
