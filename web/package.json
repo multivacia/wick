@@ -1,0 +1,51 @@
+{
+  "name": "wick-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WICK UX foundation scaffold (I1) — no operational screens",
+  "type": "module",
+  "packageManager": "pnpm@10.33.3",
+  "engines": {
+    "node": ">=22 <23",
+    "pnpm": ">=10.33.3 <11"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.app.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit && tsc -p tsconfig.vitest.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:a11y": "vitest run tests/a11y",
+    "test:watch": "vitest",
+    "audit": "pnpm audit --prod --audit-level=high",
+    "licenses": "pnpm licenses list --prod"
+  },
+  "dependencies": {
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/jest-axe": "3.5.9",
+    "@types/node": "22.19.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "axe-core": "4.11.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-refresh": "0.4.26",
+    "globals": "16.5.0",
+    "jest-axe": "10.0.0",
+    "jsdom": "27.4.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.64.0",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}
