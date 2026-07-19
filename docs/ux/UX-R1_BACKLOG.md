@@ -121,24 +121,55 @@ Entregáveis:
 
 ---
 
-### UX-B4 — Functional Prototype: Collection Runs
+### UX-B4 — Operational Language and Microcopy
 
 ```text
-TASK_ID = TBD
+TASK_ID = OPERATIONAL-LANGUAGE-MICROCOPY-001
+STATUS = CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW
+PRIORITY = P0
+MVP = REQUIRED
+PHASE = CONTENT_DESIGN_AND_GOVERNANCE
+DEPENDS_ON = UX-B1
+INDEPENDENT_OF = UX-B2, UX-B3
+UX_B4_IMPLEMENTATION_AUTHORIZED = false
+UI_IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = APPROVED
+```
+
+Entregáveis (docs-only):
+
+- guia operacional de linguagem;
+- catálogo de status;
+- catálogo de empty states;
+- microcopy de falhas/avisos (taxonomia R3E);
+- guardrails científicos e econômicos;
+- impact assessment + review + handoff.
+
+**Trilhas paralelas:** UX-B2 define design system / arquitetura frontend futura; UX-B3 define contratos de tela/dados/estado; UX-B4 define terminologia e microcopy oficiais. Implementação futura consome as três.
+
+**Nota:** o rótulo legado “Functional Prototype: Collection Runs” permanece como trabalho de protótipo de UI futuro (lista/detalhe de execuções), **após** autorização de UI — não faz parte desta entrega de conteúdo.
+
+---
+
+### UX-B4-RUNS — Functional Prototype: Collection Runs (UI futuro)
+
+```text
+TASK_ID = COLLECTION-RUNS-PROTOTYPE
 STATUS = PLANNED
 PRIORITY = P0
 MVP = REQUIRED
-DEPENDS_ON = UX-B2
+DEPENDS_ON = UX-B2, UX-B4
+UI_IMPLEMENTATION_AUTHORIZED = false
 ```
 
-Entregáveis:
+Entregáveis (quando UI autorizada):
 
 - run list;
 - filters;
 - run details;
 - structured logs;
 - evidence links;
-- plain-language failure descriptions.
+- plain-language failure descriptions (consumindo catálogos UX-B4).
 
 ---
 
@@ -325,6 +356,7 @@ IMPLEMENTATION_EXECUTION_AUTHORIZED = false
 UI_IMPLEMENTATION_AUTHORIZED = false
 UX_FOUNDATION_MERGE_AUTHORIZED = true
 UX_B2_IMPLEMENTATION_AUTHORIZED = false
+UX_B4_IMPLEMENTATION_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 UX_B1_STATUS = MERGED
 UX_B2_IMPACT_STATUS = MERGED
@@ -332,6 +364,8 @@ UX_B2_AUTHORIZATION_STATUS = MERGED
 UX_B2_AUTHORIZATION_DECISION = AUTHORIZED_FOR_INCREMENT_I1_ONLY
 UX_B2_AUTHORIZED_INCREMENT = I1
 I1_IMPLEMENTATION_STATUS = BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION
+UX_B3_STATUS = INDEPENDENT_TRACK
+UX_B4_STATUS = CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW
 HOST_DISCOVERY = DEFERRED
 OPERATIONAL_DEBT = OPEN
 SCHEDULER_ACTIVATION = BLOCKED
