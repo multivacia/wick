@@ -20,6 +20,9 @@ REPOSITORY = multivacia/wick
 BASE_BRANCH = main
 CREATED_AT = 2026-07-19T17:17:30Z
 CREATED_BY = cursor-agent
+MERGE_COMPLETE_HANDOFF_BRANCH = cursor/ux-r1-i2-i5a-i6a-parallel-kickoff-merge-complete-1b6b
+MERGE_COMPLETE_HANDOFF_PR = https://github.com/multivacia/wick/pull/60
+MERGE_COMPLETE_HANDOFF_HEAD = dd861d7336ab625bb5146ab44f30949b024226b6
 AUTOMATIC_MERGE_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 ```
