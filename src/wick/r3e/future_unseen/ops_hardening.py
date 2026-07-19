@@ -7,7 +7,6 @@ READY-notification payload construction. Never executes collect/validate.
 from __future__ import annotations
 
 import hashlib
-import json
 import os
 import re
 import tarfile
@@ -23,7 +22,7 @@ from wick.r3e.future_unseen.automation import (
     default_runs_dir,
     default_state_path,
 )
-from wick.r3e.future_unseen.paths import REPORTS_DIR, REPO_ROOT
+from wick.r3e.future_unseen.paths import REPO_ROOT, REPORTS_DIR
 
 FAILURE_CATEGORIES = (
     "CONFIGURATION_MISSING",
@@ -216,9 +215,8 @@ def summarize_run_history(
         if doc.get("status") in success_statuses:
             last_success_at = doc.get("finished_at") or doc.get("started_at")
             break
-    if last_success_at is None:
-        if state.get("last_run_status") in success_statuses:
-            last_success_at = state.get("updated_at")
+    if last_success_at is None and state.get("last_run_status") in success_statuses:
+        last_success_at = state.get("updated_at")
 
     last_success_dt = _parse_iso(last_success_at)
     age_since_last_success = None
