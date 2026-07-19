@@ -12,7 +12,7 @@ DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 PR = 72
 BRANCH = cursor/ux-r1-i3-min-accessible-primitives-97b9
 BASE_SHA = cba89b190c501b6f10cdc4280d641657fad29e5b
-PR_TIP = a873fdc76d7877c5e4b2221d81861351ce68de6e
+PR_TIP = 888ab87c627e9ff1fa1d0d0e9066ac0425727a7b
 FINAL_CANDIDATE_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
 CONTENT_REVIEWED_THROUGH_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
 
@@ -23,7 +23,7 @@ RECONCILED_EVIDENCE_COMMIT = e19ae3472761334bed7a322d9f21bab5e6a5a4f7
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 15
+POST_REVIEW_METADATA_COMMITS = 16
 
 IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPLEMENTATION_AUTHORIZED = true
@@ -100,7 +100,7 @@ BASE_BRANCH = main
 CREATED_AT = 2026-07-19T21:38:00Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = PR_TIP reconciled to current tip a873fdc (verified green tip was c3db20c; evidence introduced at e19ae34). All post-review commits are metadata-only. Keep draft. Do not merge without human I3_MERGE_AUTHORIZED. Do not start I5/router/screens/ViewModel/fixtures/real data.
+FINAL_RECOMMENDATION = PR_TIP reconciled to 888ab87 (verified green tip was c3db20c; evidence introduced at e19ae34). All post-review commits are metadata-only. Keep draft. Do not merge without human I3_MERGE_AUTHORIZED. Do not start I5/router/screens/ViewModel/fixtures/real data.
 ```
 
 ## Artifacts
@@ -134,12 +134,13 @@ All commits after `FINAL_CANDIDATE_HEAD` (`fc40b58`) through current tip are met
 | `2023758` | METADATA_ONLY / DOCUMENTATION_CHANGE | clarify reconciled tip + metadata count |
 | `6cc67f7` | METADATA_ONLY | stamp PR_TIP after reconcile clarification |
 | `a873fdc` | METADATA_ONLY | finalize reconciled evidence tip and commit table |
+| `888ab87` | METADATA_ONLY | align metadata commit table with reconciled tip |
 
 ```text
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 15
+POST_REVIEW_METADATA_COMMITS = 16
 FRESH_INDEPENDENT_REVIEW_REQUIRED = false
 ```
 
