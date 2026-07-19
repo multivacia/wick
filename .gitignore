@@ -62,6 +62,9 @@ reports/r3e_operational_backfill/*.log
 # Windows/local env copies accidentally placed in repo tree
 ops/local/*.env
 !ops/local/*.env.example
+# Operator-generated discovery result (submit out-of-band; do not commit secrets)
+R3E_LOCAL_HOST_DISCOVERY_RESULT.md
+**/R3E_LOCAL_HOST_DISCOVERY_RESULT.md
 
 !reports/r3d/
 !reports/r3d/**
