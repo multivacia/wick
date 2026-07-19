@@ -43,7 +43,12 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_B2_STATUS | **I1_MERGED** |
 | UX_B2_AUTHORIZED_INCREMENT | **I1** |
 | I1_IMPLEMENTATION_STATUS | **MERGED** (PR #51 → `c283592`) |
+| I2_STATUS | **ASSESSMENT_IN_PROGRESS** (draft PR #55) |
 | I2_IMPLEMENTATION_AUTHORIZED | **false** |
+| I5A_STATUS | **ARCHITECTURE_IN_PROGRESS** (draft PR #56) |
+| I5_IMPLEMENTATION_AUTHORIZED | **false** |
+| I6A_STATUS | **DATA_PREPARATION_IN_PROGRESS** (draft PR #57) |
+| I6_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I1 complete; no further increment authorized) |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -74,8 +79,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR linguagem B4 | https://github.com/multivacia/wick/pull/42 (**MERGED** `92e8320`) |
 | PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**MERGED** `253bd82`) |
 | PR I1 scaffold + CI | https://github.com/multivacia/wick/pull/51 (**MERGED** `c283592`) |
+| PR kickoff paralelo I2/I5A/I6A | https://github.com/multivacia/wick/pull/58 (**MERGED** `d2a52cc`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2+ permanece não autorizado (apenas assessments/specs em paralelo até autorização explícita).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2/I5A/I6A permanecem em assessment/architecture/data-prep (draft PRs #55/#56/#57) sem autorização de implementação.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -240,3 +246,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #42 UX-B4 Operational Language | Autorização humana; docs-only; R3E inalterado | `UX_B4_STATUS=MERGED`; `UX_B4_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada |
 | 2026-07-19 | Merge PR #44 UX-B3 Operational MVP Screen Contracts | Autorização humana; docs-only; consome UX-B4 | `UX_B3_STATUS=MERGED`; `UX_B3_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada |
 | 2026-07-19 | Fechamento coordenado UX-B2/B3/B4 | B2 COMPLETE (I1-only); B3+B4 MERGED | `NEXT_ITEM=I1 FRONTEND-SCAFFOLD-AND-CI` (tarefa separada); scheduler/validate inalterados |
+| 2026-07-19 | Merge PR #58 kickoff paralelo I2/I5A/I6A | Coordenação docs-only; PRs #55/#56/#57 permanecem draft | `I2_STATUS=ASSESSMENT_IN_PROGRESS`; `I5A_STATUS=ARCHITECTURE_IN_PROGRESS`; `I6A_STATUS=DATA_PREPARATION_IN_PROGRESS`; implementação não autorizada |
