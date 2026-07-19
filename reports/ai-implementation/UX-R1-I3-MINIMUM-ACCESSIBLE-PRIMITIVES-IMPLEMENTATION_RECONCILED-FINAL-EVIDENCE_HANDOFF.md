@@ -17,12 +17,13 @@ FINAL_CANDIDATE_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
 CONTENT_REVIEWED_THROUGH_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
 
 PREVIOUSLY_RECORDED_PR_TIP = daa865f4faccd1851fb849b2779082141d438ce1
-RECONCILED_PR_TIP = e19ae3472761334bed7a322d9f21bab5e6a5a4f7
+RECONCILED_VERIFIED_TIP = c3db20c5f205b1a657df9ebe53f649ea20294fda
+RECONCILED_EVIDENCE_COMMIT = e19ae3472761334bed7a322d9f21bab5e6a5a4f7
 
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 10
+POST_REVIEW_METADATA_COMMITS = 12
 
 IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPLEMENTATION_AUTHORIZED = true
@@ -99,7 +100,7 @@ BASE_BRANCH = main
 CREATED_AT = 2026-07-19T21:38:00Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = PR_TIP reconciled to c3db20c. Post-review commits are metadata-only. Keep draft. Do not merge without human I3_MERGE_AUTHORIZED. Do not start I5/router/screens/ViewModel/fixtures/real data.
+FINAL_RECOMMENDATION = PR_TIP reconciled (verified tip c3db20c; evidence tip e19ae34). Post-review commits are metadata-only. Keep draft. Do not merge without human I3_MERGE_AUTHORIZED. Do not start I5/router/screens/ViewModel/fixtures/real data.
 ```
 
 ## Artifacts
@@ -114,7 +115,7 @@ RECONCILED_EVIDENCE = reports/ai-implementation/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIM
 
 ## Post-review commit classification
 
-All commits after `FINAL_CANDIDATE_HEAD` (`fc40b58`) through reconciled tip `c3db20c`:
+All commits after `FINAL_CANDIDATE_HEAD` (`fc40b58`) through current evidence tip:
 
 | SHA | Classification | Files |
 |-----|----------------|-------|
@@ -128,14 +129,18 @@ All commits after `FINAL_CANDIDATE_HEAD` (`fc40b58`) through reconciled tip `c3d
 | `daa865f` | METADATA_ONLY | handoff PR_TIP stamp |
 | `c470b9a` | METADATA_ONLY | handoff PR_TIP / CI record |
 | `c3db20c` | METADATA_ONLY | handoff CI_STATUS GREEN + PR_MERGEABLE |
+| `e19ae34` | METADATA_ONLY / DOCUMENTATION_CHANGE | reconciled evidence handoff + PR_TIP fix |
+| `37a6bfe` | METADATA_ONLY | stamp reconciled evidence PR_TIP |
 
 ```text
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 10
+POST_REVIEW_METADATA_COMMITS = 12
 FRESH_INDEPENDENT_REVIEW_REQUIRED = false
 ```
+
+Verified pre-evidence tip for this reconciliation task: `c3db20c`.
 
 ## Scope verification
 
