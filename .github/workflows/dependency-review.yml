@@ -1,0 +1,43 @@
+name: dependency-review
+
+# Advisory only until GitHub Dependency graph is enabled on this repository.
+# Enforceable substitutes live in ci.yml frontend-validate: pnpm audit + lockfile.
+on:
+  pull_request:
+    paths:
+      - "web/**"
+      - ".github/workflows/ci.yml"
+      - ".github/workflows/dependency-review.yml"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: dependency-review-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-review:
+    name: Dependency review (web/)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        id: dependency-review
+        continue-on-error: true
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          # License allowlist aligned with UX-R1 authorization governance.
+          allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC
+
+      - name: Record advisory outcome
+        run: |
+          echo "dependency_review_outcome=${{ steps.dependency-review.outcome }}"
+          if [ "${{ steps.dependency-review.outcome }}" != "success" ]; then
+            echo "Dependency review is advisory on this repository (Dependency graph may be disabled)."
+            echo "Enforceable substitutes: pnpm audit + pnpm licenses + committed lockfile."
+          fi

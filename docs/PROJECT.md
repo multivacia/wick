@@ -35,15 +35,17 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 |-------|--------|
 | RELEASE_ID | UX-R1 |
 | RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
-| UX_R1_STATUS / UX-R1_STATUS | **PLANNING** |
+| UX_R1_STATUS / UX-R1_STATUS | **IMPLEMENTATION_STARTED** |
 | UX_B1_STATUS / UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
 | UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
 | UX_B2_AUTHORIZATION_STATUS | **MERGED** (PR #43 → `34ce0e7`) |
 | UX_B2_AUTHORIZATION_DECISION | **AUTHORIZED_FOR_INCREMENT_I1_ONLY** |
+| UX_B2_STATUS | **I1_IMPLEMENTATION_IN_PROGRESS** |
 | UX_B2_AUTHORIZED_INCREMENT | **I1** |
-| I1_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** |
-| UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
+| I1_IMPLEMENTATION_STATUS | **IN_PROGRESS** |
+| I2_IMPLEMENTATION_AUTHORIZED | **false** |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I1 only; this task) |
+| UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
 | UX_B3_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_B4_STATUS / UX-B4_STATUS | **MERGED** (`OPERATIONAL-LANGUAGE-MICROCOPY-001`; PR #42 → `92e8320`) |
@@ -51,6 +53,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | RELEASE_OWNER | Gustavo Almeida |
 | UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
 | UI_IMPLEMENTATION_AUTHORIZED | **false** |
+| UI_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | HOST_DISCOVERY | **DEFERRED** |
 | OPERATIONAL_DEBT | **OPEN** |
 | SCHEDULER_ACTIVATION | **BLOCKED** |
@@ -71,7 +74,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR linguagem B4 | https://github.com/multivacia/wick/pull/42 (**MERGED** `92e8320`) |
 | PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**MERGED** `253bd82`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de UI **não** autorizada. Próximo item separado: UX-B2 I1 frontend scaffold (execução ainda bloqueada).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI) está **IN_PROGRESS** nesta trilha; I2+ permanece não autorizado.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
