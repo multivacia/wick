@@ -1,0 +1,13 @@
+[Unit]
+Description=Hourly Wick R3E future-unseen collection timer (UTC :15)
+Documentation=file:///srv/wick/app/docs/runbooks/R3E_FUTURE_UNSEEN_HOSTGATOR_VPS_ACTIVATION_RUNBOOK.md
+Requires=wick-r3e-collector.service
+
+[Timer]
+OnCalendar=*-*-* *:15:00 UTC
+Persistent=true
+RandomizedDelaySec=0
+Unit=wick-r3e-collector.service
+
+[Install]
+WantedBy=timers.target

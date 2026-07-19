@@ -8,15 +8,29 @@ BACKLOG_ITEM = B5
 TASK_ID = COLLECTION-SCHEDULER-ACTIVATION-001
 TITLE = Safe Operational Activation of the Future-Unseen Collection Scheduler
 CHANGE_RISK = HIGH
-PHASE = IMPACT_ANALYSIS_ONLY
-IMPACT_ASSESSMENT_STATUS = BLOCKED
-IMPLEMENTATION_AUTHORIZED = false
+PHASE = PREPARATION_AUTHORIZED_ACTIVATION_PENDING
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 SCHEDULER_ACTIVATION_AUTHORIZED = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA = c85641dba106fc1273d1f382f136130233a7ac57
+BASE_SHA = 1b84b2c2fec33e7e9ebde3c7f8be6a59c0e383bd
 ANALYZED_AT = 2026-07-18T20:43:39Z
+APPROVED_AT = 2026-07-18T21:39:10Z
 ANALYZED_BY = cursor-agent
+APPROVED_BY = human
+HUMAN_DECISION_STATUS = COMPLETE
+OPERATIONAL_OWNER = Gustavo Almeida
+HOST_STRATEGY = VPS
+HOST_PROVIDER = HostGator
+HOST_ID = wick-r3e-collector-01
+DURABLE_STORE_PATH = /srv/wick
+SECRET_STORAGE_STRATEGY = SYSTEMD_ENVIRONMENT_FILE
+FAILURE_ALERT_DESTINATION = EMAIL
+EMAIL_TRANSPORT_STATUS = PENDING_CONFIGURATION
+HOST_PROVIDER_INSTANCE_ID = PENDING_PROVISIONING
+HOST_PUBLIC_IP = PENDING_PROVISIONING
+HOSTNAME_CONFIRMED = PENDING_PROVISIONING
 AUTOMATION_COMMAND = python -m wick.r3e.future_unseen run-cycle
 SCHEDULER_IMPLEMENTED = documented_local_cron_or_systemd
 SCHEDULER_ACTIVATED = false
@@ -28,9 +42,9 @@ EFFECT_PEEKING_PERFORMED = false
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
-MERGE_STATUS = BLOCKED
-DECISION = HUMAN_NAMED_NEXT_OFFICIAL_ITEM
-RECOMMENDED_DECISION = BLOCKED
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+DECISION = HUMAN_OPERATIONAL_DECISIONS_COMPLETE
+RECOMMENDED_DECISION = APPROVE_PREPARATION_BLOCK_ACTIVATION
 ```
 
 ## 1. Objetivo
@@ -415,9 +429,9 @@ RESIDUAL_RISK = MEDIUM without backup strategy named
 
 RISK = activation_without_operator
 IMPACT = CRITICAL
-LIKELIHOOD = HIGH currently
-MITIGATION = IMPACT_ASSESSMENT_STATUS=BLOCKED until OPERATIONAL_OWNER named
-RESIDUAL_RISK = LOW while blocked
+LIKELIHOOD = LOW after human decisions
+MITIGATION = OPERATIONAL_OWNER named; SCHEDULER_ACTIVATION_AUTHORIZED remains false until separate human auth
+RESIDUAL_RISK = LOW
 
 RISK = READY_transition_ignored
 IMPACT = HIGH
@@ -434,57 +448,71 @@ RESIDUAL_RISK = LOW
 
 ## 16. Questões abertas
 
-1. Quem é o `OPERATIONAL_OWNER` (ativar, monitorar, responder)?
-2. Qual é o `HOST_ID` e o path absoluto do volume durável oficial?
-3. Cron ou systemd nesse host?
-4. Destino de alertas (e-mail/chat) para FAILED/BLOCKED/READY?
-5. Estratégia de backup/restore nomeada e testada?
-6. O host local do mantenedor tem uptime horário confiável, ou exige VPS/EC2?
-7. Hard-cancel mid-flight de timeout permanece backlog separado (não bloqueia B5 após owner/host)?
+Resolvidas por decisão humana:
+
+```text
+OPERATIONAL_OWNER = Gustavo Almeida
+HOST_STRATEGY = VPS
+HOST_PROVIDER = HostGator
+HOST_ID = wick-r3e-collector-01
+DURABLE_STORE_PATH = /srv/wick
+SECRET_STORAGE_STRATEGY = SYSTEMD_ENVIRONMENT_FILE
+FAILURE_ALERT_DESTINATION = EMAIL
+SCHEDULER_TYPE = systemd
+```
+
+Ainda pendentes (não bloqueiam preparação; bloqueiam ativação final):
+
+1. `HOST_PROVIDER_INSTANCE_ID` / `HOST_PUBLIC_IP` / `HOSTNAME_CONFIRMED` após provisionamento (sem credenciais).
+2. `EMAIL_TRANSPORT_STATUS = PENDING_CONFIGURATION` — transporte SMTP/mail real.
+3. Autorização humana explícita `SCHEDULER_ACTIVATION_AUTHORIZED = true`.
+4. Hard-cancel mid-flight de timeout permanece backlog separado.
 
 ## 17. Decisão arquitetural recomendada
 
 ```text
-RECOMMENDED_HOST_STRATEGY = durable_host_vps_or_always_on_local_with_bind_mounted_store
+RECOMMENDED_HOST_STRATEGY = VPS
+HOST_PROVIDER = HostGator
+HOST_ID = wick-r3e-collector-01
+DURABLE_STORE_PATH = /srv/wick
 STORE_OWNERSHIP = durable_host_volume_not_github_actions
-SCHEDULER_STRATEGY = cron_or_systemd_hourly_minute_15_UTC
-SECRET_STRATEGY = host_env_no_git_no_actions_store
-OBSERVABILITY_STRATEGY = host_logs_plus_automation_state_freshness_plus_ready_human_alert
-ROLLBACK_STRATEGY = disable_timer_keep_append_only_store_restore_from_backup_if_needed
-OPERATIONAL_OWNER = UNDECLARED
-HOST_ID = UNDECLARED
-RECOMMENDED_DECISION = BLOCKED
-IMPACT_ASSESSMENT_STATUS = BLOCKED
-IMPLEMENTATION_AUTHORIZED = false
+APP_CHECKOUT_PATH = /srv/wick/app
+DATA_SYMLINK_STRATEGY = app/data/future_unseen->/srv/wick/data/future_unseen; app/reports/r3e_future_unseen->/srv/wick/reports/r3e_future_unseen
+SCHEDULER_STRATEGY = systemd_timer_hourly_minute_15_UTC
+SECRET_STRATEGY = SYSTEMD_ENVIRONMENT_FILE (/etc/wick/r3e-collector.env mode 0600)
+OBSERVABILITY_STRATEGY = journald_plus_automation_state_plus_email_alerts
+ROLLBACK_STRATEGY = disable_timer_keep_append_only_store_restore_from_/srv/wick/backups
+OPERATIONAL_OWNER = Gustavo Almeida
+RECOMMENDED_DECISION = APPROVE_PREPARATION_BLOCK_ACTIVATION
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 SCHEDULER_ACTIVATION_AUTHORIZED = false
-NEXT_ACTION = HUMAN_MUST_NAME_OPERATIONAL_OWNER_AND_HOST_THEN_REOPEN_IMPACT
+NEXT_ACTION = PREPARE_HOSTGATOR_SYSTEMD_ARTIFACTS_THEN_AWAIT_ACTIVATION_AUTH
 ```
 
-Justificativa: a arquitetura B4 é adequada, mas a regra explícita desta tarefa exige preferir `BLOCKED` quando host ou operador não puderem ser determinados. Ambos permanecem indeterminados nas fontes versionadas.
+A ativação real do timer depende de autorização humana posterior e de `EMAIL_TRANSPORT_STATUS` configurado.
 
 ## 18. Critérios para autorizar implementação
 
-Para sair de BLOCKED e eventualmente permitir preparação/ativação:
+Critérios de preparação (satisfeitos para avançar artefatos HostGator):
 
-1. humano declara em artefato versionado:
+```text
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+SCHEDULER_ACTIVATION_AUTHORIZED = false
+HUMAN_DECISION_STATUS = COMPLETE
+```
+
+Critérios adicionais para ativação recorrente (ainda não satisfeitos):
+
+1. VPS provisionada com `HOST_PROVIDER_INSTANCE_ID` / IP / hostname confirmados;
+2. runbook HostGator executado até dry-run + live manual controlado;
+3. backup e healthcheck verdes no host;
+4. `EMAIL_TRANSPORT_STATUS` configurado (não apenas PENDING);
+5. autorização humana explícita:
    ```text
-   OPERATIONAL_OWNER =
-   HOST_ID =
-   VOLUME_PATH =
-   SCHEDULER_TYPE = cron | systemd
-   BACKUP_STRATEGY =
-   ALERT_CHANNEL =
+   SCHEDULER_ACTIVATION_AUTHORIZED = true
    ```
-2. revisão humana desta análise com decisão explícita não-bloqueada;
-3. atualização deste impacto para:
-   ```text
-   IMPACT_ASSESSMENT_STATUS = APPROVED
-   IMPLEMENTATION_AUTHORIZED = true
-   SCHEDULER_ACTIVATION_AUTHORIZED = false
-   NEXT_ACTION = PREPARE_ACTIVATION_PROMPT
-   ```
-4. autorização humana **separada** para ativação recorrente (`SCHEDULER_ACTIVATION_AUTHORIZED = true`);
-5. sequência de teste de ativação (seção 13) executada e evidenciada;
 6. `VALIDATION_COMMAND_EXECUTED = false` preservado;
 7. nenhuma mudança de cutoff/freeze/thresholds/validate;
 8. GitHub Actions permanece fora do ownership do store oficial.
@@ -492,7 +520,8 @@ Para sair de BLOCKED e eventualmente permitir preparação/ativação:
 Estado atual:
 
 ```text
-IMPACT_ASSESSMENT_STATUS = BLOCKED
-IMPLEMENTATION_AUTHORIZED = false
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
 SCHEDULER_ACTIVATION_AUTHORIZED = false
+SCHEDULER_ACTIVATED = false
 ```

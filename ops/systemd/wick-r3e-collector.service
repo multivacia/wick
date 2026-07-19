@@ -1,0 +1,40 @@
+[Unit]
+Description=Wick R3E future-unseen collection cycle (HostGator VPS)
+Documentation=file:///srv/wick/app/docs/runbooks/R3E_FUTURE_UNSEEN_HOSTGATOR_VPS_ACTIVATION_RUNBOOK.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=wick
+Group=wick
+WorkingDirectory=/srv/wick/app
+EnvironmentFile=-/etc/wick/r3e-collector.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+# Prefer project venv when present; fall back to system PATH.
+Environment=PATH=/srv/wick/app/.venv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/bin/bash /srv/wick/app/scripts/r3e_future_unseen_run_cycle.sh
+# Oneshot: do not restart; next tick is the timer. Application lock prevents overlap.
+Restart=no
+Nice=10
+TimeoutStartSec=3300
+# Hardening (compatible with durable store under /srv/wick)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+# Writable durable paths only (repo checkout stays read-only under ProtectSystem=strict)
+ReadWritePaths=/srv/wick/data /srv/wick/reports /srv/wick/logs /srv/wick/backups
+# Standard output captured by journald; optional file tee documented in runbook
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wick-r3e-collector
+
+[Install]
+WantedBy=multi-user.target
