@@ -61,6 +61,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
 | UI_IMPLEMENTATION_AUTHORIZED | **false** |
 | UI_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
+| I5A_STATUS | **ARCHITECTURE_IN_PROGRESS** |
 | HOST_DISCOVERY | **DEFERRED** |
 | OPERATIONAL_DEBT | **OPEN** |
 | SCHEDULER_ACTIVATION | **BLOCKED** |
