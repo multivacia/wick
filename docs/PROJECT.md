@@ -43,9 +43,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_B2_STATUS | **I1_MERGED** |
 | UX_B2_AUTHORIZED_INCREMENT | **I1** |
 | I1_IMPLEMENTATION_STATUS | **MERGED** (PR #51 → `c283592`) |
-| I2_STATUS | **IMPLEMENTATION_IN_PROGRESS** (draft PR pending; assessment PR #55 → `ca24cc4`) |
+| I2_STATUS | **IMPLEMENTATION_MERGED** (PR #69 → `762b303`; assessment PR #55 → `ca24cc4`) |
 | I2_AUTHORIZATION_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
-| I2_IMPLEMENTATION_AUTHORIZED | **true** (this I2 tokens/themes task only; `I2_MERGE_AUTHORIZED=false`) |
+| I2_IMPLEMENTATION_AUTHORIZED | **true** (I2 tokens/themes merged; no further I2 work authorized) |
+| I2_IMPLEMENTATION_STATUS | **MERGED** |
 | I5A_STATUS | **ARCHITECTURE_MERGED** (PR #56 → `134c93a`) |
 | I5_ARCHITECTURE_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I5_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -57,11 +58,14 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION** (in progress; merge not authorized) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** (recommended; `I3_IMPLEMENTATION_AUTHORIZED=false`) |
+| I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_IMPLEMENTATION_AUTHORIZED | **false** |
 | I3_PREREQUISITE_DECISION | **I3_REQUIRED_BEFORE_I5_AND_I6C** |
 | I6D_DECISION | **BLOCKED** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I2 tokens/themes only; other increments false) |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I2 complete; no further increment authorized) |
+| NEXT_RECOMMENDED_TASK | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** |
+| PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
 | UX_B3_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -96,9 +100,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR I5A shell/nav architecture | https://github.com/multivacia/wick/pull/56 (**MERGED** `134c93a`) |
 | PR I6A Overview data/fixtures | https://github.com/multivacia/wick/pull/57 (**MERGED** `4bf15db`) |
 | Autorização I2/I3/I5/I6 | https://github.com/multivacia/wick/pull/66 (**MERGED** `5098e83`) |
-| I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**DRAFT**; `I2_MERGE_AUTHORIZED=false`) |
+| I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**MERGED** `762b303`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **IN_PROGRESS** sob autorização humana desta tarefa (`I2_IMPLEMENTATION_AUTHORIZED=true`, `I2_MERGE_AUTHORIZED=false`). I5A architecture **MERGED**; I6A data preparation **MERGED**; I3/I5/I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **MERGED** (PR #69). I5A architecture **MERGED**; I6A data preparation **MERGED**; I3 decision `AUTHORIZED_WITH_CONDITIONS` com `I3_IMPLEMENTATION_AUTHORIZED=false` e `I3_REQUIRED_BEFORE_I5_AND_I6C`; I5/I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`. Próximo incremento recomendado: I3 minimum accessible primitives em tarefa separada — **não** autorizado ainda.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
