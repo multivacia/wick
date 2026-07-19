@@ -21,7 +21,7 @@ REVIEW_STATUS = APPROVED
 BRANCH = cursor/ux-r1-b3-operational-mvp-screen-contracts-123e
 PR = 44
 OLD_BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
-NEW_BASE_SHA = 1bad329e93fbd8d7e8693a593f00ed6d021bb6e9
+NEW_BASE_SHA = 0c19cf978d24fad6f2e4e10403140f25b946b621
 IMPLEMENTATION_HEAD = 8fa4a103c2b2fde13f00220a980510f02434e212
 CONTENT_REVIEWED_THROUGH_HEAD = 8fa4a103c2b2fde13f00220a980510f02434e212
 FINAL_CANDIDATE_HEAD = 8fa4a103c2b2fde13f00220a980510f02434e212
@@ -40,6 +40,7 @@ R3E_SCIENTIFIC_STATE_CHANGE = false
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+COORDINATED_MERGE_AUTHORIZED = true
 BLOCKERS = none for specification; UI blocked until explicit authorization; live host discovery still deferred for real ops data; UX-B4 language track parallel (not a B3 blocker)
 FINAL_RECOMMENDATION = PR #44 rebased and mergeable candidate after human review. Do not authorize UI implementation. Do not merge automatically. Future UI must consume UX-B2 architecture + UX-B3 contracts + UX-B4 language when authorized. Keep scheduler inactive and validate unauthorized. Data-access recommendation remains architectural only (no index/adapter in this PR).
 ```

@@ -68,9 +68,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
 | PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**MERGED** `5bcb088`) |
 | PR autorização I1 | https://github.com/multivacia/wick/pull/43 (**MERGED** `34ce0e7`) |
+| PR linguagem B4 | https://github.com/multivacia/wick/pull/42 (**MERGED** `92e8320`) |
 | PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**OPEN** draft) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela das quatro telas operacionais: especificação pronta para revisão humana (UX-B3); implementação de UI **não** autorizada. Trilhas paralelas: UX-B2 (design system / I1 auth) e UX-B4 (linguagem operacional).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela das quatro telas operacionais: especificação pronta para revisão humana (UX-B3); linguagem oficial em UX-B4 (**MERGED**). Implementação de UI **não** autorizada.
 
 ## Estado oficial (pós-R3D / R3E engine)
 

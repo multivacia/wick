@@ -72,6 +72,18 @@ Deep links must preserve filters in URL query (see Navigation).
 
 ## 3. Cross-cutting safety rules
 
+Terminology and microcopy for status labels, empty states, failures/warnings, and scientific/economic guardrails are owned by **UX-B4** (authoritative after PR #42 merge):
+
+```text
+docs/ux/UX-R1-OPERATIONAL-LANGUAGE-GUIDE.md
+docs/ux/UX-R1-STATUS-MESSAGE-CATALOG.md
+docs/ux/UX-R1-EMPTY-STATE-CATALOG.md
+docs/ux/UX-R1-FAILURE-AND-WARNING-MICROCOPY.md
+docs/ux/UX-R1-SCIENTIFIC-AND-ECONOMIC-LANGUAGE-GUARDRAILS.md
+```
+
+UX-B3 screen contracts must **consume** UX-B4 wording. Do not duplicate or overwrite UX-B4 catalogs.
+
 1. `NOT_READY` must not appear as system failure (visual semantic ATTENTION, not ERROR).
 2. Green / SUCCESS must not imply profit or edge.
 3. Blocked scientific state (`R3E_GATE`, `R4_STATUS`, `VALIDATE_AUTHORIZED=false`) must remain visible.
@@ -503,12 +515,12 @@ source_heads[]
 ## 14.1 Parallel-track integration boundaries
 
 ```text
-UX-B2 = future frontend / design-system architecture
+UX-B2 = future frontend / design-system architecture (I1 auth MERGED; execution blocked)
 UX-B3 = screen and data contracts (this document)
-UX-B4 = terminology and microcopy (operational language; independent track)
+UX-B4 = terminology and microcopy (authoritative; PR #42 MERGED)
 ```
 
-UX-B3 does not depend on UX-B4 merge or UX-B2 I1 execution to remain valid. Future UI implementation must consume approved B2+B3+B4 contracts.
+UX-B3 consumes UX-B4 catalogs for user-facing wording and does not duplicate them. UX-B3 does not require UX-B2 I1 execution to remain valid as a specification. Future UI implementation must consume approved B2+B3+B4 outputs.
 
 ## 15. Acceptance criteria
 
