@@ -38,8 +38,11 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX-R1_STATUS | **PLANNING** |
 | UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
 | UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
-| UX-B2_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_EXPLICIT_AUTHORIZATION** |
-| UX_B2_AUTHORIZATION_ASSESSMENT_STATUS | **IN_PROGRESS** |
+| UX_B2_AUTHORIZATION_STATUS | **MERGED** (PR #43 → `34ce0e7`) |
+| UX_B2_AUTHORIZATION_DECISION | **AUTHORIZED_FOR_INCREMENT_I1_ONLY** |
+| UX_B2_AUTHORIZED_INCREMENT | **I1** |
+| I1_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION** |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX-B3_STATUS | **INDEPENDENT_TRACK** |
 | UX-B4_STATUS | **INDEPENDENT_TRACK** |
@@ -55,9 +58,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | Fundação | `docs/ux/` · `docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md` |
 | Impacto B1 | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
 | Impacto B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`; implementação não autorizada) |
-| Autorização B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md` (`AUTHORIZED_FOR_INCREMENT_I1_ONLY`; docs-only) |
+| Autorização B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md` (`AUTHORIZED_FOR_INCREMENT_I1_ONLY`; **MERGED** PR #43) |
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
 | PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**MERGED** `5bcb088`) |
+| PR autorização I1 | https://github.com/multivacia/wick/pull/43 (**MERGED** `34ce0e7`) |
 
 MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo).
 
@@ -218,3 +222,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #35 UX-B2 Design System impact | Docs-only; Option B locked; sem código UI | `UX_B2_IMPACT_STATUS=MERGED`; `UX_B2_IMPLEMENTATION_STATUS=BLOCKED_PENDING_EXPLICIT_AUTHORIZATION` |
 | 2026-07-19 | Post-merge + merge-complete UX-B2 impact | PR #39 handoff; implementação bloqueada | `NEXT_ITEM=IMPLEMENTATION_AUTHORIZATION_ASSESSMENT`; UI não autorizada |
 | 2026-07-19 | Avaliação de autorização de implementação UX-B2 | I1-only; stack locked; sem código UI | `UX_B2_AUTHORIZATION_ASSESSMENT_STATUS=IN_PROGRESS`; `AUTHORIZATION_DECISION=AUTHORIZED_FOR_INCREMENT_I1_ONLY` |
+| 2026-07-19 | Merge PR #43 autorização I1 UX-B2 | Docs-only; I1 future task only | `UX_B2_AUTHORIZATION_STATUS=MERGED`; `I1_IMPLEMENTATION_STATUS=BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION` |
