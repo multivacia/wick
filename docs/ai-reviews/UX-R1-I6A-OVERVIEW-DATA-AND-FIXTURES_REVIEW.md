@@ -48,8 +48,8 @@ BASE_SHA = 6ff45b9bd50349cc12061346c24a86fec0cf7645
 OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
 BASE_SHA_AT_REVIEW = 6ff45b9bd50349cc12061346c24a86fec0cf7645
 HEAD_BRANCH = cursor/ux-r1-i6a-overview-data-fixtures-1b6b
-CONTENT_REVIEWED_THROUGH_HEAD = 8ee697492dd7e62ad5095db1668ef801c65b40b2
-FINAL_CANDIDATE_HEAD = 8ee697492dd7e62ad5095db1668ef801c65b40b2
+CONTENT_REVIEWED_THROUGH_HEAD = f164fb792ddc3573a9cf9e3cb5414cf5cd788855
+FINAL_CANDIDATE_HEAD = f164fb792ddc3573a9cf9e3cb5414cf5cd788855
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 REVIEWED_AT = 2026-07-19T18:40:00Z
@@ -153,5 +153,5 @@ Pacote documental I6A aprovado para merge humano **com condições**. Implementa
 1. Governance validator / pytest / ruff / web smoke verdes
 2. Sem arquivos `.ts`/`.tsx` de fixture; sem mudanças de implementação em `web/src`
 3. Flags de UI/screen/ViewModel/fixture/integration permanecem false
-4. `CONTENT_REVIEWED_THROUGH_HEAD = 8ee697492dd7e62ad5095db1668ef801c65b40b2
+4. `CONTENT_REVIEWED_THROUGH_HEAD = f164fb792ddc3573a9cf9e3cb5414cf5cd788855
 5. Autorização humana de merge (sem auto-merge)
