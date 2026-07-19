@@ -43,9 +43,9 @@ Impact path: `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IM
 |------|--------|-------|
 | Scope containment | PASS | Scaffold + CI only; no screens/tokens/components/Radix |
 | Architecture compliance | PASS | React+TS+Vite+pnpm+Node 22; location `web/` per I1 execution task |
-| Dependency governance | PASS | Exact pins, lockfile, ignore-scripts, audit, licenses, dependency-review |
+| Dependency governance | PASS | Exact pins, lockfile, ignore-scripts, audit, licenses; dependency-review advisory until Dependency graph enabled |
 | TypeScript strictness | PASS | strict, noImplicitAny, noUncheckedIndexedAccess |
-| CI reliability | PASS | Additive frontend job; Python job preserved |
+| CI reliability | PASS | Additive frontend job green; Python job preserved; dependency-review advisory exception documented |
 | Test quality | PASS | Unit + DOM render + a11y smoke + build wiring |
 | Accessibility harness | PASS | jest-axe smoke on placeholder; WCAG target documented |
 | Security | PASS | No secrets/endpoints/analytics; VITE_ documented; no prod sourcemaps |

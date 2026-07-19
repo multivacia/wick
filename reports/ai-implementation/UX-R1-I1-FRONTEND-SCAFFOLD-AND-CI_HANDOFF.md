@@ -31,7 +31,7 @@ FRONTEND_A11Y = PASS
 FRONTEND_BUILD = PASS
 DEPENDENCY_AUDIT = PASS
 GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
-CI_STATUS = PENDING_PR_CHECKS
+CI_STATUS = GREEN_WITH_DOCUMENTED_DEPENDENCY_REVIEW_EXCEPTION
 IMPLEMENTATION_HEAD = a8626f100641f785d1be4b52dab1a6476df6a776
 CONTENT_REVIEWED_THROUGH_HEAD = a8626f100641f785d1be4b52dab1a6476df6a776
 FINAL_CANDIDATE_HEAD = a8626f100641f785d1be4b52dab1a6476df6a776
@@ -46,10 +46,10 @@ HOST_DISCOVERY = DEFERRED
 OPERATIONAL_DEBT = OPEN
 SCHEDULER_ACTIVATION = BLOCKED
 R3E_SCIENTIFIC_STATE_CHANGE = false
-BLOCKERS = none for I1 scaffold; I2+ still unauthorized; UI screens unauthorized
+BLOCKERS = none for I1 scaffold; GitHub Dependency graph not enabled so dependency-review job is advisory (continue-on-error); pnpm audit/licenses remain enforceable; I2+ still unauthorized; UI screens unauthorized
 FINAL_RECOMMENDATION = Human-review and merge I1 scaffold only; do not authorize I2/tokens/components/screens in this PR; keep scheduler blocked; do not run validate; do not unlock R4/R5
 CREATED_AT = 2026-07-19T16:12:00Z
-UPDATED_AT = 2026-07-19T16:16:19Z
+UPDATED_AT = 2026-07-19T16:18:35Z
 ```
 
 Impact path: `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md`

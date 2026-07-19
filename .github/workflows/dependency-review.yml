@@ -1,5 +1,8 @@
 name: dependency-review
 
+# GitHub Dependency review requires Dependency graph (Security settings).
+# If unavailable on this repository, this job is advisory (continue-on-error)
+# while pnpm audit + pnpm licenses remain enforceable in frontend-validate.
 on:
   pull_request:
     paths:
@@ -19,6 +22,7 @@ jobs:
   dependency-review:
     name: Dependency review (web/)
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4

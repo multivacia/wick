@@ -38,7 +38,7 @@ HOST_DISCOVERY = DEFERRED
 OPERATIONAL_DEBT = OPEN
 SCHEDULER_ACTIVATION = BLOCKED
 CREATED_AT = 2026-07-19T16:12:00Z
-UPDATED_AT = 2026-07-19T16:16:19Z
+UPDATED_AT = 2026-07-19T16:18:35Z
 ```
 
 Impact path: `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md`
@@ -164,3 +164,12 @@ uv run python scripts/validate_ai_governance_artifacts.py <I1 artifacts> = PASS 
 ## Rollback
 
 Reverter o PR I1 ou remover `web/` + jobs frontend adicionados.
+
+
+## Documented CI exception
+
+```text
+DEPENDENCY_REVIEW_JOB = ADVISORY_CONTINUE_ON_ERROR
+REASON = GitHub Dependency graph not enabled on repository (action error: Dependency review is not supported)
+ENFORCEABLE_SUBSTITUTES = pnpm audit (CI frontend-validate) + pnpm licenses list + committed lockfile + exact pins
+```
