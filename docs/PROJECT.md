@@ -49,6 +49,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I5_IMPLEMENTATION_AUTHORIZED | **false** |
 | I6A_STATUS | **DATA_PREPARATION_IN_PROGRESS** (draft PR #57) |
 | I6_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
+| PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I1 complete; no further increment authorized) |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
