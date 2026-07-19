@@ -13,16 +13,24 @@ IMPACT_ASSESSMENT_STATUS = APPROVED
 SPEC = docs/ai-specs/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_SPEC.md
 REVIEW = docs/ai-reviews/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_REVIEW.md
 REVIEW_STATUS = APPROVED
+DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
+AUTHORIZATION_CONDITIONS = C1-C8
 VIEWMODEL_CONTRACT = docs/ux/UX-R1-I6A-OVERVIEW-VIEWMODEL-CONTRACT.md
 FIXTURE_SCENARIOS = docs/ux/UX-R1-I6A-OVERVIEW-FIXTURE-SCENARIOS.md
 SAFE_FIXTURE_CATALOG_EXTENSION = docs/ux/UX-R1-OPERATIONAL-MVP_SAFE-FIXTURE-CATALOG.md
 BRANCH = cursor/ux-r1-i6a-overview-data-fixtures-1b6b
 BASE_BRANCH = main
-BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+NEW_BASE_SHA = 6ff45b9bd50349cc12061346c24a86fec0cf7645
+BASE_SHA = 6ff45b9bd50349cc12061346c24a86fec0cf7645
+CONTENT_REVIEWED_THROUGH_HEAD = PENDING_CONTENT_COMMIT
+FINAL_CANDIDATE_HEAD = PENDING_CONTENT_COMMIT
 IMPLEMENTATION_AUTHORIZED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
 I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+VIEWMODEL_IMPLEMENTATION_AUTHORIZED = false
+TYPESCRIPT_FIXTURE_IMPLEMENTATION_AUTHORIZED = false
 OPERATIONAL_DATA_INTEGRATION_AUTHORIZED = false
 NO_TYPESCRIPT_FIXTURE_FILES = true
 NO_VIEWMODEL_IMPLEMENTATION = true
@@ -30,6 +38,10 @@ NO_SCREEN_IMPLEMENTATION = true
 NO_OPERATIONAL_INDEX = true
 NO_ADAPTER = true
 NO_REAL_DATA_INTEGRATION = true
+I2_IMPLEMENTATION_AUTHORIZED = false
+I5A_STATUS = ARCHITECTURE_MERGED
+I5_IMPLEMENTATION_AUTHORIZED = false
+ROUTER_INSTALLATION_AUTHORIZED = false
 HOST_DISCOVERY = DEFERRED
 OPERATIONAL_DEBT = OPEN
 SCHEDULER_ACTIVATION = BLOCKED
@@ -41,8 +53,10 @@ R5_STATUS = NOT_STARTED
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 I6A_STATUS = DATA_PREPARATION_IN_PROGRESS
+PARALLEL_KICKOFF_STATUS = COMPLETE
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 AUTOMATIC_MERGE_AUTHORIZED = false
+WCAG = 2.2 AA
 FULL_TEST_SUITE = PASS
 LINT_STATUS = PASS
 GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
@@ -51,18 +65,18 @@ WEB_LINT = PASS
 WEB_TEST = PASS
 WEB_A11Y = PASS
 WEB_BUILD = PASS
-CREATED_AT = 2026-07-19T16:54:39Z
+CREATED_AT = 2026-07-19T18:25:00Z
 ```
 
 ## What this package delivers
 
-1. Impact assessment APPROVED for docs-only I6A data/fixture preparation.
-2. Spec defining Overview ViewModel + eight fixture scenarios (no TS fixtures).
-3. Normative ViewModel contract for Visão Geral (read-only fields).
-4. Detailed markdown fixture scenarios with Overview ViewModel field matrices.
+1. Impact assessment APPROVED with `DATA_CONTRACT_DECISION=AUTHORIZED_WITH_CONDITIONS` and C1–C8.
+2. Spec defining Overview ViewModel (17 groups) + eight fixture scenarios (no TS fixtures).
+3. Normative ViewModel contract with attribute matrix, freshness/provenance, I5A alignment, a11y.
+4. Detailed markdown fixture scenarios with EXPECTED_* / MISSING_FIELDS / ACCESSIBILITY_EXPECTATIONS.
 5. B3 safe fixture catalog extended with Overview ViewModel values.
-6. Independent review APPROVED; automatic merge not authorized.
-7. `docs/PROJECT.md` adds only `I6A_STATUS=DATA_PREPARATION_IN_PROGRESS`.
+6. Independent review APPROVED after rebase onto I5A-complete main; automatic merge not authorized.
+7. `docs/PROJECT.md` preserves I2/I5A merged state; I6A remains `DATA_PREPARATION_IN_PROGRESS`.
 
 ## Explicit non-delivery
 
@@ -73,7 +87,8 @@ No Overview screen implementation
 No operational index
 No adapter
 No real data integration
-No I2 / I5A flag changes
+No I2 / I5 authorization changes
+No router installation
 No scheduler activation
 No validate
 No R3E scientific state change
@@ -89,6 +104,7 @@ docs/ux/UX-R1-I6A-OVERVIEW-VIEWMODEL-CONTRACT.md
 docs/ux/UX-R1-I6A-OVERVIEW-FIXTURE-SCENARIOS.md
 docs/ux/UX-R1-OPERATIONAL-MVP_SAFE-FIXTURE-CATALOG.md
 reports/ai-implementation/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_HANDOFF.md
+reports/ai-implementation/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_FINAL-EVIDENCE_HANDOFF.md
 docs/PROJECT.md
 ```
 
@@ -110,13 +126,15 @@ All declare `DADOS_DEMONSTRATIVOS`, `SOURCE=SYNTHETIC`, scientific/economic inte
 ## Final recommendation
 
 ```text
-APPROVE docs package for human merge review
+AUTHORIZED_WITH_CONDITIONS for docs merge
 AUTOMATIC_MERGE_AUTHORIZED = false
 Do not start Overview screen implementation
 Do not materialize TS fixtures yet
+Do not implement ViewModel code
 Do not activate scheduler
 Do not run validate
 Keep HOST_DISCOVERY=DEFERRED, OPERATIONAL_DEBT=OPEN, SCHEDULER_ACTIVATION=BLOCKED
+Keep I2/I5 implementation unauthorized; ROUTER_INSTALLATION_AUTHORIZED=false
 ```
 
 This handoff **não autoriza** merge automático.

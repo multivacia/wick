@@ -2,16 +2,23 @@
 
 ```text
 DOCUMENT = UX-R1-I6A-OVERVIEW-VIEWMODEL-CONTRACT
-VERSION = 1.0.0
+VERSION = 1.1.0
 RELEASE = UX-R1
 WORKSTREAM = I6A
 TASK_ID = OVERVIEW-SCREEN-DATA-AND-FIXTURE-PREPARATION-001
 SCREEN = Visão Geral
-ROUTE_KEY = / or /overview
+ROUTE_KEY = /overview (canonical; / redirects — I5A)
 PHASE = DATA_CONTRACT_AND_FIXTURE_PREPARATION
+BASE_SHA = 6ff45b9bd50349cc12061346c24a86fec0cf7645
+DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
 UI_IMPLEMENTATION_AUTHORIZED = false
+UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
 I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+VIEWMODEL_IMPLEMENTATION_AUTHORIZED = false
+TYPESCRIPT_FIXTURE_IMPLEMENTATION_AUTHORIZED = false
+OPERATIONAL_DATA_INTEGRATION_AUTHORIZED = false
 NO_VIEWMODEL_IMPLEMENTATION = true
+NO_TYPESCRIPT_FIXTURE_FILES = true
 NO_SCREEN_IMPLEMENTATION = true
 NO_OPERATIONAL_INDEX = true
 NO_ADAPTER = true
@@ -21,7 +28,12 @@ OPERATIONAL_DEBT = OPEN
 SCHEDULER_ACTIVATION = BLOCKED
 R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
 ECONOMIC_INTERPRETATION_ALLOWED = false
-EFFECTIVE_AT = 2026-07-19T16:54:39Z
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+I5A_STATUS = ARCHITECTURE_MERGED
+I5_IMPLEMENTATION_AUTHORIZED = false
+ROUTER_INSTALLATION_AUTHORIZED = false
+WCAG = 2.2 AA
+EFFECTIVE_AT = 2026-07-19T18:25:00Z
 ```
 
 ## 1. Purpose
@@ -35,71 +47,379 @@ This document is a data contract. It does **not** implement TypeScript types, ho
 - `docs/ux/UX-R1-OPERATIONAL-MVP_DATA-CONTRACT-CATALOG.md` — Screen 1
 - `docs/ai-specs/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS_SPEC.md` — §4
 - `docs/ux/UX-R1-OPERATIONAL-MVP_STATE-MATRIX.md` — Visão Geral states
+- `docs/ai-specs/UX-R1-I5A-APPLICATION-SHELL-AND-NAVIGATION_SPEC.md` — shell/route contracts (MERGED)
 - UX-B4 language catalogs (labels and microcopy)
 
-## 3. ViewModel shape (logical)
+## 3. I5A alignment (shell owns these; ViewModel does not)
+
+Do **not** duplicate shell/navigation responsibilities inside the Overview ViewModel.
 
 ```text
-OverviewViewModel (read-only)
-├── overall_operational_state
-├── collection_status
-├── last_completed_execution { id, status, finished_at, evidence_link }
-├── last_failed_execution { id, status, finished_at, evidence_link } | null
-├── store_summary { future_unseen_cutoff, store_observation_count }
-├── readiness_summary { status, primary_reason, window_days, required_window_days, window_progress_ratio }
-├── host_state
-├── scheduler_state
-├── open_incidents_count
-├── operational_debt_status
-├── scientific_gate { r3e_gate, validate_authorized, economic_interpretation_allowed }
-├── next_safe_action
-├── freshness { generated_at, stale_flag, data_mode, freshness_label }
-└── evidence { evidence_links[], provenance_footer, fixture_label? }
+OVERVIEW_ROUTE = /overview (canonical; / redirects to /overview)
+PAGE_TITLE = Visão Geral
+BREADCRUMBS = WICK / Visão Geral
+LOADING_BOUNDARY = I5A §13 (shell loading region; Overview supplies content status only)
+ERROR_BOUNDARY = I5A §14 (shell recoverable error + link Visão Geral)
+NOT_FOUND_BEHAVIOR = I5A §15 (shell 404; Overview is not the router)
+FOCUS_RESTORATION = I5A §20 (shell focus after navigation)
 ```
 
-## 4. Field catalog
+No route or router implementation is authorized by this contract.
+
+## 4. Required field groups (normative)
+
+Each group below is a contract field. Attributes are mandatory for future implementers.
 
 Legend — NULLABILITY: `REQUIRED` | `NULLABLE`  
-ACCESS: `PUBLIC_OPERATIONAL` | `INTERNAL_OPERATIONAL` | `SENSITIVE`
+DISPLAY_PRIORITY: `P0` (always visible) | `P1` (primary panels) | `P2` (secondary / disclosure)
 
-| FIELD | USER_LABEL | TECHNICAL | TYPE | NULLABILITY | SOURCE (B3) | ACCESS | NOTES |
-|-------|------------|-----------|------|-------------|-------------|--------|-------|
-| overall_operational_state | Estado operacional | overall_operational_state | enum | REQUIRED | DERIVED_READ_ONLY | PUBLIC_OPERATIONAL | See §5; NOT_READY ≠ ERROR |
-| overall_visual_semantic | Semântica visual | visual_semantic | enum | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | NEUTRAL/INFO/ATTENTION/SUCCESS_OPS/ERROR/BLOCKED/DEFERRED |
-| collection_status | Coleta | collection_status | enum/string | REQUIRED | STORE_METADATA | PUBLIC_OPERATIONAL | collecting ≠ validated |
-| last_completed_execution_id | Última execução concluída | last_completed_run_id | string | NULLABLE | RUN_ARTIFACT | INTERNAL_OPERATIONAL | null → “Nenhuma” |
-| last_completed_execution_status | Status da última conclusão | last_completed_run_status | enum | NULLABLE | RUN_ARTIFACT | PUBLIC_OPERATIONAL | SUCCESS ≠ profit |
-| last_completed_execution_finished_at | Fim da última conclusão | last_completed_finished_at | datetime TZ | NULLABLE | RUN_ARTIFACT | PUBLIC_OPERATIONAL | ISO-8601 + offset |
-| last_completed_execution_evidence_link | Evidência da conclusão | last_completed_evidence_link | link | NULLABLE | RUN_ARTIFACT | SENSITIVE (path masked) | read-only |
-| last_failed_execution_id | Última execução falha | last_failed_run_id | string | NULLABLE | DERIVED | INTERNAL_OPERATIONAL | null → “Nenhuma falha registrada” |
-| last_failed_execution_status | Status da falha | last_failed_run_status | enum | NULLABLE | DERIVED | PUBLIC_OPERATIONAL | do not invent failures |
-| last_failed_execution_finished_at | Fim da falha | last_failed_finished_at | datetime TZ | NULLABLE | DERIVED | PUBLIC_OPERATIONAL | — |
-| last_failed_execution_evidence_link | Evidência da falha | last_failed_evidence_link | link | NULLABLE | DERIVED | SENSITIVE (path masked) | — |
-| future_unseen_cutoff | Corte future-unseen | FUTURE_UNSEEN_CUTOFF | datetime TZ | NULLABLE | STORE_METADATA | PUBLIC_OPERATIONAL | immutable cutoff |
-| store_observation_count | Observações no store | n_observations_total | int | NULLABLE | READINESS/RUN | PUBLIC_OPERATIONAL | 0 valid; count ≠ readiness |
-| readiness_status_summary | Prontidão | readiness_status | enum | NULLABLE | READINESS_REPORT | PUBLIC_OPERATIONAL | missing → UNAVAILABLE not NOT_READY |
-| readiness_primary_reason | Motivo principal | readiness_reason | string/code | NULLABLE | READINESS_REPORT | PUBLIC_OPERATIONAL | plain language primary |
-| window_days | Janela decorrida | window_days | number | NULLABLE | READINESS_REPORT | PUBLIC_OPERATIONAL | — |
-| required_window_days | Janela mínima | required_window_days | int | NULLABLE | READINESS_REPORT | PUBLIC_OPERATIONAL | typically 90 |
-| window_progress | Progresso da janela | window_progress_ratio | ratio | NULLABLE | DERIVED | PUBLIC_OPERATIONAL | progress ≠ READY authorize |
-| host_state | Host | host_discovery_status | enum | REQUIRED | DOC/RESULT | PUBLIC_OPERATIONAL | default DEFERRED; deferred ≠ failed |
-| scheduler_state | Automação | scheduler_activation_state | enum | REQUIRED | DOC/META | PUBLIC_OPERATIONAL | force blocked defaults; never active without evidence |
-| open_incidents_count | Incidentes abertos | open_incidents_count | int / UNAVAILABLE | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | EMPTY/UNAVAILABLE until UX-B7; do not invent |
-| operational_debt_status | Dívida operacional | OPERATIONAL_DEBT | enum | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | OPEN while deferred/blocked |
-| scientific_gate_state | Gate científico | R3E_GATE | enum/string | REQUIRED | STORE/READINESS | PUBLIC_OPERATIONAL | pending ≠ rejected edge claim |
-| validate_authorized | Validate autorizado | VALIDATE_AUTHORIZED | boolean | REQUIRED | READINESS/RUN | PUBLIC_OPERATIONAL | default false |
-| economic_interpretation_allowed | Interpretação econômica | ECONOMIC_INTERPRETATION_ALLOWED | boolean | REQUIRED | STORE/SAFETY | PUBLIC_OPERATIONAL | always false in MVP |
-| next_safe_action | Próxima ação segura | next_safe_action | string | REQUIRED | DERIVED §4 | PUBLIC_OPERATIONAL | never suggest validate |
-| next_safe_action_code | Código da ação | next_safe_action_code | enum | NULLABLE | DERIVED | PUBLIC_OPERATIONAL | for tests/fixtures |
-| generated_at | Gerado em | generated_at | datetime TZ | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | composition time or newest source |
-| stale_flag | Desatualizado | stale_flag | boolean | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | true if sources older than 6h |
-| data_mode | Modo de dados | data_mode | enum | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | LIVE_ARTIFACTS \| PARTIAL \| DEMONSTRATION_FIXTURE |
-| freshness_label | Atualidade | freshness_label | string | REQUIRED | DERIVED | PUBLIC_OPERATIONAL | FRESH / STALE / UNAVAILABLE / PARTIAL |
-| evidence_links | Links de evidência | evidence_links[] | list | REQUIRED | DERIVED | SENSITIVE (masked) | existing or synthetic-demo only |
-| provenance_footer | Proveniência | provenance_footer | string[] | REQUIRED | DERIVED | INTERNAL_OPERATIONAL | SOURCE_PATH heads |
-| fixture_label | Rótulo demo | fixture_label | string | NULLABLE | FIXTURE | PUBLIC_OPERATIONAL | required when DEMONSTRATION_FIXTURE = `DADOS_DEMONSTRATIVOS` |
+### 4.1 OVERALL_OPERATIONAL_STATE
 
-## 5. overall_operational_state values
+```text
+FIELD_NAME = OVERALL_OPERATIONAL_STATE
+TYPE = enum (ERROR|BLOCKED|NOT_READY|DEGRADED|HEALTHY_COLLECTION|UNKNOWN|PARTIAL|EMPTY)
+NULLABILITY = REQUIRED
+SOURCE = DERIVED_READ_ONLY (B3 Spec §4 composition)
+FRESHNESS_RULE = recomputed whenever any primary source changes; inherits worst freshness of inputs
+PLAIN_LANGUAGE_LABEL = Estado operacional
+TECHNICAL_LABEL = overall_operational_state
+DISPLAY_PRIORITY = P0
+SAFE_FALLBACK = UNKNOWN
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+Companion: `overall_visual_semantic` (NEUTRAL/INFO/ATTENTION/SUCCESS_OPS/ERROR/BLOCKED/DEFERRED).
+
+### 4.2 LAST_COMPLETED_EXECUTION
+
+```text
+FIELD_NAME = LAST_COMPLETED_EXECUTION
+TYPE = object { id?: string, status?: enum, finished_at?: datetime TZ, evidence_link?: link } | null
+NULLABILITY = NULLABLE (null = no completed execution)
+SOURCE = RUN_ARTIFACT / automation_state
+FRESHNESS_RULE = uses finished_at / artifact updated_at; missing timestamp → DATA_ABSENT for this block
+PLAIN_LANGUAGE_LABEL = Última execução concluída
+TECHNICAL_LABEL = last_completed_execution
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = null with label “Nenhuma”
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.3 LAST_FAILED_EXECUTION
+
+```text
+FIELD_NAME = LAST_FAILED_EXECUTION
+TYPE = object { id?: string, status?: enum, finished_at?: datetime TZ, evidence_link?: link } | null
+NULLABILITY = NULLABLE
+SOURCE = DERIVED from run artifacts
+FRESHNESS_RULE = same as LAST_COMPLETED_EXECUTION; never invent failures
+PLAIN_LANGUAGE_LABEL = Última execução falha
+TECHNICAL_LABEL = last_failed_execution
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = null with label “Nenhuma falha registrada”
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.4 STORE_SUMMARY
+
+```text
+FIELD_NAME = STORE_SUMMARY
+TYPE = object { future_unseen_cutoff?: datetime TZ, store_observation_count?: int }
+NULLABILITY = NULLABLE fields inside REQUIRED group
+SOURCE = STORE_METADATA / READINESS
+FRESHNESS_RULE = source_updated_at of store metadata; count=0 is valid (not ERROR)
+PLAIN_LANGUAGE_LABEL = Resumo do store
+TECHNICAL_LABEL = store_summary
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = fields NOT_AVAILABLE / UNKNOWN; never fabricate counts
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.5 READINESS_SUMMARY
+
+```text
+FIELD_NAME = READINESS_SUMMARY
+TYPE = object { status?, primary_reason?, window_days?, required_window_days?, window_progress_ratio? }
+NULLABILITY = NULLABLE when readiness report missing → UNAVAILABLE (not NOT_READY invented)
+SOURCE = READINESS_REPORT
+FRESHNESS_RULE = readiness report generated_at / source_updated_at
+PLAIN_LANGUAGE_LABEL = Prontidão
+TECHNICAL_LABEL = readiness_summary
+DISPLAY_PRIORITY = P0
+SAFE_FALLBACK = UNAVAILABLE
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+READY ≠ VALIDATION_AUTHORIZED. Progress ≠ authorize validate.
+
+### 4.6 HOST_STATE
+
+```text
+FIELD_NAME = HOST_STATE
+TYPE = enum (DEFERRED|UNKNOWN|NOT_AVAILABLE|… documented B3 values)
+NULLABILITY = REQUIRED
+SOURCE = DOC / discovery result
+FRESHNESS_RULE = discovery result observed_at when present; default DEFERRED without inventing failure
+PLAIN_LANGUAGE_LABEL = Host
+TECHNICAL_LABEL = host_state
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = DEFERRED
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.7 SCHEDULER_STATE
+
+```text
+FIELD_NAME = SCHEDULER_STATE
+TYPE = enum (BLOCKED|NOT_AUTHORIZED|…); activation never implied without evidence
+NULLABILITY = REQUIRED
+SOURCE = DOC / META
+FRESHNESS_RULE = config/meta source_updated_at; default BLOCKED
+PLAIN_LANGUAGE_LABEL = Automação
+TECHNICAL_LABEL = scheduler_state
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = BLOCKED
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.8 OPEN_INCIDENTS
+
+```text
+FIELD_NAME = OPEN_INCIDENTS
+TYPE = int | UNAVAILABLE
+NULLABILITY = REQUIRED (value may be UNAVAILABLE)
+SOURCE = DERIVED (UX-B7 future)
+FRESHNESS_RULE = N/A until UX-B7; do not invent incidents
+PLAIN_LANGUAGE_LABEL = Incidentes abertos
+TECHNICAL_LABEL = open_incidents_count
+DISPLAY_PRIORITY = P2
+SAFE_FALLBACK = UNAVAILABLE / EMPTY
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.9 OPERATIONAL_DEBT
+
+```text
+FIELD_NAME = OPERATIONAL_DEBT
+TYPE = enum (OPEN|…)
+NULLABILITY = REQUIRED
+SOURCE = DERIVED from deferred/blocked ops
+FRESHNESS_RULE = derived continuously from HOST/SCHEDULER/discovery debt
+PLAIN_LANGUAGE_LABEL = Dívida operacional
+TECHNICAL_LABEL = operational_debt_status
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = OPEN while discovery deferred or scheduler blocked
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.10 SCIENTIFIC_GATE
+
+```text
+FIELD_NAME = SCIENTIFIC_GATE
+TYPE = object { r3e_gate, validate_authorized, economic_interpretation_allowed }
+NULLABILITY = REQUIRED
+SOURCE = STORE / READINESS / SAFETY
+FRESHNESS_RULE = gate docs + readiness; pending ≠ rejected edge
+PLAIN_LANGUAGE_LABEL = Gate científico
+TECHNICAL_LABEL = scientific_gate
+DISPLAY_PRIORITY = P0
+SAFE_FALLBACK = PENDING_FUTURE_UNSEEN_DATA; validate_authorized=false; economic=false
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.11 NEXT_SAFE_ACTION
+
+```text
+FIELD_NAME = NEXT_SAFE_ACTION
+TYPE = object { plain_language: string, code?: enum }
+NULLABILITY = REQUIRED
+SOURCE = DERIVED Spec §4
+FRESHNESS_RULE = recomputed with overall state; never suggests validate
+PLAIN_LANGUAGE_LABEL = Próxima ação segura
+TECHNICAL_LABEL = next_safe_action
+DISPLAY_PRIORITY = P0
+SAFE_FALLBACK = MONITOR_COLLECTION / PARTIAL_DATA_UNAVAILABLE when unknown
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.12 FRESHNESS
+
+```text
+FIELD_NAME = FRESHNESS
+TYPE = object { generated_at, source_updated_at?, observed_at?, stale_flag, staleness_threshold, freshness_label, data_availability }
+NULLABILITY = REQUIRED
+SOURCE = DERIVED from source timestamps
+FRESHNESS_RULE = see §6
+PLAIN_LANGUAGE_LABEL = Atualidade
+TECHNICAL_LABEL = freshness
+DISPLAY_PRIORITY = P0
+SAFE_FALLBACK = DATA_ABSENT / UNKNOWN when timestamps missing
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.13 EVIDENCE_LINKS
+
+```text
+FIELD_NAME = EVIDENCE_LINKS
+TYPE = list of { label, technical_path?, evidence_uri?, kind, available, accessible_name }
+NULLABILITY = REQUIRED (list may be empty)
+SOURCE = DERIVED artifacts / synthetic demo paths only
+FRESHNESS_RULE = each link carries source_updated_at when known; unavailable → do not fabricate
+PLAIN_LANGUAGE_LABEL = Evidências
+TECHNICAL_LABEL = evidence_links
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = [] with UNAVAILABLE messaging
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+### 4.14 DATA_AVAILABILITY
+
+```text
+FIELD_NAME = DATA_AVAILABILITY
+TYPE = enum (DATA_ABSENT|DATA_STALE|DATA_PARTIAL|DATA_CURRENT)
+NULLABILITY = REQUIRED
+SOURCE = DERIVED from FRESHNESS + present blocks
+FRESHNESS_RULE = canonical availability classification for the Overview composition
+PLAIN_LANGUAGE_LABEL = Disponibilidade dos dados
+TECHNICAL_LABEL = data_availability
+DISPLAY_PRIORITY = P0
+SAFE_FALLBACK = DATA_ABSENT
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+No fixture may disguise DATA_STALE or DATA_ABSENT as DATA_CURRENT.
+
+### 4.15 PARTIAL_DATA_BEHAVIOR
+
+```text
+FIELD_NAME = PARTIAL_DATA_BEHAVIOR
+TYPE = policy enum / ruleset
+NULLABILITY = REQUIRED (policy always defined)
+SOURCE = CONTRACT
+FRESHNESS_RULE = N/A (behavioral)
+PLAIN_LANGUAGE_LABEL = Comportamento com dados parciais
+TECHNICAL_LABEL = partial_data_behavior
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = show available panels; mark missing as NOT_AVAILABLE; never fill invented values
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+Rules: PARTIAL_METADATA ≠ FABRICATED_DATA; omit missing blocks; set DATA_AVAILABILITY=DATA_PARTIAL.
+
+### 4.16 UNKNOWN_STATE_BEHAVIOR
+
+```text
+FIELD_NAME = UNKNOWN_STATE_BEHAVIOR
+TYPE = policy enum / ruleset
+NULLABILITY = REQUIRED
+SOURCE = CONTRACT
+FRESHNESS_RULE = N/A (behavioral)
+PLAIN_LANGUAGE_LABEL = Comportamento com estado desconhecido
+TECHNICAL_LABEL = unknown_state_behavior
+DISPLAY_PRIORITY = P1
+SAFE_FALLBACK = UNKNOWN / NOT_AVAILABLE / DEFERRED / NOT_AUTHORIZED as appropriate
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+Rules: UNKNOWN ≠ HEALTHY; UNKNOWN ≠ FAILED; never infer from missing evidence.
+
+### 4.17 SOURCE_PROVENANCE
+
+```text
+FIELD_NAME = SOURCE_PROVENANCE
+TYPE = object { source_type, source_identifier, source_version?, evidence_uri?, provenance_footer[] }
+NULLABILITY = REQUIRED
+SOURCE = DERIVED
+FRESHNESS_RULE = provenance updated with composition generated_at
+PLAIN_LANGUAGE_LABEL = Proveniência
+TECHNICAL_LABEL = source_provenance
+DISPLAY_PRIORITY = P2
+SAFE_FALLBACK = source_type=UNKNOWN; footer lists missing sources explicitly
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+```
+
+For fixtures: `source_type=SYNTHETIC`, `DADOS_DEMONSTRATIVOS=true`.
+
+## 5. Semantic safety (non-negotiable)
+
+```text
+NOT_READY != ERROR
+BLOCKED != FAILED
+READY != VALIDATION_AUTHORIZED
+COLLECTION_COMPLETE != SCIENTIFIC_VALIDATION
+SCIENTIFIC_VALIDATION != ECONOMIC_RETURN
+SUCCESS != PROFIT
+NO_HISTORY != SYSTEM_FAILURE
+PARTIAL_METADATA != FABRICATED_DATA
+UNKNOWN != HEALTHY
+UNKNOWN != FAILED
+```
+
+When evidence is missing, use `UNKNOWN` | `NOT_AVAILABLE` | `DEFERRED` | `NOT_AUTHORIZED` — never invent.
+
+## 6. Freshness and provenance rules
+
+```text
+generated_at = composition time (UTC with offset)
+source_updated_at = newest contributing source update time when known
+observed_at = observation time of host/discovery evidence when known
+staleness_threshold = 6 hours (overview_stale_threshold)
+stale_data_label = “Este resumo pode estar desatualizado…” (B4)
+missing_timestamp_behavior = treat block as DATA_ABSENT / UNAVAILABLE; never assume current
+evidence_uri = masked URI/path when available; synthetic demo paths for fixtures
+source_type = LIVE_ARTIFACT | DOC | SYNTHETIC | UNKNOWN
+source_identifier = stable id/path head
+source_version = artifact version when known else NOT_AVAILABLE
+```
+
+Availability mapping:
+
+```text
+DATA_ABSENT = core sources unreadable / no timestamps / empty history without fabrication
+DATA_STALE = stale_flag true (sources older than staleness_threshold)
+DATA_PARTIAL = subset of blocks missing (data_mode PARTIAL)
+DATA_CURRENT = sources present, not stale, not partial
+```
+
+`freshness_label` may show FRESH|STALE|PARTIAL|UNAVAILABLE for UI copy; `data_availability` is the canonical enum above.
+
+## 7. Accessibility requirements (contract-level; WCAG 2.2 AA)
+
+Future UI (when authorized) MUST satisfy:
+
+```text
+semantic heading hierarchy (h1 Visão Geral → section headings)
+status text independent from color (plain language + technical code)
+screen-reader status announcement (live region for overall state changes)
+loading announcement (shell loading + Overview content pending)
+error announcement (ERROR / recoverable failure)
+stale-data announcement (when DATA_STALE / stale_flag)
+evidence-link accessible names (accessible_name required; not path-only)
+keyboard-safe next-action links (focusable, named, no validate CTA)
+plain-language first; technical detail second
+demonstration badge accessible name when DADOS_DEMONSTRATIVOS
+```
+
+I6A documents expectations; it does not implement UI.
+
+## 8. overall_operational_state values
 
 | Value | Visual semantic | Plain-language (pt-BR) | When |
 |-------|-----------------|------------------------|------|
@@ -112,11 +432,11 @@ ACCESS: `PUBLIC_OPERATIONAL` | `INTERNAL_OPERATIONAL` | `SENSITIVE`
 | PARTIAL | ATTENTION | Resumo parcial: alguns blocos indisponíveis. | subset of sources missing |
 | EMPTY | INFO | Ainda não há resumo operacional. | no automation_state and no readiness |
 
-Composition priority (highest first) matches Spec §4: ERROR → BLOCKED → NOT_READY/ATTENTION → DEGRADED → HEALTHY_COLLECTION → UNKNOWN.
+Composition priority (highest first): ERROR → BLOCKED → NOT_READY/ATTENTION → DEGRADED → HEALTHY_COLLECTION → UNKNOWN.
 
-`HEALTHY_COLLECTION` may coexist with readiness `NOT_READY` displayed in the readiness summary block — never collapse NOT_READY into ERROR.
+`HEALTHY_COLLECTION` may coexist with readiness `NOT_READY` — never collapse NOT_READY into ERROR.
 
-## 6. next_safe_action_code values
+## 9. next_safe_action_code values
 
 | Code | Plain-language action |
 |------|----------------------|
@@ -128,41 +448,40 @@ Composition priority (highest first) matches Spec §4: ERROR → BLOCKED → NOT
 | MONITOR_COLLECTION | Nenhuma ação urgente; monitorar próxima coleta |
 | PARTIAL_DATA_UNAVAILABLE | Indisponível — dados parciais |
 
-## 7. Freshness rules
+## 10. Flattened field catalog (implementation mapping)
 
-```text
-overview_stale_threshold = 6 hours
-stale_flag = true when primary source generated_at/updated_at older than threshold
-freshness_label = STALE when stale_flag
-freshness_label = PARTIAL when data_mode=PARTIAL
-freshness_label = UNAVAILABLE when core sources unreadable
-freshness_label = FRESH otherwise
-```
+The groups in §4 map to these technical leaf fields (B3-compatible):
 
-All timestamps include timezone (prefer ISO-8601 with offset).
+| TECHNICAL_LABEL | Group | NULLABILITY |
+|-----------------|-------|-------------|
+| overall_operational_state | OVERALL_OPERATIONAL_STATE | REQUIRED |
+| overall_visual_semantic | OVERALL_OPERATIONAL_STATE | REQUIRED |
+| collection_status | OVERALL_OPERATIONAL_STATE | REQUIRED |
+| last_completed_execution_* | LAST_COMPLETED_EXECUTION | NULLABLE |
+| last_failed_execution_* | LAST_FAILED_EXECUTION | NULLABLE |
+| future_unseen_cutoff / store_observation_count | STORE_SUMMARY | NULLABLE |
+| readiness_* / window_* | READINESS_SUMMARY | NULLABLE |
+| host_state | HOST_STATE | REQUIRED |
+| scheduler_state | SCHEDULER_STATE | REQUIRED |
+| open_incidents_count | OPEN_INCIDENTS | REQUIRED (may be UNAVAILABLE) |
+| operational_debt_status | OPERATIONAL_DEBT | REQUIRED |
+| scientific_gate_* / validate_authorized | SCIENTIFIC_GATE | REQUIRED |
+| next_safe_action / next_safe_action_code | NEXT_SAFE_ACTION | REQUIRED |
+| generated_at / source_updated_at / observed_at / stale_flag / freshness_label / data_availability | FRESHNESS / DATA_AVAILABILITY | REQUIRED |
+| evidence_links[] | EVIDENCE_LINKS | REQUIRED |
+| source_type / source_identifier / source_version / provenance_footer / fixture_label | SOURCE_PROVENANCE | REQUIRED |
 
-## 8. Evidence links
-
-Each evidence link object:
-
-| Field | Rule |
-|-------|------|
-| label | plain-language short name |
-| technical_path | masked path string |
-| kind | automation_state \| readiness_report \| cycle_report \| collection_state \| runbook \| other |
-| available | boolean — false → show UNAVAILABLE, do not fabricate |
-
-## 9. Prohibited ViewModel content
+## 11. Prohibited ViewModel content
 
 - profit, return, expectancy, accuracy-as-model-quality, risk-adjusted return, P&L
 - “sistema pronto para operar capital”
 - auto-start validate CTA or `next_safe_action` that starts validate
 - scheduler_state = activated/live without authorization evidence
-- invented open incidents
-- invented failed executions
+- invented open incidents or failed executions
 - green / SUCCESS implying edge or money
+- disguising DATA_STALE / DATA_ABSENT as DATA_CURRENT
 
-## 10. Mapping to UX-B4 microcopy (Visão Geral)
+## 12. Mapping to UX-B4 microcopy (Visão Geral)
 
 | ViewModel condition | Prefer B4 string |
 |---------------------|------------------|
@@ -173,14 +492,16 @@ Each evidence link object:
 | STALE | Este resumo pode estar desatualizado. Atualize ou confira a última execução. |
 | UNAVAILABLE | O resumo operacional está temporariamente indisponível. |
 | BLOCKED | Há bloqueios registrados. Bloqueado não significa necessariamente falha. |
-| ERROR | Não foi possível montar a visão geral. Preserve evidências e tente atualizar. / or failure microcopy when last cycle FAILED |
+| ERROR | Não foi possível montar a visão geral. Preserve evidências e tente atualizar. |
 
-## 11. Future implementation note
-
-When `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=true` and `UI_SCREEN_IMPLEMENTATION_AUTHORIZED=true`, implementers may materialize this contract as TypeScript types and mappers. Until then:
+## 13. Future implementation note
 
 ```text
-NO_VIEWMODEL_IMPLEMENTATION = true
-NO_SCREEN_IMPLEMENTATION = true
-NO_TYPESCRIPT_FIXTURE_FILES = true
+VIEWMODEL_IMPLEMENTATION_AUTHORIZED = false
+TYPESCRIPT_FIXTURE_IMPLEMENTATION_AUTHORIZED = false
+I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+OPERATIONAL_DATA_INTEGRATION_AUTHORIZED = false
 ```
+
+Materialize TypeScript types/mappers/fixtures only after explicit human authorization in a separate task.
