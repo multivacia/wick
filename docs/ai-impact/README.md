@@ -67,3 +67,15 @@ IMPLEMENTATION_AUTHORIZED = false
 ```
 
 A PR de implementação do B4 não deve avançar sem `docs/ai-impact/COLLECTION-AUTOMATION-001_IMPACT_ASSESSMENT.md` aprovado.
+
+## Relação com UX-R1
+
+A fundação UX (`UX-RELEASE-FOUNDATION-001`) é trilha paralela documental:
+
+```text
+docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md
+IMPACT_ASSESSMENT_STATUS = PENDING_REVIEW
+UI_IMPLEMENTATION_AUTHORIZED = false
+```
+
+Nenhuma implementação de tela deve avançar sem impacto aprovado e autorização explícita de UI.
