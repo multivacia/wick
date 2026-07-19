@@ -1,0 +1,27 @@
+[Unit]
+Description=Wick R3E future-unseen local collector cycle
+Documentation=file:%h/wick-r3e/app/docs/runbooks/R3E_FUTURE_UNSEEN_LOCAL_ACTIVATION_RUNBOOK.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/wick-r3e/app
+EnvironmentFile=-%h/wick-r3e/config/r3e-collector.env
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=WICK_ROOT=%h/wick-r3e
+Environment=PATH=%h/wick-r3e/app/.venv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/bin/bash %h/wick-r3e/app/scripts/r3e_future_unseen_local_run.sh
+Restart=no
+Nice=10
+TimeoutStartSec=3300
+NoNewPrivileges=true
+PrivateTmp=true
+# User-level unit: do not assume ProtectSystem=strict (home layout)
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wick-r3e-local-collector
+
+[Install]
+WantedBy=default.target

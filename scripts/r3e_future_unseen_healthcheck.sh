@@ -186,7 +186,7 @@ fi
 
 printf 'STATUS=%s\n' "${STATUS}"
 if ((${#REASONS[@]} > 0)); then
-  printf 'REASONS=%s\n' "$((IFS=','; echo "${REASONS[*]}"))"
+  (IFS=','; printf 'REASONS=%s\n' "${REASONS[*]}")
 else
   printf 'REASONS=none\n'
 fi

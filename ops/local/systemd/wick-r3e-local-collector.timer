@@ -1,0 +1,12 @@
+[Unit]
+Description=Hourly Wick R3E local future-unseen collector (UTC :15)
+Requires=wick-r3e-local-collector.service
+
+[Timer]
+OnCalendar=*-*-* *:15:00 UTC
+Persistent=true
+RandomizedDelaySec=0
+Unit=wick-r3e-local-collector.service
+
+[Install]
+WantedBy=timers.target

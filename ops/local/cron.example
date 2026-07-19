@@ -1,0 +1,4 @@
+# Example crontab line for local persistent host (DO NOT install in this preparation phase).
+# Cadence: hourly at minute 15 UTC. Prefer systemd user timer when available.
+#
+# 15 * * * * /bin/bash $HOME/wick-r3e/app/scripts/r3e_future_unseen_local_run.sh >>$HOME/wick-r3e/logs/collector.cron.log 2>&1
