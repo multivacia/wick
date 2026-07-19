@@ -38,6 +38,15 @@ IA_SOURCE = docs/ux/WICK_INFORMATION_ARCHITECTURE.md
 SCREEN_CONTRACTS = docs/ai-specs/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS_SPEC.md
 EXPERIENCE_FOUNDATION = docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md
 FRONTEND_HOST = web/ (I1 scaffold; no router)
+OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
+NEW_BASE_SHA = 29674068119e9bd95d6dd497619b6bf2898d458e
+BASE_SHA = 29674068119e9bd95d6dd497619b6bf2898d458e
+RECONCILED_AT = 2026-07-19T17:52:00Z
+ARCHITECTURE_DECISION = AUTHORIZED_WITH_CONDITIONS
+ROUTER_INSTALLATION_AUTHORIZED = false
+ROUTER_RECOMMENDATION = react-router
+PARALLEL_KICKOFF_STATUS = COMPLETE
+I2_IMPLEMENTATION_AUTHORIZED = false
 ```
 
 ## 0. Natureza desta especificação
@@ -194,6 +203,7 @@ HOST = Vite SPA (I1)
 MODE = BrowserRouter or createBrowserRouter (data APIs preferred)
 INSTALL_NOW = false
 NO_ROUTER_INSTALLATION = true
+ROUTER_INSTALLATION_AUTHORIZED = false
 ```
 
 Rationale: matches React 19 + Vite SPA; nested layouts for shell; loaders deferred until data layer authorized; community a11y patterns; lower migration cost than TanStack Router or meta-framework switch.
@@ -439,7 +449,77 @@ When later authorized, shell must support:
 
 I5A does **not** choose IdP, passwords, or API tokens.
 
-## 23. Integration with existing artifacts
+## 23. Telemetry boundary
+
+```text
+TELEMETRY_IN_SHELL = OPTIONAL_FUTURE
+ALLOWED_EVENTS = SHELL_ROUTE_VIEW | SHELL_NAV_CLICK | SHELL_ROUTE_ERROR | SHELL_NOT_FOUND
+FORBIDDEN_PAYLOADS = secrets | raw host paths | provider credentials | PII beyond operator id already authorized
+NO_SCIENCE_METRICS = true
+NO_ECONOMIC_METRICS = true
+```
+
+Shell may emit navigational telemetry only after a future observability authorization. I5A does not add analytics SDKs.
+
+## 24. Feature-flag boundary
+
+```text
+FEATURE_FLAGS = FUTURE_OPTIONAL
+SHELL_CONSUMES = boolean visibility for reserved IA destinations only
+FLAGS_MUST_NOT = unlock validate | activate scheduler | imply READY economic claims
+DEFAULT = all reserved destinations hidden in MVP
+```
+
+Flag evaluation belongs to a future config service; shell only reads a typed allow-list.
+
+## 25. Layer separation (mandatory)
+
+```text
+INFORMATION_ARCHITECTURE = IA doc (what exists)
+ROUTE_STRUCTURE = this spec route map (URL keys)
+NAVIGATION_PRESENTATION = sidebar/bottom nav chrome
+ACCESS_CONTROL = canActivate / future auth
+DATA_LOADING = future loaders/adapters (I6+)
+SCREEN_CONTENT = page bodies (I6+; NOT embedded in shell architecture)
+```
+
+No screen content (cards, tables, ViewModels) may be defined inside shell components beyond outlet placeholders.
+
+## 26. Operational language safeguards
+
+```text
+READY != VALIDATION_AUTHORIZED
+COMPLETE != SCIENTIFIC_SUCCESS
+SUCCESS != PROFIT
+NOT_READY != ERROR
+BLOCKED != FAILED
+```
+
+Dual-layer language in chrome:
+
+```text
+plain language first
+technical term second
+```
+
+Nav labels use B4 catalogs; status chips never use green/red as profit/loss.
+
+## 27. URL and route safety (summary)
+
+```text
+STABLE_SLUGS = kebab-case MVP paths in §4
+404 = Not Found boundary (§15)
+UNKNOWN_NESTED = Not Found (no silent parent fallthrough that invents content)
+DEEP_LINK_REFRESH = same route rehydrate; missing resource → Not Found
+BASENAME = support future Vite base / deploy prefix via router basename
+QUERY_STRING_OWNERSHIP = filters owned by destination screen contracts (B3); shell does not rewrite arbitrary queries
+ROUTE_STATE_OWNERSHIP = location + optional ephemeral UI state; no secrets in history state
+BACK_FORWARD = browser history; focus restoration per §20
+DOCUMENT_TITLE = page title contract §12
+SKIP_LINK_DESTINATION = #main-content
+```
+
+## 28. Integration with existing artifacts
 
 | Artifact | Consumption |
 |----------|-------------|
@@ -449,7 +529,7 @@ I5A does **not** choose IdP, passwords, or API tokens.
 | UX-B4 language catalogs | Nav labels, status phrasing |
 | `web/` I1 scaffold | Future mount point; App remains scaffold until I5 |
 
-## 24. Future file layout (informative; not created now)
+## 29. Future file layout (informative; not created now)
 
 ```text
 web/src/
@@ -473,7 +553,7 @@ web/src/
 
 Creating these files now is **forbidden**.
 
-## 25. Acceptance criteria (architecture package)
+## 30. Acceptance criteria (architecture package)
 
 1. Hierarchy matches IA top-level sections.
 2. MVP route map covers Visão Geral, Execuções, Readiness, Host e Scheduler.
@@ -481,12 +561,13 @@ Creating these files now is **forbidden**.
 4. Frame, header, sidebar, mobile nav, breadcrumbs, page title specified.
 5. Loading, error, not-found, focus restoration specified.
 6. Landmarks and keyboard/responsive behavior specified.
-7. Access + auth boundaries specified as future-safe.
-8. Router recommendation recorded; `NO_ROUTER_INSTALLATION=true`.
+7. Access + auth + telemetry + feature-flag boundaries specified as future-safe.
+8. Router recommendation recorded; `ROUTER_INSTALLATION_AUTHORIZED=false`.
 9. No `web/` code changes in this task.
 10. Flags remain: `I5_IMPLEMENTATION_AUTHORIZED=false`, `UI_SCREEN_IMPLEMENTATION_AUTHORIZED=false`.
+11. `ARCHITECTURE_DECISION = AUTHORIZED_WITH_CONDITIONS` with C1–C8 enumerated in impact.
 
-## 26. Explicit non-goals
+## 31. Explicit non-goals
 
 ```text
 NO_ROUTER_INSTALLATION
@@ -499,4 +580,6 @@ NO_HOST_DISCOVERY_EXECUTION
 NO_R3E_SCIENTIFIC_STATE_CHANGE
 NO_R4_R5_UNLOCK
 NO_AUTOMATIC_MERGE
+ROUTER_INSTALLATION_AUTHORIZED = false
+ARCHITECTURE_DECISION = AUTHORIZED_WITH_CONDITIONS
 ```
