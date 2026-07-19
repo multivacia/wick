@@ -1,0 +1,50 @@
+/**
+ * WICK semantic design tokens — product meaning.
+ * Prefer these over raw scales in future components (I3+).
+ * Status color is never the sole carrier of meaning.
+ *
+ * Status policy:
+ *   GREEN  = healthy / completed only (not profit)
+ *   AMBER  = attention / not_ready
+ *   PURPLE/GRAY = blocked / deferred / unknown
+ *   RED    = confirmed fault only
+ *   CYAN   = informational
+ *
+ * NOT_READY != ERROR; BLOCKED != FAILED; READY != VALIDATION_AUTHORIZED.
+ */
+
+:root {
+  /* Non-color semantics shared across themes */
+  --wick-font-family-body: var(--wick-raw-font-family-sans);
+  --wick-font-family-technical: var(--wick-raw-font-family-mono);
+  --wick-font-size-body: var(--wick-raw-font-size-md);
+  --wick-font-size-label: var(--wick-raw-font-size-sm);
+  --wick-font-size-title: var(--wick-raw-font-size-xl);
+  --wick-font-size-display: var(--wick-raw-font-size-2xl);
+  --wick-font-weight-body: var(--wick-raw-font-weight-regular);
+  --wick-font-weight-emphasis: var(--wick-raw-font-weight-semibold);
+  --wick-line-height-body: var(--wick-raw-line-height-normal);
+
+  --wick-space-page: var(--wick-raw-space-12);
+  --wick-space-section: var(--wick-raw-space-8);
+  --wick-space-stack: var(--wick-raw-space-4);
+  --wick-space-inline: var(--wick-raw-space-3);
+
+  --wick-radius-control: var(--wick-raw-radius-md);
+  --wick-radius-panel: var(--wick-raw-radius-lg);
+
+  --wick-shadow-panel: var(--wick-raw-shadow-sm);
+  --wick-shadow-overlay: var(--wick-raw-shadow-md);
+
+  --wick-focus-ring-width: 3px;
+  --wick-focus-ring-offset: 2px;
+
+  --wick-motion-duration-fast: var(--wick-raw-motion-duration-fast);
+  --wick-motion-duration-normal: var(--wick-raw-motion-duration-normal);
+  --wick-motion-easing-standard: var(--wick-raw-motion-easing-standard);
+
+  --wick-z-index-sticky: var(--wick-raw-z-index-sticky);
+  --wick-z-index-overlay: var(--wick-raw-z-index-overlay);
+  --wick-z-index-modal: var(--wick-raw-z-index-modal);
+  --wick-z-index-toast: var(--wick-raw-z-index-toast);
+}

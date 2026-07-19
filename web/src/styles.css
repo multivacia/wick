@@ -1,10 +1,11 @@
+@import "./styles/tokens/index.css";
+
 :root {
-  color-scheme: light;
-  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-size: 16px;
-  color: #1a1a1a;
-  background: #f7f7f5;
+  font-family: var(--wick-font-family-body);
+  line-height: var(--wick-line-height-body);
+  font-size: var(--wick-font-size-body);
+  color: var(--wick-color-text-primary);
+  background: var(--wick-color-background);
 }
 
 *,
@@ -16,27 +17,31 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: var(--wick-color-background);
+  color: var(--wick-color-text-primary);
 }
 
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #0b57d0;
-  outline-offset: 2px;
+  outline: var(--wick-focus-ring-width) solid var(--wick-focus-ring-color);
+  outline-offset: var(--wick-focus-ring-offset);
 }
 
 .scaffold {
   max-width: 40rem;
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: var(--wick-space-page) var(--wick-space-section);
 }
 
 .scaffold h1 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin: 0 0 1rem;
+  font-size: var(--wick-font-size-display);
+  font-weight: var(--wick-font-weight-emphasis);
+  margin: 0 0 var(--wick-space-stack);
+  color: var(--wick-color-text-primary);
 }
 
 .scaffold p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--wick-space-stack);
+  color: var(--wick-color-text-secondary);
 }

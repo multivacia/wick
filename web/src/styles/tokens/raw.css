@@ -1,0 +1,161 @@
+/**
+ * WICK raw design tokens — scales without product meaning.
+ * DESIGN_TOKEN_CONTRACT_VERSION = 1.0.0
+ * Product UI must prefer semantic tokens; raw is for theme composition.
+ */
+
+:root {
+  --wick-design-token-contract-version: "1.0.0";
+
+  /* Neutral 0 (light) → 12 (dark) */
+  --wick-raw-color-neutral-0: #ffffff;
+  --wick-raw-color-neutral-1: #f8fafc;
+  --wick-raw-color-neutral-2: #f1f5f9;
+  --wick-raw-color-neutral-3: #e2e8f0;
+  --wick-raw-color-neutral-4: #cbd5e1;
+  --wick-raw-color-neutral-5: #94a3b8;
+  --wick-raw-color-neutral-6: #64748b;
+  --wick-raw-color-neutral-7: #475569;
+  --wick-raw-color-neutral-8: #334155;
+  --wick-raw-color-neutral-9: #1e293b;
+  --wick-raw-color-neutral-10: #0f172a;
+  --wick-raw-color-neutral-11: #020617;
+  --wick-raw-color-neutral-12: #000000;
+
+  /* Petroleum — institutional deep blue */
+  --wick-raw-color-petroleum-1: #e8f1f8;
+  --wick-raw-color-petroleum-2: #c5d9eb;
+  --wick-raw-color-petroleum-3: #8fb4d4;
+  --wick-raw-color-petroleum-4: #5a8bb8;
+  --wick-raw-color-petroleum-5: #2f6690;
+  --wick-raw-color-petroleum-6: #1a4d73;
+  --wick-raw-color-petroleum-7: #0f3d5c;
+  --wick-raw-color-petroleum-8: #0a2f47;
+  --wick-raw-color-petroleum-9: #062033;
+
+  /* Cyan — discrete informational / focus accent */
+  --wick-raw-color-cyan-1: #ecfeff;
+  --wick-raw-color-cyan-2: #cffafe;
+  --wick-raw-color-cyan-3: #a5f3fc;
+  --wick-raw-color-cyan-4: #67e8f9;
+  --wick-raw-color-cyan-5: #22d3ee;
+  --wick-raw-color-cyan-6: #0891b2;
+  --wick-raw-color-cyan-7: #0e7490;
+  --wick-raw-color-cyan-8: #155e75;
+  --wick-raw-color-cyan-9: #164e63;
+
+  /* Green — healthy / completed only (not profit) */
+  --wick-raw-color-green-1: #ecfdf5;
+  --wick-raw-color-green-2: #d1fae5;
+  --wick-raw-color-green-3: #a7f3d0;
+  --wick-raw-color-green-4: #6ee7b7;
+  --wick-raw-color-green-5: #34d399;
+  --wick-raw-color-green-6: #059669;
+  --wick-raw-color-green-7: #047857;
+  --wick-raw-color-green-8: #065f46;
+  --wick-raw-color-green-9: #064e3b;
+
+  /* Amber — attention / not-ready */
+  --wick-raw-color-amber-1: #fffbeb;
+  --wick-raw-color-amber-2: #fef3c7;
+  --wick-raw-color-amber-3: #fde68a;
+  --wick-raw-color-amber-4: #fcd34d;
+  --wick-raw-color-amber-5: #f59e0b;
+  --wick-raw-color-amber-6: #d97706;
+  --wick-raw-color-amber-7: #b45309;
+  --wick-raw-color-amber-8: #92400e;
+  --wick-raw-color-amber-9: #78350f;
+
+  /* Purple — blocked / deferred / unknown */
+  --wick-raw-color-purple-1: #f5f3ff;
+  --wick-raw-color-purple-2: #ede9fe;
+  --wick-raw-color-purple-3: #ddd6fe;
+  --wick-raw-color-purple-4: #c4b5fd;
+  --wick-raw-color-purple-5: #a78bfa;
+  --wick-raw-color-purple-6: #7c3aed;
+  --wick-raw-color-purple-7: #6d28d9;
+  --wick-raw-color-purple-8: #5b21b6;
+  --wick-raw-color-purple-9: #4c1d95;
+
+  /* Red — confirmed fault only */
+  --wick-raw-color-red-1: #fef2f2;
+  --wick-raw-color-red-2: #fee2e2;
+  --wick-raw-color-red-3: #fecaca;
+  --wick-raw-color-red-4: #fca5a5;
+  --wick-raw-color-red-5: #f87171;
+  --wick-raw-color-red-6: #dc2626;
+  --wick-raw-color-red-7: #b91c1c;
+  --wick-raw-color-red-8: #991b1b;
+  --wick-raw-color-red-9: #7f1d1d;
+
+  /* Typography — avoid Inter/Roboto/Arial as brand defaults */
+  --wick-raw-font-family-sans: ui-sans-serif, system-ui, "Segoe UI", "Helvetica Neue",
+    Helvetica, sans-serif;
+  --wick-raw-font-family-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas,
+    "Liberation Mono", monospace;
+
+  --wick-raw-font-size-xs: 0.75rem;
+  --wick-raw-font-size-sm: 0.875rem;
+  --wick-raw-font-size-md: 1rem;
+  --wick-raw-font-size-lg: 1.125rem;
+  --wick-raw-font-size-xl: 1.25rem;
+  --wick-raw-font-size-2xl: 1.75rem;
+
+  --wick-raw-font-weight-regular: 400;
+  --wick-raw-font-weight-medium: 500;
+  --wick-raw-font-weight-semibold: 600;
+  --wick-raw-font-weight-bold: 700;
+
+  --wick-raw-line-height-tight: 1.25;
+  --wick-raw-line-height-normal: 1.5;
+  --wick-raw-line-height-relaxed: 1.65;
+
+  --wick-raw-letter-spacing-normal: 0;
+  --wick-raw-letter-spacing-wide: 0.02em;
+
+  /* Spacing — 4px base */
+  --wick-raw-space-0: 0;
+  --wick-raw-space-1: 0.25rem;
+  --wick-raw-space-2: 0.5rem;
+  --wick-raw-space-3: 0.75rem;
+  --wick-raw-space-4: 1rem;
+  --wick-raw-space-5: 1.25rem;
+  --wick-raw-space-6: 1.5rem;
+  --wick-raw-space-8: 2rem;
+  --wick-raw-space-10: 2.5rem;
+  --wick-raw-space-12: 3rem;
+  --wick-raw-space-16: 4rem;
+
+  --wick-raw-radius-none: 0;
+  --wick-raw-radius-sm: 0.25rem;
+  --wick-raw-radius-md: 0.375rem;
+  --wick-raw-radius-lg: 0.5rem;
+  --wick-raw-radius-full: 9999px;
+
+  --wick-raw-shadow-none: none;
+  --wick-raw-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.08);
+  --wick-raw-shadow-md: 0 4px 12px rgb(15 23 42 / 0.1);
+  --wick-raw-shadow-lg: 0 12px 28px rgb(15 23 42 / 0.14);
+
+  --wick-raw-motion-duration-0: 0ms;
+  --wick-raw-motion-duration-fast: 120ms;
+  --wick-raw-motion-duration-normal: 200ms;
+  --wick-raw-motion-duration-slow: 320ms;
+
+  --wick-raw-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --wick-raw-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1.05);
+
+  /* Breakpoint contract (mirrored in @media by consumers; also readable via getComputedStyle) */
+  --wick-raw-breakpoint-sm: 640px;
+  --wick-raw-breakpoint-md: 768px;
+  --wick-raw-breakpoint-lg: 1024px;
+  --wick-raw-breakpoint-xl: 1280px;
+
+  --wick-raw-z-index-base: 0;
+  --wick-raw-z-index-sticky: 100;
+  --wick-raw-z-index-dropdown: 200;
+  --wick-raw-z-index-overlay: 300;
+  --wick-raw-z-index-modal: 400;
+  --wick-raw-z-index-toast: 500;
+  --wick-raw-z-index-max: 9999;
+}
