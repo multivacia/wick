@@ -1,12 +1,13 @@
-# UX-R1-I3 — Minimum Accessible Primitives Implementation — Handoff
+# UX-R1-I3 — Minimum Accessible Primitives — Reconciled Final Evidence Handoff
 
 ```text
 STATUS = FINAL_EVIDENCE_READY_FOR_HUMAN_MERGE_AUTHORIZATION
 RELEASE = UX-R1
 INCREMENT = I3
 TASK_ID = MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION-001
-PHASE = IMPLEMENTATION
+PHASE = FINAL_EVIDENCE_RECONCILIATION
 CHANGE_RISK = MEDIUM
+DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 
 PR = 72
 BRANCH = cursor/ux-r1-i3-min-accessible-primitives-97b9
@@ -14,6 +15,10 @@ BASE_SHA = cba89b190c501b6f10cdc4280d641657fad29e5b
 PR_TIP = c3db20c5f205b1a657df9ebe53f649ea20294fda
 FINAL_CANDIDATE_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
 CONTENT_REVIEWED_THROUGH_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
+
+PREVIOUSLY_RECORDED_PR_TIP = daa865f4faccd1851fb849b2779082141d438ce1
+RECONCILED_PR_TIP = c3db20c5f205b1a657df9ebe53f649ea20294fda
+
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
@@ -26,9 +31,9 @@ REVIEW_STATUS = APPROVED
 IMPLEMENTATION_STATUS = COMPLETE
 
 RADIX_DECISION = PARTIAL_INSTALLATION_FOR_DIALOG_ONLY
-NEW_RUNTIME_DEPENDENCIES = 1
 RADIX_PACKAGE = @radix-ui/react-dialog@1.1.15
 RADIX_LICENSE = MIT
+NEW_RUNTIME_DEPENDENCIES = 1
 STORYBOOK_ADDED = false
 
 BUTTON = IMPLEMENTED
@@ -70,7 +75,6 @@ PR_MERGEABLE = true
 
 I3_IMPLEMENTATION_AUTHORIZED = true
 I3_MERGE_AUTHORIZED = false
-
 I5_IMPLEMENTATION_AUTHORIZED = false
 ROUTER_INSTALLATION_AUTHORIZED = false
 I6_VIEWMODEL_IMPLEMENTATION_AUTHORIZED = false
@@ -92,10 +96,10 @@ VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-CREATED_AT = 2026-07-19T21:42:00Z
+CREATED_AT = 2026-07-19T21:38:00Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = Keep draft. Do not merge without human I3_MERGE_AUTHORIZED. Do not start I5/router/screens/ViewModel/fixtures/real data.
+FINAL_RECOMMENDATION = PR_TIP reconciled to c3db20c. Post-review commits are metadata-only. Keep draft. Do not merge without human I3_MERGE_AUTHORIZED. Do not start I5/router/screens/ViewModel/fixtures/real data.
 ```
 
 ## Artifacts
@@ -105,14 +109,36 @@ IMPACT = docs/ai-impact/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION_IM
 SPEC = docs/ai-specs/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION_SPEC.md
 REVIEW = docs/ai-reviews/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION_REVIEW.md
 HANDOFF = reports/ai-implementation/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION_HANDOFF.md
+RECONCILED_EVIDENCE = reports/ai-implementation/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION_RECONCILED-FINAL-EVIDENCE_HANDOFF.md
 ```
 
-## Delivered surface
+## Post-review commit classification
+
+All commits after `FINAL_CANDIDATE_HEAD` (`fc40b58`) through reconciled tip `c3db20c`:
+
+| SHA | Classification | Files |
+|-----|----------------|-------|
+| `90e23f9` | METADATA_ONLY / DOCUMENTATION_CHANGE | review + handoff SHA stamps |
+| `b90500b` | METADATA_ONLY / DOCUMENTATION_CHANGE | review + handoff SHA correction |
+| `b321f0b` | METADATA_ONLY | handoff PR_TIP stamp |
+| `147cc89` | METADATA_ONLY | handoff PR = 72 stamp |
+| `33899df` | METADATA_ONLY | handoff PR_TIP stamp |
+| `15fe572` | METADATA_ONLY | handoff PR_TIP align |
+| `38c0cef` | METADATA_ONLY / DOCUMENTATION_CHANGE | review decision SHA fix |
+| `daa865f` | METADATA_ONLY | handoff PR_TIP stamp |
+| `c470b9a` | METADATA_ONLY | handoff PR_TIP / CI record |
+| `c3db20c` | METADATA_ONLY | handoff CI_STATUS GREEN + PR_MERGEABLE |
 
 ```text
-web/src/components/primitives/
-  Button, Link, StatusBadge, Card, Stack, Inline, PageHeader, Section,
-  Alert, Skeleton, VisuallyHidden, Dialog, Drawer, index.ts, primitives.css
+POST_REVIEW_NORMATIVE_CHANGES = 0
+POST_REVIEW_TEST_CHANGES = 0
+POST_REVIEW_IMPLEMENTATION_CHANGES = 0
+POST_REVIEW_METADATA_COMMITS = 10
+FRESH_INDEPENDENT_REVIEW_REQUIRED = false
 ```
 
-Styling uses only `--wick-*` design tokens from I2. Dialog/Drawer focus trap via `@radix-ui/react-dialog`. Drawer is a side presentation of Dialog (not a navigation drawer).
+## Scope verification
+
+Diff `cba89b1...c3db20c` remains restricted to I3 governance artifacts, `docs/PROJECT.md`, `web/package.json`, `web/pnpm-lock.yaml`, `web/src/components/primitives/**`, `web/tests/primitives/**`, `web/tests/a11y/primitives.a11y.test.tsx`, and `web/tests/setup.ts`.
+
+No backend runtime, R3E collection/validate, scheduler/host, router, shell, navigation, screens, ViewModel, fixtures, real-data, or governance-validator-logic changes.
