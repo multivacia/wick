@@ -1,0 +1,94 @@
+/**
+ * Dark theme — functional parity, not neon restyle.
+ * Activation: html[data-theme="dark"], .wick-theme-dark
+ * HC strategy: stronger text/border/status values; optional data-theme="hc" deferred.
+ */
+
+html[data-theme="dark"],
+.wick-theme-dark {
+  color-scheme: dark;
+
+  --wick-color-surface-canvas: var(--wick-raw-color-neutral-11);
+  --wick-color-surface-panel: var(--wick-raw-color-neutral-10);
+  --wick-color-surface-subtle: var(--wick-raw-color-neutral-9);
+  --wick-color-surface-elevated: var(--wick-raw-color-neutral-9);
+
+  --wick-color-background: var(--wick-color-surface-canvas);
+  --wick-color-surface: var(--wick-color-surface-panel);
+  --wick-color-surface-muted: var(--wick-color-surface-subtle);
+
+  --wick-color-text-primary: var(--wick-raw-color-neutral-1);
+  --wick-color-text-secondary: var(--wick-raw-color-neutral-4);
+  --wick-color-text-muted: var(--wick-raw-color-neutral-5);
+  --wick-color-text-inverse: var(--wick-raw-color-neutral-11);
+
+  --wick-color-border-subtle: var(--wick-raw-color-neutral-8);
+  --wick-color-border-strong: var(--wick-raw-color-neutral-6);
+  --wick-color-border: var(--wick-color-border-subtle);
+
+  --wick-color-brand-petroleum: var(--wick-raw-color-petroleum-3);
+  --wick-color-accent-cyan: var(--wick-raw-color-cyan-4);
+
+  --wick-color-focus-ring: var(--wick-raw-color-cyan-4);
+  --wick-focus-ring-color: var(--wick-color-focus-ring);
+
+  --wick-color-interactive: var(--wick-raw-color-petroleum-3);
+  --wick-color-interactive-hover: var(--wick-raw-color-petroleum-2);
+  --wick-color-interactive-active: var(--wick-raw-color-petroleum-4);
+  --wick-color-interactive-disabled: var(--wick-raw-color-neutral-7);
+
+  --wick-color-status-healthy: var(--wick-raw-color-green-4);
+  --wick-color-status-completed: var(--wick-raw-color-green-4);
+  --wick-color-status-attention: var(--wick-raw-color-amber-4);
+  --wick-color-status-not-ready: var(--wick-raw-color-amber-4);
+  --wick-color-status-blocked: var(--wick-raw-color-purple-4);
+  --wick-color-status-deferred: var(--wick-raw-color-purple-4);
+  --wick-color-status-unknown: var(--wick-raw-color-neutral-5);
+  --wick-color-status-fault: var(--wick-raw-color-red-4);
+  --wick-color-status-informational: var(--wick-raw-color-cyan-4);
+
+  --wick-color-status-normal: var(--wick-raw-color-neutral-4);
+  --wick-color-status-success: var(--wick-color-status-completed);
+  --wick-color-status-error: var(--wick-color-status-fault);
+  --wick-color-status-unavailable: var(--wick-color-status-unknown);
+
+  --wick-color-status-healthy-bg: var(--wick-raw-color-green-9);
+  --wick-color-status-healthy-fg: var(--wick-raw-color-green-2);
+  --wick-color-status-healthy-border: var(--wick-raw-color-green-5);
+
+  --wick-color-status-completed-bg: var(--wick-raw-color-green-9);
+  --wick-color-status-completed-fg: var(--wick-raw-color-green-2);
+  --wick-color-status-completed-border: var(--wick-raw-color-green-5);
+
+  --wick-color-status-attention-bg: var(--wick-raw-color-amber-9);
+  --wick-color-status-attention-fg: var(--wick-raw-color-amber-2);
+  --wick-color-status-attention-border: var(--wick-raw-color-amber-5);
+
+  --wick-color-status-not-ready-bg: var(--wick-raw-color-amber-9);
+  --wick-color-status-not-ready-fg: var(--wick-raw-color-amber-2);
+  --wick-color-status-not-ready-border: var(--wick-raw-color-amber-5);
+
+  --wick-color-status-blocked-bg: var(--wick-raw-color-purple-9);
+  --wick-color-status-blocked-fg: var(--wick-raw-color-purple-2);
+  --wick-color-status-blocked-border: var(--wick-raw-color-purple-5);
+
+  --wick-color-status-deferred-bg: var(--wick-raw-color-purple-9);
+  --wick-color-status-deferred-fg: var(--wick-raw-color-purple-2);
+  --wick-color-status-deferred-border: var(--wick-raw-color-purple-5);
+
+  --wick-color-status-unknown-bg: var(--wick-raw-color-neutral-9);
+  --wick-color-status-unknown-fg: var(--wick-raw-color-neutral-2);
+  --wick-color-status-unknown-border: var(--wick-raw-color-neutral-6);
+
+  --wick-color-status-fault-bg: var(--wick-raw-color-red-9);
+  --wick-color-status-fault-fg: var(--wick-raw-color-red-2);
+  --wick-color-status-fault-border: var(--wick-raw-color-red-5);
+
+  --wick-color-status-informational-bg: var(--wick-raw-color-cyan-9);
+  --wick-color-status-informational-fg: var(--wick-raw-color-cyan-2);
+  --wick-color-status-informational-border: var(--wick-raw-color-cyan-5);
+
+  --wick-raw-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.45);
+  --wick-raw-shadow-md: 0 4px 12px rgb(0 0 0 / 0.5);
+  --wick-raw-shadow-lg: 0 12px 28px rgb(0 0 0 / 0.55);
+}

@@ -43,9 +43,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_B2_STATUS | **I1_MERGED** |
 | UX_B2_AUTHORIZED_INCREMENT | **I1** |
 | I1_IMPLEMENTATION_STATUS | **MERGED** (PR #51 → `c283592`) |
-| I2_STATUS | **ASSESSMENT_MERGED** (PR #55 → `ca24cc4`) |
+| I2_STATUS | **IMPLEMENTATION_IN_PROGRESS** (draft PR pending; assessment PR #55 → `ca24cc4`) |
 | I2_AUTHORIZATION_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
-| I2_IMPLEMENTATION_AUTHORIZED | **false** |
+| I2_IMPLEMENTATION_AUTHORIZED | **true** (this I2 tokens/themes task only; `I2_MERGE_AUTHORIZED=false`) |
 | I5A_STATUS | **ARCHITECTURE_MERGED** (PR #56 → `134c93a`) |
 | I5_ARCHITECTURE_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I5_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -57,11 +57,11 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION** (recommended; `I2_IMPLEMENTATION_AUTHORIZED=false`) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION** (in progress; merge not authorized) |
 | I3_IMPLEMENTATION_AUTHORIZED | **false** |
 | I3_PREREQUISITE_DECISION | **I3_REQUIRED_BEFORE_I5_AND_I6C** |
 | I6D_DECISION | **BLOCKED** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I1 complete; no further increment authorized) |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I2 tokens/themes only; other increments false) |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
 | UX_B3_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -96,8 +96,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR I5A shell/nav architecture | https://github.com/multivacia/wick/pull/56 (**MERGED** `134c93a`) |
 | PR I6A Overview data/fixtures | https://github.com/multivacia/wick/pull/57 (**MERGED** `4bf15db`) |
 | Autorização I2/I3/I5/I6 | https://github.com/multivacia/wick/pull/66 (**MERGED** `5098e83`) |
+| I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**DRAFT**; `I2_MERGE_AUTHORIZED=false`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e `I2_IMPLEMENTATION_AUTHORIZED=false`; I5A architecture está **MERGED** com `AUTHORIZED_WITH_CONDITIONS`, `I5_IMPLEMENTATION_AUTHORIZED=false` e `ROUTER_INSTALLATION_AUTHORIZED=false`; I6A data preparation está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e runtime/screen/ViewModel/fixture flags **false**. Avaliação cross-increment I2/I3/I5/I6 de autorização de implementação está **MERGED** (PR #66); decisões: I2/I3/I5/I6B/I6C `AUTHORIZED_WITH_CONDITIONS`, I3 obrigatório antes de I5/I6C, I6D `BLOCKED`; todos os flags de execução runtime permanecem **false**. Próximo incremento recomendado: I2 tokens/themes em tarefa separada — **não** autorizado ainda (`PARALLEL_TASKS_ALLOWED=false`).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **IN_PROGRESS** sob autorização humana desta tarefa (`I2_IMPLEMENTATION_AUTHORIZED=true`, `I2_MERGE_AUTHORIZED=false`). I5A architecture **MERGED**; I6A data preparation **MERGED**; I3/I5/I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`.
 
 ## Estado oficial (pós-R3D / R3E engine)
 

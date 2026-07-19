@@ -8,6 +8,32 @@
       content="WICK UX foundation scaffold. No operational screens implemented."
     />
     <title>WICK UX foundation</title>
+    <script>
+      /* Minimal FOUC guard: honor explicit data-theme or system preference before CSS/JS modules. */
+      (function () {
+        try {
+          var root = document.documentElement;
+          var pref = root.getAttribute("data-theme-preference");
+          var theme = root.getAttribute("data-theme");
+          if (theme !== "light" && theme !== "dark") {
+            if (pref === "light" || pref === "dark") {
+              theme = pref;
+            } else {
+              theme =
+                window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "dark"
+                  : "light";
+            }
+            root.setAttribute("data-theme", theme);
+          }
+          root.classList.toggle("wick-theme-light", theme === "light");
+          root.classList.toggle("wick-theme-dark", theme === "dark");
+        } catch (e) {
+          /* ignore — bootstrapTheme in main.tsx will apply defaults */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
