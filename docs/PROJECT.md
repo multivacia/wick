@@ -45,7 +45,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_B3_STATUS / UX-B3_STATUS | **INDEPENDENT_TRACK** (parallel; screen contracts) |
-| UX_B4_STATUS / UX-B4_STATUS | **CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW** (`OPERATIONAL-LANGUAGE-MICROCOPY-001`) |
+| UX_B4_STATUS / UX-B4_STATUS | **MERGED** (`OPERATIONAL-LANGUAGE-MICROCOPY-001`; PR #42 → `92e8320`) |
 | UX_B4_IMPLEMENTATION_AUTHORIZED | **false** |
 | RELEASE_OWNER | Gustavo Almeida |
 | UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
@@ -228,3 +228,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #43 autorização I1 UX-B2 | Docs-only; I1 future task only | `UX_B2_AUTHORIZATION_STATUS=MERGED`; `I1_IMPLEMENTATION_STATUS=BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION` |
 | 2026-07-19 | Post-merge + merge-complete autorização I1 UX-B2 | PR #45 handoff; I1 ainda bloqueado | `NEXT_ITEM=I1 FRONTEND-SCAFFOLD-AND-CI`; UI não autorizada |
 | 2026-07-19 | UX-B4 linguagem operacional e microcopy | Catálogos docs-only; trilha independente de B2/B3 | `UX_B4_STATUS=CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW`; `UX_B4_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada; R3E inalterado |
+| 2026-07-19 | Merge PR #42 UX-B4 Operational Language | Autorização humana; docs-only; R3E inalterado | `UX_B4_STATUS=MERGED`; `UX_B4_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada |
