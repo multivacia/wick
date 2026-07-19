@@ -18,8 +18,13 @@ DESIGN_SYSTEM_IMPLEMENTATION_AUTHORIZED = false
 R3E_SCIENTIFIC_STATE_CHANGE = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
+OLD_BASE_SHA = 5e438b8ad84d13f0c22c4017d3d3e26ac3c26647
+BASE_SHA = b0303cf8b7017a87da9eec546126daef64f458a4
+NEW_BASE_SHA = b0303cf8b7017a87da9eec546126daef64f458a4
+REBASING_STATUS = COMPLETE
+CONFLICTS_RESOLVED = docs/PROJECT.md, docs/ux/UX-R1_BACKLOG.md
 ANALYZED_AT = 2026-07-19T13:26:43Z
+RECONCILED_AT = 2026-07-19T15:40:00Z
 ANALYZED_BY = cursor-agent
 APPROVED_BY = cursor-agent
 VALIDATION_COMMAND_EXECUTED = false
@@ -40,6 +45,8 @@ GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0
 ```
 
 Authorization note: `IMPLEMENTATION_AUTHORIZED=true` covers **this documentation package only** (content design + governance merge). It does **not** authorize UI code, design-system code, collection commands, scheduler activation, or `validate`. `UX_B4_IMPLEMENTATION_AUTHORIZED=false` and `UI_IMPLEMENTATION_AUTHORIZED=false` remain binding.
+
+Rebase note: rebased onto `origin/main` (`b0303cf`) preserving UX-B2 authorization track (PR #43 MERGED, I1-only) and UX-B3 independent/parallel track. UX-B4 status set to `CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW`.
 
 ## SUMMARY
 
@@ -94,8 +101,8 @@ Sentence complexity, first-use expansion, screen-reader wording, non-color meani
 | Dependency | Relationship |
 |------------|--------------|
 | UX-B1 foundation | Reused; not modified in behavior |
-| UX-B2 design system | Independent; tokens not required for this content package |
-| UX-B3 screen contracts | Independent; may consume catalogs later |
+| UX-B2 design system | Independent parallel track; defines future DS/frontend architecture (impacto MERGED; I1 auth MERGED; execution still blocked) |
+| UX-B3 screen contracts | Independent parallel track; defines operational screen/data/state contracts (not duplicated here) |
 | Failure taxonomy | Source of truth for failure codes |
 | R3E readiness runtime | Codes referenced; not changed |
 

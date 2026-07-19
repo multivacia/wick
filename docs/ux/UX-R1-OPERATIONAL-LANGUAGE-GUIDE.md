@@ -33,6 +33,16 @@ Companion catalogs:
 
 Foundation still in force: `docs/ux/WICK_UX_LANGUAGE_AND_TERMINOLOGY_GUIDE.md` (two-layer model). Where this guide and the foundation differ on operational MVP wording, **this guide wins** for UX-R1 screens.
 
+## 1.1 Parallel UX tracks (do not duplicate)
+
+| Track | Owns | Does not own |
+|-------|------|--------------|
+| UX-B2 | Future design-system and frontend architecture | Terminology / screen contracts |
+| UX-B3 | Operational screen / data / state contracts | Design tokens / microcopy glossary |
+| UX-B4 (this package) | Official terminology and microcopy | UI components / DS tokens / screen schemas |
+
+Future implementation must consume the approved outputs of **all three** tracks. This package does not duplicate B2 or B3 content.
+
 ## 2. Core language principle
 
 Every important concept uses two layers:
@@ -681,14 +691,14 @@ sem considerar a ativação concluída.
 
 | Surface | Microcopy |
 |---------|-----------|
-| Dashboard summary | `Débito operacional aberto: descoberta de host adiada; agendamento não ativado.` |
+| Dashboard / Visão Geral | `Débito operacional aberto: descoberta de host adiada; agendamento não ativado.` |
 | Detail page | `Há um débito técnico-operacional aceito e registrado: HOST_DISCOVERY=DEFERRED. O agendamento automático permanece BLOCKED. As frentes não dependentes podem avançar; a ativação não está concluída.` |
 | Tooltip | `Débito aberto ≠ concluído. Scheduler não está ativo.` |
-| Status badge | Primary: `Débito aberto` · Technical: `OPERATIONAL_DEBT=OPEN` |
+| Badge | Primary: `Débito aberto` · Technical: `OPERATIONAL_DEBT=OPEN` |
 | Audit record | `OPERATIONAL_DEBT=OPEN; HOST_DISCOVERY=DEFERRED; SCHEDULER_ACTIVATION=BLOCKED; activation_complete=false` |
 | Project report | `Estado operacional: débito técnico-operacional aberto. Host discovery adiada. Ativação do scheduler bloqueada. Sem implicação de prontidão de host nem de validação científica.` |
 | Incident context | `Este contexto não fecha o débito operacional. Scheduler permanece não ativado.` |
-| Mobile compact | `Débito aberto · scheduler off` |
+| Mobile compact view | `Débito aberto · scheduler off` |
 
 ### Prohibited implications
 
