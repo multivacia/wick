@@ -95,7 +95,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR I2 design tokens assessment | https://github.com/multivacia/wick/pull/55 (**MERGED** `ca24cc4`) |
 | PR I5A shell/nav architecture | https://github.com/multivacia/wick/pull/56 (**MERGED** `134c93a`) |
 | PR I6A Overview data/fixtures | https://github.com/multivacia/wick/pull/57 (**MERGED** `4bf15db`) |
-| Autorização I2/I3/I5/I6 | `docs/ai-impact/UX-R1-I2-I3-I5-I6_IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md` (draft) |
+| Autorização I2/I3/I5/I6 | https://github.com/multivacia/wick/pull/66 (**DRAFT**) |
 
 MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e `I2_IMPLEMENTATION_AUTHORIZED=false`; I5A architecture está **MERGED** com `AUTHORIZED_WITH_CONDITIONS`, `I5_IMPLEMENTATION_AUTHORIZED=false` e `ROUTER_INSTALLATION_AUTHORIZED=false`; I6A data preparation está **MERGED** com `AUTHORIZED_WITH_CONDITIONS` e runtime/screen/ViewModel/fixture flags **false**. Avaliação cross-increment I2/I3/I5/I6 de autorização de implementação está **IN_PROGRESS** (docs-only); próximo incremento recomendado: I2 tokens/themes em tarefa separada — **não** autorizado ainda.
 
