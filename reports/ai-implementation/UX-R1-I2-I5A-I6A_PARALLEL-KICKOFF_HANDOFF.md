@@ -18,6 +18,7 @@ REPOSITORY = multivacia/wick
 BASE_BRANCH = main
 MAIN_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
 COORDINATION_BRANCH = cursor/ux-r1-i2-i5a-i6a-parallel-kickoff-1b6b
+COORDINATION_PR = https://github.com/multivacia/wick/pull/58
 CREATED_AT = 2026-07-19T17:01:22Z
 CREATED_BY = cursor-agent
 AUTOMATIC_MERGE_AUTHORIZED = false
