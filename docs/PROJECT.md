@@ -58,13 +58,15 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** (recommended; `I3_IMPLEMENTATION_AUTHORIZED=false`) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** (I3 implementation in progress this task) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
-| I3_IMPLEMENTATION_AUTHORIZED | **false** |
+| I3_STATUS | **IMPLEMENTATION_IN_PROGRESS** (draft PR; merge not authorized) |
+| I3_IMPLEMENTATION_AUTHORIZED | **true** (this task only; primitives; merge still false) |
+| I3_MERGE_AUTHORIZED | **false** |
 | I3_PREREQUISITE_DECISION | **I3_REQUIRED_BEFORE_I5_AND_I6C** |
 | I6D_DECISION | **BLOCKED** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I2 complete; no further increment authorized) |
-| NEXT_RECOMMENDED_TASK | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I3 primitives only for this task) |
+| NEXT_RECOMMENDED_TASK | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** (awaiting human merge authorization after draft PR) |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -102,7 +104,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | Autorização I2/I3/I5/I6 | https://github.com/multivacia/wick/pull/66 (**MERGED** `5098e83`) |
 | I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**MERGED** `762b303`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **MERGED** (PR #69). I5A architecture **MERGED**; I6A data preparation **MERGED**; I3 decision `AUTHORIZED_WITH_CONDITIONS` com `I3_IMPLEMENTATION_AUTHORIZED=false` e `I3_REQUIRED_BEFORE_I5_AND_I6C`; I5/I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`. Próximo incremento recomendado: I3 minimum accessible primitives em tarefa separada — **não** autorizado ainda.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **MERGED** (PR #69). I5A architecture **MERGED**; I6A data preparation **MERGED**; I3 decision `AUTHORIZED_WITH_CONDITIONS` com `I3_IMPLEMENTATION_AUTHORIZED=true` **somente para esta tarefa** de primitivos (draft PR; `I3_MERGE_AUTHORIZED=false`); `I3_REQUIRED_BEFORE_I5_AND_I6C`; I5/I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`. Router/shell/screens/ViewModel/fixtures/real data permanecem **não** autorizados.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -275,3 +277,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #56 I5A shell/nav architecture | Docs-only; condições C1–C8; sem router/shell | `I5A_STATUS=ARCHITECTURE_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I5_IMPLEMENTATION_AUTHORIZED=false`; `ROUTER_INSTALLATION_AUTHORIZED=false`; NEXT=I6A PR57 |
 | 2026-07-19 | Merge PR #57 I6A Overview data/fixtures | Docs-only; condições C1–C8; sem ViewModel/TS/screen | `I6A_STATUS=DATA_PREPARATION_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `RUNTIME_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I2/I5/I6 implementation authorization assessment |
 | 2026-07-19 | Abrir avaliação autorização I2/I3/I5/I6 | Docs-only; decomposição não monolítica; I6D BLOCKED | `NEXT_RECOMMENDED_TASK=I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION`; todas flags de implementação permanecem false |
+| 2026-07-19 | I3 minimum accessible primitives (implementação) | Primitivos + Radix Dialog only; draft PR; sem merge | `I3_STATUS=IMPLEMENTATION_IN_PROGRESS`; `I3_MERGE_AUTHORIZED=false`; I5/I6/router/screens false |
