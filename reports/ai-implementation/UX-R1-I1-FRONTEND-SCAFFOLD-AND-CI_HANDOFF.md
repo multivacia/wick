@@ -53,3 +53,9 @@ UPDATED_AT = 2026-07-19T16:18:35Z
 ```
 
 Impact path: `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md`
+
+## Documented exception
+
+```text
+DEPENDENCY_REVIEW_EXCEPTION = GitHub Dependency graph is not enabled on multivacia/wick; actions/dependency-review-action cannot run as a hard gate. Workflow kept as advisory (continue-on-error). Enforceable substitutes: pnpm audit + pnpm licenses list + exact lockfile pins.
+```
