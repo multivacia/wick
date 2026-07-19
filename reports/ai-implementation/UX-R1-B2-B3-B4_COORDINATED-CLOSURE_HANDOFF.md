@@ -1,0 +1,64 @@
+# UX-R1 — B2/B3/B4 Coordinated Closure Handoff
+
+```text
+STATUS = COORDINATED_CLOSURE_COMPLETE
+RELEASE = UX-R1
+ACTION = COORDINATED_SEQUENTIAL_MERGE
+
+UX_B2_STATUS = COMPLETE
+UX_B2_AUTHORIZATION_DECISION = AUTHORIZED_FOR_INCREMENT_I1_ONLY
+I1_IMPLEMENTATION_EXECUTION_AUTHORIZED = false
+I1_IMPLEMENTATION_STATUS = BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION
+PR43_STATUS = MERGED
+PR45_STATUS = MERGED
+PR46_STATUS = MERGED
+PR47_STATUS = MERGED
+
+PR42_STATUS = MERGED
+PR42_MERGE_COMMIT = 92e8320fddc4e45db837d2250263234288f19abc
+PR42_MERGED_AT = 2026-07-19T15:53:15Z
+UX_B4_STATUS = MERGED
+UX_B4_IMPLEMENTATION_AUTHORIZED = false
+
+PR44_STATUS = MERGED
+PR44_FINAL_CANDIDATE_HEAD = 64cfd45c34e39ab8002cfe2bc59047673ccfa604
+PR44_MERGE_COMMIT = 253bd826ec516281785c834323c1afdff94cea6c
+PR44_MERGED_AT = 2026-07-19T15:58:59Z
+UX_B3_STATUS = MERGED
+UX_B3_IMPLEMENTATION_AUTHORIZED = false
+RECOMMENDED_DATA_ACCESS = GENERATED_OPERATIONAL_INDEX_PLUS_CLI_READ_ONLY
+
+MAIN_TIP = 253bd826ec516281785c834323c1afdff94cea6c
+UI_IMPLEMENTATION_AUTHORIZED = false
+HOST_DISCOVERY = DEFERRED
+OPERATIONAL_DEBT = OPEN
+SCHEDULER_ACTIVATION = BLOCKED
+R3E_SCIENTIFIC_STATE_CHANGE = false
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
+R4_STATUS = BLOCKED
+R5_STATUS = NOT_STARTED
+
+NEXT_ITEM = UX-B2 / I1 / FRONTEND-SCAFFOLD-AND-CI / SEPARATE_IMPLEMENTATION_TASK
+FINAL_RECOMMENDATION = Do not start I1 execution until a separate implementation task is explicitly authorized; keep scheduler blocked; do not run validate
+CREATED_AT = 2026-07-19T15:59:00Z
+UPDATED_AT = 2026-07-19T15:59:00Z
+```
+
+## Merge order executed
+
+1. Confirmed UX-B2 closure (PR #43/#45/#46/#47 MERGED; I1-only; execution blocked).
+2. Merged UX-B4 PR #42 (operational language/microcopy).
+3. Recorded UX-B4 final-merge handoff (PR #48).
+4. Rebased UX-B3 onto updated `main`, referenced UX-B4 as terminology authority, revalidated, then merged PR #44.
+5. Published this coordinated closure handoff.
+
+## Prohibited follow-ups (still blocked)
+
+```text
+I1 frontend scaffold
+package.json / React / Vite / pnpm / Radix install
+tokens / themes / routes / screens / components
+operational index or adapter implementation
+scheduler activation
+collection or validate execution
+```
