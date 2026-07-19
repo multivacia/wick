@@ -50,8 +50,11 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I5_ARCHITECTURE_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I5_IMPLEMENTATION_AUTHORIZED | **false** |
 | ROUTER_INSTALLATION_AUTHORIZED | **false** |
-| I6A_STATUS | **DATA_PREPARATION_IN_PROGRESS** (draft PR #57) |
+| I6A_STATUS | **DATA_PREPARATION_MERGED** (PR #57 → `4bf15db`) |
 | I6_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
+| VIEWMODEL_IMPLEMENTATION_AUTHORIZED | **false** |
+| TYPESCRIPT_FIXTURE_IMPLEMENTATION_AUTHORIZED | **false** |
+| OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I1 complete; no further increment authorized) |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
@@ -258,3 +261,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #61 kickoff final-closure | Track de kickoff paralelo COMPLETE em `main` | `PARALLEL_KICKOFF_STATUS=COMPLETE`; PRs #55/#56/#57 abertos; implementação não autorizada |
 | 2026-07-19 | Merge PR #55 I2 design tokens assessment | Docs-only; condições C1–C8; sem CSS/tokens | `I2_STATUS=ASSESSMENT_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I2_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I5A PR56 |
 | 2026-07-19 | Merge PR #56 I5A shell/nav architecture | Docs-only; condições C1–C8; sem router/shell | `I5A_STATUS=ARCHITECTURE_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `I5_IMPLEMENTATION_AUTHORIZED=false`; `ROUTER_INSTALLATION_AUTHORIZED=false`; NEXT=I6A PR57 |
+| 2026-07-19 | Merge PR #57 I6A Overview data/fixtures | Docs-only; condições C1–C8; sem ViewModel/TS/screen | `I6A_STATUS=DATA_PREPARATION_MERGED`; `AUTHORIZED_WITH_CONDITIONS`; `RUNTIME_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I2/I5/I6 implementation authorization assessment |
