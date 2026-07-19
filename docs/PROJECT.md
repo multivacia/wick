@@ -52,7 +52,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | R3E_READINESS_GATE | **IMPLEMENTED** (B2 / R3E-READINESS-001; status operacional separado do gate científico) |
 | R3E_COLLECTION_AUTOMATION | **IMPLEMENTED** (B4 / COLLECTION-AUTOMATION-001; PR #19 MERGED `f773702`; validate não autorizado) |
-| R3E_COLLECTION_SCHEDULER | **LOCAL_PREPARATION** (B5; `HOST_STRATEGY=LOCAL_PERSISTENT_HOST`; `$HOME/wick-r3e`; HostGator deferred; timer não ativado) |
+| R3E_COLLECTION_SCHEDULER | **LOCAL_DISCOVERY_PREP** (B5-D1; PR #27 MERGED; discovery scripts ready; HostGator deferred; timer não ativado) |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
 | R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
@@ -171,3 +171,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Merge PR #25 em `main` (`b5bb3f1`) | Preparação B5 HostGator incorporada | Timer não habilitado; host readiness pendente; validate/R4/R5 inalterados |
 | 2026-07-19 | Ficha readiness HostGator B5 | Campos reais do VPS deixados vazios | `HOST_READINESS_STATUS=BLOCKED_PENDING_REAL_HOST_DETAILS` |
 | 2026-07-19 | B5 troca para LOCAL_PERSISTENT_HOST | HostGator deferred; path `$HOME/wick-r3e` | Preparação local apenas; scheduler não ativado; validate/R4/R5 inalterados |
+| 2026-07-19 | Merge PR #27 em `main` (`134f066`) | Preparação local B5 incorporada | Timer não habilitado; discovery no host real ainda pendente |
+| 2026-07-19 | B5-D1 discovery preparation | Scripts read-only sh/ps1 + runbook | Resultado gerado só no host operacional; sem ativação |
