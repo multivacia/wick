@@ -55,6 +55,14 @@ reports/r3e_operational_backfill/*.log
 
 .DS_Store
 
+# Local persistent host secrets / runtime (never commit)
+**/wick-r3e/config/r3e-collector.env
+**/wick-r3e/logs/
+**/wick-r3e/backups/
+# Windows/local env copies accidentally placed in repo tree
+ops/local/*.env
+!ops/local/*.env.example
+
 !reports/r3d/
 !reports/r3d/**
 reports/r3d/*.log
