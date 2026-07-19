@@ -51,6 +51,7 @@ O agente deve interromper e solicitar decisão humana quando:
 - `docs/PROJECT.md`: visão, roadmap, decisões e gates.
 - `docs/architecture`: dados, qualidade e metodologia quantitativa.
 - `docs/patterns`: contrato matemático para detectores.
-- `docs/releases`: especificações detalhadas R1–R5.
+- `docs/releases`: especificações detalhadas R1–R5 e UX-R1.
+- `docs/ux`: fundação de experiência (trilha paralela à ciência R3E).
 - `docs/audits`: checklists independentes.
 - `prompts`: prompts prontos para Cursor/Claude Code.

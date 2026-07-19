@@ -27,6 +27,29 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R5 | Observabilidade, relatórios e gates de promoção | **NOT_STARTED** |
 | R6+ | Integração com corretora (fora do escopo atual) | — |
 
+## Trilha paralela — UX (experiência operacional)
+
+Release **independente** do estado científico de R3E. Não modifica modelos, coleta, `validate`, readiness, scheduler, thresholds nem desbloqueia R4/R5.
+
+| Campo | Valor |
+|-------|--------|
+| RELEASE_ID | UX-R1 |
+| RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
+| UX-R1_STATUS | **PLANNING** |
+| UX-B1_STATUS | **READY_FOR_HUMAN_MERGE_REVIEW** (`UX-RELEASE-FOUNDATION-001`) |
+| UX-B2_STATUS | **BLOCKED_PENDING_UX_B1_MERGE_AND_AUTHORIZATION** |
+| RELEASE_OWNER | Gustavo Almeida |
+| UX_FOUNDATION_MERGE_AUTHORIZED | **false** |
+| UI_IMPLEMENTATION_AUTHORIZED | **false** |
+| R3E_SCIENTIFIC_STATE | **UNCHANGED** |
+| Spec | `docs/releases/UX-R1_SPEC.md` |
+| Backlog UX | `docs/ux/UX-R1_BACKLOG.md` |
+| Fundação | `docs/ux/` · `docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md` |
+| Impacto | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
+| PR fundação | https://github.com/multivacia/wick/pull/31 (draft; merge humano pendente) |
+
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo).
+
 ## Estado oficial (pós-R3D / R3E engine)
 
 | Campo | Valor |
@@ -175,3 +198,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | B5-D1 discovery preparation | Scripts read-only sh/ps1 + runbook | Resultado gerado só no host operacional; sem ativação |
 | 2026-07-19 | Merge PR #28 em `main` (`83308f5`) | Discovery prep B5-D1 incorporada | Pacote operador publicado; discovery no Cursor não executada |
 | 2026-07-19 | Pacote de execução operador B5-D1 | Guia copy-paste Windows/Linux | Aguardando `R3E_LOCAL_HOST_DISCOVERY_RESULT.md` do host real |
+| 2026-07-19 | Abrir trilha paralela UX-R1 (Operational Experience) | Fundação UX-B1; sem UI; R3E inalterado | `UX-R1_STATUS=PLANNING`; `UI_IMPLEMENTATION_AUTHORIZED=false` |
+| 2026-07-19 | Reconciliar impacto UX-B1 e congelar evidência final | Impacto APPROVED; review alinhada; PR #31 draft | `UX-B1_STATUS=READY_FOR_HUMAN_MERGE_REVIEW`; UX-B2 bloqueado; merge humano pendente |
