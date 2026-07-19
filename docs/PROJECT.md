@@ -44,7 +44,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I1_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
-| UX_B3_STATUS / UX-B3_STATUS | **SPECIFICATION_READY_FOR_HUMAN_REVIEW** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44) |
+| UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
 | UX_B3_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_B4_STATUS / UX-B4_STATUS | **MERGED** (`OPERATIONAL-LANGUAGE-MICROCOPY-001`; PR #42 → `92e8320`) |
 | UX_B4_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -63,15 +63,15 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | Impacto B1 | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
 | Impacto B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`; implementação não autorizada) |
 | Autorização B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md` (`AUTHORIZED_FOR_INCREMENT_I1_ONLY`; **MERGED** PR #43) |
-| Impacto B3 | `docs/ai-impact/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS-001_IMPACT_ASSESSMENT.md` (`APPROVED`; UI não autorizada) |
+| Impacto B3 | `docs/ai-impact/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS-001_IMPACT_ASSESSMENT.md` (`APPROVED`; **MERGED** PR #44) |
 | Impacto B4 | `docs/ai-impact/UX-R1-OPERATIONAL-LANGUAGE-MICROCOPY-001_IMPACT_ASSESSMENT.md` (`APPROVED`; **MERGED** PR #42) |
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
 | PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**MERGED** `5bcb088`) |
 | PR autorização I1 | https://github.com/multivacia/wick/pull/43 (**MERGED** `34ce0e7`) |
 | PR linguagem B4 | https://github.com/multivacia/wick/pull/42 (**MERGED** `92e8320`) |
-| PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**OPEN** draft) |
+| PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**MERGED** `253bd82`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela das quatro telas operacionais: especificação pronta para revisão humana (UX-B3); linguagem oficial em UX-B4 (**MERGED**). Implementação de UI **não** autorizada.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de UI **não** autorizada. Próximo item separado: UX-B2 I1 frontend scaffold (execução ainda bloqueada).
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -234,3 +234,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Post-merge + merge-complete autorização I1 UX-B2 | PR #45 handoff; I1 ainda bloqueado | `NEXT_ITEM=I1 FRONTEND-SCAFFOLD-AND-CI`; UI não autorizada |
 | 2026-07-19 | UX-B4 linguagem operacional e microcopy | Catálogos docs-only; trilha independente de B2/B3 | `UX_B4_STATUS=CONTENT_DESIGN_READY_FOR_HUMAN_REVIEW`; `UX_B4_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada; R3E inalterado |
 | 2026-07-19 | Merge PR #42 UX-B4 Operational Language | Autorização humana; docs-only; R3E inalterado | `UX_B4_STATUS=MERGED`; `UX_B4_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada |
+| 2026-07-19 | Merge PR #44 UX-B3 Operational MVP Screen Contracts | Autorização humana; docs-only; consome UX-B4 | `UX_B3_STATUS=MERGED`; `UX_B3_IMPLEMENTATION_AUTHORIZED=false`; UI não autorizada |
+| 2026-07-19 | Fechamento coordenado UX-B2/B3/B4 | B2 COMPLETE (I1-only); B3+B4 MERGED | `NEXT_ITEM=I1 FRONTEND-SCAFFOLD-AND-CI` (tarefa separada); scheduler/validate inalterados |
