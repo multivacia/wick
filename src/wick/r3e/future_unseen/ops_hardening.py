@@ -79,6 +79,7 @@ BACKUP_RETENTION_DAYS = 30
 MINIMUM_VALID_BACKUPS = 3
 FAILED_RUN_REPORT_RETENTION_DAYS = 180
 
+
 def _iso_now(now: datetime | None = None) -> str:
     dt = (now or datetime.now(UTC)).astimezone(UTC)
     return dt.isoformat()
@@ -254,10 +255,8 @@ def summarize_run_history(
         "age_since_last_success": age_since_last_success,
         "recent_failures": recent_failures,
         "store_observations": store_observations,
-        "readiness_status": readiness.get("readiness_status")
-        or state.get("last_readiness_status"),
-        "readiness_reason": readiness.get("readiness_reason")
-        or state.get("last_readiness_reason"),
+        "readiness_status": readiness.get("readiness_status") or state.get("last_readiness_status"),
+        "readiness_reason": readiness.get("readiness_reason") or state.get("last_readiness_reason"),
         "scheduler_activation_status": {
             "SCHEDULER_ACTIVATION_AUTHORIZED": False,
             "SCHEDULER_ACTIVATED": False,

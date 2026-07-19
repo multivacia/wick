@@ -297,9 +297,7 @@ def test_backup_verification_and_no_restore(tmp_path):
         (data / "future_unseen" / "manifests" / "collection_state.json").write_text(
             "{}", encoding="utf-8"
         )
-        (reports / "r3e_future_unseen" / "automation_state.json").write_text(
-            "{}", encoding="utf-8"
-        )
+        (reports / "r3e_future_unseen" / "automation_state.json").write_text("{}", encoding="utf-8")
         tf.add(data / "future_unseen", arcname="data/future_unseen")
         tf.add(reports / "r3e_future_unseen", arcname="reports/r3e_future_unseen")
 
@@ -333,9 +331,10 @@ def test_ready_notification_has_no_effect_or_economic_data():
     assert payload["ECONOMIC_INTERPRETATION_ALLOWED"] is False
     assert "effect_size" not in text
     assert "p_value" not in text
-    assert "economic_interpretation" not in text.lower() or payload[
-        "ECONOMIC_INTERPRETATION_ALLOWED"
-    ] is False
+    assert (
+        "economic_interpretation" not in text.lower()
+        or payload["ECONOMIC_INTERPRETATION_ALLOWED"] is False
+    )
     # Ensure no economic metrics payload keys beyond denial flag
     assert "economic_interpretation" not in payload
     assert "effect" not in payload
