@@ -111,7 +111,7 @@ Do not merge. Human merge authorization is a separate task.
 
 ```text
 REVIEW_OUTCOME = APPROVED
-FINAL_CANDIDATE_HEAD = CONTENT_REVIEWED_THROUGH_HEAD = 46a8b82257002424944a3eb936da907877a39420
+FINAL_CANDIDATE_HEAD = CONTENT_REVIEWED_THROUGH_HEAD = fc40b58827859a595830ad6774dd48e452f99e57
 ```
 
-Implementation content through `0377af6` is approved for draft PR. Documentation tip may advance after this review; stamp equality on the final handoff tip after docs lands.
+Implementation content through `0377af6` and governance docs through `fc40b58` are approved for draft PR. `PR_TIP` may advance with stamp-only commits.
