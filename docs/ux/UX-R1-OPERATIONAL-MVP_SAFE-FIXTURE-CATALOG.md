@@ -261,8 +261,53 @@ R4_STATUS = BLOCKED
 R5_STATUS = NOT_STARTED
 SCHEDULER_ACTIVATION = BLOCKED
 OPERATIONAL_DEBT = OPEN
+HOST_DISCOVERY = DEFERRED
+VALIDATE_AUTHORIZED = false
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
+```
+
+---
+
+## Overview ViewModel extension (I6A)
+
+```text
+EXTENSION = UX-R1-I6A-OVERVIEW-VIEWMODEL-VALUES
+WORKSTREAM = I6A
+TASK_ID = OVERVIEW-SCREEN-DATA-AND-FIXTURE-PREPARATION-001
+NORMATIVE_DETAIL = docs/ux/UX-R1-I6A-OVERVIEW-FIXTURE-SCENARIOS.md
+VIEWMODEL_CONTRACT = docs/ux/UX-R1-I6A-OVERVIEW-VIEWMODEL-CONTRACT.md
+EXECUTABLE_FIXTURES_IN_I6A = false
+NO_TYPESCRIPT_FIXTURE_FILES = true
+```
+
+This extension refines **Visão Geral** ViewModel field values for the eight scenarios above. It does not invent economic/scientific success. Scheduler remains blocked; host deferred; validate unauthorized.
+
+| scenario | overall_operational_state | next_safe_action_code | Overview notes |
+|----------|---------------------------|-----------------------|----------------|
+| healthy_collection_not_ready | HEALTHY_COLLECTION (+ readiness NOT_READY) | CONTINUE_COLLECTION | SUCCESS_OPS collection; ATTENTION readiness |
+| collection_warning | DEGRADED | CONTINUE_COLLECTION | ATTENTION; soft provider warning |
+| collection_failure | ERROR | INVESTIGATE_FAILED_EXECUTION | ERROR banner; synthetic failed run id |
+| host_discovery_deferred | NOT_READY | RUN_HOST_DISCOVERY | DEFERRED host ≠ failed host |
+| scheduler_not_activated | NOT_READY | KEEP_SCHEDULER_INACTIVE | templates prepared; enabled=false |
+| readiness_ready_but_validation_not_authorized | BLOCKED (READY + validate false) | DO_NOT_VALIDATE | mandatory copy: READY não autoriza validate |
+| no_execution_history | EMPTY | CONTINUE_COLLECTION | null completed/failed ids; empty timeline |
+| partial_metadata | PARTIAL | PARTIAL_DATA_UNAVAILABLE | readiness present; automation_state missing |
+
+Common Overview ViewModel constants for all eight:
+
+```text
+DADOS_DEMONSTRATIVOS
+SOURCE = SYNTHETIC
+SCIENTIFIC_INTERPRETATION_ALLOWED = false
+ECONOMIC_INTERPRETATION_ALLOWED = false
+data_mode = DEMONSTRATION_FIXTURE
+validate_authorized = false
+scheduler_state = BLOCKED
+operational_debt_status = OPEN
+scientific_gate_state = PENDING_FUTURE_UNSEEN_DATA
+open_incidents_count = UNAVAILABLE
 ```
 
 ## Future implementation note
 
-When UI work is authorized, materialize these as JSON under a demo fixtures directory (path decided then). This task ships **catalog only**.
+When UI work is authorized, materialize these as JSON under a demo fixtures directory (path decided then). UX-B3 ships **catalog only**. I6A ships **Overview scenario specs** in `docs/ux/UX-R1-I6A-OVERVIEW-FIXTURE-SCENARIOS.md` — still no executable TypeScript/JSON fixture files.
