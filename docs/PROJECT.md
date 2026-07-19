@@ -40,11 +40,11 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
 | UX_B2_AUTHORIZATION_STATUS | **MERGED** (PR #43 → `34ce0e7`) |
 | UX_B2_AUTHORIZATION_DECISION | **AUTHORIZED_FOR_INCREMENT_I1_ONLY** |
-| UX_B2_STATUS | **I1_IMPLEMENTATION_IN_PROGRESS** |
+| UX_B2_STATUS | **I1_MERGED** |
 | UX_B2_AUTHORIZED_INCREMENT | **I1** |
-| I1_IMPLEMENTATION_STATUS | **IN_PROGRESS** |
+| I1_IMPLEMENTATION_STATUS | **MERGED** (PR #51 → `c283592`) |
 | I2_IMPLEMENTATION_AUTHORIZED | **false** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I1 only; this task) |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I1 complete; no further increment authorized) |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
 | UX_B3_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -73,8 +73,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR autorização I1 | https://github.com/multivacia/wick/pull/43 (**MERGED** `34ce0e7`) |
 | PR linguagem B4 | https://github.com/multivacia/wick/pull/42 (**MERGED** `92e8320`) |
 | PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**MERGED** `253bd82`) |
+| PR I1 scaffold + CI | https://github.com/multivacia/wick/pull/51 (**MERGED** `c283592`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI) está **IN_PROGRESS** nesta trilha; I2+ permanece não autorizado.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2+ permanece não autorizado (apenas assessments/specs em paralelo até autorização explícita).
 
 ## Estado oficial (pós-R3D / R3E engine)
 
