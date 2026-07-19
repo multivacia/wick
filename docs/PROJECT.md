@@ -44,7 +44,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I1_IMPLEMENTATION_STATUS | **BLOCKED_PENDING_SEPARATE_TASK_AND_HUMAN_AUTHORIZATION** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
-| UX_B3_STATUS / UX-B3_STATUS | **INDEPENDENT_TRACK** (parallel; screen contracts) |
+| UX_B3_STATUS / UX-B3_STATUS | **SPECIFICATION_READY_FOR_HUMAN_REVIEW** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44) |
+| UX_B3_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_B4_STATUS / UX-B4_STATUS | **MERGED** (`OPERATIONAL-LANGUAGE-MICROCOPY-001`; PR #42 → `92e8320`) |
 | UX_B4_IMPLEMENTATION_AUTHORIZED | **false** |
 | RELEASE_OWNER | Gustavo Almeida |
@@ -58,15 +59,18 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | Backlog UX | `docs/ux/UX-R1_BACKLOG.md` |
 | Fundação | `docs/ux/` · `docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md` |
 | Linguagem operacional B4 | `docs/ux/UX-R1-OPERATIONAL-LANGUAGE-GUIDE.md` (+ catálogos status/empty/failure/guardrails) |
+| Contratos MVP B3 | `docs/ai-specs/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS_SPEC.md` |
 | Impacto B1 | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
 | Impacto B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`; implementação não autorizada) |
 | Autorização B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-IMPLEMENTATION-AUTHORIZATION_IMPACT_ASSESSMENT.md` (`AUTHORIZED_FOR_INCREMENT_I1_ONLY`; **MERGED** PR #43) |
-| Impacto B4 | `docs/ai-impact/UX-R1-OPERATIONAL-LANGUAGE-MICROCOPY-001_IMPACT_ASSESSMENT.md` (`APPROVED`; UI não autorizada) |
+| Impacto B3 | `docs/ai-impact/UX-R1-OPERATIONAL-MVP-SCREEN-CONTRACTS-001_IMPACT_ASSESSMENT.md` (`APPROVED`; UI não autorizada) |
+| Impacto B4 | `docs/ai-impact/UX-R1-OPERATIONAL-LANGUAGE-MICROCOPY-001_IMPACT_ASSESSMENT.md` (`APPROVED`; **MERGED** PR #42) |
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
 | PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**MERGED** `5bcb088`) |
 | PR autorização I1 | https://github.com/multivacia/wick/pull/43 (**MERGED** `34ce0e7`) |
+| PR contratos MVP B3 | https://github.com/multivacia/wick/pull/44 (**OPEN** draft) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela das quatro telas operacionais: especificação pronta para revisão humana (UX-B3); implementação de UI **não** autorizada. Trilhas paralelas: UX-B2 (design system / I1 auth) e UX-B4 (linguagem operacional).
 
 ## Estado oficial (pós-R3D / R3E engine)
 
