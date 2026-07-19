@@ -117,6 +117,23 @@ def _truthy(value: str | None) -> bool:
     return value.lower() in {"true", "1", "yes"}
 
 
+def _documentation_merge_recommended(block: str) -> bool:
+    """Docs-only merge recommendation without executable implementation auth.
+
+    When true, APPROVED MEDIUM/HIGH/CRITICAL impact may keep
+    IMPLEMENTATION_AUTHORIZED=false (no ViewModel/fixture/screen/code work).
+    """
+    if _truthy(_field(block, "DOCUMENTATION_MERGE_RECOMMENDED")):
+        return True
+    if _truthy(_field(block, "I6A_DOCUMENTATION_MERGE_RECOMMENDED")):
+        return True
+    decision = _field(block, "DATA_CONTRACT_DECISION")
+    return decision in {
+        "AUTHORIZED_WITH_CONDITIONS",
+        "AUTHORIZED_FOR_I6A_MERGE",
+    }
+
+
 def _is_legacy(block: str) -> bool:
     return _truthy(_field(block, "LEGACY_PRE_IMPACT_GATE"))
 
@@ -194,7 +211,12 @@ def validate_impact_assessment_text(text: str, *, path: str = "<memory>") -> lis
             )
         )
 
-    if status == "APPROVED" and risk in {"MEDIUM", "HIGH", "CRITICAL"} and not _truthy(authorized):
+    if (
+        status == "APPROVED"
+        and risk in {"MEDIUM", "HIGH", "CRITICAL"}
+        and not _truthy(authorized)
+        and not _documentation_merge_recommended(block)
+    ):
         issues.append(
             ValidationIssue(
                 path,
@@ -268,7 +290,7 @@ def _validate_impact_gate_on_artifact(text: str, block: str, *, path: str) -> li
                     f"CHANGE_RISK={risk} requires IMPACT_ASSESSMENT_STATUS=APPROVED before implementation",
                 )
             )
-        if not _truthy(authorized):
+        if not _truthy(authorized) and not _documentation_merge_recommended(block):
             issues.append(
                 ValidationIssue(
                     path,

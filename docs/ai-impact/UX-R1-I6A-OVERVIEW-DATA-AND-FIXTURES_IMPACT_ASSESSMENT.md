@@ -11,7 +11,9 @@ TITLE = Overview Screen Data and Fixture Preparation
 PHASE = DATA_CONTRACT_AND_FIXTURE_PREPARATION
 CHANGE_RISK = MEDIUM
 IMPACT_ASSESSMENT_STATUS = APPROVED
-IMPLEMENTATION_AUTHORIZED = true
+IMPLEMENTATION_AUTHORIZED = false
+I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
+DOCUMENTATION_MERGE_RECOMMENDED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
 I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
@@ -36,9 +38,9 @@ I5_ARCHITECTURE_DECISION = AUTHORIZED_WITH_CONDITIONS
 I5_IMPLEMENTATION_AUTHORIZED = false
 ROUTER_INSTALLATION_AUTHORIZED = false
 PARALLEL_KICKOFF_STATUS = COMPLETE
-ANALYZED_AT = 2026-07-19T18:25:00Z
+ANALYZED_AT = 2026-07-19T18:40:00Z
 ANALYZED_BY = cursor-agent
-APPROVED_AT = 2026-07-19T18:25:00Z
+APPROVED_AT = 2026-07-19T18:40:00Z
 APPROVED_BY = cursor-agent-docs-package
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
@@ -58,6 +60,8 @@ MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 AUTOMATIC_MERGE_AUTHORIZED = false
 RECOMMENDED_DECISION = AUTHORIZED_WITH_CONDITIONS
 DECISION = AUTHORIZED_WITH_CONDITIONS
+SAFE_FIXTURE_CATALOG_CHANGE_STATUS = REVIEWED_AND_IN_SCOPE
+SAFE_FIXTURE_CATALOG_CHANGE_PURPOSE = Compatibility/alignment extension mapping eight B3 scenarios to Overview ViewModel values; docs-only; no executable fixtures
 WCAG = 2.2 AA
 IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_IMPACT_ASSESSMENT.md
 ```
@@ -66,7 +70,21 @@ IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_IMP
 
 Pacote **somente documentação** que detalha o contrato de ViewModel read-only da tela Visão Geral e os cenários de fixture demonstrativos necessários para um protótipo futuro — **sem** implementar ViewModel TypeScript, fixtures `.ts`/`.json` executáveis, tela, índice operacional, adapter ou integração com dados reais.
 
-`IMPLEMENTATION_AUTHORIZED=true` autoriza apenas este pacote documental I6A. Flags de UI e de integração operacional permanecem `false`.
+```text
+AUTHORIZED_WITH_CONDITIONS
+= documentation/data-contract decision suitable for human merge consideration
+
+I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
+= docs package may be merged after human authorization
+
+IMPLEMENTATION_AUTHORIZED = false
+= no executable ViewModel, fixture, adapter, integration or screen work may begin
+
+READY != VALIDATION_AUTHORIZED
+DATA_CONTRACT_APPROVED != SCREEN_IMPLEMENTATION_AUTHORIZED
+FIXTURE_SPEC_APPROVED != EXECUTABLE_FIXTURE_AUTHORIZED
+VIEWMODEL_CONTRACT_APPROVED != VIEWMODEL_IMPLEMENTATION_AUTHORIZED
+```
 
 ```text
 SCREEN = Visão Geral (Screen 1)
@@ -85,7 +103,7 @@ Incluído:
 
 - Contrato de campos do Overview ViewModel (docs).
 - Especificação detalhada dos oito cenários B3 já catalogados, com valores de ViewModel para Visão Geral.
-- Extensão documental do catálogo B3 de fixtures seguros.
+- Extensão documental do catálogo B3 de fixtures seguros (`docs/ux/UX-R1-OPERATIONAL-MVP_SAFE-FIXTURE-CATALOG.md`) — compatibility/alignment required by I6A; `SAFE_FIXTURE_CATALOG_CHANGE_STATUS=REVIEWED_AND_IN_SCOPE`.
 - Impact assessment, spec, review e handoff de governança.
 - Status `I6A_STATUS=DATA_PREPARATION_IN_PROGRESS` em `docs/PROJECT.md`.
 

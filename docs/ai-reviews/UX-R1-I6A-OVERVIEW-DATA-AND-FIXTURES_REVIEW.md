@@ -16,7 +16,12 @@ IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_IMP
 IMPACT_ASSESSMENT_STATUS = APPROVED
 DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
 AUTHORIZATION_CONDITIONS = C1-C8
-IMPLEMENTATION_AUTHORIZED = true
+IMPLEMENTATION_AUTHORIZED = false
+CREATED_AT = 2026-07-19T18:40:00Z
+SAFE_FIXTURE_CATALOG_CHANGE_PURPOSE = B3 catalog Overview ViewModel alignment extension (docs-only)
+SAFE_FIXTURE_CATALOG_CHANGE_STATUS = REVIEWED_AND_IN_SCOPE
+DOCUMENTATION_MERGE_RECOMMENDED = true
+I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
 I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
@@ -43,11 +48,11 @@ BASE_SHA = 6ff45b9bd50349cc12061346c24a86fec0cf7645
 OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
 BASE_SHA_AT_REVIEW = 6ff45b9bd50349cc12061346c24a86fec0cf7645
 HEAD_BRANCH = cursor/ux-r1-i6a-overview-data-fixtures-1b6b
-CONTENT_REVIEWED_THROUGH_HEAD = 588340d7b84cf97be2267b1d5655f840a4f2cee5
-FINAL_CANDIDATE_HEAD = 588340d7b84cf97be2267b1d5655f840a4f2cee5
+CONTENT_REVIEWED_THROUGH_HEAD = 8ee697492dd7e62ad5095db1668ef801c65b40b2
+FINAL_CANDIDATE_HEAD = 8ee697492dd7e62ad5095db1668ef801c65b40b2
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
-REVIEWED_AT = 2026-07-19T18:25:00Z
+REVIEWED_AT = 2026-07-19T18:40:00Z
 I6A_STATUS = DATA_PREPARATION_IN_PROGRESS
 I2_IMPLEMENTATION_AUTHORIZED = false
 I5A_STATUS = ARCHITECTURE_MERGED
@@ -63,6 +68,22 @@ WEB_LINT = PASS
 WEB_TEST = PASS
 WEB_A11Y = PASS
 WEB_BUILD = PASS
+```
+
+## Authorization semantics
+
+```text
+AUTHORIZED_WITH_CONDITIONS
+= documentation/data-contract decision suitable for human merge consideration
+
+I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
+IMPLEMENTATION_AUTHORIZED = false
+= no executable ViewModel, fixture, adapter, integration or screen work may begin
+
+READY != VALIDATION_AUTHORIZED
+DATA_CONTRACT_APPROVED != SCREEN_IMPLEMENTATION_AUTHORIZED
+FIXTURE_SPEC_APPROVED != EXECUTABLE_FIXTURE_AUTHORIZED
+VIEWMODEL_CONTRACT_APPROVED != VIEWMODEL_IMPLEMENTATION_AUTHORIZED
 ```
 
 ## Materiais revisados
@@ -96,6 +117,7 @@ WEB_BUILD = PASS
 | implementation flags false | PASS | screen/ViewModel/TS fixture/live data |
 | I2/I5 flags unchanged | PASS | implementation unauthorized; router false |
 | R3E scientific unchanged | PASS | gates/R4/R5 preserved |
+| SAFE_FIXTURE_CATALOG in scope | PASS | REVIEWED_AND_IN_SCOPE Overview extension |
 | no automatic merge | PASS | AUTOMATIC_MERGE_AUTHORIZED=false |
 | PROJECT.md preserves newer main state | PASS | only I6A status already on main |
 
@@ -131,5 +153,5 @@ Pacote documental I6A aprovado para merge humano **com condições**. Implementa
 1. Governance validator / pytest / ruff / web smoke verdes
 2. Sem arquivos `.ts`/`.tsx` de fixture; sem mudanças de implementação em `web/src`
 3. Flags de UI/screen/ViewModel/fixture/integration permanecem false
-4. `CONTENT_REVIEWED_THROUGH_HEAD = FINAL_CANDIDATE_HEAD` no commit de conteúdo
+4. `CONTENT_REVIEWED_THROUGH_HEAD = 8ee697492dd7e62ad5095db1668ef801c65b40b2
 5. Autorização humana de merge (sem auto-merge)

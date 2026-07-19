@@ -276,6 +276,41 @@ def test_blocked_status_forbids_authorization():
     assert any("BLOCKED" in i.message for i in issues if i.severity == "error")
 
 
+def test_docs_merge_recommended_allows_implementation_authorized_false():
+    """Documentation/data-contract packages may remain implementation-unauthorized."""
+    text = _approved_impact(
+        CHANGE_RISK="MEDIUM",
+        IMPLEMENTATION_AUTHORIZED="false",
+        I6A_DOCUMENTATION_MERGE_RECOMMENDED="true",
+        DOCUMENTATION_MERGE_RECOMMENDED="true",
+        DATA_CONTRACT_DECISION="AUTHORIZED_WITH_CONDITIONS",
+    )
+    issues = validate_impact_assessment_text(
+        text, path="docs/ai-impact/DEMO-MED-DOCS-001_IMPACT_ASSESSMENT.md"
+    )
+    assert not [i for i in issues if i.severity == "error"]
+
+    gate_text = """
+```text
+TASK_ID = DEMO-MED-DOCS-001
+IMPLEMENTATION_STATUS = DATA_PREPARATION_COMPLETE
+REVIEW_STATUS = APPROVED
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+CHANGE_RISK = MEDIUM
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = false
+I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
+DOCUMENTATION_MERGE_RECOMMENDED = true
+DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+```
+Refs docs/ai-impact/DEMO-MED-DOCS-001_IMPACT_ASSESSMENT.md
+"""
+    gate_issues = validate_artifact_text(gate_text)
+    assert not [i for i in gate_issues if i.severity == "error"]
+
+
 def test_legacy_pre_impact_gate_compatible():
     text = """
 ```text
