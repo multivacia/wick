@@ -96,7 +96,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | PR I5A shell/nav architecture | https://github.com/multivacia/wick/pull/56 (**MERGED** `134c93a`) |
 | PR I6A Overview data/fixtures | https://github.com/multivacia/wick/pull/57 (**MERGED** `4bf15db`) |
 | Autorização I2/I3/I5/I6 | https://github.com/multivacia/wick/pull/66 (**MERGED** `5098e83`) |
-| I2 tokens/themes implementation | draft PR (this task; `I2_MERGE_AUTHORIZED=false`) |
+| I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**DRAFT**; `I2_MERGE_AUTHORIZED=false`) |
 
 MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **IN_PROGRESS** sob autorização humana desta tarefa (`I2_IMPLEMENTATION_AUTHORIZED=true`, `I2_MERGE_AUTHORIZED=false`). I5A architecture **MERGED**; I6A data preparation **MERGED**; I3/I5/I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`.
 
