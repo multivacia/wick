@@ -37,7 +37,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
 | UX-R1_STATUS | **PLANNING** |
 | UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
-| UX-B2_STATUS | **BLOCKED_PENDING_SEPARATE_IMPACT_AND_AUTHORIZATION** |
+| UX-B2_STATUS | **IMPACT_ASSESSMENT_READY_FOR_HUMAN_REVIEW** (`DESIGN-SYSTEM-FOUNDATION-001`) |
+| UX_B2_IMPLEMENTATION_AUTHORIZED | **false** |
 | RELEASE_OWNER | Gustavo Almeida |
 | UX_FOUNDATION_MERGE_AUTHORIZED | **true** (fundação documental mergeada; UI não autorizada) |
 | UI_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -45,8 +46,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | Spec | `docs/releases/UX-R1_SPEC.md` |
 | Backlog UX | `docs/ux/UX-R1_BACKLOG.md` |
 | Fundação | `docs/ux/` · `docs/ai-specs/UX-R1-EXPERIENCE-FOUNDATION_SPEC.md` |
-| Impacto | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
+| Impacto B1 | `docs/ai-impact/UX-RELEASE-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`) |
+| Impacto B2 | `docs/ai-impact/UX-R1-DESIGN-SYSTEM-FOUNDATION-001_IMPACT_ASSESSMENT.md` (`APPROVED`; implementação não autorizada) |
 | PR fundação | https://github.com/multivacia/wick/pull/31 (**MERGED**) |
+| PR design system (impacto) | https://github.com/multivacia/wick/pull/35 (**OPEN draft**; AWAITING_HUMAN_AUTHORIZATION) |
 
 MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo).
 
@@ -201,3 +204,6 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Abrir trilha paralela UX-R1 (Operational Experience) | Fundação UX-B1; sem UI; R3E inalterado | `UX-R1_STATUS=PLANNING`; `UI_IMPLEMENTATION_AUTHORIZED=false` |
 | 2026-07-19 | Reconciliar impacto UX-B1 e congelar evidência final | Impacto APPROVED; review alinhada; PR #31 draft | `UX-B1_STATUS=READY_FOR_HUMAN_MERGE_REVIEW`; UX-B2 bloqueado; merge humano pendente |
 | 2026-07-19 | Merge PR #31 UX-B1 Experience Foundation | Autorização humana; docs-only; R3E inalterado | `UX-B1_STATUS=MERGED`; UX-B2 bloqueado até impacto/autorização separados; UI não autorizada |
+| 2026-07-19 | Iniciar impacto UX-B2 Design System Foundation | Fase IMPACT_ASSESSMENT_ONLY; sem UI | `UX-B2_STATUS=IMPACT_ASSESSMENT_IN_PROGRESS`; implementação não autorizada |
+| 2026-07-19 | Reconciliar impacto UX-B2 (rebase + APPROVED) | Option B locked; gates definidos; sem código UI | `UX-B2_STATUS=IMPACT_ASSESSMENT_READY_FOR_HUMAN_REVIEW`; `UX_B2_IMPLEMENTATION_AUTHORIZED=false` |
+| 2026-07-19 | Congelar evidência final UX-B2 (PR #35) | Revalidação local PASS; backlog alinhado; merge humano pendente | `IMPACT_ASSESSMENT_STATUS=APPROVED`; `UI_IMPLEMENTATION_AUTHORIZED=false` |
