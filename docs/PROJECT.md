@@ -52,7 +52,7 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 | R3E_FUTURE_DATA_COLLECTION | **IN_PROGRESS** |
 | R3E_READINESS_GATE | **IMPLEMENTED** (B2 / R3E-READINESS-001; status operacional separado do gate científico) |
 | R3E_COLLECTION_AUTOMATION | **IMPLEMENTED** (B4 / COLLECTION-AUTOMATION-001; PR #19 MERGED `f773702`; validate não autorizado) |
-| R3E_COLLECTION_SCHEDULER | **PREPARATION_READY_ACTIVATION_PENDING** (B5; HostGator VPS `wick-r3e-collector-01`; impacto APPROVED; timer não ativado; `SCHEDULER_ACTIVATION_AUTHORIZED=false`) |
+| R3E_COLLECTION_SCHEDULER | **HOST_READINESS_BLOCKED** (B5 prep PR #25 MERGED `b5bb3f1`; HostGator `wick-r3e-collector-01`; detalhes reais do host pendentes; timer não ativado) |
 | FUTURE_UNSEEN_CUTOFF | `2026-07-18T01:30:00+00:00` |
 | R3E_OPERATIONAL_BACKFILL_RUN | **COMPLETE** (histórico; não científico) |
 | R3E_OPERATIONAL_BACKFILL_AUDIT | **COMPLETE** |
@@ -168,3 +168,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-18 | Merge PR #23 em `main` (`c098fa8`) | Impacto B5 BLOCKED incorporado | Sem ativação; 6 decisões humanas pendentes; validate/R4/R5 inalterados |
 | 2026-07-18 | Decisões humanas B5 completas | Owner Gustavo; HostGator VPS; `/srv/wick`; systemd env; email | Impacto APPROVED; preparação autorizada; ativação ainda bloqueada |
 | 2026-07-18 | Preparação HostGator B5 (draft PR) | units/runbook/backup/healthcheck | Timer não habilitado; validate/R4/R5 inalterados |
+| 2026-07-19 | Merge PR #25 em `main` (`b5bb3f1`) | Preparação B5 HostGator incorporada | Timer não habilitado; host readiness pendente; validate/R4/R5 inalterados |
+| 2026-07-19 | Ficha readiness HostGator B5 | Campos reais do VPS deixados vazios | `HOST_READINESS_STATUS=BLOCKED_PENDING_REAL_HOST_DETAILS` |
