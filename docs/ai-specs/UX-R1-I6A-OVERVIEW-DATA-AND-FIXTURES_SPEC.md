@@ -14,9 +14,10 @@ CHANGE_RISK = MEDIUM
 IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_IMPACT_ASSESSMENT.md
 IMPLEMENTATION_STATUS = DATA_PREPARATION_COMPLETE
-IMPLEMENTATION_AUTHORIZED = false
+IMPLEMENTATION_AUTHORIZED = true
+IMPLEMENTATION_SCOPE = DOCUMENTATION_AND_DATA_CONTRACT_ONLY
+RUNTIME_IMPLEMENTATION_AUTHORIZED = false
 I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
-DOCUMENTATION_MERGE_RECOMMENDED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
 I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
@@ -52,7 +53,7 @@ ROUTER_INSTALLATION_AUTHORIZED = false
 SAFE_FIXTURE_CATALOG_CHANGE_STATUS = REVIEWED_AND_IN_SCOPE
 SAFE_FIXTURE_CATALOG_CHANGE_PURPOSE = B3 catalog Overview ViewModel alignment extension (docs-only)
 WCAG = 2.2 AA
-EFFECTIVE_AT = 2026-07-19T18:40:00Z
+EFFECTIVE_AT = 2026-07-19T19:00:00Z
 ```
 
 ## 1. Purpose
@@ -60,12 +61,17 @@ EFFECTIVE_AT = 2026-07-19T18:40:00Z
 Specify the read-only Overview (Visão Geral) ViewModel contract and the eight demonstration fixture scenarios required for a future screen prototype, without shipping TypeScript fixtures, ViewModel code, adapters, or live data integration.
 
 ```text
-DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
-= documentation/data-contract decision suitable for human merge consideration
+IMPLEMENTATION_AUTHORIZED = true
+= authorization to execute this documentation/data-contract preparation task only
 
+IMPLEMENTATION_SCOPE = DOCUMENTATION_AND_DATA_CONTRACT_ONLY
+
+RUNTIME_IMPLEMENTATION_AUTHORIZED = false
+= no executable frontend, ViewModel, fixture, adapter, integration, router or screen work is authorized
+
+DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
 I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
-IMPLEMENTATION_AUTHORIZED = false
-= no executable ViewModel, fixture, adapter, integration or screen work may begin
+AUTOMATIC_MERGE_AUTHORIZED = false
 
 READY != VALIDATION_AUTHORIZED
 DATA_CONTRACT_APPROVED != SCREEN_IMPLEMENTATION_AUTHORIZED

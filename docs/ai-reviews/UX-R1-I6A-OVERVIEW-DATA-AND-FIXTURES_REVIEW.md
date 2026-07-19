@@ -16,11 +16,12 @@ IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I6A-OVERVIEW-DATA-AND-FIXTURES_IMP
 IMPACT_ASSESSMENT_STATUS = APPROVED
 DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
 AUTHORIZATION_CONDITIONS = C1-C8
-IMPLEMENTATION_AUTHORIZED = false
+IMPLEMENTATION_AUTHORIZED = true
+IMPLEMENTATION_SCOPE = DOCUMENTATION_AND_DATA_CONTRACT_ONLY
+RUNTIME_IMPLEMENTATION_AUTHORIZED = false
 CREATED_AT = 2026-07-19T18:40:00Z
 SAFE_FIXTURE_CATALOG_CHANGE_PURPOSE = B3 catalog Overview ViewModel alignment extension (docs-only)
 SAFE_FIXTURE_CATALOG_CHANGE_STATUS = REVIEWED_AND_IN_SCOPE
-DOCUMENTATION_MERGE_RECOMMENDED = true
 I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
 UI_IMPLEMENTATION_AUTHORIZED = false
 UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
@@ -48,11 +49,11 @@ BASE_SHA = 6ff45b9bd50349cc12061346c24a86fec0cf7645
 OLD_BASE_SHA = 221aacc7141697403e9bbbc9f8690953b683e3a9
 BASE_SHA_AT_REVIEW = 6ff45b9bd50349cc12061346c24a86fec0cf7645
 HEAD_BRANCH = cursor/ux-r1-i6a-overview-data-fixtures-1b6b
-CONTENT_REVIEWED_THROUGH_HEAD = f164fb792ddc3573a9cf9e3cb5414cf5cd788855
-FINAL_CANDIDATE_HEAD = f164fb792ddc3573a9cf9e3cb5414cf5cd788855
+CONTENT_REVIEWED_THROUGH_HEAD = PENDING_CONTENT_COMMIT
+FINAL_CANDIDATE_HEAD = PENDING_CONTENT_COMMIT
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
-REVIEWED_AT = 2026-07-19T18:40:00Z
+REVIEWED_AT = 2026-07-19T19:00:00Z
 I6A_STATUS = DATA_PREPARATION_IN_PROGRESS
 I2_IMPLEMENTATION_AUTHORIZED = false
 I5A_STATUS = ARCHITECTURE_MERGED
@@ -73,18 +74,24 @@ WEB_BUILD = PASS
 ## Authorization semantics
 
 ```text
-AUTHORIZED_WITH_CONDITIONS
-= documentation/data-contract decision suitable for human merge consideration
+IMPLEMENTATION_AUTHORIZED = true
+= authorization to execute this documentation/data-contract preparation task only
 
+IMPLEMENTATION_SCOPE = DOCUMENTATION_AND_DATA_CONTRACT_ONLY
+
+RUNTIME_IMPLEMENTATION_AUTHORIZED = false
+= no executable frontend, ViewModel, fixture, adapter, integration, router or screen work is authorized
+
+DATA_CONTRACT_DECISION = AUTHORIZED_WITH_CONDITIONS
 I6A_DOCUMENTATION_MERGE_RECOMMENDED = true
-IMPLEMENTATION_AUTHORIZED = false
-= no executable ViewModel, fixture, adapter, integration or screen work may begin
+AUTOMATIC_MERGE_AUTHORIZED = false
 
 READY != VALIDATION_AUTHORIZED
 DATA_CONTRACT_APPROVED != SCREEN_IMPLEMENTATION_AUTHORIZED
 FIXTURE_SPEC_APPROVED != EXECUTABLE_FIXTURE_AUTHORIZED
 VIEWMODEL_CONTRACT_APPROVED != VIEWMODEL_IMPLEMENTATION_AUTHORIZED
 ```
+
 
 ## Materiais revisados
 
@@ -114,7 +121,7 @@ VIEWMODEL_CONTRACT_APPROVED != VIEWMODEL_IMPLEMENTATION_AUTHORIZED
 | I5A alignment (route/title/crumbs/boundaries) | PASS | ViewModel does not own shell |
 | a11y WCAG 2.2 AA contract expectations | PASS | documented; UI not implemented |
 | AUTHORIZATION_CONDITIONS C1–C8 | PASS | DATA_CONTRACT_DECISION=AUTHORIZED_WITH_CONDITIONS |
-| implementation flags false | PASS | screen/ViewModel/TS fixture/live data |
+| runtime implementation flags false | PASS | RUNTIME + screen/ViewModel/TS fixture/live data false; docs IMPLEMENTATION_AUTHORIZED=true scoped |
 | I2/I5 flags unchanged | PASS | implementation unauthorized; router false |
 | R3E scientific unchanged | PASS | gates/R4/R5 preserved |
 | SAFE_FIXTURE_CATALOG in scope | PASS | REVIEWED_AND_IN_SCOPE Overview extension |
@@ -153,5 +160,5 @@ Pacote documental I6A aprovado para merge humano **com condições**. Implementa
 1. Governance validator / pytest / ruff / web smoke verdes
 2. Sem arquivos `.ts`/`.tsx` de fixture; sem mudanças de implementação em `web/src`
 3. Flags de UI/screen/ViewModel/fixture/integration permanecem false
-4. `CONTENT_REVIEWED_THROUGH_HEAD = f164fb792ddc3573a9cf9e3cb5414cf5cd788855
+4. `CONTENT_REVIEWED_THROUGH_HEAD = FINAL_CANDIDATE_HEAD` no commit de conteúdo
 5. Autorização humana de merge (sem auto-merge)
