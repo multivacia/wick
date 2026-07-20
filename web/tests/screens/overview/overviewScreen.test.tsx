@@ -142,13 +142,14 @@ describe("I6E Overview screen", () => {
     expect(within(main).queryByRole("button")).not.toBeInTheDocument();
   });
 
-  it("keeps other MVP routes as placeholders", () => {
+  it("keeps other MVP routes as placeholders except Runs", () => {
     const { unmount: unmountRuns } = render(
       <AppForTest initialEntry="/future-collection/runs" />,
     );
+    expect(screen.getByTestId("runs-screen")).toBeInTheDocument();
     expect(
-      screen.getByText("Planejado / não implementado"),
-    ).toBeInTheDocument();
+      screen.queryByText("Planejado / não implementado"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByTestId("overview-screen")).not.toBeInTheDocument();
     unmountRuns();
 

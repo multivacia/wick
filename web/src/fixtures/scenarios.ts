@@ -78,7 +78,7 @@ const healthyCollectionNotReady = pack(
   },
 );
 
-const collectionInProgress = pack(
+const collectionInProgressBase = pack(
   "collection_in_progress",
   "Coleta em andamento",
   "Exercise IN_PROGRESS collection informational semantics.",
@@ -101,6 +101,36 @@ const collectionInProgress = pack(
     evidence: [],
   },
 );
+
+/** Runs-list enrichment: synthetic in_progress row (I6F/I6G). Overview lastCompletedRun unchanged. */
+const collectionInProgress: FixtureScenario = {
+  ...collectionInProgressBase,
+  runs: {
+    runs: [
+      run({
+        runId: "fx-progress-current",
+        state: "in_progress",
+        startedAt: ts("2026-07-20T11:00:00.000Z"),
+        finishedAt: ts(null),
+        resultLabel: null,
+        acceptedCount: emptyMetric(),
+        rejectedCount: emptyMetric(),
+        storeBeforeCount: metric(110),
+        storeAfterCount: emptyMetric(),
+        idempotencyResult: null,
+        failureReason: null,
+        evidence: [
+          {
+            label: "synthetic in-progress run",
+            reference: "fixtures/runs/fx-progress-current",
+            kind: "note",
+          },
+        ],
+      }),
+      run({ runId: "fx-progress-prev" }),
+    ],
+  },
+};
 
 const readinessWindowInsufficient = pack(
   "readiness_window_insufficient",

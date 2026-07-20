@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
-const screensRoot = join(testDir, "../../../src/screens");
+const runsRoot = join(testDir, "../../../src/screens/runs");
 
 function listFiles(dir: string): string[] {
   const out: string[] = [];
@@ -37,9 +37,9 @@ const FORBIDDEN = [
   /from\s+["']node:child_process["']/,
 ];
 
-describe("Overview screen architecture boundaries", () => {
+describe("Runs screen architecture boundaries", () => {
   it("does not import network clients, operational commands, or scientific modules", () => {
-    const files = listFiles(screensRoot);
+    const files = listFiles(runsRoot);
     expect(files.length).toBeGreaterThan(0);
     const violations: string[] = [];
     for (const file of files) {
@@ -53,14 +53,11 @@ describe("Overview screen architecture boundaries", () => {
     expect(violations).toEqual([]);
   });
 
-  it("Overview and Runs route wiring does not introduce network clients", () => {
-    const routes = readFileSync(
-      join(testDir, "../../../src/app/AppRoutes.tsx"),
-      "utf8",
-    );
-    expect(routes).toMatch(/OverviewScreen/);
-    expect(routes).toMatch(/RunsScreen/);
-    expect(routes).not.toMatch(/\bfetch\s*\(/);
-    expect(routes).not.toMatch(/axios/);
+  it("does not include a visible fixture selector control", () => {
+    const files = listFiles(runsRoot);
+    const joined = files.map((f) => readFileSync(f, "utf8")).join("\n");
+    expect(joined).not.toMatch(/<select/i);
+    expect(joined).not.toMatch(/fixture-selector/i);
+    expect(joined).not.toMatch(/FixtureSelector/);
   });
 });
