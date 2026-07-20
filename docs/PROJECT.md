@@ -49,8 +49,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I2_IMPLEMENTATION_STATUS | **MERGED** |
 | I5A_STATUS | **ARCHITECTURE_MERGED** (PR #56 → `134c93a`) |
 | I5_ARCHITECTURE_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
-| I5_IMPLEMENTATION_AUTHORIZED | **false** |
-| ROUTER_INSTALLATION_AUTHORIZED | **false** |
+| I5_STATUS | **IMPLEMENTATION_IN_PROGRESS** (draft PR; merge not authorized) |
+| I5_IMPLEMENTATION_AUTHORIZED | **true** (this task only; shell/nav/router; merge still false) |
+| I5_MERGE_AUTHORIZED | **false** |
+| ROUTER_INSTALLATION_AUTHORIZED | **true** (this task only; react-router-dom; no data routers/loaders) |
 | I6A_STATUS | **DATA_PREPARATION_MERGED** (PR #57 → `4bf15db`) |
 | I6_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | VIEWMODEL_IMPLEMENTATION_AUTHORIZED | **false** |
@@ -58,7 +60,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I3_MINIMUM_ACCESSIBLE_PRIMITIVES_IMPLEMENTATION** (I3 implementation MERGED; next is I5) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I5_APPLICATION_SHELL_AND_NAVIGATION_IMPLEMENTATION** (I3 MERGED; I5 in progress) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -67,8 +69,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I3_PREREQUISITE_DECISION | **SATISFIED_FOR_I5_AND_I6C** |
 | I5_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I6D_DECISION | **BLOCKED** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I3 complete; no further increment authorized until separate I5 task) |
-| NEXT_RECOMMENDED_TASK | **I5_APPLICATION_SHELL_AND_NAVIGATION_IMPLEMENTATION** |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I5 shell/nav only for this task) |
+| NEXT_RECOMMENDED_TASK | **I5_APPLICATION_SHELL_AND_NAVIGATION_IMPLEMENTATION** (awaiting human merge authorization after draft PR) |
 | NEXT_ITEM | **I5_APPLICATION_SHELL_AND_NAVIGATION_SEPARATE_IMPLEMENTATION_TASK** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
@@ -108,7 +110,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**MERGED** `762b303`) |
 | I3 minimum accessible primitives | https://github.com/multivacia/wick/pull/72 (**MERGED** `897353e`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Implementação de telas UI **não** autorizada. UX-B2 I1 (frontend scaffold + CI em `web/`) está **MERGED**; I2 assessment está **MERGED**; I2 **implementation** de tokens/temas está **MERGED** (PR #69). I3 **implementation** de primitivos acessíveis mínimos está **MERGED** (PR #72; `RADIX_DECISION=PARTIAL_INSTALLATION_FOR_DIALOG_ONLY`). I5A architecture **MERGED**; I6A data preparation **MERGED**; `I3_PREREQUISITE_DECISION=SATISFIED_FOR_I5_AND_I6C`; I5 decision `AUTHORIZED_WITH_CONDITIONS` com `I5_IMPLEMENTATION_AUTHORIZED=false` e `ROUTER_INSTALLATION_AUTHORIZED=false`; I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`. Próximo incremento recomendado: I5 application shell and navigation em tarefa separada — **não** autorizado ainda.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Telas de produto UI **não** autorizadas. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **em implementação** nesta tarefa (draft PR; `I5_MERGE_AUTHORIZED=false`; `ROUTER_INSTALLATION_AUTHORIZED=true` somente para `react-router-dom` sem loaders/dados). Placeholders de rota apenas — sem Overview/Runs/Readiness/Host content, ViewModel, fixtures ou dados reais. I6 runtime flags **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -284,3 +286,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | I3 minimum accessible primitives (implementação) | Primitivos + Radix Dialog only; draft PR; sem merge | `I3_STATUS=IMPLEMENTATION_IN_PROGRESS`; `I3_MERGE_AUTHORIZED=false`; I5/I6/router/screens false |
 | 2026-07-20 | Merge PR #72 I3 minimum accessible primitives | Primitivos MERGED; Radix Dialog only; sem router/shell/telas | `I3_STATUS=IMPLEMENTATION_MERGED`; `I3_PREREQUISITE_DECISION=SATISFIED_FOR_I5_AND_I6C`; NEXT=I5 shell/nav (não autorizado) |
 | 2026-07-20 | Post-merge closure I3 (PRs #73/#74) | Handoffs final-merge + merge-complete; PROJECT reconciliado | `I3_IMPLEMENTATION_STATUS=MERGED`; `NEXT_ITEM=I5_APPLICATION_SHELL_AND_NAVIGATION_SEPARATE_IMPLEMENTATION_TASK`; I5 não autorizado |
+| 2026-07-20 | I5 application shell and navigation (implementação) | Shell + react-router-dom; placeholders only; draft PR; sem merge | `I5_STATUS=IMPLEMENTATION_IN_PROGRESS`; `I5_MERGE_AUTHORIZED=false`; screens/ViewModel/fixtures false |
