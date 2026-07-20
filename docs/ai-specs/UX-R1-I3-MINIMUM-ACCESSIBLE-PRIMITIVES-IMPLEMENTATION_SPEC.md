@@ -1,0 +1,58 @@
+# UX-R1-I3 — Minimum Accessible Primitives — Implementation Specification
+
+```text
+RELEASE = UX-R1
+INCREMENT = I3
+TASK_ID = MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION-001
+PHASE = IMPLEMENTATION
+CHANGE_RISK = MEDIUM
+SPEC_STATUS = IMPLEMENTED
+IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I3-MINIMUM-ACCESSIBLE-PRIMITIVES-IMPLEMENTATION_IMPACT_ASSESSMENT.md
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+IMPLEMENTATION_STATUS = COMPLETE
+I3_IMPLEMENTATION_AUTHORIZED = true
+I3_MERGE_AUTHORIZED = false
+I5_IMPLEMENTATION_AUTHORIZED = false
+ROUTER_INSTALLATION_AUTHORIZED = false
+I6_VIEWMODEL_IMPLEMENTATION_AUTHORIZED = false
+I6_FIXTURE_IMPLEMENTATION_AUTHORIZED = false
+I6_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+OPERATIONAL_DATA_INTEGRATION_AUTHORIZED = false
+UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+PARALLEL_TASKS_ALLOWED = false
+RADIX_DECISION = PARTIAL_INSTALLATION_FOR_DIALOG_ONLY
+NEW_RUNTIME_DEPENDENCIES = 1
+STORYBOOK_ADDED = false
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+REVIEW_STATUS = APPROVED
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+CREATED_AT = 2026-07-19T21:21:00Z
+```
+
+## Scope delivered
+
+```text
+Button, Link, StatusBadge, Card, Stack, Inline, PageHeader, Section,
+Alert, Skeleton, VisuallyHidden, Dialog, Drawer
+```
+
+Location: `web/src/components/primitives/`. Styling: `primitives.css` using only `--wick-*` tokens.
+
+## Radix
+
+```text
+RADIX_DECISION = PARTIAL_INSTALLATION_FOR_DIALOG_ONLY
+PACKAGE = @radix-ui/react-dialog@1.1.15
+LICENSE = MIT
+FOCUS_TRAP = provided by Radix Dialog (FocusScope + FocusGuards)
+DRAWER = Dialog presentation variant (side panel CSS)
+```
+
+## Accessibility notes (manual gaps)
+
+```text
+AUTOMATED = axe smoke + keyboard Escape/focus restoration tests
+MANUAL_REMAINING = full SR matrix across browsers/OS; 200% zoom layout of future screens
+```
