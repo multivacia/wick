@@ -13,15 +13,16 @@ RECONCILIATION_DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 PR = 92
 BRANCH = cursor/ux-r1-i6f-runs-auth-assessment-ffb6
 BASE_SHA = a9365f929693a7cec20b212fba6a3f4b7d6dddeb
-PR_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
+PR_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
 FINAL_CANDIDATE_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
 CONTENT_REVIEWED_THROUGH_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
 
-PREVIOUSLY_RECORDED_PR_TIP = 0ef13d7cef22eb34cf355525b1e59c6296d5b373
-RECONCILED_VERIFIED_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
+PREVIOUSLY_RECORDED_PR_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
+STALE_PROMPT_TIP = 0ef13d7cef22eb34cf355525b1e59c6296d5b373
+RECONCILED_VERIFIED_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
 
-POST_REVIEW_COMMIT_COUNT = 5
-POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
+POST_REVIEW_COMMIT_COUNT = 6
+POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
@@ -82,10 +83,10 @@ VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-CREATED_AT = 2026-07-20T17:07:11Z
+CREATED_AT = 2026-07-20T17:24:30Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = PR_TIP reconciled to 557e519. FINAL_CANDIDATE_HEAD retained at 00e20af. All five post-review commits are METADATA_ONLY. Keep draft. Do not merge without human authorization. Do not implement Runs screen until a separate human prompt sets RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED.
+FINAL_RECOMMENDATION = PR tip reconciled through bbe4eef. FINAL_CANDIDATE_HEAD retained at 00e20af. All six post-review commits through that tip are METADATA_ONLY. This handoff stamp commit is an additional METADATA_ONLY tip alignment. Keep draft. Do not merge without human authorization. Do not implement Runs screen until a separate human prompt sets RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED.
 ```
 
 ## Artifacts
@@ -100,7 +101,7 @@ IMPACT = docs/ai-impact/UX-R1-I6F-RUNS-SCREEN-IMPLEMENTATION-AUTHORIZATION_ASSES
 
 ## Post-review commit classification
 
-All commits after `FINAL_CANDIDATE_HEAD` (`00e20af9df8653ebb10358a89dee65dc0dfbeed3`) through reconciled tip `557e519160394e2cde2df3245e1829fc3877aa72`:
+All commits after `FINAL_CANDIDATE_HEAD` (`00e20af9df8653ebb10358a89dee65dc0dfbeed3`) through reconciled tip `bbe4eef1678ae5a3f30c030a116ab2ee1fa21338`:
 
 | SHA | Files | Classification | Justification |
 | --- | --- | --- | --- |
@@ -109,10 +110,13 @@ All commits after `FINAL_CANDIDATE_HEAD` (`00e20af9df8653ebb10358a89dee65dc0dfbe
 | `1567678a0bf894b8d32560f84fe848b74dc7aafa` | handoff | `METADATA_ONLY` | PR_TIP align only |
 | `0ef13d7cef22eb34cf355525b1e59c6296d5b373` | handoff | `METADATA_ONLY` | PR_TIP + CI_STATUS=GREEN stamp only |
 | `557e519160394e2cde2df3245e1829fc3877aa72` | handoff + reconciled evidence | `METADATA_ONLY` | Tip reconciliation + reconciled-final-evidence handoff; DECISION/flags unchanged |
+| `bbe4eef1678ae5a3f30c030a116ab2ee1fa21338` | handoff + reconciled evidence | `METADATA_ONLY` | Realign recorded tip through reconcile commit; DECISION/flags unchanged |
+
+This evidence handoff stamp (branch tip after this commit) is also `METADATA_ONLY` and does not change decision, scope, risk, authorization flags, boundary, tests, or product code.
 
 ```text
-POST_REVIEW_COMMIT_COUNT = 5
-POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
+POST_REVIEW_COMMIT_COUNT = 6
+POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
@@ -122,7 +126,7 @@ CONTENT_REVIEWED_THROUGH_HEAD = FINAL_CANDIDATE_HEAD = 00e20af9df8653ebb10358a89
 
 ## Scope verification
 
-Diff `a9365f9...557e519` remains docs-only:
+Diff `a9365f9...bbe4eef` (and this docs stamp) remains docs-only:
 
 ```text
 docs/PROJECT.md
@@ -134,15 +138,33 @@ reports/ai-implementation/UX-R1-I6F-RUNS-SCREEN-IMPLEMENTATION-AUTHORIZATION_REC
 
 No Runs/Readiness/Host screen code, route wiring, ViewModel, fixture, real-data, operational-action, scheduler, or R3E scientific changes.
 
+Assessment body (`docs/ai-impact/...ASSESSMENT.md`) and `docs/PROJECT.md` are byte-identical between `FINAL_CANDIDATE_HEAD` and tip. Review file post-review delta is metadata stamps only (`PENDING_BRANCH_TIP` → SHA; governance meta fields). Approved `AUTHORIZED_WITH_CONDITIONS` decision retained.
+
+## Local validation evidence (this reconciliation)
+
+```text
+BACKEND_TESTS = PASS (249 passed)
+BACKEND_RUFF = PASS
+GOVERNANCE_VALIDATOR = ERRORS_0_WARNINGS_0 (checked=4)
+FRONTEND_INSTALL = PASS
+FRONTEND_TYPECHECK = PASS
+FRONTEND_LINT = PASS
+FRONTEND_TESTS = PASS (113 passed)
+FRONTEND_A11Y = PASS (6 passed)
+FRONTEND_BUILD = PASS
+FRONTEND_AUDIT = PASS (no known vulnerabilities)
+```
+
 ## Reconciliation summary
 
 ```text
 - FINAL_CANDIDATE_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
 - CONTENT_REVIEWED_THROUGH_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
-- PREVIOUSLY_RECORDED_PR_TIP = 0ef13d7cef22eb34cf355525b1e59c6296d5b373
-- RECONCILED_VERIFIED_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
-- PR_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
-- POST_REVIEW_COMMIT_COUNT = 5
+- PREVIOUSLY_RECORDED_PR_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
+- STALE_PROMPT_TIP = 0ef13d7cef22eb34cf355525b1e59c6296d5b373
+- RECONCILED_VERIFIED_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
+- PR_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
+- POST_REVIEW_COMMIT_COUNT = 6
 - POST_REVIEW_NORMATIVE_CHANGES = 0
 - REVIEW_STATUS = APPROVED (retained)
 - DECISION = AUTHORIZED_WITH_CONDITIONS (retained)
