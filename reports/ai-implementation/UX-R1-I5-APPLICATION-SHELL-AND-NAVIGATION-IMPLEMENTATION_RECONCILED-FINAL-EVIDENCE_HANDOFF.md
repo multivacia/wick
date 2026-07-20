@@ -12,7 +12,7 @@ DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 PR = 77
 BRANCH = cursor/ux-r1-i5-app-shell-nav-97b9
 BASE_SHA = 8bd36372caf8519ee0f021347033f5f5267f58ff
-PR_TIP = dcb38fd41e0f5ca5f7d1d558c1dfd53da6ea9022
+PR_TIP = 6fa9eaebd4e9e7e2f1a51e21ee0f938767b45b0b
 FINAL_CANDIDATE_HEAD = e16fb412ab148bc32520260596a22a97f601250f
 CONTENT_REVIEWED_THROUGH_HEAD = e16fb412ab148bc32520260596a22a97f601250f
 
@@ -22,7 +22,7 @@ RECONCILED_VERIFIED_TIP = 167824315eda2b81378f1ffca0fe05946d725b64
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 4
+POST_REVIEW_METADATA_COMMITS = 5
 
 IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPLEMENTATION_AUTHORIZED = true
@@ -97,7 +97,7 @@ BASE_BRANCH = main
 CREATED_AT = 2026-07-20T12:16:00Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = PR_TIP reconciled (verified tip 1678243; evidence tip dcb38fd). Post-review commits are metadata-only. Keep draft. Do not merge without human I5_MERGE_AUTHORIZED. Do not implement screens/ViewModel/fixtures/real data.
+FINAL_RECOMMENDATION = PR_TIP reconciled. FINAL_CANDIDATE_HEAD retained at e16fb41. All post-review commits are METADATA_ONLY. Keep draft. Do not merge without human I5_MERGE_AUTHORIZED. Do not implement screens/ViewModel/fixtures/real data.
 ```
 
 ## Artifacts
@@ -112,24 +112,42 @@ RECONCILED_EVIDENCE = reports/ai-implementation/UX-R1-I5-APPLICATION-SHELL-AND-N
 
 ## Post-review commit classification
 
-All commits after `FINAL_CANDIDATE_HEAD` (`e16fb41`) through reconciled tip `1678243`:
+All commits after `FINAL_CANDIDATE_HEAD` (`e16fb412ab148bc32520260596a22a97f601250f`) through current `PR_TIP`:
 
-| SHA | Classification | Files |
-|-----|----------------|-------|
-| `1a27772` | METADATA_ONLY / DOCUMENTATION_CHANGE | review + handoff SHA stamps |
-| `2a82436` | METADATA_ONLY | handoff PR = 77 stamp |
-| `1678243` | METADATA_ONLY | handoff CI_STATUS GREEN + PR_MERGEABLE |
+| SHA | Classification | Justification |
+| --- | --- | --- |
+| `1a27772f920eafb4e2286ebbe270a07f17a95947` | `METADATA_ONLY` / `DOCUMENTATION_CHANGE` | FINAL_CANDIDATE_HEAD stamp on review + handoff only |
+| `2a8243606a1fe92beb508b6441e2364a2d8b186a` | `METADATA_ONLY` | Draft PR #77 stamp on handoff only |
+| `167824315eda2b81378f1ffca0fe05946d725b64` | `METADATA_ONLY` | CI GREEN / PR_MERGEABLE stamp only |
+| `dcb38fd41e0f5ca5f7d1d558c1dfd53da6ea9022` | `METADATA_ONLY` | Reconcile PR_TIP + reconciled evidence handoff only |
+| `6fa9eaebd4e9e7e2f1a51e21ee0f938767b45b0b` | `METADATA_ONLY` | Reconciled evidence PR_TIP stamp only |
 
 ```text
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 4
+POST_REVIEW_METADATA_COMMITS = 5
 FRESH_INDEPENDENT_REVIEW_REQUIRED = false
 ```
 
 ## Scope verification
 
-Diff `8bd3637...1678243` remains restricted to I5 governance artifacts, `docs/PROJECT.md`, `web/package.json`, `web/pnpm-lock.yaml`, `web/src/App.tsx`, `web/src/app/**`, `web/src/shell/**`, `web/src/styles.css`, and the listed shell/a11y test files.
+Diff `8bd3637...6fa9eae` remains restricted to I5 governance artifacts, `docs/PROJECT.md`, `web/package.json`, `web/pnpm-lock.yaml`, `web/src/App.tsx`, `web/src/app/**`, `web/src/shell/**`, `web/src/styles.css`, and the listed shell/a11y test files.
 
 No Overview/Runs/Readiness/Host screen content, ViewModel, fixtures, real-data, authentication, permissions, scheduler, or R3E scientific changes.
+
+## Reconciliation summary
+
+```text
+- FINAL_CANDIDATE_HEAD = e16fb412ab148bc32520260596a22a97f601250f
+- CONTENT_REVIEWED_THROUGH_HEAD = e16fb412ab148bc32520260596a22a97f601250f
+- PREVIOUSLY_RECORDED_PR_TIP = 2a8243606a1fe92beb508b6441e2364a2d8b186a
+- RECONCILED_VERIFIED_TIP = 167824315eda2b81378f1ffca0fe05946d725b64
+- PR_TIP = 6fa9eaebd4e9e7e2f1a51e21ee0f938767b45b0b
+- POST_REVIEW_METADATA_COMMITS = 5
+- POST_REVIEW_NORMATIVE_CHANGES = 0
+- POST_REVIEW_TEST_CHANGES = 0
+- POST_REVIEW_IMPLEMENTATION_CHANGES = 0
+- MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+- I5_MERGE_AUTHORIZED = false
+```
