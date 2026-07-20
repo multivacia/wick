@@ -12,7 +12,7 @@ DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 PR = 77
 BRANCH = cursor/ux-r1-i5-app-shell-nav-97b9
 BASE_SHA = 8bd36372caf8519ee0f021347033f5f5267f58ff
-PR_TIP = d8eeda2a02d5c25eb64dad7118727c34a8463cd0
+PR_TIP = 01258c6187cddab2d9c86bbb622d00b2429e9c14
 FINAL_CANDIDATE_HEAD = e16fb412ab148bc32520260596a22a97f601250f
 CONTENT_REVIEWED_THROUGH_HEAD = e16fb412ab148bc32520260596a22a97f601250f
 
@@ -22,7 +22,7 @@ RECONCILED_VERIFIED_TIP = 167824315eda2b81378f1ffca0fe05946d725b64
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 8
+POST_REVIEW_METADATA_COMMITS = 9
 
 IMPACT_ASSESSMENT_STATUS = APPROVED
 IMPLEMENTATION_AUTHORIZED = true
@@ -112,7 +112,7 @@ RECONCILED_EVIDENCE = reports/ai-implementation/UX-R1-I5-APPLICATION-SHELL-AND-N
 
 ## Post-review commit classification
 
-All commits after `FINAL_CANDIDATE_HEAD` (`e16fb412ab148bc32520260596a22a97f601250f`) through current `PR_TIP`:
+All commits after `FINAL_CANDIDATE_HEAD` (`e16fb412ab148bc32520260596a22a97f601250f`) through branch tip `01258c6187cddab2d9c86bbb622d00b2429e9c14`:
 
 | SHA | Classification | Justification |
 | --- | --- | --- |
@@ -123,18 +123,20 @@ All commits after `FINAL_CANDIDATE_HEAD` (`e16fb412ab148bc32520260596a22a97f6012
 | `6fa9eaebd4e9e7e2f1a51e21ee0f938767b45b0b` | `METADATA_ONLY` | Reconciled evidence PR_TIP stamp only |
 | `e37cba38aa620561e23811e966e47f6a66666a86` | `METADATA_ONLY` | Complete classification / tip alignment only |
 | `9dbd89294d7634472fc6c98aa8f8a37bd6b14c24` | `METADATA_ONLY` | Stamp PR_TIP after classification fix only |
+| `d8eeda2a02d5c25eb64dad7118727c34a8463cd0` | `METADATA_ONLY` | Finalize reconciled evidence tip table only |
+| `01258c6187cddab2d9c86bbb622d00b2429e9c14` | `METADATA_ONLY` | Stamp reconciled PR_TIP to d8eeda2 only |
 
 ```text
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
-POST_REVIEW_METADATA_COMMITS = 8
+POST_REVIEW_METADATA_COMMITS = 9
 FRESH_INDEPENDENT_REVIEW_REQUIRED = false
 ```
 
 ## Scope verification
 
-Diff `8bd3637...d8eeda2` remains restricted to I5 governance artifacts, `docs/PROJECT.md`, `web/package.json`, `web/pnpm-lock.yaml`, `web/src/App.tsx`, `web/src/app/**`, `web/src/shell/**`, `web/src/styles.css`, and the listed shell/a11y test files.
+Diff `8bd3637...01258c6` remains restricted to I5 governance artifacts, `docs/PROJECT.md`, `web/package.json`, `web/pnpm-lock.yaml`, `web/src/App.tsx`, `web/src/app/**`, `web/src/shell/**`, `web/src/styles.css`, and the listed shell/a11y test files.
 
 No Overview/Runs/Readiness/Host screen content, ViewModel, fixtures, real-data, authentication, permissions, scheduler, or R3E scientific changes.
 
@@ -145,8 +147,8 @@ No Overview/Runs/Readiness/Host screen content, ViewModel, fixtures, real-data, 
 - CONTENT_REVIEWED_THROUGH_HEAD = e16fb412ab148bc32520260596a22a97f601250f
 - PREVIOUSLY_RECORDED_PR_TIP = 2a8243606a1fe92beb508b6441e2364a2d8b186a
 - RECONCILED_VERIFIED_TIP = 167824315eda2b81378f1ffca0fe05946d725b64
-- PR_TIP = d8eeda2a02d5c25eb64dad7118727c34a8463cd0
-- POST_REVIEW_METADATA_COMMITS = 8
+- PR_TIP = 01258c6187cddab2d9c86bbb622d00b2429e9c14
+- POST_REVIEW_METADATA_COMMITS = 9
 - POST_REVIEW_NORMATIVE_CHANGES = 0
 - POST_REVIEW_TEST_CHANGES = 0
 - POST_REVIEW_IMPLEMENTATION_CHANGES = 0
