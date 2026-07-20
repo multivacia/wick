@@ -17,8 +17,15 @@ PR77_MERGED_AT = 2026-07-20T12:26:07Z
 POST_MERGE_HANDOFF = reports/ai-implementation/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION_FINAL-MERGE_HANDOFF.md
 POST_MERGE_PR = 78
 POST_MERGE_PR_URL = https://github.com/multivacia/wick/pull/78
-POST_MERGE_PR_STATUS = OPEN
-MAIN_TIP = 855d1845995dc1c28b4fb7fb72644799a0294f95
+POST_MERGE_PR_STATUS = MERGED
+POST_MERGE_PR_MERGE_COMMIT = e018a339ac6bd992d0515016ebe0ebb4a2059ed8
+POST_MERGE_PR_MERGED_AT = 2026-07-20T12:29:05Z
+
+STAMP_PR = 79
+STAMP_PR_URL = https://github.com/multivacia/wick/pull/79
+STAMP_PR_STATUS = OPEN
+
+MAIN_TIP = e018a339ac6bd992d0515016ebe0ebb4a2059ed8
 
 I5_IMPLEMENTATION_STATUS = MERGED
 IMPACT_ASSESSMENT_STATUS = APPROVED
@@ -105,5 +112,5 @@ MERGE_COMPLETE = reports/ai-implementation/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGA
 ## Final recommendation
 
 ```text
-FINAL_RECOMMENDATION = I5 shell/nav merge closure complete once post-merge PR lands. Keep PARALLEL_TASKS_ALLOWED=false. Do not start I6B ViewModel, fixtures, screens, or real-data integration without a separate human-authorized task.
+FINAL_RECOMMENDATION = I5 shell/nav merge closure complete. Keep PARALLEL_TASKS_ALLOWED=false. Do not start I6B ViewModel, fixtures, screens, or real-data integration without a separate human-authorized task.
 ```
