@@ -13,16 +13,16 @@ RECONCILIATION_DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 PR = 92
 BRANCH = cursor/ux-r1-i6f-runs-auth-assessment-ffb6
 BASE_SHA = a9365f929693a7cec20b212fba6a3f4b7d6dddeb
-PR_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
+PR_TIP = 21cb96a5002dbbaab12bc7417f19cb5ec0faaab4
 FINAL_CANDIDATE_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
 CONTENT_REVIEWED_THROUGH_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
 
-PREVIOUSLY_RECORDED_PR_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
+PREVIOUSLY_RECORDED_PR_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
 STALE_PROMPT_TIP = 0ef13d7cef22eb34cf355525b1e59c6296d5b373
-RECONCILED_VERIFIED_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
+RECONCILED_VERIFIED_TIP = 21cb96a5002dbbaab12bc7417f19cb5ec0faaab4
 
-POST_REVIEW_COMMIT_COUNT = 6
-POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
+POST_REVIEW_COMMIT_COUNT = 7
+POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
@@ -86,7 +86,7 @@ BASE_BRANCH = main
 CREATED_AT = 2026-07-20T17:24:30Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = PR tip reconciled through bbe4eef. FINAL_CANDIDATE_HEAD retained at 00e20af. All six post-review commits through that tip are METADATA_ONLY. This handoff stamp commit is an additional METADATA_ONLY tip alignment. Keep draft. Do not merge without human authorization. Do not implement Runs screen until a separate human prompt sets RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED.
+FINAL_RECOMMENDATION = PR_TIP reconciled to 21cb96a. FINAL_CANDIDATE_HEAD retained at 00e20af. All seven post-review commits are METADATA_ONLY. Keep draft. Do not merge without human authorization. Do not implement Runs screen until a separate human prompt sets RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED.
 ```
 
 ## Artifacts
@@ -101,7 +101,7 @@ IMPACT = docs/ai-impact/UX-R1-I6F-RUNS-SCREEN-IMPLEMENTATION-AUTHORIZATION_ASSES
 
 ## Post-review commit classification
 
-All commits after `FINAL_CANDIDATE_HEAD` (`00e20af9df8653ebb10358a89dee65dc0dfbeed3`) through reconciled tip `bbe4eef1678ae5a3f30c030a116ab2ee1fa21338`:
+All commits after `FINAL_CANDIDATE_HEAD` (`00e20af9df8653ebb10358a89dee65dc0dfbeed3`) through reconciled tip `21cb96a5002dbbaab12bc7417f19cb5ec0faaab4`:
 
 | SHA | Files | Classification | Justification |
 | --- | --- | --- | --- |
@@ -111,12 +111,11 @@ All commits after `FINAL_CANDIDATE_HEAD` (`00e20af9df8653ebb10358a89dee65dc0dfbe
 | `0ef13d7cef22eb34cf355525b1e59c6296d5b373` | handoff | `METADATA_ONLY` | PR_TIP + CI_STATUS=GREEN stamp only |
 | `557e519160394e2cde2df3245e1829fc3877aa72` | handoff + reconciled evidence | `METADATA_ONLY` | Tip reconciliation + reconciled-final-evidence handoff; DECISION/flags unchanged |
 | `bbe4eef1678ae5a3f30c030a116ab2ee1fa21338` | handoff + reconciled evidence | `METADATA_ONLY` | Realign recorded tip through reconcile commit; DECISION/flags unchanged |
-
-This evidence handoff stamp (branch tip after this commit) is also `METADATA_ONLY` and does not change decision, scope, risk, authorization flags, boundary, tests, or product code.
+| `21cb96a5002dbbaab12bc7417f19cb5ec0faaab4` | handoff + reconciled evidence | `METADATA_ONLY` | Final evidence reconciliation through actual tip; DECISION/flags unchanged |
 
 ```text
-POST_REVIEW_COMMIT_COUNT = 6
-POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
+POST_REVIEW_COMMIT_COUNT = 7
+POST_REVIEW_COMMIT_CLASSIFICATION = METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY;METADATA_ONLY
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
@@ -126,7 +125,7 @@ CONTENT_REVIEWED_THROUGH_HEAD = FINAL_CANDIDATE_HEAD = 00e20af9df8653ebb10358a89
 
 ## Scope verification
 
-Diff `a9365f9...bbe4eef` (and this docs stamp) remains docs-only:
+Diff `a9365f9...21cb96a` remains docs-only:
 
 ```text
 docs/PROJECT.md
@@ -160,11 +159,11 @@ FRONTEND_AUDIT = PASS (no known vulnerabilities)
 ```text
 - FINAL_CANDIDATE_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
 - CONTENT_REVIEWED_THROUGH_HEAD = 00e20af9df8653ebb10358a89dee65dc0dfbeed3
-- PREVIOUSLY_RECORDED_PR_TIP = 557e519160394e2cde2df3245e1829fc3877aa72
+- PREVIOUSLY_RECORDED_PR_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
 - STALE_PROMPT_TIP = 0ef13d7cef22eb34cf355525b1e59c6296d5b373
-- RECONCILED_VERIFIED_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
-- PR_TIP = bbe4eef1678ae5a3f30c030a116ab2ee1fa21338
-- POST_REVIEW_COMMIT_COUNT = 6
+- RECONCILED_VERIFIED_TIP = 21cb96a5002dbbaab12bc7417f19cb5ec0faaab4
+- PR_TIP = 21cb96a5002dbbaab12bc7417f19cb5ec0faaab4
+- POST_REVIEW_COMMIT_COUNT = 7
 - POST_REVIEW_NORMATIVE_CHANGES = 0
 - REVIEW_STATUS = APPROVED (retained)
 - DECISION = AUTHORIZED_WITH_CONDITIONS (retained)
