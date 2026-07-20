@@ -17,8 +17,10 @@ PR81_MERGED_AT = 2026-07-20T12:54:26Z
 POST_MERGE_HANDOFF = reports/ai-implementation/UX-R1-I6B-VIEWMODEL-IMPLEMENTATION_FINAL-MERGE_HANDOFF.md
 POST_MERGE_PR = 82
 POST_MERGE_PR_URL = https://github.com/multivacia/wick/pull/82
-POST_MERGE_PR_STATUS = OPEN
-MAIN_TIP = b38bcce0b4ce1b9681457af20e8fb84c1e9ef3e2
+POST_MERGE_PR_STATUS = MERGED
+POST_MERGE_PR_MERGE_COMMIT = 87f368c7147790729702edbe3cbf54e8bf779e70
+POST_MERGE_PR_MERGED_AT = 2026-07-20T12:56:20Z
+MAIN_TIP = 87f368c7147790729702edbe3cbf54e8bf779e70
 
 I6_VIEWMODEL_IMPLEMENTATION_STATUS = MERGED
 IMPACT_ASSESSMENT_STATUS = APPROVED
@@ -91,5 +93,5 @@ MERGE_COMPLETE = reports/ai-implementation/UX-R1-I6B-VIEWMODEL-IMPLEMENTATION_ME
 ## Final recommendation
 
 ```text
-FINAL_RECOMMENDATION = I6B ViewModel merge closure complete once post-merge PR lands. Keep PARALLEL_TASKS_ALLOWED=false. Do not start I6C fixtures, screens, or real-data integration without a separate human-authorized task.
+FINAL_RECOMMENDATION = I6B ViewModel merge closure complete. Keep PARALLEL_TASKS_ALLOWED=false. Do not start I6C fixtures, screens, or real-data integration without a separate human-authorized task.
 ```
