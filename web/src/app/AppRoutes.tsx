@@ -5,6 +5,7 @@ import {
   NOT_FOUND_PLACEHOLDER,
   ROUTE_PLACEHOLDERS,
 } from "../shell/navigation";
+import { OverviewScreen } from "../screens/overview";
 
 function PlaceholderPage({ path }: { path: keyof typeof ROUTE_PLACEHOLDERS }) {
   const model = ROUTE_PLACEHOLDERS[path];
@@ -19,10 +20,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<ApplicationShell />}>
         <Route index element={<Navigate to="/overview" replace />} />
-        <Route
-          path="overview"
-          element={<PlaceholderPage path="/overview" />}
-        />
+        <Route path="overview" element={<OverviewScreen />} />
         <Route
           path="future-collection/runs"
           element={<PlaceholderPage path="/future-collection/runs" />}

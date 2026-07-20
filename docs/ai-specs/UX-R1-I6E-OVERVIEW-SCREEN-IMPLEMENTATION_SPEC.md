@@ -1,0 +1,79 @@
+# UX-R1-I6E — Overview Screen Implementation Spec
+
+```text
+RELEASE = UX-R1
+INCREMENT = I6E
+TASK_ID = OVERVIEW-SCREEN-IMPLEMENTATION-001
+PHASE = IMPLEMENTATION
+CHANGE_RISK = MEDIUM
+SPEC_STATUS = APPROVED
+IMPACT_ASSESSMENT_PATH = docs/ai-impact/UX-R1-I6E-OVERVIEW-SCREEN-IMPLEMENTATION_IMPACT_ASSESSMENT.md
+IMPACT_ASSESSMENT_STATUS = APPROVED
+IMPLEMENTATION_AUTHORIZED = true
+IMPLEMENTATION_EXECUTION_AUTHORIZED = true
+IMPLEMENTATION_STATUS = COMPLETE
+I6_OVERVIEW_SCREEN_IMPLEMENTATION_AUTHORIZED = true
+I6_OVERVIEW_SCREEN_MERGE_AUTHORIZED = false
+I6_SCREEN_IMPLEMENTATION_AUTHORIZED = true
+UI_SCREEN_IMPLEMENTATION_AUTHORIZED = true
+RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+READINESS_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+HOST_SCHEDULER_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+OPERATIONAL_DATA_INTEGRATION_AUTHORIZED = false
+OPERATIONAL_ACTIONS_AUTHORIZED = false
+PARALLEL_TASKS_ALLOWED = false
+NEW_RUNTIME_DEPENDENCIES = 0
+NEW_DEV_DEPENDENCIES = 0
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+REVIEW_STATUS = APPROVED
+MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
+CREATED_AT = 2026-07-20T14:56:00Z
+```
+
+## Scope
+
+```text
+ROUTE = /overview
+SCREEN = web/src/screens/overview/**
+ROUTE_WIRING = web/src/app/AppRoutes.tsx (Overview only)
+FIXTURE_ID = current_project_state_illustrative
+TESTS = web/tests/screens/overview/** + web/tests/a11y/overview.a11y.test.tsx
+```
+
+Required sections: PageHeader, SyntheticDataNotice, OverallOperationalState, CollectionSummary, ReadinessSummary, HostSchedulerSummary, ActiveBlockers, LatestEvidence, NextSafeAction.
+
+Visible labels: `Dados ilustrativos`, `Synthetic fixture`, `Não representa evidência operacional real`.
+
+## Non-scope
+
+```text
+RUNS_SCREEN = NOT_IMPLEMENTED
+READINESS_SCREEN = NOT_IMPLEMENTED
+HOST_SCHEDULER_SCREEN = NOT_IMPLEMENTED
+FIXTURE_UI_SELECTOR = NOT_IMPLEMENTED
+REAL_DATA = NOT_INTEGRATED
+OPERATIONAL_ACTIONS = NOT_IMPLEMENTED
+```
+
+## Architecture
+
+- Assemble via `buildFixtureViewModels("current_project_state_illustrative")`.
+- Reuse I3 primitives (`PageHeader`, `Section`, `Card`, `Alert`, `StatusBadge`, `Stack`, `Inline`).
+- Token-only CSS (`--wick-*`).
+- Next safe action is advisory text; no executable controls.
+- Other MVP routes remain `RoutePlaceholder`.
+
+## Acceptance
+
+```text
+OVERVIEW_SCREEN = IMPLEMENTED
+OVERVIEW_ROUTE = IMPLEMENTED
+SYNTHETIC_DATA_NOTICE = IMPLEMENTED
+NOT_READY != FAULT
+NO_OPERATIONAL_BUTTONS = true
+ARCHITECTURE_BOUNDARY_TESTS = IMPLEMENTED
+ACCESSIBILITY_TESTS = IMPLEMENTED
+NEW_RUNTIME_DEPENDENCIES = 0
+NEW_DEV_DEPENDENCIES = 0
+```
