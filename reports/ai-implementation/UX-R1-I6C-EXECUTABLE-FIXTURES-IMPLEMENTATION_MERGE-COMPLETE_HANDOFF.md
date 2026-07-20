@@ -17,8 +17,10 @@ PR84_MERGED_AT = 2026-07-20T13:18:52Z
 POST_MERGE_HANDOFF = reports/ai-implementation/UX-R1-I6C-EXECUTABLE-FIXTURES-IMPLEMENTATION_FINAL-MERGE_HANDOFF.md
 POST_MERGE_PR = 85
 POST_MERGE_PR_URL = https://github.com/multivacia/wick/pull/85
-POST_MERGE_PR_STATUS = OPEN
-MAIN_TIP = c44ec3f6e959e7632581c84fd4b1844de2d6ef67
+POST_MERGE_PR_STATUS = MERGED
+POST_MERGE_PR_MERGE_COMMIT = dc7398bf416eb42c495d1f0cc67ba591718ddda7
+POST_MERGE_PR_MERGED_AT = 2026-07-20T13:21:28Z
+MAIN_TIP = dc7398bf416eb42c495d1f0cc67ba591718ddda7
 
 I6_FIXTURE_IMPLEMENTATION_STATUS = MERGED
 IMPACT_ASSESSMENT_STATUS = APPROVED
@@ -75,5 +77,5 @@ CREATED_BY = cursor-agent
 ## Final recommendation
 
 ```text
-FINAL_RECOMMENDATION = I6C fixtures merge closure complete once post-merge PR lands. Keep PARALLEL_TASKS_ALLOWED=false. Do not start screen implementation without a separate human-authorized assessment task.
+FINAL_RECOMMENDATION = I6C fixtures merge closure complete. Keep PARALLEL_TASKS_ALLOWED=false. Do not start screen implementation without a separate human-authorized assessment task.
 ```
