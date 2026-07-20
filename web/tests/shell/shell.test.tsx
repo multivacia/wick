@@ -10,7 +10,7 @@ describe("I5 application shell", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Visão Geral" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("/overview")).toBeInTheDocument();
+    expect(screen.getByTestId("overview-screen")).toBeInTheDocument();
   });
 
   it("marks active navigation for the current route", () => {
