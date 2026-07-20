@@ -307,3 +307,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-20 | Merge PR #81 I6B ViewModel | ViewModel MERGED; sem fixtures/telas/dados reais | `I6B_STATUS=IMPLEMENTATION_MERGED`; `I6_VIEWMODEL_IMPLEMENTATION_STATUS=MERGED`; NEXT=I6C fixtures (não autorizado) |
 | 2026-07-20 | Post-merge closure I6B (PRs #82/#83) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | `I6C_DECISION=AUTHORIZED_WITH_CONDITIONS`; `I6_FIXTURE_IMPLEMENTATION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false` |
 | 2026-07-20 | I6C executable fixtures implementation | Fixtures sintéticas + catálogo; draft PR; sem telas/dados reais | `I6C_STATUS=IMPLEMENTATION_IN_PROGRESS`; `I6_FIXTURE_MERGE_AUTHORIZED=false`; screens false |
+| 2026-07-20 | Merge PR #84 I6C executable fixtures | Fixtures MERGED; sintéticas; sem telas/seletor/dados reais | `I6C_STATUS=IMPLEMENTATION_MERGED`; `I6_FIXTURE_IMPLEMENTATION_STATUS=MERGED`; NEXT=I6 screen auth assessment |
+| 2026-07-20 | Post-merge closure I6C (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false` |
