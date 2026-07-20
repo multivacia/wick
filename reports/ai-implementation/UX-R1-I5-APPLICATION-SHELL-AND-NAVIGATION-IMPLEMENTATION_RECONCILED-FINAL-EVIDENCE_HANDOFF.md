@@ -1,12 +1,13 @@
-# UX-R1-I5 — Application Shell and Navigation Implementation — Handoff
+# UX-R1-I5 — Application Shell and Navigation — Reconciled Final Evidence Handoff
 
 ```text
 STATUS = FINAL_EVIDENCE_READY_FOR_HUMAN_MERGE_AUTHORIZATION
 RELEASE = UX-R1
 INCREMENT = I5
 TASK_ID = APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION-001
-PHASE = IMPLEMENTATION
+PHASE = FINAL_EVIDENCE_RECONCILIATION
 CHANGE_RISK = MEDIUM
+DECISION = ADJUSTMENT_REQUIRED_COMPLETED
 
 PR = 77
 BRANCH = cursor/ux-r1-i5-app-shell-nav-97b9
@@ -14,6 +15,10 @@ BASE_SHA = 8bd36372caf8519ee0f021347033f5f5267f58ff
 PR_TIP = 167824315eda2b81378f1ffca0fe05946d725b64
 FINAL_CANDIDATE_HEAD = e16fb412ab148bc32520260596a22a97f601250f
 CONTENT_REVIEWED_THROUGH_HEAD = e16fb412ab148bc32520260596a22a97f601250f
+
+PREVIOUSLY_RECORDED_PR_TIP = 2a8243606a1fe92beb508b6441e2364a2d8b186a
+RECONCILED_VERIFIED_TIP = 167824315eda2b81378f1ffca0fe05946d725b64
+
 POST_REVIEW_NORMATIVE_CHANGES = 0
 POST_REVIEW_TEST_CHANGES = 0
 POST_REVIEW_IMPLEMENTATION_CHANGES = 0
@@ -89,10 +94,10 @@ VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
-CREATED_AT = 2026-07-20T12:07:00Z
+CREATED_AT = 2026-07-20T12:16:00Z
 CREATED_BY = cursor-agent
 
-FINAL_RECOMMENDATION = Keep draft. Do not merge without human I5_MERGE_AUTHORIZED. Do not implement product screens, ViewModel, fixtures, or real data next without a separate authorized task.
+FINAL_RECOMMENDATION = PR_TIP reconciled to 1678243. Post-review commits are metadata-only. Keep draft. Do not merge without human I5_MERGE_AUTHORIZED. Do not implement screens/ViewModel/fixtures/real data.
 ```
 
 ## Artifacts
@@ -102,12 +107,29 @@ IMPACT = docs/ai-impact/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION
 SPEC = docs/ai-specs/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION_SPEC.md
 REVIEW = docs/ai-reviews/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION_REVIEW.md
 HANDOFF = reports/ai-implementation/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION_HANDOFF.md
+RECONCILED_EVIDENCE = reports/ai-implementation/UX-R1-I5-APPLICATION-SHELL-AND-NAVIGATION-IMPLEMENTATION_RECONCILED-FINAL-EVIDENCE_HANDOFF.md
 ```
 
-## Delivered surface
+## Post-review commit classification
+
+All commits after `FINAL_CANDIDATE_HEAD` (`e16fb41`) through reconciled tip `1678243`:
+
+| SHA | Classification | Files |
+|-----|----------------|-------|
+| `1a27772` | METADATA_ONLY / DOCUMENTATION_CHANGE | review + handoff SHA stamps |
+| `2a82436` | METADATA_ONLY | handoff PR = 77 stamp |
+| `1678243` | METADATA_ONLY | handoff CI_STATUS GREEN + PR_MERGEABLE |
 
 ```text
-web/src/shell/ — ApplicationShell, sidebar, mobile Drawer nav, TopBar, theme, placeholders
-web/src/app/ — AppRouter, AppRoutes
-Routes: /overview, /future-collection/runs|readiness, /operations/host-scheduler
+POST_REVIEW_NORMATIVE_CHANGES = 0
+POST_REVIEW_TEST_CHANGES = 0
+POST_REVIEW_IMPLEMENTATION_CHANGES = 0
+POST_REVIEW_METADATA_COMMITS = 3
+FRESH_INDEPENDENT_REVIEW_REQUIRED = false
 ```
+
+## Scope verification
+
+Diff `8bd3637...1678243` remains restricted to I5 governance artifacts, `docs/PROJECT.md`, `web/package.json`, `web/pnpm-lock.yaml`, `web/src/App.tsx`, `web/src/app/**`, `web/src/shell/**`, `web/src/styles.css`, and the listed shell/a11y test files.
+
+No Overview/Runs/Readiness/Host screen content, ViewModel, fixtures, real-data, authentication, permissions, scheduler, or R3E scientific changes.
