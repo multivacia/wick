@@ -72,7 +72,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I6_HOST_SCHEDULER_SCREEN_AUTHORIZATION_ASSESSMENT** (I6I Readiness MERGED; Host still unauthorized) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I6_HOST_SCHEDULER_SCREEN_IMPLEMENTATION** (I6J assessment AUTHORIZED_WITH_CONDITIONS; Host execution still false) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -112,9 +112,13 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6_READINESS_SCREEN_IMPLEMENTATION_STATUS | **MERGED** |
 | READINESS_SCREEN_MERGE_AUTHORIZED | **true** (consumed by PR #98 merge) |
 | HOST_SCHEDULER_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
+| I6J_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
+| I6J_STATUS | **ASSESSMENT_COMPLETE** (draft PR; Host-only fixture/read-only; no activation; execution still false) |
+| I6J_HOST_SCHEDULER_SCREEN_AUTHORIZATION_ASSESSMENT_STATUS | **COMPLETE** |
+| I6J_RECOMMENDED_IMPLEMENTATION_BOUNDARY | **HOST_SCHEDULER_SCREEN_ONLY; FIXTURE_BACKED; READ_ONLY; NO_VISIBLE_FIXTURE_SELECTOR; NO_REAL_HOST_DISCOVERY; NO_REAL_DATA; NO_CREDENTIALS; NO_SCHEDULER_ACTIVATION; NO_COLLECTION_ACTIONS; NO_RUN_NOW; NO_OPERATIONAL_COMMANDS; NO_SCIENTIFIC_STATE_CHANGE** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (no open authorized implementation task) |
-| NEXT_RECOMMENDED_TASK | **I6_HOST_SCHEDULER_SCREEN_AUTHORIZATION_ASSESSMENT** |
-| NEXT_ITEM | **I6_HOST_SCHEDULER_SCREEN_SEPARATE_AUTHORIZATION_ASSESSMENT** |
+| NEXT_RECOMMENDED_TASK | **I6_HOST_SCHEDULER_SCREEN_IMPLEMENTATION** |
+| NEXT_ITEM | **I6_HOST_SCHEDULER_SCREEN_SEPARATE_IMPLEMENTATION_TASK** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -161,8 +165,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6G Runs screen implementation | https://github.com/multivacia/wick/pull/94 (**MERGED** `37092be`) |
 | I6H Readiness screen authorization assessment | https://github.com/multivacia/wick/pull/96 (**MERGED** `2a90787`) |
 | I6I Readiness screen implementation | https://github.com/multivacia/wick/pull/98 (**MERGED** `061c388`) |
+| I6J Host/Scheduler screen authorization assessment | https://github.com/multivacia/wick/pull/100 (draft) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST**. I6E Overview screen **MERGED** (PR #90; fixture-backed `/overview`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6F Runs authorization assessment **MERGED** (PR #92). I6G Runs screen **MERGED** (PR #94; fixture-backed `/future-collection/runs`; `I6_RUNS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6H Readiness authorization assessment **MERGED** (PR #96 → `2a90787`): **AUTHORIZED_WITH_CONDITIONS**. I6I Readiness screen **MERGED** (PR #98 → `061c388`; fixture-backed `/future-collection/readiness`; `I6_READINESS_SCREEN_IMPLEMENTATION_STATUS=MERGED`; `READINESS_SCREEN_IMPLEMENTATION_AUTHORIZED=true`); Host-Scheduler **não** autorizado; `OPERATIONAL_DATA_INTEGRATION_AUTHORIZED=false`; `OPERATIONAL_ACTIONS_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6_HOST_SCHEDULER_SCREEN_AUTHORIZATION_ASSESSMENT`.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST**. I6E Overview screen **MERGED** (PR #90; fixture-backed `/overview`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6F Runs authorization assessment **MERGED** (PR #92). I6G Runs screen **MERGED** (PR #94; fixture-backed `/future-collection/runs`; `I6_RUNS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6H Readiness authorization assessment **MERGED** (PR #96 → `2a90787`): **AUTHORIZED_WITH_CONDITIONS**. I6I Readiness screen **MERGED** (PR #98 → `061c388`; fixture-backed `/future-collection/readiness`; `I6_READINESS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6J Host/Scheduler authorization assessment: **AUTHORIZED_WITH_CONDITIONS** (draft PR; Host e Automação `/operations/host-scheduler` apenas; fixture/read-only; sem discovery real; sem ativação; `HOST_SCHEDULER_SCREEN_IMPLEMENTATION_AUTHORIZED=false`); `OPERATIONAL_DATA_INTEGRATION_AUTHORIZED=false`; `OPERATIONAL_ACTIONS_AUTHORIZED=false`; `SCHEDULER_ACTIVATION=BLOCKED`; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6_HOST_SCHEDULER_SCREEN_IMPLEMENTATION` (requires separate human-authorized implementation prompt).
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -365,3 +370,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-20 | I6I Readiness screen implementation | Prontidão fixture-backed; draft PR; sem merge; Host não implementado | `I6I_STATUS=IMPLEMENTATION_IN_PROGRESS`; `READINESS_SCREEN_MERGE_AUTHORIZED=false`; `OPERATIONAL_ACTIONS=false` |
 | 2026-07-20 | Merge PR #98 I6I Readiness screen | Prontidão MERGED; fixture `current_project_state_illustrative`; sem dados reais/ações | `I6I_STATUS=IMPLEMENTATION_MERGED`; `I6_READINESS_SCREEN_IMPLEMENTATION_STATUS=MERGED`; NEXT=Host auth assessment |
 | 2026-07-20 | Post-merge closure I6I (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | `HOST_SCHEDULER_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false` |
+| 2026-07-20 | I6J Host/Scheduler screen authorization assessment | Docs-only; Host-only fixture/read-only; HIGH risk; AUTHORIZED_WITH_CONDITIONS | `I6J_DECISION=AUTHORIZED_WITH_CONDITIONS`; `HOST_SCHEDULER_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; NEXT=Host screen (não autorizado) |
