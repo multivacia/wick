@@ -42,7 +42,7 @@ const RUNS: NavItem = {
 
 const READINESS: NavItem = {
   id: "readiness",
-  label: "Readiness",
+  label: "Prontidão",
   path: "/future-collection/readiness",
   active: true,
 };
@@ -168,7 +168,7 @@ export const ROUTE_PLACEHOLDERS: Record<string, RoutePlaceholderModel> = {
     statusLabel: "Planejado / não implementado",
   },
   "/future-collection/readiness": {
-    title: "Readiness",
+    title: "Prontidão",
     description:
       "Área reservada para prontidão operacional da coleta. O conteúdo da tela ainda não foi implementado.",
     routeId: "/future-collection/readiness",

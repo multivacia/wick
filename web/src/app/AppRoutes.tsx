@@ -6,6 +6,7 @@ import {
   ROUTE_PLACEHOLDERS,
 } from "../shell/navigation";
 import { OverviewScreen } from "../screens/overview";
+import { ReadinessScreen } from "../screens/readiness";
 import { RunsScreen } from "../screens/runs";
 
 function PlaceholderPage({ path }: { path: keyof typeof ROUTE_PLACEHOLDERS }) {
@@ -25,7 +26,7 @@ export function AppRoutes() {
         <Route path="future-collection/runs" element={<RunsScreen />} />
         <Route
           path="future-collection/readiness"
-          element={<PlaceholderPage path="/future-collection/readiness" />}
+          element={<ReadinessScreen />}
         />
         <Route
           path="operations/host-scheduler"
