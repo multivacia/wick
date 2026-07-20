@@ -38,7 +38,7 @@ ANALYZED_AT = 2026-07-20T17:56:00Z
 ANALYZED_BY = cursor-agent
 VALIDATION_COMMAND_EXECUTED = false
 EFFECT_PEEKING_PERFORMED = false
-REVIEW_STATUS = PENDING
+REVIEW_STATUS = APPROVED
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 AUTHORIZATION_DECISION = HUMAN_AUTHORIZED_FOR_THIS_TASK
 NEW_RUNTIME_DEPENDENCIES = 0
@@ -49,6 +49,9 @@ I6F_RECOMMENDED_IMPLEMENTATION_BOUNDARY = RUNS_SCREEN_ONLY; FIXTURE_BACKED; READ
 FIXTURE_ID = current_project_state_illustrative
 ROUTE = /future-collection/runs
 SCREEN = Execuções
+FINAL_CANDIDATE_HEAD = 92fb14adf5674167b3922a23ad12018b57859fd6
+CONTENT_REVIEWED_THROUGH_HEAD = 92fb14adf5674167b3922a23ad12018b57859fd6
+POST_REVIEW_NORMATIVE_CHANGES = 0
 ```
 
 G1 note: authorization covers **only** the read-only fixture-backed Execuções (`/future-collection/runs`) screen. It does **not** authorize Readiness/Host-Scheduler screens, fixture UI selectors, real-data adapters, operational buttons, scheduler activation, or scientific validation. Overview remains preserved.
