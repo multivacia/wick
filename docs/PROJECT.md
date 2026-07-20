@@ -72,7 +72,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I6_RUNS_SCREEN_AUTHORIZATION_ASSESSMENT** (I6E Overview MERGED; Runs not authorized) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I6_RUNS_SCREEN_IMPLEMENTATION** (I6F assessment AUTHORIZED_WITH_CONDITIONS; Runs execution still false) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -91,12 +91,15 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6_OVERVIEW_SCREEN_IMPLEMENTATION_AUTHORIZED | **true** |
 | I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS | **MERGED** |
 | I6_OVERVIEW_SCREEN_MERGE_AUTHORIZED | **true** (consumed by PR #90 merge) |
+| I6F_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
+| I6F_STATUS | **ASSESSMENT_COMPLETE** (draft PR; Runs-only fixture/read-only; execution still false) |
+| I6F_RECOMMENDED_IMPLEMENTATION_BOUNDARY | **RUNS_SCREEN_ONLY; FIXTURE_BACKED; READ_ONLY; NO_VISIBLE_FIXTURE_SELECTOR; NO_REAL_DATA; NO_OPERATIONAL_ACTIONS** |
 | RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | READINESS_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | HOST_SCHEDULER_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (no open authorized implementation task) |
-| NEXT_RECOMMENDED_TASK | **I6_RUNS_SCREEN_AUTHORIZATION_ASSESSMENT** |
-| NEXT_ITEM | **I6_RUNS_SCREEN_SEPARATE_AUTHORIZATION_ASSESSMENT** |
+| NEXT_RECOMMENDED_TASK | **I6_RUNS_SCREEN_IMPLEMENTATION** |
+| NEXT_ITEM | **I6_RUNS_SCREEN_SEPARATE_IMPLEMENTATION_TASK** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -140,7 +143,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6D screen authorization assessment | https://github.com/multivacia/wick/pull/87 (**MERGED** `4aa3861`) |
 | I6E Overview screen implementation | https://github.com/multivacia/wick/pull/90 (**MERGED** `93b9220`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST**. I6E Overview screen **MERGED** (PR #90; fixture-backed `/overview`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`); Runs/Readiness/Host-Scheduler screens **não** implementados nem autorizados; `OPERATIONAL_DATA_INTEGRATION_AUTHORIZED=false`; `OPERATIONAL_ACTIONS_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6_RUNS_SCREEN_AUTHORIZATION_ASSESSMENT`.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST**. I6E Overview screen **MERGED** (PR #90; fixture-backed `/overview`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6F Runs authorization assessment: **AUTHORIZED_WITH_CONDITIONS** (draft PR; Execuções `/future-collection/runs` apenas; fixture/read-only; `RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED=false`); Readiness/Host-Scheduler **não** autorizados; `OPERATIONAL_DATA_INTEGRATION_AUTHORIZED=false`; `OPERATIONAL_ACTIONS_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6_RUNS_SCREEN_IMPLEMENTATION`.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -331,3 +334,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-20 | I6E Overview screen implementation | Visão Geral fixture-backed; draft PR; sem merge; outras telas não implementadas | `I6E_STATUS=IMPLEMENTATION_IN_PROGRESS`; `I6_OVERVIEW_SCREEN_MERGE_AUTHORIZED=false`; `OPERATIONAL_ACTIONS=false` |
 | 2026-07-20 | Merge PR #90 I6E Overview screen | Visão Geral MERGED; fixture `current_project_state_illustrative`; sem dados reais/ações | `I6E_STATUS=IMPLEMENTATION_MERGED`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`; NEXT=Runs auth assessment |
 | 2026-07-20 | Post-merge closure I6E (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | `RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false` |
+| 2026-07-20 | I6F Runs screen authorization assessment | Docs-only; Runs-only fixture/read-only; AUTHORIZED_WITH_CONDITIONS | `I6F_DECISION=AUTHORIZED_WITH_CONDITIONS`; `RUNS_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; NEXT=Runs screen (não autorizado) |
