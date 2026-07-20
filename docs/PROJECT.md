@@ -69,6 +69,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6D_DECISION | **BLOCKED** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (I3 complete; no further increment authorized until separate I5 task) |
 | NEXT_RECOMMENDED_TASK | **I5_APPLICATION_SHELL_AND_NAVIGATION_IMPLEMENTATION** |
+| NEXT_ITEM | **I5_APPLICATION_SHELL_AND_NAVIGATION_SEPARATE_IMPLEMENTATION_TASK** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -282,3 +283,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-19 | Abrir avaliação autorização I2/I3/I5/I6 | Docs-only; decomposição não monolítica; I6D BLOCKED | `NEXT_RECOMMENDED_TASK=I2_DESIGN_TOKENS_AND_THEMES_IMPLEMENTATION`; todas flags de implementação permanecem false |
 | 2026-07-19 | I3 minimum accessible primitives (implementação) | Primitivos + Radix Dialog only; draft PR; sem merge | `I3_STATUS=IMPLEMENTATION_IN_PROGRESS`; `I3_MERGE_AUTHORIZED=false`; I5/I6/router/screens false |
 | 2026-07-20 | Merge PR #72 I3 minimum accessible primitives | Primitivos MERGED; Radix Dialog only; sem router/shell/telas | `I3_STATUS=IMPLEMENTATION_MERGED`; `I3_PREREQUISITE_DECISION=SATISFIED_FOR_I5_AND_I6C`; NEXT=I5 shell/nav (não autorizado) |
+| 2026-07-20 | Post-merge closure I3 (PRs #73/#74) | Handoffs final-merge + merge-complete; PROJECT reconciliado | `I3_IMPLEMENTATION_STATUS=MERGED`; `NEXT_ITEM=I5_APPLICATION_SHELL_AND_NAVIGATION_SEPARATE_IMPLEMENTATION_TASK`; I5 não autorizado |
