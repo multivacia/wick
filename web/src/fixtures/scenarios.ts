@@ -464,6 +464,53 @@ const currentProjectStateIllustrative = pack(
   },
 );
 
+const readinessReadyIllustrative = pack(
+  "readiness_ready_illustrative",
+  "Prontidão READY ilustrativa",
+  "UI-only READY readiness fixture. READY ≠ strategy approval; validationAuthorized remains false.",
+  {
+    collection: {
+      state: "complete",
+      lastObservationAt: ts("2026-07-20T08:00:00.000Z"),
+      observationCount: metric(140),
+      futureUnseenCutoff: ts("2026-07-20T00:00:00.000Z"),
+    },
+    lastCompletedRun: run({ runId: "fx-ready-1" }),
+    lastFailedRun: null,
+    readiness: readiness({
+      state: "ready",
+      windowDays: metric(14),
+      requiredWindowDays: metric(14),
+      blockingReasonCodes: [],
+      validationAuthorized: false,
+      validationCommandExecuted: false,
+      effectPeekingPerformed: false,
+      explanationPlainLanguage:
+        "Critérios ilustrativos de prontidão satisfeitos. Isso não autoriza validação científica nem aprova estratégia.",
+      evidence: [
+        {
+          label: "synthetic ready note",
+          reference: "fixtures/readiness_ready_illustrative",
+          kind: "note",
+        },
+      ],
+    }),
+    host: host({ state: "unknown" }),
+    scheduler: scheduler({ state: "blocked" }),
+    blockers: [],
+    scientificGate: "PENDING_FUTURE_UNSEEN_DATA",
+    r4Status: "BLOCKED",
+    r5Status: "NOT_STARTED",
+    evidence: [
+      {
+        label: "illustrative ready readiness",
+        reference: "fixtures/readiness_ready_illustrative",
+        kind: "note",
+      },
+    ],
+  },
+);
+
 export const FIXTURE_SCENARIOS: Record<FixtureScenarioId, FixtureScenario> = {
   healthy_collection_not_ready: healthyCollectionNotReady,
   collection_in_progress: collectionInProgress,
@@ -475,6 +522,7 @@ export const FIXTURE_SCENARIOS: Record<FixtureScenarioId, FixtureScenario> = {
   empty_no_runs: emptyNoRuns,
   mixed_operational_blockers: mixedOperationalBlockers,
   current_project_state_illustrative: currentProjectStateIllustrative,
+  readiness_ready_illustrative: readinessReadyIllustrative,
 };
 
 export const FIXTURE_SCENARIO_IDS = Object.keys(

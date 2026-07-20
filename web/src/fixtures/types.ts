@@ -16,7 +16,8 @@ export type FixtureScenarioId =
   | "partial_unknown_data"
   | "empty_no_runs"
   | "mixed_operational_blockers"
-  | "current_project_state_illustrative";
+  | "current_project_state_illustrative"
+  | "readiness_ready_illustrative";
 
 export type FixtureScenario = {
   metadata: FixtureMetadata;

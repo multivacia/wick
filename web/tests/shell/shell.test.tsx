@@ -72,10 +72,10 @@ describe("I5 application shell", () => {
     render(<AppForTest />);
     await user.click(screen.getByRole("button", { name: "Menu" }));
     const dialog = screen.getByRole("dialog", { name: "Navegação" });
-    await user.click(within(dialog).getByRole("link", { name: /Readiness/i }));
+    await user.click(within(dialog).getByRole("link", { name: /Prontidão/i }));
     expect(screen.queryByRole("dialog", { name: "Navegação" })).toBeNull();
     expect(
-      screen.getByRole("heading", { level: 1, name: "Readiness" }),
+      screen.getByRole("heading", { level: 1, name: "Prontidão" }),
     ).toBeInTheDocument();
   });
 
@@ -103,11 +103,11 @@ describe("I5 application shell", () => {
     render(<AppForTest initialEntry="/overview" />);
     await user.click(screen.getByRole("button", { name: "Menu" }));
     const dialog = screen.getByRole("dialog", { name: "Navegação" });
-    const readiness = within(dialog).getByRole("link", { name: /Readiness/i });
+    const readiness = within(dialog).getByRole("link", { name: /Prontidão/i });
     readiness.focus();
     await user.keyboard("{Enter}");
     expect(
-      screen.getByRole("heading", { level: 1, name: "Readiness" }),
+      screen.getByRole("heading", { level: 1, name: "Prontidão" }),
     ).toBeInTheDocument();
   });
 });

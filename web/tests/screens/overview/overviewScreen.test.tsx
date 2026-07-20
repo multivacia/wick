@@ -142,7 +142,7 @@ describe("I6E Overview screen", () => {
     expect(within(main).queryByRole("button")).not.toBeInTheDocument();
   });
 
-  it("keeps other MVP routes as placeholders except Runs", () => {
+  it("keeps Runs and Readiness implemented; Host remains placeholder", () => {
     const { unmount: unmountRuns } = render(
       <AppForTest initialEntry="/future-collection/runs" />,
     );
@@ -156,10 +156,13 @@ describe("I6E Overview screen", () => {
     const { unmount: unmountReadiness } = render(
       <AppForTest initialEntry="/future-collection/readiness" />,
     );
+    expect(screen.getByTestId("readiness-screen")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 1, name: "Readiness" }),
+      screen.getByRole("heading", { level: 1, name: "Prontidão" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Planejado / não implementado")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Planejado / não implementado"),
+    ).not.toBeInTheDocument();
     unmountReadiness();
 
     render(<AppForTest initialEntry="/operations/host-scheduler" />);
