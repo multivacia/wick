@@ -56,17 +56,19 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | ROUTER_INSTALLATION_AUTHORIZED | **true** (react-router-dom installed for I5; no data routers/loaders) |
 | I6A_STATUS | **DATA_PREPARATION_MERGED** (PR #57 → `4bf15db`) |
 | I6B_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
-| I6B_STATUS | **IMPLEMENTATION_IN_PROGRESS** (draft PR; merge not authorized) |
-| I6_VIEWMODEL_IMPLEMENTATION_AUTHORIZED | **true** (this task only; pure ViewModel; merge still false) |
-| I6_VIEWMODEL_MERGE_AUTHORIZED | **false** |
+| I6B_STATUS | **IMPLEMENTATION_MERGED** (PR #81 → `b38bcce`) |
+| I6_VIEWMODEL_IMPLEMENTATION_AUTHORIZED | **true** (I6B ViewModel merged; no further I6B work authorized) |
+| I6_VIEWMODEL_IMPLEMENTATION_STATUS | **MERGED** |
+| I6_VIEWMODEL_MERGE_AUTHORIZED | **true** (consumed by PR #81 merge) |
+| I6C_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I6_FIXTURE_IMPLEMENTATION_AUTHORIZED | **false** |
 | I6_SCREEN_IMPLEMENTATION_AUTHORIZED | **false** |
-| VIEWMODEL_IMPLEMENTATION_AUTHORIZED | **true** (alias of I6 ViewModel for this task only; no fixtures/screens) |
+| VIEWMODEL_IMPLEMENTATION_AUTHORIZED | **true** (I6B ViewModel merged; fixtures/screens still false) |
 | TYPESCRIPT_FIXTURE_IMPLEMENTATION_AUTHORIZED | **false** |
 | OPERATIONAL_DATA_INTEGRATION_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **I6B_VIEWMODEL_IMPLEMENTATION** (I5 MERGED; ViewModel in progress) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **I6C_EXECUTABLE_FIXTURES_IMPLEMENTATION** (I6B MERGED; fixtures not authorized) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -75,9 +77,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I3_PREREQUISITE_DECISION | **SATISFIED_FOR_I5_AND_I6C** |
 | I5_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I6D_DECISION | **BLOCKED** |
-| IMPLEMENTATION_EXECUTION_AUTHORIZED | **true** (I6B ViewModel only for this task) |
-| NEXT_RECOMMENDED_TASK | **I6B_VIEWMODEL_IMPLEMENTATION** (awaiting human merge authorization after draft PR) |
-| NEXT_ITEM | **I6B_VIEWMODEL_SEPARATE_IMPLEMENTATION_TASK** |
+| IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (no open authorized implementation task) |
+| NEXT_RECOMMENDED_TASK | **I6C_EXECUTABLE_FIXTURES_IMPLEMENTATION** |
+| NEXT_ITEM | **I6C_EXECUTABLE_FIXTURES_SEPARATE_IMPLEMENTATION_TASK** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond I1) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -116,8 +118,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I2 tokens/themes implementation | https://github.com/multivacia/wick/pull/69 (**MERGED** `762b303`) |
 | I3 minimum accessible primitives | https://github.com/multivacia/wick/pull/72 (**MERGED** `897353e`) |
 | I5 application shell and navigation | https://github.com/multivacia/wick/pull/77 (**MERGED** `855d184`) |
+| I6B ViewModel implementation | https://github.com/multivacia/wick/pull/81 (**MERGED** `b38bcce`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Telas de produto UI **não** autorizadas. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **em implementação** nesta tarefa (draft PR; `I6_VIEWMODEL_MERGE_AUTHORIZED=false`; builders puros em `web/src/viewmodels/` — sem telas, fixtures executáveis ou dados reais). `I6_FIXTURE`/`I6_SCREEN` **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Telas de produto UI **não** autorizadas. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81; builders puros em `web/src/viewmodels/` — sem telas, fixtures executáveis ou dados reais). `I6C_DECISION=AUTHORIZED_WITH_CONDITIONS`; `I6_FIXTURE`/`I6_SCREEN` **false**; I6D **BLOCKED**; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6C_EXECUTABLE_FIXTURES_IMPLEMENTATION`.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
