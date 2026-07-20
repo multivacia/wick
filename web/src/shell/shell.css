@@ -1,0 +1,202 @@
+/* I5 application shell — token-only layout. No product screen layouts. */
+
+.wick-skip-link {
+  position: absolute;
+  left: var(--wick-space-section);
+  top: var(--wick-space-section);
+  z-index: var(--wick-z-index-overlay);
+  padding: var(--wick-space-inline) var(--wick-space-stack);
+  background: var(--wick-color-surface-elevated);
+  color: var(--wick-color-text-primary);
+  border: 1px solid var(--wick-color-border-strong);
+  border-radius: var(--wick-radius-control);
+  transform: translateY(-200%);
+}
+
+.wick-skip-link:focus {
+  transform: translateY(0);
+}
+
+.wick-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--wick-color-background);
+  color: var(--wick-color-text-primary);
+}
+
+.wick-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wick-space-stack);
+  min-height: 3.5rem;
+  padding: var(--wick-space-inline) var(--wick-space-section);
+  border-bottom: 1px solid var(--wick-color-border-subtle);
+  background: var(--wick-color-surface);
+}
+
+.wick-topbar__start,
+.wick-topbar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--wick-space-inline);
+}
+
+.wick-topbar__product {
+  margin: 0;
+  font-weight: var(--wick-font-weight-emphasis);
+  letter-spacing: 0.02em;
+}
+
+.wick-topbar__menu {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+.wick-shell__body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.wick-shell__sidebar-slot {
+  display: none;
+  flex: 0 0 16.5rem;
+  border-right: 1px solid var(--wick-color-border-subtle);
+  background: var(--wick-color-surface);
+}
+
+.wick-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--wick-space-section) var(--wick-space-stack);
+  overflow: auto;
+}
+
+.wick-sidebar__brand {
+  margin-bottom: var(--wick-space-section);
+}
+
+.wick-sidebar__product {
+  margin: 0;
+  font-size: var(--wick-font-size-title);
+  font-weight: var(--wick-font-weight-emphasis);
+}
+
+.wick-sidebar__tagline {
+  margin: var(--wick-space-inline) 0 0;
+  color: var(--wick-color-text-secondary);
+  font-size: var(--wick-font-size-label);
+}
+
+.wick-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wick-space-section);
+}
+
+.wick-nav-group__label {
+  margin: 0 0 var(--wick-space-inline);
+  font-size: var(--wick-font-size-label);
+  font-weight: var(--wick-font-weight-emphasis);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--wick-color-text-secondary);
+}
+
+.wick-nav-group__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wick-space-inline);
+}
+
+.wick-nav-item__link,
+.wick-nav-item--planned .wick-nav-item__label {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--wick-radius-control);
+  text-decoration: none;
+  color: var(--wick-color-text-primary);
+}
+
+.wick-nav-item__link:hover {
+  background: var(--wick-color-surface-muted);
+}
+
+.wick-nav-item__link--active {
+  background: var(--wick-color-surface-muted);
+  box-shadow: inset 3px 0 0 var(--wick-color-accent-cyan);
+  font-weight: var(--wick-font-weight-emphasis);
+}
+
+.wick-nav-item--planned .wick-nav-item__label {
+  color: var(--wick-color-text-secondary);
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.wick-nav-item__hint {
+  display: block;
+  padding: 0 0.75rem 0.35rem;
+  font-size: var(--wick-font-size-label);
+  color: var(--wick-color-text-secondary);
+}
+
+.wick-main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: var(--wick-space-page) var(--wick-space-section);
+  outline: none;
+}
+
+.wick-route-placeholder__route {
+  margin: 0 0 var(--wick-space-stack);
+}
+
+.wick-route-placeholder__route code {
+  font-family: var(--wick-font-family-technical);
+  font-size: var(--wick-font-size-label);
+}
+
+.wick-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wick-space-section);
+  max-height: min(70vh, 32rem);
+  overflow: auto;
+  margin-top: var(--wick-space-stack);
+}
+
+.wick-mobile-nav__footer {
+  margin-top: var(--wick-space-section);
+}
+
+.wick-mobile-nav-drawer.wick-drawer-content {
+  width: min(20rem, 92vw);
+}
+
+/* Desktop: persistent sidebar; hide mobile menu button.
+ * SIDEBAR_COLLAPSE_BEHAVIOR: below 1024px sidebar hidden; Drawer used. */
+@media (min-width: 1024px) {
+  .wick-shell__sidebar-slot {
+    display: block;
+  }
+
+  .wick-topbar__menu {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .wick-shell__sidebar-slot {
+    display: none;
+  }
+}

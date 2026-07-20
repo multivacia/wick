@@ -1,4 +1,6 @@
 @import "./styles/tokens/index.css";
+@import "./components/primitives/primitives.css";
+@import "./shell/shell.css";
 
 :root {
   font-family: var(--wick-font-family-body);
@@ -26,22 +28,4 @@ button:focus-visible,
 [tabindex]:focus-visible {
   outline: var(--wick-focus-ring-width) solid var(--wick-focus-ring-color);
   outline-offset: var(--wick-focus-ring-offset);
-}
-
-.scaffold {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: var(--wick-space-page) var(--wick-space-section);
-}
-
-.scaffold h1 {
-  font-size: var(--wick-font-size-display);
-  font-weight: var(--wick-font-weight-emphasis);
-  margin: 0 0 var(--wick-space-stack);
-  color: var(--wick-color-text-primary);
-}
-
-.scaffold p {
-  margin: 0 0 var(--wick-space-stack);
-  color: var(--wick-color-text-secondary);
 }
