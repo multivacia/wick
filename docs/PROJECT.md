@@ -80,7 +80,10 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I3_PREREQUISITE_DECISION | **SATISFIED_FOR_I5_AND_I6C** |
 | I5_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I6D_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
-| I6D_STATUS | **ASSESSMENT_COMPLETE** (draft PR; Overview-first; screen execution still false) |
+| I6D_STATUS | **ASSESSMENT_MERGED** (PR #87 → `4aa3861`) |
+| I6D_SCREEN_AUTHORIZATION_ASSESSMENT_STATUS | **MERGED** |
+| I6D_RECOMMENDED_SCREEN_SEQUENCE | **OVERVIEW_FIRST** |
+| I6D_FIRST_AUTHORIZED_SCREEN | **Visão Geral** |
 | I6D_SCREEN_SCOPE_RECOMMENDATION | **OVERVIEW_FIRST** |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (no open authorized implementation task) |
 | NEXT_RECOMMENDED_TASK | **I6_OVERVIEW_SCREEN_IMPLEMENTATION** |
@@ -126,7 +129,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6B ViewModel implementation | https://github.com/multivacia/wick/pull/81 (**MERGED** `b38bcce`) |
 | I6C executable fixtures | https://github.com/multivacia/wick/pull/84 (**MERGED** `c44ec3f`) |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Telas de produto UI **não** autorizadas para execução. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment: **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST** — `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; `IMPLEMENTATION_EXECUTION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6_OVERVIEW_SCREEN_IMPLEMENTATION`.
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. Telas de produto UI **não** autorizadas para execução. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST** — `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; `IMPLEMENTATION_EXECUTION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false`; `NEXT_RECOMMENDED_TASK=I6_OVERVIEW_SCREEN_IMPLEMENTATION`.
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -312,3 +315,5 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-20 | Merge PR #84 I6C executable fixtures | Fixtures MERGED; sintéticas; sem telas/seletor/dados reais | `I6C_STATUS=IMPLEMENTATION_MERGED`; `I6_FIXTURE_IMPLEMENTATION_STATUS=MERGED`; NEXT=I6 screen auth assessment |
 | 2026-07-20 | Post-merge closure I6C (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false` |
 | 2026-07-20 | I6D screen implementation authorization assessment | Docs-only; OVERVIEW_FIRST; AUTHORIZED_WITH_CONDITIONS | `I6D_DECISION=AUTHORIZED_WITH_CONDITIONS`; `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; NEXT=Overview screen (não autorizado) |
+| 2026-07-20 | Merge PR #87 I6D screen authorization assessment | Assessment MERGED; Overview-first; execução de telas ainda false | `I6D_SCREEN_AUTHORIZATION_ASSESSMENT_STATUS=MERGED`; `I6_SCREEN_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I6 Overview screen (não autorizado) |
+| 2026-07-20 | Post-merge closure I6D assessment (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | flags de execução de tela permanecem false; `PARALLEL_TASKS_ALLOWED=false` |
