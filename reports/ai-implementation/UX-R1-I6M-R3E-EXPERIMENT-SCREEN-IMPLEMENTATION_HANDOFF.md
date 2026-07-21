@@ -105,8 +105,8 @@ FRONTEND_TESTS = PASS
 FRONTEND_A11Y = PASS
 FRONTEND_BUILD = PASS
 FRONTEND_AUDIT = PASS
-CI_STATUS = PENDING_PR
-PR_MERGEABLE = PENDING_PR
+CI_STATUS = GREEN
+PR_MERGEABLE = true
 
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 REPOSITORY = multivacia/wick
@@ -125,6 +125,8 @@ CREATED_BY = cursor-agent
 - Screen package: `web/src/screens/r3e-experiment/**`
 - ViewModel: `web/src/viewmodels/buildR3eExperimentViewModel.ts`
 - Fixture: `r3e_experiment_current_state_illustrative`
+- Draft PR: https://github.com/multivacia/wick/pull/106
+- Actual tip (may lag handoff PR_TIP by metadata commits): `a91e1a90a66bd03e782a782dcb622e47e0eabc11`
 
 ## Final recommendation
 
