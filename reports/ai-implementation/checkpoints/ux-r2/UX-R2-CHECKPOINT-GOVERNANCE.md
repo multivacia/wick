@@ -3,7 +3,7 @@
 ```text
 CHECKPOINT = CHECKPOINT_GOVERNANCE
 STATUS = PASS
-COMMIT_SHA = PENDING_GOVERNANCE_DOCS
+COMMIT_SHA = c676a79efb3e4155fcc0a20020ae8643147d94a9
 SCOPE_REVIEWED =
   Frozen scope I2–I5 compliance
   Scientific/operational truth unchanged
