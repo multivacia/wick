@@ -3,10 +3,18 @@
  * Case-insensitive trim search; closed filters combine with AND; no regex.
  */
 
+import type { EvidenceCatalogStanding } from "./evidenceEnums.js";
 import type {
   EvidenceCatalogEntryInput,
   EvidenceExplorerFilters,
 } from "./evidenceExplorerTypes.js";
+
+const STANDING_RANK: Record<EvidenceCatalogStanding, number> = {
+  current: 0,
+  pending: 1,
+  historical: 2,
+  superseded: 3,
+};
 
 const SEARCH_FIELDS: Array<keyof EvidenceCatalogEntryInput> = [
   "title",
@@ -72,6 +80,12 @@ export function matchesEvidenceFilters(
   if (filters.staleness && entry.staleness !== filters.staleness) {
     return false;
   }
+  if (
+    filters.catalogStanding &&
+    entry.catalogStanding !== filters.catalogStanding
+  ) {
+    return false;
+  }
   return true;
 }
 
@@ -87,7 +101,15 @@ export function filterEvidenceEntries(
         matchesEvidenceFilters(entry, filters),
     )
     .slice()
-    .sort((a, b) => a.evidenceId.localeCompare(b.evidenceId));
+    .sort((a, b) => {
+      const rankA = STANDING_RANK[a.catalogStanding] ?? 99;
+      const rankB = STANDING_RANK[b.catalogStanding] ?? 99;
+      if (rankA !== rankB) return rankA - rankB;
+      const dateA = a.createdAtOrUnknown ?? "";
+      const dateB = b.createdAtOrUnknown ?? "";
+      if (dateA !== dateB) return dateB.localeCompare(dateA);
+      return a.evidenceId.localeCompare(b.evidenceId);
+    });
 }
 
 export function clearEvidenceFilters(): EvidenceExplorerFilters {

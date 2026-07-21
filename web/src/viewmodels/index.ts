@@ -87,18 +87,22 @@ export {
   EVIDENCE_STALENESS_VALUES,
   EVIDENCE_DATA_ORIGINS,
   EVIDENCE_SCIENTIFIC_STAGES,
+  EVIDENCE_CATALOG_STANDINGS,
   EVIDENCE_CLASS_LABELS,
   EVIDENCE_STALENESS_LABELS,
   EVIDENCE_DATA_ORIGIN_LABELS,
   EVIDENCE_SCIENTIFIC_STAGE_LABELS,
+  EVIDENCE_CATALOG_STANDING_LABELS,
   isEvidenceClass,
   isEvidenceStaleness,
   isEvidenceDataOrigin,
   isEvidenceScientificStage,
+  isEvidenceCatalogStanding,
   type EvidenceClass,
   type EvidenceStaleness,
   type EvidenceDataOrigin,
   type EvidenceScientificStage,
+  type EvidenceCatalogStanding,
 } from "./evidenceEnums.js";
 
 export {
@@ -138,3 +142,9 @@ export {
   EVIDENCE_SOURCE_PATH_DISCLAIMER,
   EVIDENCE_SAFETY_NOTICES,
 } from "./buildEvidenceExplorerViewModel.js";
+
+export {
+  EVIDENCE_EXPLORER_PATH,
+  buildEvidenceExplorerHref,
+  parseEvidenceIdParam,
+} from "./evidenceDeepLink.js";

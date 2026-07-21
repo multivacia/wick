@@ -3,6 +3,7 @@
  */
 
 import type {
+  EvidenceCatalogStanding,
   EvidenceClass,
   EvidenceDataOrigin,
   EvidenceScientificStage,
@@ -33,6 +34,7 @@ export type EvidenceCatalogEntryInput = {
   unknownState: string[];
   governanceFlags: string[];
   staleness: EvidenceStaleness;
+  catalogStanding: EvidenceCatalogStanding;
 };
 
 export type EvidenceCatalogInput = {
@@ -46,6 +48,7 @@ export type EvidenceExplorerFilters = {
   dataOrigin?: EvidenceDataOrigin;
   scientificStage?: EvidenceScientificStage;
   staleness?: EvidenceStaleness;
+  catalogStanding?: EvidenceCatalogStanding;
 };
 
 export type EvidenceExplorerCriteria = {
@@ -82,6 +85,8 @@ export type EvidenceSummaryItem = {
   scientificStageLabel: string;
   staleness: EvidenceStaleness;
   stalenessLabel: string;
+  catalogStanding: EvidenceCatalogStanding;
+  catalogStandingLabel: string;
   summary: string;
 };
 
@@ -102,6 +107,7 @@ export type EvidenceExplorerFilterOptions = {
   dataOrigins: EvidenceFilterOption<EvidenceDataOrigin>[];
   scientificStages: EvidenceFilterOption<EvidenceScientificStage>[];
   stalenessValues: EvidenceFilterOption<EvidenceStaleness>[];
+  catalogStandings: EvidenceFilterOption<EvidenceCatalogStanding>[];
 };
 
 export type EvidenceExplorerViewModel = {

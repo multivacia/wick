@@ -74,6 +74,19 @@ export function EvidenceList({
                   <span className="wick-evidence-muted">
                     {item.evidenceClassLabel} · {item.release}
                   </span>
+                  <span
+                    className="wick-evidence-muted wick-evidence-list__item-standing"
+                    data-testid={`evidence-standing-${item.evidenceId}`}
+                  >
+                    {item.catalogStandingLabel}
+                  </span>
+                </span>
+                <span
+                  className="wick-evidence-list__item-provenance wick-evidence-muted"
+                  data-testid={`evidence-provenance-${item.evidenceId}`}
+                >
+                  {item.dataOriginLabel} · {item.scientificStageLabel} ·{" "}
+                  {item.stalenessLabel}
                 </span>
                 <span className="wick-evidence-list__item-summary">
                   {item.summary}

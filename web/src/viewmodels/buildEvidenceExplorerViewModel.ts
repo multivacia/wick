@@ -4,6 +4,8 @@
  */
 
 import {
+  EVIDENCE_CATALOG_STANDING_LABELS,
+  EVIDENCE_CATALOG_STANDINGS,
   EVIDENCE_CLASS_LABELS,
   EVIDENCE_CLASSES,
   EVIDENCE_DATA_ORIGIN_LABELS,
@@ -12,6 +14,7 @@ import {
   EVIDENCE_SCIENTIFIC_STAGES,
   EVIDENCE_STALENESS_LABELS,
   EVIDENCE_STALENESS_VALUES,
+  type EvidenceCatalogStanding,
   type EvidenceClass,
   type EvidenceDataOrigin,
   type EvidenceScientificStage,
@@ -40,15 +43,17 @@ export const EVIDENCE_EXPLORER_PAGE_DESCRIPTION =
   "Catálogo curado de evidências de governança — somente leitura, metadados e resumos, sem acesso a arquivos.";
 
 export const EVIDENCE_CATALOG_DISCLOSURE =
-  "Catálogo ilustrativo curado. Presença de evidência no catálogo não implica aprovação científica nem autorização operacional.";
+  "Catálogo ilustrativo curado (fixture-backed, não operacional). Presença de evidência não implica aprovação científica, autorização operacional nem estado de produção.";
 
 export const EVIDENCE_SOURCE_PATH_DISCLAIMER =
   "O caminho de origem é metadado de exibição apenas. Não abre, baixa nem lê arquivos em tempo de execução.";
 
 export const EVIDENCE_SAFETY_NOTICES = [
-  "Evidence presence != scientific approval — presença de evidência não significa aprovação científica.",
+  "Evidence presence != scientific approval — presença de evidência não significa aprovação científica nem autorização operacional.",
   "Audited != future validated — auditado não significa validado em dados futuros não vistos.",
   "Source path display != file access — exibir sourcePath não concede acesso a arquivos.",
+  "R3D != R3E — conclusão R3D (NO_MEASURABLE_EDGE) e gate R3E (PENDING_FUTURE_UNSEEN_DATA) são registros separados com significados distintos.",
+  "Pending/blocked != fault — PENDING, BLOCKED e NOT_READY descrevem estado de processo, não falha científica ou operacional.",
 ] as const;
 
 /**
@@ -132,6 +137,8 @@ function toSummary(entry: EvidenceCatalogEntryInput): EvidenceSummaryItem {
       EVIDENCE_SCIENTIFIC_STAGE_LABELS[entry.scientificStage],
     staleness: entry.staleness,
     stalenessLabel: EVIDENCE_STALENESS_LABELS[entry.staleness],
+    catalogStanding: entry.catalogStanding,
+    catalogStandingLabel: EVIDENCE_CATALOG_STANDING_LABELS[entry.catalogStanding],
     summary: entry.summary,
   };
 }
@@ -167,6 +174,9 @@ function buildFilterOptions(
     catalog.entries.map((e) => e.scientificStage),
   );
   const presentStaleness = new Set(catalog.entries.map((e) => e.staleness));
+  const presentStandings = new Set(
+    catalog.entries.map((e) => e.catalogStanding),
+  );
 
   return {
     evidenceClasses: EVIDENCE_CLASSES.filter((c) => presentClasses.has(c)).map(
@@ -194,6 +204,12 @@ function buildFilterOptions(
     ).map((value: EvidenceStaleness) => ({
       value,
       label: EVIDENCE_STALENESS_LABELS[value],
+    })),
+    catalogStandings: EVIDENCE_CATALOG_STANDINGS.filter((s) =>
+      presentStandings.has(s),
+    ).map((value: EvidenceCatalogStanding) => ({
+      value,
+      label: EVIDENCE_CATALOG_STANDING_LABELS[value],
     })),
   };
 }
