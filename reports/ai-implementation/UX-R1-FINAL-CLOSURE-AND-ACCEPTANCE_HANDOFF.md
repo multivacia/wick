@@ -98,8 +98,8 @@ FRONTEND_TESTS = PASS
 FRONTEND_A11Y = PASS
 FRONTEND_BUILD = PASS
 FRONTEND_AUDIT = PASS
-CI_STATUS = PENDING_PR
-PR_MERGEABLE = PENDING_PR
+CI_STATUS = GREEN
+PR_MERGEABLE = true
 
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 FINAL_RECOMMENDATION = Accept UX-R1 fixture-backed read-only scope for closure. Keep release closure/acceptance unauthorized until a separate human stamp task. Do not integrate real data, validate, peek, unlock R4, or claim production readiness.
@@ -114,6 +114,8 @@ CREATED_BY = cursor-agent
 - Impact: `docs/ai-impact/UX-R1-FINAL-CLOSURE-AND-ACCEPTANCE_IMPACT_ASSESSMENT.md`
 - Review: `docs/ai-reviews/UX-R1-FINAL-CLOSURE-AND-ACCEPTANCE_REVIEW.md`
 - Product tip assessed: `bb4503ee5a07bc1bb0873399c0c48c5844f84bd3`
+- Draft PR: https://github.com/multivacia/wick/pull/108
+- Actual tip (may lag handoff PR_TIP by metadata commits): `68cf246ee3049dcbe029e465b9cb5e21f50c3ed6`
 - Routes: `/overview`, `/future-collection/runs`, `/future-collection/readiness`, `/operations/host-scheduler`, `/experiments/r3e`
 - Open non-blocking drafts: PR #37, PR #38 (R3E B5-P1 docs)
 
