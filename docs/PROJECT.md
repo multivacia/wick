@@ -35,7 +35,11 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 |-------|--------|
 | RELEASE_ID | UX-R1 |
 | RELEASE_NAME | WICK OPERATIONAL EXPERIENCE |
-| UX_R1_STATUS / UX-R1_STATUS | **IMPLEMENTATION_STARTED** |
+| UX_R1_STATUS / UX-R1_STATUS | **FINAL_CLOSURE_ASSESSMENT_COMPLETE_AWAITING_ACCEPTANCE** |
+| UX_R1_FINAL_CLOSURE_ASSESSMENT_STATUS | **COMPLETE** |
+| UX_R1_FINAL_CLOSURE_ASSESSMENT_DECISION | **ACCEPTED_FOR_CLOSURE** |
+| UX_R1_RELEASE_CLOSURE_AUTHORIZED | **false** |
+| UX_R1_RELEASE_ACCEPTANCE_AUTHORIZED | **false** |
 | UX_B1_STATUS / UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
 | UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
 | UX_B2_AUTHORIZATION_STATUS | **MERGED** (PR #43 → `34ce0e7`) |
@@ -72,7 +76,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R1_FINAL_CLOSURE_ASSESSMENT** (I6M R3E screen MERGED; next is final UX-R1 closure assessment) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R1_RELEASE_CLOSURE_STAMP** (final closure assessment ACCEPTED_FOR_CLOSURE; formal stamp unauthorized) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -136,8 +140,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | I6_R3E_EXPERIMENT_SCREEN_IMPLEMENTATION_STATUS | **MERGED** |
 | R3E_EXPERIMENT_SCREEN_MERGE_AUTHORIZED | **true** (consumed by PR #106 merge) |
 | IMPLEMENTATION_EXECUTION_AUTHORIZED | **false** (no open authorized implementation task) |
-| NEXT_RECOMMENDED_TASK | **UX_R1_FINAL_CLOSURE_ASSESSMENT** |
-| NEXT_ITEM | **UX_R1_FINAL_RELEASE_CLOSURE_AND_ACCEPTANCE_ASSESSMENT** |
+| NEXT_RECOMMENDED_TASK | **UX_R1_RELEASE_CLOSURE_STAMP** |
+| NEXT_ITEM | **UX_R1_FORMAL_ACCEPTANCE_AND_STATUS_STAMP** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -404,3 +408,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-21 | I6M R3E experiment screen implementation | Experimento R3E fixture-backed; ViewModel+fixture dedicados; draft PR #106 | `I6M_STATUS=IMPLEMENTATION_COMPLETE_AWAITING_MERGE`; merge false até autorização |
 | 2026-07-21 | Merge PR #106 I6M R3E experiment screen | `/experiments/r3e` MERGED; fixture `r3e_experiment_current_state_illustrative`; sem dados reais/validate/peeking | `I6M_STATUS=IMPLEMENTATION_MERGED`; `I6_R3E_EXPERIMENT_SCREEN_IMPLEMENTATION_STATUS=MERGED`; NEXT=UX_R1_FINAL_CLOSURE_ASSESSMENT |
 | 2026-07-21 | Post-merge closure I6M (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | `PARALLEL_TASKS_ALLOWED=false`; `R3E_GATE=PENDING_FUTURE_UNSEEN_DATA`; R4 blocked; R5 not started |
+| 2026-07-21 | UX-R1 final closure and acceptance assessment | Docs-only; HIGH risk; ACCEPTED_FOR_CLOSURE (fixture-backed read-only) | `UX_R1_RELEASE_CLOSURE_AUTHORIZED=false`; `UX_R1_RELEASE_ACCEPTANCE_AUTHORIZED=false`; NEXT=release closure stamp |
