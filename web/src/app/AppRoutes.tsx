@@ -5,6 +5,7 @@ import { NOT_FOUND_PLACEHOLDER } from "../shell/navigation";
 import { HostSchedulerScreen } from "../screens/host-scheduler";
 import { OverviewScreen } from "../screens/overview";
 import { ReadinessScreen } from "../screens/readiness";
+import { R3eExperimentScreen } from "../screens/r3e-experiment";
 import { RunsScreen } from "../screens/runs";
 
 export function AppRoutes() {
@@ -22,6 +23,7 @@ export function AppRoutes() {
           path="operations/host-scheduler"
           element={<HostSchedulerScreen />}
         />
+        <Route path="experiments/r3e" element={<R3eExperimentScreen />} />
         <Route
           path="not-found"
           element={<RoutePlaceholder model={NOT_FOUND_PLACEHOLDER} />}

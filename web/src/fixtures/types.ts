@@ -2,6 +2,7 @@ import type {
   HostSchedulerDomainInput,
   OverviewDomainInput,
   ReadinessDomainInput,
+  R3eExperimentDomainInput,
   RunsDomainInput,
 } from "../viewmodels/index.js";
 import type { FixtureMetadata } from "./metadata.js";
@@ -17,7 +18,8 @@ export type FixtureScenarioId =
   | "empty_no_runs"
   | "mixed_operational_blockers"
   | "current_project_state_illustrative"
-  | "readiness_ready_illustrative";
+  | "readiness_ready_illustrative"
+  | "r3e_experiment_current_state_illustrative";
 
 export type FixtureScenario = {
   metadata: FixtureMetadata;
@@ -25,6 +27,7 @@ export type FixtureScenario = {
   runs: RunsDomainInput;
   readiness: ReadinessDomainInput;
   hostScheduler: HostSchedulerDomainInput;
+  r3eExperiment: R3eExperimentDomainInput;
   /** Fixed now for ViewModel freshness demos. */
   nowIso: string;
 };

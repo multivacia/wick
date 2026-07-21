@@ -52,6 +52,10 @@ export type {
   RunsDomainInput,
   ReadinessDomainInput,
   HostSchedulerDomainInput,
+  R3eModelStageId,
+  R3eModelStageDefinition,
+  R3eExplanatoryStatement,
+  R3eExperimentDomainInput,
   ViewModelClock,
 } from "./inputs.js";
 
@@ -61,6 +65,9 @@ export type {
   ReadinessViewModel,
   HostSchedulerViewModel,
   OverviewViewModel,
+  R3eValidationExecutionState,
+  R3eEffectPeekingState,
+  R3eExperimentViewModel,
 } from "./outputs.js";
 
 export { buildRunViewModel, worstLifecycle } from "./buildRunViewModel.js";
@@ -68,6 +75,7 @@ export { buildRunsViewModel } from "./buildRunsViewModel.js";
 export { buildReadinessViewModel } from "./buildReadinessViewModel.js";
 export { buildHostSchedulerViewModel } from "./buildHostSchedulerViewModel.js";
 export { buildOverviewViewModel } from "./buildOverviewViewModel.js";
+export { buildR3eExperimentViewModel } from "./buildR3eExperimentViewModel.js";
 export {
   presentTimestamp,
   absentTimestamp,

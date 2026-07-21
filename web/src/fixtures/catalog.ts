@@ -6,10 +6,12 @@
 import {
   buildHostSchedulerViewModel,
   buildOverviewViewModel,
+  buildR3eExperimentViewModel,
   buildReadinessViewModel,
   buildRunsViewModel,
   type HostSchedulerViewModel,
   type OverviewViewModel,
+  type R3eExperimentViewModel,
   type ReadinessViewModel,
   type RunsViewModel,
   type ViewModelClock,
@@ -45,6 +47,7 @@ export type FixtureViewModels = {
   runs: RunsViewModel;
   readiness: ReadinessViewModel;
   hostScheduler: HostSchedulerViewModel;
+  r3eExperiment: R3eExperimentViewModel;
   nowIso: string;
 };
 
@@ -62,6 +65,7 @@ export function buildFixtureViewModels(
     runs: buildRunsViewModel(scenario.runs, clock),
     readiness: buildReadinessViewModel(scenario.readiness, clock),
     hostScheduler: buildHostSchedulerViewModel(scenario.hostScheduler, clock),
+    r3eExperiment: buildR3eExperimentViewModel(scenario.r3eExperiment, clock),
     nowIso: clock.nowIso,
   };
 }

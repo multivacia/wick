@@ -10,6 +10,7 @@ import {
   emptyMetric,
   host,
   metric,
+  r3eExperiment,
   readiness,
   run,
   scheduler,
@@ -22,6 +23,7 @@ function pack(
   label: string,
   purpose: string,
   overview: OverviewDomainInput,
+  r3eOverrides: Parameters<typeof r3eExperiment>[0] = {},
 ): FixtureScenario {
   return {
     metadata: fixtureMetadata(id, label, purpose),
@@ -38,6 +40,7 @@ function pack(
       scheduler: overview.scheduler,
       blockers: overview.blockers,
     },
+    r3eExperiment: r3eExperiment(r3eOverrides),
     nowIso: FIXTURE_NOW_ISO,
   };
 }
@@ -511,6 +514,68 @@ const readinessReadyIllustrative = pack(
   },
 );
 
+const r3eExperimentCurrentStateIllustrative = pack(
+  "r3e_experiment_current_state_illustrative",
+  "Estado atual do experimento R3E (ilustrativo)",
+  "Dedicated synthetic/illustrative R3E explanatory fixture — not scientific proof.",
+  {
+    collection: {
+      state: "in_progress",
+      lastObservationAt: ts("2026-07-20T08:00:00.000Z"),
+      observationCount: metric(42),
+      futureUnseenCutoff: ts("2026-07-20T00:00:00.000Z"),
+    },
+    lastCompletedRun: run({ runId: "fx-r3e-last-ok" }),
+    lastFailedRun: null,
+    readiness: readiness({
+      state: "not_ready",
+      windowDays: metric(3),
+      requiredWindowDays: metric(14),
+      blockingReasonCodes: ["WINDOW_DAYS_INSUFFICIENT"],
+      validationAuthorized: false,
+      validationCommandExecuted: false,
+      effectPeekingPerformed: false,
+    }),
+    host: host({ state: "deferred" }),
+    scheduler: scheduler({
+      state: "blocked",
+      activationAuthorized: false,
+      active: false,
+      operationalDebt: "open",
+    }),
+    blockers: [
+      {
+        reasonCode: "WINDOW_DAYS_INSUFFICIENT",
+        plainLanguage: "Janela futura insuficiente (ilustrativo).",
+        evidence: [],
+      },
+    ],
+    scientificGate: "PENDING_FUTURE_UNSEEN_DATA",
+    r4Status: "BLOCKED",
+    r5Status: "NOT_STARTED",
+    evidence: [
+      {
+        label: "illustrative R3E experiment state",
+        reference: "fixtures/r3e_experiment_current_state_illustrative",
+        kind: "note",
+      },
+    ],
+  },
+  {
+    experimentId: "R3E-CONTEXTUAL-EDGE-V1",
+    parentExperimentId: "R3D-V1",
+    validationCommandExecuted: false,
+    effectPeekingPerformed: false,
+    futureUnseenResultsPresent: false,
+    r3eGate: "PENDING_FUTURE_UNSEEN_DATA",
+    r3dResult: "NO_MEASURABLE_EDGE",
+    r4Status: "BLOCKED",
+    r5Status: "NOT_STARTED",
+    collectionState: "IN_PROGRESS",
+    readinessState: "NOT_READY",
+  },
+);
+
 export const FIXTURE_SCENARIOS: Record<FixtureScenarioId, FixtureScenario> = {
   healthy_collection_not_ready: healthyCollectionNotReady,
   collection_in_progress: collectionInProgress,
@@ -523,6 +588,7 @@ export const FIXTURE_SCENARIOS: Record<FixtureScenarioId, FixtureScenario> = {
   mixed_operational_blockers: mixedOperationalBlockers,
   current_project_state_illustrative: currentProjectStateIllustrative,
   readiness_ready_illustrative: readinessReadyIllustrative,
+  r3e_experiment_current_state_illustrative: r3eExperimentCurrentStateIllustrative,
 };
 
 export const FIXTURE_SCENARIO_IDS = Object.keys(

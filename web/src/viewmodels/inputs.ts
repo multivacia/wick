@@ -110,6 +110,56 @@ export type HostSchedulerDomainInput = {
   blockers: OperationalBlockerInput[];
 };
 
+export type R3eModelStageId = "M0" | "M1" | "M2" | "M3" | "M4" | "M5";
+
+export type R3eModelStageDefinition = {
+  id: R3eModelStageId;
+  plainLanguage: string;
+  technicalDefinition: string;
+};
+
+export type R3eExplanatoryStatement = {
+  id: string;
+  plainLanguage: string;
+  technicalCode: string | null;
+};
+
+/**
+ * Explanatory R3E experiment domain input — definitions and governed status
+ * codes only. Never invent p-values, returns, or future-unseen outcomes.
+ */
+export type R3eExperimentDomainInput = {
+  experimentId: string;
+  parentExperimentId: string;
+  title: string;
+  purpose: string;
+  hypothesis: string;
+  protocolVersion: string;
+  modelFamilies: string[];
+  modelStages: R3eModelStageDefinition[];
+  deltaCandleDefinition: string;
+  temporalValidationSummary: string;
+  holdoutSummary: string;
+  leakageProtectionSummary: string;
+  bootstrapSummary: string;
+  fdrSummary: string;
+  currentScientificState: string;
+  r3dResult: string;
+  r3eGate: string;
+  collectionState: string;
+  readinessState: string;
+  validationCommandExecuted: boolean;
+  effectPeekingPerformed: boolean;
+  /** Always false for authorized explanatory fixtures. */
+  futureUnseenResultsPresent: false;
+  r4Status: string;
+  r5Status: string;
+  knownStatements: R3eExplanatoryStatement[];
+  unknownStatements: R3eExplanatoryStatement[];
+  nextSafeScientificActionPlain: string;
+  evidence: EvidenceReferenceInput[];
+};
+
 /** Optional clock for freshness / relative time — never read implicitly. */
 export type ViewModelClock = {
   nowIso: string;

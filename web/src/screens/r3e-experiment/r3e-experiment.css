@@ -1,0 +1,145 @@
+/* Experimento R3E screen layout — token-only. Explanatory, not a trading terminal. */
+
+.wick-r3e-experiment-screen {
+  width: 100%;
+  max-width: 72rem;
+  min-width: 0;
+}
+
+.wick-r3e-section {
+  margin-bottom: 0;
+}
+
+.wick-r3e-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  margin-bottom: var(--wick-space-stack);
+}
+
+.wick-r3e-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: var(--wick-raw-space-2);
+  gap: var(--wick-raw-space-2);
+  flex-wrap: wrap;
+}
+
+.wick-r3e-card-title {
+  margin: 0 0 var(--wick-raw-space-2);
+  font-size: var(--wick-font-size-title);
+  font-weight: var(--wick-font-weight-emphasis);
+  color: var(--wick-color-text-primary);
+}
+
+.wick-r3e-primary {
+  margin: 0 0 var(--wick-raw-space-2);
+  color: var(--wick-color-text-primary);
+  font-size: var(--wick-font-size-body);
+  line-height: var(--wick-line-height-body);
+}
+
+.wick-r3e-technical {
+  margin: 0 0 var(--wick-raw-space-2);
+  color: var(--wick-color-text-secondary);
+  font-size: var(--wick-font-size-label);
+  line-height: var(--wick-line-height-body);
+  overflow-wrap: anywhere;
+}
+
+.wick-r3e-muted {
+  margin: 0;
+  color: var(--wick-color-text-muted);
+  font-size: var(--wick-font-size-label);
+  line-height: var(--wick-line-height-body);
+}
+
+.wick-r3e-field-list {
+  margin: 0 0 var(--wick-raw-space-3);
+  display: grid;
+  gap: var(--wick-raw-space-2);
+}
+
+.wick-r3e-field {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: var(--wick-raw-space-1) var(--wick-raw-space-2);
+  min-width: 0;
+}
+
+.wick-r3e-field dt {
+  margin: 0;
+  color: var(--wick-color-text-muted);
+  font-size: var(--wick-font-size-label);
+}
+
+.wick-r3e-field dd {
+  margin: 0;
+  color: var(--wick-color-text-primary);
+  font-size: var(--wick-font-size-label);
+  overflow-wrap: anywhere;
+}
+
+.wick-r3e-list {
+  margin: 0 0 var(--wick-raw-space-2);
+  padding-left: 1.25rem;
+  color: var(--wick-color-text-primary);
+}
+
+.wick-r3e-list li {
+  margin-bottom: var(--wick-raw-space-2);
+}
+
+.wick-r3e-grid {
+  display: grid;
+  gap: var(--wick-space-stack);
+  min-width: 0;
+}
+
+.wick-r3e-stage-list {
+  display: grid;
+  gap: var(--wick-raw-space-3);
+  min-width: 0;
+}
+
+.wick-r3e-stage {
+  min-width: 0;
+  padding: var(--wick-raw-space-2) 0;
+  border-top: 1px solid var(--wick-color-border-subtle, transparent);
+}
+
+.wick-r3e-stage-title {
+  margin: 0 0 var(--wick-raw-space-1);
+  font-size: var(--wick-font-size-body);
+  font-weight: var(--wick-font-weight-emphasis);
+  color: var(--wick-color-text-primary);
+}
+
+@media (min-width: 768px) {
+  .wick-r3e-stage-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .wick-r3e-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wick-r3e-stage-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .wick-r3e-experiment-screen {
+    max-width: 80rem;
+  }
+}
+
+@media (max-width: 359.98px) {
+  .wick-r3e-field {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
