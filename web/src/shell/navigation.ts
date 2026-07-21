@@ -4,7 +4,8 @@ export type NavItemId =
   | "overview"
   | "runs"
   | "readiness"
-  | "host-scheduler";
+  | "host-scheduler"
+  | "r3e";
 
 export type NavItem = {
   id: NavItemId;
@@ -54,12 +55,20 @@ const HOST_SCHEDULER: NavItem = {
   active: true,
 };
 
-/** Active MVP routes authorized for I5. */
+const R3E: NavItem = {
+  id: "r3e",
+  label: "Experimento R3E",
+  path: "/experiments/r3e",
+  active: true,
+};
+
+/** Active MVP routes authorized for I5 / I6 screens. */
 export const ACTIVE_NAV_ITEMS: readonly NavItem[] = [
   OVERVIEW,
   RUNS,
   READINESS,
   HOST_SCHEDULER,
+  R3E,
 ];
 
 export const NAV_GROUPS: readonly NavGroup[] = [
@@ -104,14 +113,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
   {
     id: "experiments",
     label: "Experimentos",
-    items: [
-      {
-        id: "r3e",
-        label: "R3E",
-        active: false,
-        note: "Planejado — não disponível nesta versão",
-      },
-    ],
+    items: [R3E],
   },
   {
     id: "governance",

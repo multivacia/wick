@@ -3,6 +3,8 @@ import { buildOverviewViewModel } from "../../src/viewmodels/buildOverviewViewMo
 import { buildRunsViewModel } from "../../src/viewmodels/buildRunsViewModel.js";
 import { buildReadinessViewModel } from "../../src/viewmodels/buildReadinessViewModel.js";
 import { buildHostSchedulerViewModel } from "../../src/viewmodels/buildHostSchedulerViewModel.js";
+import { buildR3eExperimentViewModel } from "../../src/viewmodels/buildR3eExperimentViewModel.js";
+import type { R3eExperimentDomainInput } from "../../src/viewmodels/inputs.js";
 import {
   currentProjectOverviewInput,
   emptyMetric,
@@ -144,5 +146,68 @@ describe("buildHostSchedulerViewModel", () => {
     expect(vm.operationalDebt).toBe("open");
     expect(vm.lastCycleAt.rawIso).toBeNull();
     expect(vm.nextSafeAction.code).toBe("complete_host_discovery");
+  });
+});
+
+describe("buildR3eExperimentViewModel", () => {
+  it("maps explanatory R3E fields without inventing future-unseen outcomes", () => {
+    const input: R3eExperimentDomainInput = {
+      experimentId: "R3E-TEST",
+      parentExperimentId: "R3D-V1",
+      title: "Experimento R3E",
+      purpose: "Explicativo",
+      hypothesis: "H2 ilustrativa",
+      protocolVersion: "R3E_SPEC",
+      modelFamilies: ["baseline", "contexto", "contexto+candle"],
+      modelStages: [
+        {
+          id: "M0",
+          plainLanguage: "baseline",
+          technicalDefinition: "M0 = baseline",
+        },
+        {
+          id: "M4",
+          plainLanguage: "contexto",
+          technicalDefinition: "M4 = contexto",
+        },
+        {
+          id: "M5",
+          plainLanguage: "contexto + candle",
+          technicalDefinition: "M5 = M4 + candle",
+        },
+      ],
+      deltaCandleDefinition: "DELTA_CANDLE = M5 − M4",
+      temporalValidationSummary: "nested walk-forward",
+      holdoutSummary: "holdout",
+      leakageProtectionSummary: "leakage",
+      bootstrapSummary: "bootstrap",
+      fdrSummary: "FDR",
+      currentScientificState: "EXPLORATORY_COMPLETE_PENDING_FUTURE_UNSEEN_DATA",
+      r3dResult: "NO_MEASURABLE_EDGE",
+      r3eGate: "PENDING_FUTURE_UNSEEN_DATA",
+      collectionState: "IN_PROGRESS",
+      readinessState: "NOT_READY",
+      validationCommandExecuted: false,
+      effectPeekingPerformed: false,
+      futureUnseenResultsPresent: false,
+      r4Status: "BLOCKED",
+      r5Status: "NOT_STARTED",
+      knownStatements: [],
+      unknownStatements: [],
+      nextSafeScientificActionPlain: "Aguardar dados futuros não vistos.",
+      evidence: [],
+    };
+    const vm = buildR3eExperimentViewModel(input, NOW);
+    expect(vm.r3dResult).toBe("NO_MEASURABLE_EDGE");
+    expect(vm.r3eGate).toBe("PENDING_FUTURE_UNSEEN_DATA");
+    expect(vm.futureUnseenResultsPresent).toBe(false);
+    expect(vm.validationExecutionState.executed).toBe(false);
+    expect(vm.effectPeekingState.performed).toBe(false);
+    expect(vm.r4Status).toBe("BLOCKED");
+    expect(vm.r5Status).toBe("NOT_STARTED");
+    expect(vm.nextSafeScientificAction.advisoryOnly).toBe(true);
+    expect(vm.nextSafeScientificAction.code).toBe("await_future_unseen_data");
+    expect(vm.deltaCandleDefinition).toMatch(/DELTA_CANDLE/);
+    expect(Object.isFrozen(vm)).toBe(true);
   });
 });

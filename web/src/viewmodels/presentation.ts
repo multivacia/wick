@@ -38,6 +38,7 @@ export const ACTION_HINT_CODES = [
   "investigate_failed_run",
   "monitor_collection",
   "do_not_validate",
+  "await_future_unseen_data",
   "no_action_available",
 ] as const;
 

@@ -20,6 +20,7 @@ export {
   readiness,
   host,
   scheduler,
+  r3eExperiment,
 } from "./builders.js";
 
 export type { FixtureScenario, FixtureScenarioId } from "./types.js";

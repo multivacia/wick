@@ -11,6 +11,9 @@ import type {
   HostSchedulerDomainInput,
   OverviewDomainInput,
   ReadinessDomainInput,
+  R3eExplanatoryStatement,
+  R3eExperimentDomainInput,
+  R3eModelStageDefinition,
   RunsDomainInput,
   ViewModelClock,
 } from "./inputs.js";
@@ -95,11 +98,57 @@ export type OverviewViewModel = {
   generatedWithNow: string | null;
 };
 
+export type R3eValidationExecutionState = {
+  executed: boolean;
+  label: string;
+  /** Explicit inequality: not executed ≠ failed. */
+  distinctFromFailed: string;
+};
+
+export type R3eEffectPeekingState = {
+  performed: boolean;
+  label: string;
+  /** Explicit inequality: false ≠ not reported. */
+  distinctFromNotReported: string;
+};
+
+export type R3eExperimentViewModel = {
+  experimentId: string;
+  parentExperimentId: string;
+  title: string;
+  purpose: string;
+  hypothesis: string;
+  protocolVersion: string;
+  modelFamilies: string[];
+  modelStages: R3eModelStageDefinition[];
+  deltaCandleDefinition: string;
+  temporalValidationSummary: string;
+  holdoutSummary: string;
+  leakageProtectionSummary: string;
+  bootstrapSummary: string;
+  fdrSummary: string;
+  currentScientificState: string;
+  r3dResult: string;
+  r3eGate: string;
+  collectionState: string;
+  readinessState: string;
+  validationExecutionState: R3eValidationExecutionState;
+  effectPeekingState: R3eEffectPeekingState;
+  futureUnseenResultsPresent: false;
+  r4Status: string;
+  r5Status: string;
+  knownStatements: R3eExplanatoryStatement[];
+  unknownStatements: R3eExplanatoryStatement[];
+  nextSafeScientificAction: ActionHint;
+  evidence: EvidenceLink[];
+};
+
 export type {
   OverviewDomainInput,
   RunsDomainInput,
   ReadinessDomainInput,
   HostSchedulerDomainInput,
+  R3eExperimentDomainInput,
   CollectionRunInput,
   ViewModelClock,
 };

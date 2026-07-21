@@ -101,7 +101,37 @@ describe("fixture ViewModel execution", () => {
       expect(vms.runs).toBeTruthy();
       expect(vms.readiness).toBeTruthy();
       expect(vms.hostScheduler).toBeTruthy();
+      expect(vms.r3eExperiment).toBeTruthy();
+      expect(vms.r3eExperiment.futureUnseenResultsPresent).toBe(false);
+      expect(vms.r3eExperiment.r3eGate).toBe("PENDING_FUTURE_UNSEEN_DATA");
     }
+  });
+
+  it("builds dedicated R3E illustrative fixture without fabricated outcomes", () => {
+    const vms = buildFixtureViewModels(
+      "r3e_experiment_current_state_illustrative",
+    );
+    expect(vms.metadata.fixtureId).toBe(
+      "r3e_experiment_current_state_illustrative",
+    );
+    expect(vms.metadata.synthetic).toBe(true);
+    expect(vms.metadata.illustrative).toBe(true);
+    expect(vms.r3eExperiment.r3dResult).toBe("NO_MEASURABLE_EDGE");
+    expect(vms.r3eExperiment.r3eGate).toBe("PENDING_FUTURE_UNSEEN_DATA");
+    expect(vms.r3eExperiment.validationExecutionState.executed).toBe(false);
+    expect(vms.r3eExperiment.effectPeekingState.performed).toBe(false);
+    expect(vms.r3eExperiment.futureUnseenResultsPresent).toBe(false);
+    expect(vms.r3eExperiment.r4Status).toBe("BLOCKED");
+    expect(vms.r3eExperiment.r5Status).toBe("NOT_STARTED");
+    expect(vms.r3eExperiment.modelStages.map((s) => s.id)).toEqual([
+      "M0",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+    ]);
+    expect(vms.r3eExperiment.deltaCandleDefinition).toMatch(/M5\s*−\s*M4|M5 - M4/);
   });
 
   it("keeps current project illustrative posture", () => {
