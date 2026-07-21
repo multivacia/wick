@@ -49,7 +49,7 @@ const READINESS: NavItem = {
 
 const HOST_SCHEDULER: NavItem = {
   id: "host-scheduler",
-  label: "Host e Scheduler",
+  label: "Host e Automação",
   path: "/operations/host-scheduler",
   active: true,
 };
@@ -175,7 +175,7 @@ export const ROUTE_PLACEHOLDERS: Record<string, RoutePlaceholderModel> = {
     statusLabel: "Planejado / não implementado",
   },
   "/operations/host-scheduler": {
-    title: "Host e Scheduler",
+    title: "Host e Automação",
     description:
       "Área reservada para host e automação. O conteúdo da tela ainda não foi implementado.",
     routeId: "/operations/host-scheduler",
