@@ -47,15 +47,22 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R1_RELEASE_ACCEPTED | **true** |
 | UX_R1_RELEASE_ACCEPTANCE_WORDING | **UX-R1 fixture-backed read-only scope is complete and governed.** |
 | Formal closure record | `docs/releases/UX-R1-FORMAL-RELEASE-CLOSURE-AND-ACCEPTANCE.md` |
-| UX_R2_STATUS / UX-R2_STATUS | **DISCOVERY_ASSESSMENT_MERGED** |
+| UX_R2_STATUS / UX-R2_STATUS | **I1_AUTHORIZATION_ASSESSMENT_COMPLETE_AWAITING_MERGE** |
 | UX_R2_DISCOVERY_ASSESSMENT_STATUS | **MERGED** |
 | UX_R2_DISCOVERY_AND_SCOPE_STATUS | **MERGED** |
 | UX_R2_DISCOVERY_DECISION | **SCOPE_RECOMMENDED** |
 | UX_R2_DISCOVERY_AND_SCOPE_DECISION | **SCOPE_RECOMMENDED** |
 | UX_R2_RECOMMENDED_DIRECTION | **D_EVIDENCE_AND_AUDIT_EXPLORER** |
 | UX_R2_RECOMMENDED_FIRST_INCREMENT | **UX_R2_I1_EVIDENCE_EXPLORER_AUTHORIZATION_ASSESSMENT** |
+| UX_R2_I1_STATUS | **AUTHORIZATION_ASSESSMENT_COMPLETE** |
+| UX_R2_I1_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
+| UX_R2_I1_RECOMMENDED_ROUTE | **/governance/evidence** |
+| UX_R2_I1_RECOMMENDED_NAV_LABEL | **Evidências** |
+| UX_R2_I1_RECOMMENDED_IMPLEMENTATION_BOUNDARY | **EVIDENCE_EXPLORER_SCREEN_ONLY; FIXTURE_BACKED; READ_ONLY; CURATED_MANIFEST_ONLY; LIST_AND_DETAIL; NO_RUNTIME_REPOSITORY_ACCESS; NO_REAL_DATA; NO_FUTURE_UNSEEN_RESULTS** |
 | UX_R2_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_R2_PRODUCT_CODE_AUTHORIZED | **false** |
+| UX_R2_I1_IMPLEMENTATION_AUTHORIZED | **false** |
+| EVIDENCE_EXPLORER_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_B1_STATUS / UX-B1_STATUS | **MERGED** (`UX-RELEASE-FOUNDATION-001`; PR #31 → `5101c65`) |
 | UX-B2_IMPACT_STATUS | **MERGED** (`DESIGN-SYSTEM-FOUNDATION-001`; PR #35 → `5bcb088`) |
 | UX_B2_AUTHORIZATION_STATUS | **MERGED** (PR #43 → `34ce0e7`) |
@@ -92,7 +99,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R2_I1_EVIDENCE_EXPLORER_AUTHORIZATION_ASSESSMENT** (UX-R2 discovery MERGED SCOPE_RECOMMENDED; I1 auth not started; implementation unauthorized) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R2_I1_EVIDENCE_EXPLORER_IMPLEMENTATION** (I1 auth AUTHORIZED_WITH_CONDITIONS; implementation unauthorized until separate prompt) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -166,8 +173,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | SCIENTIFIC_INTERPRETATION_CHANGE_AUTHORIZED | **false** |
 | R4_STATE_CHANGE_AUTHORIZED | **false** |
 | R5_STATE_CHANGE_AUTHORIZED | **false** |
-| NEXT_RECOMMENDED_TASK | **UX_R2_I1_EVIDENCE_EXPLORER_AUTHORIZATION_ASSESSMENT** |
-| NEXT_ITEM | **UX_R2_I1_SEPARATE_AUTHORIZATION_ASSESSMENT** |
+| NEXT_RECOMMENDED_TASK | **UX_R2_I1_EVIDENCE_EXPLORER_IMPLEMENTATION** |
+| NEXT_ITEM | **UX_R2_I1_EVIDENCE_EXPLORER_SEPARATE_IMPLEMENTATION_TASK** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -221,8 +228,9 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX-R1 final closure and acceptance assessment | https://github.com/multivacia/wick/pull/108 (**MERGED** `708f11a`) |
 | UX-R1 formal release closure and acceptance stamp | https://github.com/multivacia/wick/pull/110 (**MERGED** `df5fe40`) |
 | UX-R2 discovery and scope assessment | https://github.com/multivacia/wick/pull/112 (**MERGED** `9f25b19`) |
+| UX-R2 I1 Evidence Explorer authorization assessment | draft PR pending |
 
-MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST**. I6E Overview screen **MERGED** (PR #90; fixture-backed `/overview`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6F Runs authorization assessment **MERGED** (PR #92). I6G Runs screen **MERGED** (PR #94; fixture-backed `/future-collection/runs`; `I6_RUNS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6H Readiness authorization assessment **MERGED** (PR #96 → `2a90787`): **AUTHORIZED_WITH_CONDITIONS**. I6I Readiness screen **MERGED** (PR #98 → `061c388`; fixture-backed `/future-collection/readiness`; `I6_READINESS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6J Host/Scheduler authorization assessment **MERGED** (PR #100 → `b284a72`): **AUTHORIZED_WITH_CONDITIONS**. I6K Host e Automação screen **MERGED** (PR #102 → `b71ed83`; fixture-backed `/operations/host-scheduler`; `I6_HOST_SCHEDULER_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6L R3E experiment screen authorization assessment **MERGED** (PR #104 → `458b47b`): **AUTHORIZED_WITH_CONDITIONS**. I6M R3E experiment screen **MERGED** (PR #106 → `764e85f`; fixture-backed `/experiments/r3e`; dedicated ViewModel+fixture; `I6_R3E_EXPERIMENT_SCREEN_IMPLEMENTATION_STATUS=MERGED`; `R3E_GATE=PENDING_FUTURE_UNSEEN_DATA`; `PARALLEL_TASKS_ALLOWED=false`). UX-R1 final closure assessment **MERGED** (PR #108 → `708f11a`; decision **ACCEPTED_FOR_CLOSURE**). UX-R1 formal release stamp **CLOSED / ACCEPTED** (**MERGED** PR #110 → `df5fe40`; `UX_R1_RELEASE_SCOPE=FIXTURE_BACKED_READ_ONLY`; acceptance wording: *UX-R1 fixture-backed read-only scope is complete and governed.*). UX-R2 discovery assessment **MERGED** (PR #112 → `9f25b19`; decision **SCOPE_RECOMMENDED**; direction **D_EVIDENCE_AND_AUDIT_EXPLORER**; first increment **UX_R2_I1_EVIDENCE_EXPLORER_AUTHORIZATION_ASSESSMENT**; `UX_R2_DISCOVERY_AND_SCOPE_STATUS=MERGED`; `UX_R2_IMPLEMENTATION_AUTHORIZED=false`; `PARALLEL_TASKS_ALLOWED=false`; host discovery deferred; R3E/R4/R5 unchanged; I1 authorization not started).
+MVP funcional previsto (após autorização de UI): Visão Geral, Execuções da Coleta, Prontidão, Host e Automação, Experimento R3E (explicativo). Contratos de tela (UX-B3) e linguagem operacional (UX-B4) estão **MERGED**. UX-B2 I1 **MERGED**; I2 tokens/temas **MERGED** (PR #69); I3 primitivos **MERGED** (PR #72); I5 shell/nav **MERGED** (PR #77); I6B ViewModel **MERGED** (PR #81); I6C fixtures **MERGED** (PR #84). I6D assessment **MERGED** (PR #87): **AUTHORIZED_WITH_CONDITIONS** / **OVERVIEW_FIRST**. I6E Overview screen **MERGED** (PR #90; fixture-backed `/overview`; `I6_OVERVIEW_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6F Runs authorization assessment **MERGED** (PR #92). I6G Runs screen **MERGED** (PR #94; fixture-backed `/future-collection/runs`; `I6_RUNS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6H Readiness authorization assessment **MERGED** (PR #96 → `2a90787`): **AUTHORIZED_WITH_CONDITIONS**. I6I Readiness screen **MERGED** (PR #98 → `061c388`; fixture-backed `/future-collection/readiness`; `I6_READINESS_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6J Host/Scheduler authorization assessment **MERGED** (PR #100 → `b284a72`): **AUTHORIZED_WITH_CONDITIONS**. I6K Host e Automação screen **MERGED** (PR #102 → `b71ed83`; fixture-backed `/operations/host-scheduler`; `I6_HOST_SCHEDULER_SCREEN_IMPLEMENTATION_STATUS=MERGED`). I6L R3E experiment screen authorization assessment **MERGED** (PR #104 → `458b47b`): **AUTHORIZED_WITH_CONDITIONS**. I6M R3E experiment screen **MERGED** (PR #106 → `764e85f`; fixture-backed `/experiments/r3e`; dedicated ViewModel+fixture; `I6_R3E_EXPERIMENT_SCREEN_IMPLEMENTATION_STATUS=MERGED`; `R3E_GATE=PENDING_FUTURE_UNSEEN_DATA`; `PARALLEL_TASKS_ALLOWED=false`). UX-R1 final closure assessment **MERGED** (PR #108 → `708f11a`; decision **ACCEPTED_FOR_CLOSURE**). UX-R1 formal release stamp **CLOSED / ACCEPTED** (**MERGED** PR #110 → `df5fe40`; `UX_R1_RELEASE_SCOPE=FIXTURE_BACKED_READ_ONLY`; acceptance wording: *UX-R1 fixture-backed read-only scope is complete and governed.*). UX-R2 discovery assessment **MERGED** (PR #112 → `9f25b19`; **SCOPE_RECOMMENDED**; **D_EVIDENCE_AND_AUDIT_EXPLORER**). UX-R2 I1 Evidence Explorer authorization assessment **AUTHORIZED_WITH_CONDITIONS** (route `/governance/evidence`; nav **Evidências**; fixture-backed curated catalog; `UX_R2_I1_IMPLEMENTATION_AUTHORIZED=false`; `EVIDENCE_EXPLORER_IMPLEMENTATION_AUTHORIZED=false`; `NEXT_RECOMMENDED_TASK=UX_R2_I1_EVIDENCE_EXPLORER_IMPLEMENTATION`; implementation not started).
 
 ## Estado oficial (pós-R3D / R3E engine)
 
@@ -446,3 +454,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-21 | UX-R2 discovery and scope assessment | Docs-only; HIGH; SCOPE_RECOMMENDED → Evidence/Audit Explorer | `UX_R2_IMPLEMENTATION_AUTHORIZED=false`; NEXT=I1 Evidence Explorer auth (não autorizado) |
 | 2026-07-21 | Merge PR #112 UX-R2 discovery assessment | Discovery MERGED; SCOPE_RECOMMENDED; sem implementação | `UX_R2_DISCOVERY_AND_SCOPE_STATUS=MERGED`; NEXT=I1 auth assessment (não iniciado) |
 | 2026-07-21 | Post-merge closure UX-R2 discovery (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | flags de implementação permanecem false; `PARALLEL_TASKS_ALLOWED=false` |
+| 2026-07-21 | UX-R2 I1 Evidence Explorer authorization assessment | Docs-only; HIGH; AUTHORIZED_WITH_CONDITIONS; `/governance/evidence` | implementation flags false; NEXT=I1 Evidence Explorer implementation (não autorizado) |
