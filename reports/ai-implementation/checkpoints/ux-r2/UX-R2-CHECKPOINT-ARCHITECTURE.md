@@ -3,7 +3,7 @@
 ```text
 CHECKPOINT = CHECKPOINT_ARCHITECTURE
 STATUS = PASS
-COMMIT_SHA = PENDING
+COMMIT_SHA = 2d733dcea1890fbcd9e60727e43a6c5d056c0b18
 SCOPE_REVIEWED =
   fixtures -> builder/selectors -> ViewModel -> screen components
   Evidence Explorer at /governance/evidence only
