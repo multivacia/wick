@@ -199,7 +199,7 @@ describe("I6I Readiness screen", () => {
     expect(within(main).queryByRole("link", { name: /validar|coletar|scheduler/i })).not.toBeInTheDocument();
   });
 
-  it("keeps Overview and Runs implemented; Host remains placeholder", () => {
+  it("keeps Overview, Runs and Host/Scheduler implemented", () => {
     const { unmount: unmountOverview } = render(
       <AppForTest initialEntry="/overview" />,
     );
@@ -213,8 +213,10 @@ describe("I6I Readiness screen", () => {
     unmountRuns();
 
     render(<AppForTest initialEntry="/operations/host-scheduler" />);
-    expect(screen.getByText("Planejado / não implementado")).toBeInTheDocument();
-    expect(screen.queryByTestId("readiness-screen")).not.toBeInTheDocument();
+    expect(screen.getByTestId("host-scheduler-screen")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Planejado / não implementado"),
+    ).not.toBeInTheDocument();
   });
 
   it("uses a single h1 and logical section structure", () => {

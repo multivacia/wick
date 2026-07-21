@@ -169,7 +169,7 @@ describe("I6G Runs screen", () => {
     expect(within(main).queryByRole("button")).not.toBeInTheDocument();
   });
 
-  it("keeps Overview implemented, Readiness implemented, and Host as placeholder", () => {
+  it("keeps Overview implemented, Readiness implemented, and Host/Scheduler implemented", () => {
     const { unmount: unmountOverview } = render(
       <AppForTest initialEntry="/overview" />,
     );
@@ -189,7 +189,10 @@ describe("I6G Runs screen", () => {
     unmountReadiness();
 
     render(<AppForTest initialEntry="/operations/host-scheduler" />);
-    expect(screen.getByText("Planejado / não implementado")).toBeInTheDocument();
+    expect(screen.getByTestId("host-scheduler-screen")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Planejado / não implementado"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByTestId("runs-screen")).not.toBeInTheDocument();
   });
 

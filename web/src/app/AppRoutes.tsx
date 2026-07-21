@@ -1,21 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ApplicationShell } from "../shell/ApplicationShell";
 import { RoutePlaceholder } from "../shell/RoutePlaceholder";
-import {
-  NOT_FOUND_PLACEHOLDER,
-  ROUTE_PLACEHOLDERS,
-} from "../shell/navigation";
+import { NOT_FOUND_PLACEHOLDER } from "../shell/navigation";
+import { HostSchedulerScreen } from "../screens/host-scheduler";
 import { OverviewScreen } from "../screens/overview";
 import { ReadinessScreen } from "../screens/readiness";
 import { RunsScreen } from "../screens/runs";
-
-function PlaceholderPage({ path }: { path: keyof typeof ROUTE_PLACEHOLDERS }) {
-  const model = ROUTE_PLACEHOLDERS[path];
-  if (!model) {
-    return <RoutePlaceholder model={NOT_FOUND_PLACEHOLDER} />;
-  }
-  return <RoutePlaceholder model={model} />;
-}
 
 export function AppRoutes() {
   return (
@@ -30,7 +20,7 @@ export function AppRoutes() {
         />
         <Route
           path="operations/host-scheduler"
-          element={<PlaceholderPage path="/operations/host-scheduler" />}
+          element={<HostSchedulerScreen />}
         />
         <Route
           path="not-found"
