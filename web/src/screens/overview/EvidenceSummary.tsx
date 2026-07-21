@@ -1,5 +1,6 @@
 import { Section } from "../../components/primitives";
 import type { EvidenceLink, RunViewModel } from "../../viewmodels";
+import { RelatedEvidenceLinks } from "../shared/RelatedEvidenceLinks";
 
 export type EvidenceSummaryProps = {
   evidence: EvidenceLink[];
@@ -87,6 +88,27 @@ export function EvidenceSummary({
           ))}
         </ul>
       ) : null}
+
+      <RelatedEvidenceLinks
+        items={[
+          {
+            evidenceId: "ev-r3e-pending-future-unseen",
+            label: "Estado R3E — gate pendente de dados futuros",
+          },
+          {
+            evidenceId: "ev-fu-collection-readiness",
+            label: "Prontidão de coleta future-unseen",
+          },
+          {
+            evidenceId: "ev-host-scheduler-operational-debt",
+            label: "Dívida operacional — host e agendador",
+          },
+          {
+            evidenceId: "ev-ux-r1-formal-closure",
+            label: "Encerramento formal UX-R1",
+          },
+        ]}
+      />
     </Section>
   );
 }

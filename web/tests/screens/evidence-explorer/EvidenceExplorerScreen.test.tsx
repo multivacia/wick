@@ -7,6 +7,7 @@ import {
   loadEvidenceExplorerScreenData,
   SYNTHETIC_EVIDENCE_DISCLAIMER,
 } from "../../../src/screens/evidence-explorer/loadEvidenceExplorerScreenData";
+import { EVIDENCE_EXPLORER_PATH } from "../../../src/viewmodels";
 
 describe("UX-R2 I1 Evidence Explorer screen", () => {
   it("renders the Evidence Explorer on /governance/evidence", () => {
@@ -109,7 +110,7 @@ describe("UX-R2 I1 Evidence Explorer screen", () => {
     await user.click(screen.getByTestId("evidence-filters-clear"));
     expect(screen.getByTestId("evidence-filter-class")).toHaveValue("");
     expect(screen.getByTestId("evidence-result-count")).toHaveTextContent(
-      /7 evidências/,
+      /11 evidências/,
     );
   });
 
@@ -121,6 +122,57 @@ describe("UX-R2 I1 Evidence Explorer screen", () => {
     for (const link of within(main).queryAllByRole("link")) {
       expect(link.getAttribute("href") ?? "").not.toMatch(/^https?:/i);
     }
+  });
+
+  it("deep-links via ?evidenceId= query param pre-selects evidence", () => {
+    render(
+      <AppForTest
+        initialEntry={`${EVIDENCE_EXPLORER_PATH}?evidenceId=ev-r3d-validation-conclusion`}
+      />,
+    );
+    const detail = screen.getByTestId("evidence-detail");
+    expect(within(detail).getByTestId("evidence-detail-id")).toHaveTextContent(
+      "ev-r3d-validation-conclusion",
+    );
+  });
+
+  it("standing filter shows only matching entries", async () => {
+    const user = userEvent.setup();
+    render(<AppForTest initialEntry="/governance/evidence" />);
+    await user.selectOptions(
+      screen.getByTestId("evidence-filter-standing"),
+      "historical",
+    );
+    const list = screen.getByTestId("evidence-list");
+    const buttons = within(list).getAllByRole("button");
+    expect(buttons.length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByTestId("evidence-list-item-ev-host-scheduler-operational-debt")).not.toBeInTheDocument();
+  });
+
+  it("provenance line is shown for each list item", () => {
+    render(<AppForTest initialEntry="/governance/evidence" />);
+    const provenanceEls = screen.getAllByTestId(/^evidence-provenance-/);
+    expect(provenanceEls.length).toBeGreaterThanOrEqual(11);
+  });
+
+  it("pending-not-fault note appears for pending evidence detail", async () => {
+    const user = userEvent.setup();
+    render(<AppForTest initialEntry="/governance/evidence" />);
+    await user.click(
+      screen.getByTestId("evidence-list-item-ev-r3e-pending-future-unseen"),
+    );
+    expect(
+      screen.getByTestId("evidence-detail-pending-not-fault"),
+    ).toBeInTheDocument();
+  });
+
+  it("safety notices include R3D≠R3E and pending≠fault copy", () => {
+    render(<AppForTest initialEntry="/governance/evidence" />);
+    const notices = screen.getByTestId("evidence-safety-notices");
+    expect(notices.textContent).toMatch(/R3D/);
+    expect(notices.textContent).toMatch(/R3E/);
+    expect(notices.textContent).toMatch(/[Pp]ending|PENDING/);
+    expect(notices.textContent).toMatch(/fault/i);
   });
 
   it("keeps R3D and R3E copy distinct in the catalog", async () => {

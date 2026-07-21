@@ -64,7 +64,8 @@ export function EvidenceFilters({
     Boolean(filters.status) ||
     Boolean(filters.dataOrigin) ||
     Boolean(filters.scientificStage) ||
-    Boolean(filters.staleness);
+    Boolean(filters.staleness) ||
+    Boolean(filters.catalogStanding);
 
   return (
     <div className="wick-evidence-filters" data-testid="evidence-filters">
@@ -120,6 +121,16 @@ export function EvidenceFilters({
           options={options.stalenessValues}
           onValueChange={(staleness) => onChange({ ...filters, staleness })}
           testId="evidence-filter-staleness"
+        />
+        <FilterSelect
+          id="evidence-filter-standing"
+          label="Posição no catálogo"
+          value={filters.catalogStanding}
+          options={options.catalogStandings}
+          onValueChange={(catalogStanding) =>
+            onChange({ ...filters, catalogStanding })
+          }
+          testId="evidence-filter-standing"
         />
       </Inline>
       <div className="wick-evidence-filters__actions">

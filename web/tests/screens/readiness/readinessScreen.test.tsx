@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { AppForTest } from "../../../src/App";
 import {
@@ -16,9 +17,11 @@ function renderScenario(
   return {
     data,
     ...render(
-      <main>
-        <ReadinessScreenView data={data} />
-      </main>,
+      <MemoryRouter>
+        <main>
+          <ReadinessScreenView data={data} />
+        </main>
+      </MemoryRouter>,
     ),
   };
 }

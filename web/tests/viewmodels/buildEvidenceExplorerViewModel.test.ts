@@ -2,13 +2,18 @@ import { describe, expect, it } from "vitest";
 import {
   assertValidEvidenceSourcePath,
   buildEvidenceExplorerViewModel,
+  buildEvidenceExplorerHref,
+  parseEvidenceIdParam,
   clearEvidenceFilters,
   emptyEvidenceCriteria,
   filterEvidenceEntries,
   InvalidEvidenceSourcePathError,
   isValidEvidenceSourcePath,
+  isEvidenceCatalogStanding,
   mapEvidenceStatusToDomain,
   presentEvidenceStatus,
+  EVIDENCE_SAFETY_NOTICES,
+  EVIDENCE_EXPLORER_PATH,
   type EvidenceCatalogEntryInput,
   type EvidenceCatalogInput,
 } from "../../src/viewmodels";
@@ -34,6 +39,7 @@ function entry(
     unknownState: ["d"],
     governanceFlags: ["FLAG=true"],
     staleness: "CURRENT_AS_OF_FIXTURE",
+    catalogStanding: "current",
     ...overrides,
   };
 }
@@ -92,12 +98,13 @@ const SAMPLE_CATALOG: EvidenceCatalogInput = {
 };
 
 describe("buildEvidenceExplorerViewModel", () => {
-  it("returns all entries sorted by evidenceId with empty criteria", () => {
+  it("returns all entries sorted by standing rank then createdAt desc then id with empty criteria", () => {
     const vm = buildEvidenceExplorerViewModel(
       SAMPLE_CATALOG,
       emptyEvidenceCriteria(),
     );
     expect(vm.resultCount).toBe(4);
+    // All entries are "current" standing with same createdAt, so fallback to evidenceId asc
     expect(vm.summaries.map((s) => s.evidenceId)).toEqual([
       "ev-r3d",
       "ev-r3e",
@@ -243,5 +250,141 @@ describe("buildEvidenceExplorerViewModel", () => {
     );
     expect(vm.emptyState).toBe(true);
     expect(vm.noResultsState).toBe(false);
+  });
+
+  it("includes catalogStanding in summary and detail viewmodels", () => {
+    const vm = buildEvidenceExplorerViewModel(SAMPLE_CATALOG, {
+      searchQuery: "",
+      filters: {},
+      selectedEvidenceId: "ev-r3d",
+    });
+    const summary = vm.summaries.find((s) => s.evidenceId === "ev-r3d");
+    expect(summary?.catalogStanding).toBe("current");
+    expect(summary?.catalogStandingLabel).toBe("Atual");
+    expect(vm.selectedDetail?.catalogStanding).toBe("current");
+    expect(vm.selectedDetail?.catalogStandingLabel).toBe("Atual");
+  });
+
+  it("filters by catalogStanding", () => {
+    const catalog: EvidenceCatalogInput = {
+      entries: [
+        entry({ evidenceId: "ev-a", title: "A", catalogStanding: "current" }),
+        entry({
+          evidenceId: "ev-b",
+          title: "B",
+          catalogStanding: "historical",
+        }),
+      ],
+    };
+    const vm = buildEvidenceExplorerViewModel(catalog, {
+      searchQuery: "",
+      filters: { catalogStanding: "historical" },
+    });
+    expect(vm.summaries).toHaveLength(1);
+    expect(vm.summaries[0]?.evidenceId).toBe("ev-b");
+  });
+
+  it("sorts by standing rank: current before historical before superseded", () => {
+    const catalog: EvidenceCatalogInput = {
+      entries: [
+        entry({
+          evidenceId: "ev-sup",
+          title: "Superseded",
+          catalogStanding: "superseded",
+          createdAtOrUnknown: "2026-07-20T00:00:00.000Z",
+        }),
+        entry({
+          evidenceId: "ev-hist",
+          title: "Historical",
+          catalogStanding: "historical",
+          createdAtOrUnknown: "2026-07-20T00:00:00.000Z",
+        }),
+        entry({
+          evidenceId: "ev-cur",
+          title: "Current",
+          catalogStanding: "current",
+          createdAtOrUnknown: "2026-07-20T00:00:00.000Z",
+        }),
+        entry({
+          evidenceId: "ev-pend",
+          title: "Pending",
+          catalogStanding: "pending",
+          createdAtOrUnknown: "2026-07-20T00:00:00.000Z",
+        }),
+      ],
+    };
+    const vm = buildEvidenceExplorerViewModel(catalog, emptyEvidenceCriteria());
+    expect(vm.summaries.map((s) => s.catalogStanding)).toEqual([
+      "current",
+      "pending",
+      "historical",
+      "superseded",
+    ]);
+  });
+
+  it("filterOptions includes catalogStandings", () => {
+    const vm = buildEvidenceExplorerViewModel(
+      SAMPLE_CATALOG,
+      emptyEvidenceCriteria(),
+    );
+    expect(vm.filterOptions.catalogStandings.length).toBeGreaterThan(0);
+    const values = vm.filterOptions.catalogStandings.map((o) => o.value);
+    expect(values).toContain("current");
+  });
+
+  it("safety notices include R3D≠R3E and pending≠fault", () => {
+    expect(
+      EVIDENCE_SAFETY_NOTICES.some((n) => n.includes("R3D") && n.includes("R3E")),
+    ).toBe(true);
+    expect(
+      EVIDENCE_SAFETY_NOTICES.some(
+        (n) => n.includes("Pending") || n.includes("pending"),
+      ),
+    ).toBe(true);
+    expect(EVIDENCE_SAFETY_NOTICES.some((n) => n.includes("fault"))).toBe(true);
+  });
+});
+
+describe("evidenceDeepLink", () => {
+  it("builds correct href for evidence id", () => {
+    expect(buildEvidenceExplorerHref("ev-r3d")).toBe(
+      `${EVIDENCE_EXPLORER_PATH}?evidenceId=ev-r3d`,
+    );
+    expect(buildEvidenceExplorerHref("ev has spaces")).toBe(
+      `${EVIDENCE_EXPLORER_PATH}?evidenceId=ev%20has%20spaces`,
+    );
+  });
+
+  it("parses valid evidenceId from URLSearchParams", () => {
+    expect(parseEvidenceIdParam(new URLSearchParams("evidenceId=ev-r3d"))).toBe(
+      "ev-r3d",
+    );
+    expect(parseEvidenceIdParam(new URLSearchParams(""))).toBeNull();
+    expect(
+      parseEvidenceIdParam(new URLSearchParams("evidenceId=")),
+    ).toBeNull();
+  });
+
+  it("rejects unsafe evidenceId values", () => {
+    expect(
+      parseEvidenceIdParam(
+        new URLSearchParams("evidenceId=https://evil.com/x"),
+      ),
+    ).toBeNull();
+    expect(
+      parseEvidenceIdParam(new URLSearchParams("evidenceId=../etc/passwd")),
+    ).toBeNull();
+    expect(
+      parseEvidenceIdParam(new URLSearchParams("evidenceId=/absolute")),
+    ).toBeNull();
+  });
+
+  it("isEvidenceCatalogStanding guard works", () => {
+    expect(isEvidenceCatalogStanding("current")).toBe(true);
+    expect(isEvidenceCatalogStanding("pending")).toBe(true);
+    expect(isEvidenceCatalogStanding("historical")).toBe(true);
+    expect(isEvidenceCatalogStanding("superseded")).toBe(true);
+    expect(isEvidenceCatalogStanding("unknown")).toBe(false);
+    expect(isEvidenceCatalogStanding("")).toBe(false);
   });
 });

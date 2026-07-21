@@ -5,6 +5,7 @@ import {
 } from "../../src/fixtures";
 import {
   assertValidEvidenceSourcePath,
+  isEvidenceCatalogStanding,
   isEvidenceClass,
   isEvidenceDataOrigin,
   isEvidenceScientificStage,
@@ -24,9 +25,9 @@ describe("evidenceCatalog fixture", () => {
     expect(fixture.nowIso).toMatch(/Z$/);
   });
 
-  it("includes at least seven curated entries covering required themes", () => {
+  it("includes at least eleven curated entries covering required themes", () => {
     const { catalog } = getEvidenceCatalogFixture();
-    expect(catalog.entries.length).toBeGreaterThanOrEqual(7);
+    expect(catalog.entries.length).toBeGreaterThanOrEqual(11);
 
     const joined = catalog.entries
       .map((e) => `${e.title} ${e.summary} ${e.governanceFlags.join(" ")}`)
@@ -55,6 +56,7 @@ describe("evidenceCatalog fixture", () => {
       expect(isEvidenceDataOrigin(entry.dataOrigin)).toBe(true);
       expect(isEvidenceScientificStage(entry.scientificStage)).toBe(true);
       expect(isEvidenceStaleness(entry.staleness)).toBe(true);
+      expect(isEvidenceCatalogStanding(entry.catalogStanding)).toBe(true);
       expect(["SYNTHETIC_ILLUSTRATIVE", "GOVERNANCE_RECORD", "HISTORICAL_AUDITED", "EXPLORATORY_RECORDED"]).toContain(
         entry.dataOrigin,
       );

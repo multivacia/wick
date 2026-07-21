@@ -10,6 +10,7 @@ import type {
 } from "../viewmodels/evidenceExplorerTypes.js";
 import { assertValidEvidenceSourcePath } from "../viewmodels/evidenceSourcePath.js";
 import {
+  isEvidenceCatalogStanding,
   isEvidenceClass,
   isEvidenceDataOrigin,
   isEvidenceScientificStage,
@@ -58,6 +59,7 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "UX_R1_RELEASE_ACCEPTANCE_STATUS=ACCEPTED",
     ],
     staleness: "HISTORICAL",
+    catalogStanding: "historical",
   },
   {
     evidenceId: "ev-ux-r2-discovery-assessment",
@@ -94,6 +96,7 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "UX_R2_RECOMMENDED_DIRECTION=D_EVIDENCE_AND_AUDIT_EXPLORER",
     ],
     staleness: "CURRENT_AS_OF_FIXTURE",
+    catalogStanding: "current",
   },
   {
     evidenceId: "ev-ux-r2-i1-authorization",
@@ -132,6 +135,7 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "RECOMMENDED_ROUTE=/governance/evidence",
     ],
     staleness: "CURRENT_AS_OF_FIXTURE",
+    catalogStanding: "current",
   },
   {
     evidenceId: "ev-r3d-validation-conclusion",
@@ -168,6 +172,7 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "R3D_NEQ_R3E_REJECTED=true",
     ],
     staleness: "HISTORICAL",
+    catalogStanding: "historical",
   },
   {
     evidenceId: "ev-r3e-pending-future-unseen",
@@ -204,6 +209,7 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "FUTURE_UNSEEN_RESULTS_PRESENT=false",
     ],
     staleness: "CURRENT_AS_OF_FIXTURE",
+    catalogStanding: "current",
   },
   {
     evidenceId: "ev-fu-collection-readiness",
@@ -243,6 +249,7 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "FU_RESULT_PAYLOADS=absent",
     ],
     staleness: "PENDING_REFRESH",
+    catalogStanding: "pending",
   },
   {
     evidenceId: "ev-host-scheduler-operational-debt",
@@ -281,6 +288,142 @@ const ENTRIES: EvidenceCatalogEntryInput[] = [
       "SCHEDULER_ACTIVATION=BLOCKED",
     ],
     staleness: "CURRENT_AS_OF_FIXTURE",
+    catalogStanding: "current",
+  },
+  {
+    evidenceId: "ev-ux-r2-i1-impl-handoff",
+    title: "Handoff de implementação UX-R2 I1 — Evidence Explorer",
+    evidenceClass: "implementation_handoff",
+    release: "UX-R2",
+    increment: "I1",
+    experimentId: null,
+    status: "HANDOFF_COMPLETE",
+    dataOrigin: "GOVERNANCE_RECORD",
+    scientificStage: "NOT_APPLICABLE",
+    createdAtOrUnknown: "2026-07-21T00:00:00.000Z",
+    sourcePath: "reports/ai-implementation/UX-R2-I1-EVIDENCE-EXPLORER_IMPLEMENTATION_REPORT.md",
+    summary:
+      "Handoff de implementação do Evidence Explorer UX-R2 I1 — fixture-backed, somente leitura, catálogo curado. Não autoriza dados reais nem acesso a FS em runtime.",
+    supports: [
+      "UX_R2_I1_IMPL_STATUS=HANDOFF_COMPLETE",
+      "Architecture checkpoint e acceptance stamp registrados",
+    ],
+    limitations: [
+      "Catálogo permanece fixture-backed e somente leitura",
+      "Sem integração com backend, FS ou dados reais",
+    ],
+    knownState: [
+      "Evidence Explorer I1 entregue no escopo autorizado",
+      "Fixture id: evidence_catalog_current_state_illustrative",
+    ],
+    unknownState: [
+      "Incrementos futuros (I2+) dependem de nova autorização",
+    ],
+    governanceFlags: [
+      "UX_R2_I1_IMPL_STATUS=HANDOFF_COMPLETE",
+      "FIXTURE_BACKED=true",
+    ],
+    staleness: "CURRENT_AS_OF_FIXTURE",
+    catalogStanding: "current",
+  },
+  {
+    evidenceId: "ev-ux-r2-discovery-superseded-draft",
+    title: "Rascunho de avaliação de impacto UX-R2 (substituído)",
+    evidenceClass: "impact_assessment",
+    release: "UX-R2",
+    increment: null,
+    experimentId: null,
+    status: "SUPERSEDED",
+    dataOrigin: "GOVERNANCE_RECORD",
+    scientificStage: "NOT_APPLICABLE",
+    createdAtOrUnknown: "2026-07-17T00:00:00.000Z",
+    sourcePath: "docs/ai-impact/UX-R2-DISCOVERY-DRAFT-SUPERSEDED.md",
+    summary:
+      "Rascunho de avaliação de escopo UX-R2 substituído pela avaliação final ev-ux-r2-discovery-assessment. Mantido para rastreabilidade histórica.",
+    supports: [
+      "Rastreabilidade de versão anterior de escopo UX-R2",
+    ],
+    limitations: [
+      "Substituído — não usar como referência ativa",
+      "Direção recomendada documentada no registro final",
+    ],
+    knownState: ["Substituído por ev-ux-r2-discovery-assessment"],
+    unknownState: ["Nenhum item desconhecido relevante para este rascunho"],
+    governanceFlags: ["UX_R2_DISCOVERY_DRAFT_STATUS=SUPERSEDED"],
+    staleness: "HISTORICAL",
+    catalogStanding: "superseded",
+  },
+  {
+    evidenceId: "ev-r3e-readiness-safety-review",
+    title: "Revisão técnico-científica de prontidão R3E",
+    evidenceClass: "technical_scientific_review",
+    release: "R3E",
+    increment: null,
+    experimentId: "R3E",
+    status: "REVIEW_COMPLETE",
+    dataOrigin: "HISTORICAL_AUDITED",
+    scientificStage: "AUDITED_COMPLETE",
+    createdAtOrUnknown: "2026-06-15T00:00:00.000Z",
+    sourcePath: "docs/audits/R3E_READINESS_SAFETY_REVIEW.md",
+    summary:
+      "Revisão técnico-científica histórica de prontidão R3E: confirma separação R3D≠R3E e estado PENDING_FUTURE_UNSEEN_DATA. Não desbloqueia gate R3E.",
+    supports: [
+      "REVIEW_COMPLETE para prontidão R3E",
+      "Separação R3D≠R3E confirmada",
+    ],
+    limitations: [
+      "Revisão histórica — não substitui gate de dados futuros não vistos",
+      "Não desbloqueia R4",
+    ],
+    knownState: [
+      "Revisão de prontidão R3E concluída e auditada",
+      "R3D e R3E possuem conclusões e gates separados",
+    ],
+    unknownState: [
+      "Resultados em dados futuros não vistos permanecem fora deste registro",
+    ],
+    governanceFlags: [
+      "R3E_READINESS_REVIEW_STATUS=REVIEW_COMPLETE",
+      "R3D_NEQ_R3E_CONFIRMED=true",
+    ],
+    staleness: "HISTORICAL",
+    catalogStanding: "historical",
+  },
+  {
+    evidenceId: "ev-host-scheduler-activation-handoff",
+    title: "Handoff de ativação do agendador e host — decisão de adiamento",
+    evidenceClass: "implementation_handoff",
+    release: "R3E-B5",
+    increment: null,
+    experimentId: null,
+    status: "DEFERRED_HANDOFF",
+    dataOrigin: "GOVERNANCE_RECORD",
+    scientificStage: "NOT_APPLICABLE",
+    createdAtOrUnknown: "2026-07-08T00:00:00.000Z",
+    sourcePath: "reports/ai-implementation/R3E-B5-HOST-ACTIVATION-DEFERRED_HANDOFF.md",
+    summary:
+      "Handoff histórico registrando decisão de adiar ativação do agendador e host: SCHEDULER_ACTIVATION=DEFERRED_BY_DECISION. Dívida operacional ativa em ev-host-scheduler-operational-debt.",
+    supports: [
+      "SCHEDULER_ACTIVATION=DEFERRED_BY_DECISION documentado",
+      "Rastreabilidade da decisão de adiamento",
+    ],
+    limitations: [
+      "Não ativa scheduler",
+      "Decisão de adiamento permanece vigente",
+    ],
+    knownState: [
+      "Ativação do agendador adiada por decisão registrada",
+      "Dívida operacional ativa rastreada em ev-host-scheduler-operational-debt",
+    ],
+    unknownState: [
+      "Condições para ativação futura permanecem operacionalmente abertas",
+    ],
+    governanceFlags: [
+      "SCHEDULER_ACTIVATION=DEFERRED_BY_DECISION",
+      "HOST_ACTIVATION_HANDOFF_STATUS=COMPLETE",
+    ],
+    staleness: "HISTORICAL",
+    catalogStanding: "historical",
   },
 ];
 
@@ -300,6 +443,9 @@ function assertFixtureIntegrity(entries: EvidenceCatalogEntryInput[]): void {
     }
     if (!isEvidenceStaleness(entry.staleness)) {
       throw new Error(`Invalid staleness: ${entry.staleness}`);
+    }
+    if (!isEvidenceCatalogStanding(entry.catalogStanding)) {
+      throw new Error(`Invalid catalogStanding: ${entry.catalogStanding}`);
     }
     assertValidEvidenceSourcePath(entry.sourcePath);
     const blob = JSON.stringify(entry).toLowerCase();
@@ -328,8 +474,8 @@ export function getEvidenceCatalogFixture(): EvidenceCatalogFixture {
   return {
     metadata: fixtureMetadata(
       EVIDENCE_CATALOG_FIXTURE_ID,
-      "Catálogo de evidências — estado atual ilustrativo",
-      "Catálogo curado sintético para o Evidence Explorer (UX-R2 I1). Metadados e resumos apenas; sem acesso a arquivos nem resultados future-unseen.",
+      "Catálogo de evidências — estado atual ilustrativo (fixture-backed)",
+      "Catálogo curado sintético para o Evidence Explorer (UX-R2 I1–I5). Metadados e resumos ilustrativos apenas; sem acesso a arquivos, sem resultados future-unseen, sem evidência operacional real. Não representa estado de produção nem autoriza ações.",
     ),
     catalog: { entries: ENTRIES.map((e) => ({ ...e })) },
     nowIso: EVIDENCE_CATALOG_NOW_ISO,

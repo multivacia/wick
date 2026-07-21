@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { AppForTest } from "../../../src/App";
 import {
@@ -13,9 +14,11 @@ function renderScenario(fixtureId: Parameters<typeof loadRunsScreenData>[0]) {
   return {
     data,
     ...render(
-      <main>
-        <RunsScreenView data={data} />
-      </main>,
+      <MemoryRouter>
+        <main>
+          <RunsScreenView data={data} />
+        </main>
+      </MemoryRouter>,
     ),
   };
 }

@@ -101,3 +101,28 @@ export function isEvidenceScientificStage(
 ): value is EvidenceScientificStage {
   return (EVIDENCE_SCIENTIFIC_STAGES as readonly string[]).includes(value);
 }
+
+export const EVIDENCE_CATALOG_STANDINGS = [
+  "current",
+  "pending",
+  "historical",
+  "superseded",
+] as const;
+
+export type EvidenceCatalogStanding = (typeof EVIDENCE_CATALOG_STANDINGS)[number];
+
+export const EVIDENCE_CATALOG_STANDING_LABELS: Record<
+  EvidenceCatalogStanding,
+  string
+> = {
+  current: "Atual",
+  pending: "Pendente",
+  historical: "Histórico",
+  superseded: "Substituído",
+};
+
+export function isEvidenceCatalogStanding(
+  value: string,
+): value is EvidenceCatalogStanding {
+  return (EVIDENCE_CATALOG_STANDINGS as readonly string[]).includes(value);
+}

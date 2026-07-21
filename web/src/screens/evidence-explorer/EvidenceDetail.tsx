@@ -9,6 +9,16 @@ export type EvidenceDetailProps = {
   onClearSelection: () => void;
 };
 
+function isPendingOrBlocked(status: string): boolean {
+  const n = status.trim().toLowerCase();
+  return (
+    n.includes("pending") ||
+    n.includes("blocked") ||
+    n.includes("not_ready") ||
+    n.includes("deferred")
+  );
+}
+
 function Field({
   label,
   children,
@@ -108,6 +118,16 @@ export function EvidenceDetail({
         Voltar à lista
       </Button>
 
+      {isPendingOrBlocked(detail.status) ? (
+        <p
+          className="wick-evidence-muted"
+          data-testid="evidence-detail-pending-not-fault"
+        >
+          Nota: PENDING / BLOCKED / NOT_READY descrevem estado de processo —
+          não indicam falha científica ou operacional.
+        </p>
+      ) : null}
+
       <p
         className="wick-evidence-primary"
         data-testid="evidence-detail-summary"
@@ -139,6 +159,9 @@ export function EvidenceDetail({
         </Field>
         <Field label="Atualidade" testId="evidence-detail-staleness">
           {detail.stalenessLabel} (<code>{detail.staleness}</code>)
+        </Field>
+        <Field label="Posição no catálogo" testId="evidence-detail-standing">
+          {detail.catalogStandingLabel} (<code>{detail.catalogStanding}</code>)
         </Field>
         <Field label="Criado em" testId="evidence-detail-created">
           {detail.createdAtOrUnknown}

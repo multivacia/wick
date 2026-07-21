@@ -5,6 +5,7 @@ import { PartialUnknownState } from "./PartialUnknownState";
 import { RunsCollection } from "./RunsCollection";
 import { RunsSummary } from "./RunsSummary";
 import { SyntheticDataNotice } from "./SyntheticDataNotice";
+import { RelatedEvidenceLinks } from "../shared/RelatedEvidenceLinks";
 import "./runs.css";
 
 export type RunsScreenViewProps = {
@@ -45,6 +46,22 @@ export function RunsScreenView({ data }: RunsScreenViewProps) {
         runs={runs.runs}
         summaryTechnicalCode={runs.primaryMessage.technicalCode}
       />
+
+      <Section title="Evidências relacionadas" className="wick-runs-section">
+        <RelatedEvidenceLinks
+          items={[
+            {
+              evidenceId: "ev-fu-collection-readiness",
+              label: "Prontidão de coleta future-unseen",
+            },
+            {
+              evidenceId: "ev-r3e-pending-future-unseen",
+              label: "Estado R3E — gate pendente",
+            },
+          ]}
+          title="Catálogo de evidências de governança"
+        />
+      </Section>
     </Stack>
   );
 }

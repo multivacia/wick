@@ -220,6 +220,35 @@
   font-size: var(--wick-font-size-label);
 }
 
+.wick-related-evidence {
+  margin-top: var(--wick-raw-space-3);
+}
+
+.wick-related-evidence__title {
+  margin: 0 0 var(--wick-raw-space-1);
+  color: var(--wick-color-text-secondary);
+  font-size: var(--wick-font-size-label);
+  font-weight: var(--wick-font-weight-emphasis);
+}
+
+.wick-related-evidence__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: var(--wick-font-size-label);
+}
+
+.wick-related-evidence__list li {
+  margin-bottom: var(--wick-raw-space-1);
+}
+
+.wick-evidence-list__item-provenance {
+  display: block;
+}
+
+.wick-evidence-list__item-standing {
+  font-style: italic;
+}
+
 @media (max-width: 48rem) {
   .wick-evidence-split {
     grid-template-columns: minmax(0, 1fr);

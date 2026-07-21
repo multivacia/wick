@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { AppForTest } from "../../../src/App";
 import {
@@ -14,9 +15,11 @@ function renderProduct() {
   return {
     data,
     ...render(
-      <main>
-        <R3eExperimentScreenView data={data} />
-      </main>,
+      <MemoryRouter>
+        <main>
+          <R3eExperimentScreenView data={data} />
+        </main>
+      </MemoryRouter>,
     ),
   };
 }
