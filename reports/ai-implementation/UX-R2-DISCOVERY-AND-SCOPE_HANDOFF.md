@@ -76,8 +76,8 @@ FRONTEND_TESTS = PASS
 FRONTEND_A11Y = PASS
 FRONTEND_BUILD = PASS
 FRONTEND_AUDIT = PASS
-CI_STATUS = PENDING
-PR_MERGEABLE = PENDING
+CI_STATUS = GREEN
+PR_MERGEABLE = true
 
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
 REPOSITORY = multivacia/wick
@@ -93,6 +93,8 @@ CREATED_BY = cursor-agent
 - Review: `docs/ai-reviews/UX-R2-DISCOVERY-AND-SCOPE_REVIEW.md`
 - UX-R1 closure: `docs/releases/UX-R1-FORMAL-RELEASE-CLOSURE-AND-ACCEPTANCE.md`
 - Prerequisite tip: `441c076365ae63f2c827328efb77f10aa54b1a3f`
+- Draft PR: https://github.com/multivacia/wick/pull/112
+- Actual tip (may lag handoff PR_TIP by metadata commits): see PR body `PR_TIP`
 
 ## Official operational wording preserved
 
