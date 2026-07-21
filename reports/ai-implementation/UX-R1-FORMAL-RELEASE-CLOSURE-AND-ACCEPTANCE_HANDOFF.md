@@ -12,7 +12,7 @@ PR = 110
 PR_URL = https://github.com/multivacia/wick/pull/110
 BRANCH = cursor/ux-r1-formal-release-closure-stamp-04f5
 BASE_SHA = 00576a3b2faa34150bf99eb010ba914e92052534
-PR_TIP = 92877b104289059b7be02127e6e3e100c5d04616
+PR_TIP = 62a8532c089ead41ab3bbd8ef0062e3757a38b77
 FINAL_CANDIDATE_HEAD = 92877b104289059b7be02127e6e3e100c5d04616
 CONTENT_REVIEWED_THROUGH_HEAD = 92877b104289059b7be02127e6e3e100c5d04616
 POST_REVIEW_NORMATIVE_CHANGES = 0
@@ -79,13 +79,13 @@ FRONTEND_TESTS = PASS
 FRONTEND_A11Y = PASS
 FRONTEND_BUILD = PASS
 FRONTEND_AUDIT = PASS
-CI_STATUS = PENDING
-PR_MERGEABLE = PENDING
+CI_STATUS = GREEN
+PR_MERGEABLE = true
 
 NEXT_RECOMMENDED_TASK = UX_R2_DISCOVERY_AND_SCOPE_ASSESSMENT
 NEXT_ITEM = UX_R2_SEPARATE_DISCOVERY_AND_SCOPE_ASSESSMENT
 MERGE_STATUS = AWAITING_HUMAN_AUTHORIZATION
-FINAL_RECOMMENDATION = Merge this docs-only stamp PR when CI is green to formally close and accept UX-R1 within the fixture-backed read-only boundary. Do not start UX-R2, real-data work, validation, effect peeking, scheduler activation, or R4/R5 from this stamp. Keep PARALLEL_TASKS_ALLOWED=false until a separate human-authorized task.
+FINAL_RECOMMENDATION = Merge this docs-only stamp PR when human-authorized to formally close and accept UX-R1 within the fixture-backed read-only boundary. Do not start UX-R2, real-data work, validation, effect peeking, scheduler activation, or R4/R5 from this stamp. Keep PARALLEL_TASKS_ALLOWED=false until a separate human-authorized task.
 
 REPOSITORY = multivacia/wick
 BASE_BRANCH = main
