@@ -1,0 +1,232 @@
+# UX-R2 / I1 — Evidence Explorer Authorization Assessment Specification
+
+```text
+RELEASE = UX-R2
+INCREMENT = I1
+TASK_ID = EVIDENCE-EXPLORER-AUTHORIZATION-ASSESSMENT-001
+PHASE = IMPLEMENTATION_AUTHORIZATION_ASSESSMENT
+CHANGE_RISK = HIGH
+SPEC_STATUS = DRAFT_FOR_ASSESSMENT
+DECISION = AUTHORIZED_WITH_CONDITIONS
+ASSESSMENT_ONLY = true
+
+IMPLEMENTATION_EXECUTION_AUTHORIZED = false
+UX_R2_I1_IMPLEMENTATION_AUTHORIZED = false
+EVIDENCE_EXPLORER_IMPLEMENTATION_AUTHORIZED = false
+PRODUCT_CODE_AUTHORIZED = false
+UI_SCREEN_IMPLEMENTATION_AUTHORIZED = false
+VIEWMODEL_IMPLEMENTATION_AUTHORIZED = false
+FIXTURE_IMPLEMENTATION_AUTHORIZED = false
+REAL_DATA_INTEGRATION_AUTHORIZED = false
+REPOSITORY_FILE_READ_INTEGRATION_AUTHORIZED = false
+FUTURE_UNSEEN_RESULTS_ACCESS_AUTHORIZED = false
+VALIDATION_EXECUTION_AUTHORIZED = false
+EFFECT_PEEKING_AUTHORIZED = false
+SCIENTIFIC_INTERPRETATION_CHANGE_AUTHORIZED = false
+REAL_HOST_DISCOVERY_AUTHORIZED = false
+SCHEDULER_ACTIVATION_AUTHORIZED = false
+OPERATIONAL_ACTIONS_AUTHORIZED = false
+R4_STATE_CHANGE_AUTHORIZED = false
+R5_STATE_CHANGE_AUTHORIZED = false
+PARALLEL_TASKS_ALLOWED = false
+```
+
+## 1. Purpose
+
+Define the exact authorized boundary for a future Evidence Explorer implementation. This specification does **not** authorize execution.
+
+## 2. Primary user journey
+
+```text
+PRIMARY_USER_JOURNEY =
+  Open Evidências → browse curated evidence list → open detail →
+  inspect summary/metadata/known/unknown/limitations → exit.
+  No state-changing actions.
+```
+
+## 3. Route and navigation
+
+```text
+RECOMMENDED_ROUTE = /governance/evidence
+RECOMMENDED_NAV_LABEL = Evidências
+CANDIDATE_ROUTE_REJECTED = /evidence
+REJECTION_REASON = Prefer namespaced governance path aligned with IA and existing route patterns
+NAV_SCOPE = Activate planned Evidências item only; leave Backlog/Aprovações inactive
+```
+
+## 4. Implementation posture
+
+```text
+RECOMMENDED_IMPLEMENTATION_POSTURE = A_STATIC_FIXTURE_BACKED_EVIDENCE_CATALOG
+```
+
+Deferred: B (build-time), C (runtime curated read), E (backend API), F (hybrid).  
+Blocked: D (runtime filesystem browsing).
+
+## 5. Implementation boundary
+
+```text
+RECOMMENDED_IMPLEMENTATION_BOUNDARY =
+  EVIDENCE_EXPLORER_SCREEN_ONLY;
+  FIXTURE_BACKED;
+  READ_ONLY;
+  CURATED_MANIFEST_ONLY;
+  LIST_AND_DETAIL;
+  NO_VISIBLE_FIXTURE_SELECTOR;
+  NO_RUNTIME_REPOSITORY_ACCESS;
+  NO_RAW_FILESYSTEM_ACCESS;
+  NO_REAL_DATA;
+  NO_FUTURE_UNSEEN_RESULTS;
+  NO_VALIDATION_EXECUTION;
+  NO_EFFECT_PEEKING;
+  NO_OPERATIONAL_ACTIONS;
+  NO_DOWNLOADS;
+  NO_RAW_MARKDOWN_REPO_RENDERING;
+  SUMMARY_AND_METADATA_ONLY;
+  SYNTHETIC_DISCLOSURE_REQUIRED;
+  DEDICATED_VIEWMODEL_REQUIRED;
+  DEDICATED_FIXTURE_REQUIRED;
+  NO_SCIENTIFIC_NUMERIC_RESULT_TABLES;
+  NO_APPROVAL_OR_GATE_CONTROLS
+```
+
+## 6. Evidence classes and sources
+
+```text
+ALLOWED_EVIDENCE_CLASSES =
+  release_record;
+  implementation_handoff;
+  impact_assessment;
+  technical_scientific_review;
+  experiment_specification;
+  validation_report;
+  collection_readiness_evidence;
+  operational_debt_record
+
+ALLOWED_SOURCE_PATH_PREFIXES_AS_METADATA_ONLY =
+  docs/releases/;
+  docs/ai-impact/;
+  docs/ai-reviews/;
+  docs/ai-specs/;
+  docs/audits/;
+  reports/ai-implementation/
+
+ALLOWED_FILE_TYPE_LABELS = .md;.json
+
+FORBIDDEN_SOURCE_PREFIXES =
+  reports/r3e_future_unseen/;
+  .env;
+  secrets/;
+  credentials;
+  **/*secret*
+```
+
+`sourcePath` is display metadata only. Runtime open/read is forbidden in I1.
+
+## 7. Metadata, content, search, filter, link, download policies
+
+```text
+ALLOWED_METADATA_FIELDS =
+  evidenceId;title;evidenceClass;release;increment;experimentId;status;
+  dataOrigin;scientificStage;freshnessLabel;createdAtOrUnknown;sourcePath;
+  summary;supports;limitations;knownState;unknownState;governanceFlags
+
+CONTENT_RENDERING_POLICY = SUMMARY_AND_METADATA_ONLY_PLAIN_STRUCTURED_FIELDS
+SEARCH_POLICY = OPTIONAL_CLIENT_SIDE_OVER_APPROVED_METADATA_FIELDS_ONLY
+FILTER_POLICY = evidenceClass;release;status;scientificStage;dataOrigin
+LINK_POLICY = NON_NAVIGATING_PATH_TEXT_ONLY_NO_EXTERNAL_HREFS
+DOWNLOAD_POLICY = FORBIDDEN
+STALE_EVIDENCE_POLICY = freshnessLabel_REQUIRED_NON_CURRENT_PROMINENT
+SCIENTIFIC_NUMERIC_RESULT_POLICY = FORBIDDEN_IN_I1
+```
+
+## 8. Scientific protections
+
+```text
+FUTURE_UNSEEN_PROTECTION = NO_FU_PAYLOAD_FIELDS_OR_PATHS; STATUS_TEXT_ONLY_IF_NEEDED
+EFFECT_PEEKING_PROTECTION = READ_ONLY_UI; NO_VALIDATE_OR_COLLECTION_ACTIONS
+R3D_R3E_DISTINCTION = SEPARATE_EXPERIMENT_ID_AND_STAGE; NO_MERGED_CONCLUSIONS
+PATH_TRAVERSAL_PROTECTION = NO_RUNTIME_FS; ALLOWLIST_METADATA; REJECT_DOTDOT
+UNSAFE_CONTENT_PROTECTION = NO_HTML_MD_REPO_RENDER; NO_DANGERouslySetInnerHTML
+```
+
+## 9. Architecture requirements
+
+```text
+DEDICATED_VIEWMODEL_REQUIRED = true
+DEDICATED_FIXTURE_OR_MANIFEST_REQUIRED = true
+BACKEND_REQUIRED = false
+RUNTIME_REPOSITORY_ACCESS_REQUIRED = false
+```
+
+Pattern: follow UX-R1 I6 screen pattern (pure ViewModel builder + synthetic fixture + screen + architecture boundary tests + a11y).
+
+## 10. Required tests (future implementation)
+
+```text
+REQUIRED_TESTS =
+  VIEWMODEL_UNIT;
+  FIXTURE_CONTRACT_ENUMS_AND_ALLOWLIST;
+  ARCHITECTURE_BOUNDARY_NO_FETCH_NO_FS_NO_FU_IMPORTS;
+  SCREEN_LIST_AND_DETAIL;
+  SYNTHETIC_DISCLOSURE_VISIBLE;
+  A11Y;
+  RESPONSIVE_LAYOUT;
+  NO_DOWNLOAD_CONTROLS;
+  NO_APPROVAL_CONTROLS;
+  R3D_R3E_COPY_DISTINCT
+```
+
+## 11. Explicit out of scope
+
+```text
+EXPLICIT_OUT_OF_SCOPE =
+  PRODUCT_CODE_IN_THIS_ASSESSMENT;
+  REAL_DATA_ADAPTERS;
+  REPOSITORY_OR_FS_RUNTIME_READ;
+  BUILD_TIME_DOC_INGESTION;
+  BACKEND_EVIDENCE_API;
+  DOWNLOADS;
+  RAW_MARKDOWN_FROM_REPO;
+  APPROVALS_WORKFLOW;
+  HOST_OR_SCHEDULER_UI;
+  COLLECTION_OR_VALIDATE;
+  FUTURE_UNSEEN_RESULT_PAYLOADS;
+  SCIENTIFIC_NUMERIC_TABLES;
+  R4_UNLOCK;
+  R5_START;
+  PARALLEL_TASKS
+```
+
+## 12. Pre-implementation gates and next task
+
+```text
+REQUIRED_PRE_IMPLEMENTATION_GATES =
+  THIS_ASSESSMENT_MERGED;
+  SEPARATE_HUMAN_IMPLEMENTATION_AUTHORIZATION;
+  BOUNDARY_TESTS_GREEN;
+  FIXTURE_AND_A11Y_GATES
+
+NEXT_RECOMMENDED_TASK = UX_R2_I1_EVIDENCE_EXPLORER_IMPLEMENTATION
+NEXT_ITEM = UX_R2_I1_EVIDENCE_EXPLORER_SEPARATE_IMPLEMENTATION_TASK
+```
+
+## 13. Invariants
+
+```text
+HOST_DISCOVERY = DEFERRED
+OPERATIONAL_DEBT = OPEN
+SCHEDULER_ACTIVATION = BLOCKED
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
+COLLECTION = IN_PROGRESS
+READINESS = NOT_READY
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+R4_STATUS = BLOCKED
+R5_STATUS = NOT_STARTED
+SCIENTIFIC_CONCLUSION = UNCHANGED
+```
+
+```text
+Débito técnico-operacional aceito e registrado. O projeto segue nas frentes não dependentes, sem considerar a ativação concluída.
+```
