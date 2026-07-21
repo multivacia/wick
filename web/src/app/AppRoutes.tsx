@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ApplicationShell } from "../shell/ApplicationShell";
 import { RoutePlaceholder } from "../shell/RoutePlaceholder";
 import { NOT_FOUND_PLACEHOLDER } from "../shell/navigation";
+import { EvidenceExplorerScreen } from "../screens/evidence-explorer";
 import { HostSchedulerScreen } from "../screens/host-scheduler";
 import { OverviewScreen } from "../screens/overview";
 import { ReadinessScreen } from "../screens/readiness";
@@ -24,6 +25,10 @@ export function AppRoutes() {
           element={<HostSchedulerScreen />}
         />
         <Route path="experiments/r3e" element={<R3eExperimentScreen />} />
+        <Route
+          path="governance/evidence"
+          element={<EvidenceExplorerScreen />}
+        />
         <Route
           path="not-found"
           element={<RoutePlaceholder model={NOT_FOUND_PLACEHOLDER} />}

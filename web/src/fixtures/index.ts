@@ -37,3 +37,10 @@ export {
   UnknownFixtureError,
   type FixtureViewModels,
 } from "./catalog.js";
+
+export {
+  EVIDENCE_CATALOG_FIXTURE_ID,
+  EVIDENCE_CATALOG_NOW_ISO,
+  getEvidenceCatalogFixture,
+  type EvidenceCatalogFixture,
+} from "./evidenceCatalog.js";

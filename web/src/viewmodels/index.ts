@@ -81,3 +81,60 @@ export {
   absentTimestamp,
   metricPresentation,
 } from "./time.js";
+
+export {
+  EVIDENCE_CLASSES,
+  EVIDENCE_STALENESS_VALUES,
+  EVIDENCE_DATA_ORIGINS,
+  EVIDENCE_SCIENTIFIC_STAGES,
+  EVIDENCE_CLASS_LABELS,
+  EVIDENCE_STALENESS_LABELS,
+  EVIDENCE_DATA_ORIGIN_LABELS,
+  EVIDENCE_SCIENTIFIC_STAGE_LABELS,
+  isEvidenceClass,
+  isEvidenceStaleness,
+  isEvidenceDataOrigin,
+  isEvidenceScientificStage,
+  type EvidenceClass,
+  type EvidenceStaleness,
+  type EvidenceDataOrigin,
+  type EvidenceScientificStage,
+} from "./evidenceEnums.js";
+
+export {
+  assertValidEvidenceSourcePath,
+  isValidEvidenceSourcePath,
+  InvalidEvidenceSourcePathError,
+} from "./evidenceSourcePath.js";
+
+export type {
+  EvidenceCatalogEntryInput,
+  EvidenceCatalogInput,
+  EvidenceExplorerFilters,
+  EvidenceExplorerCriteria,
+  EvidenceFilterOption,
+  EvidenceStatusPresentation,
+  EvidenceSummaryItem,
+  EvidenceDetailViewModel,
+  EvidenceExplorerFilterOptions,
+  EvidenceExplorerViewModel,
+} from "./evidenceExplorerTypes.js";
+
+export {
+  matchesEvidenceSearch,
+  matchesEvidenceFilters,
+  filterEvidenceEntries,
+  clearEvidenceFilters,
+  emptyEvidenceCriteria,
+} from "./filterEvidenceCatalog.js";
+
+export {
+  buildEvidenceExplorerViewModel,
+  mapEvidenceStatusToDomain,
+  presentEvidenceStatus,
+  EVIDENCE_EXPLORER_PAGE_TITLE,
+  EVIDENCE_EXPLORER_PAGE_DESCRIPTION,
+  EVIDENCE_CATALOG_DISCLOSURE,
+  EVIDENCE_SOURCE_PATH_DISCLAIMER,
+  EVIDENCE_SAFETY_NOTICES,
+} from "./buildEvidenceExplorerViewModel.js";
