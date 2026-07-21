@@ -47,7 +47,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R1_RELEASE_ACCEPTED | **true** |
 | UX_R1_RELEASE_ACCEPTANCE_WORDING | **UX-R1 fixture-backed read-only scope is complete and governed.** |
 | Formal closure record | `docs/releases/UX-R1-FORMAL-RELEASE-CLOSURE-AND-ACCEPTANCE.md` |
-| UX_R2_STATUS / UX-R2_STATUS | **I1_AUTHORIZATION_ASSESSMENT_COMPLETE_AWAITING_MERGE** |
+| UX_R2_STATUS / UX-R2_STATUS | **I1_AUTHORIZATION_ASSESSMENT_MERGED** |
 | UX_R2_DISCOVERY_ASSESSMENT_STATUS | **MERGED** |
 | UX_R2_DISCOVERY_AND_SCOPE_STATUS | **MERGED** |
 | UX_R2_DISCOVERY_DECISION | **SCOPE_RECOMMENDED** |
