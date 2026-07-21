@@ -8,8 +8,8 @@ TASK_ID = R3E-EXPERIMENT-SCREEN-IMPLEMENTATION-001
 PHASE = IMPLEMENTATION
 CHANGE_RISK = HIGH
 
-PR = PENDING
-PR_URL = PENDING
+PR = 106
+PR_URL = https://github.com/multivacia/wick/pull/106
 BRANCH = cursor/ux-r1-i6m-r3e-experiment-screen-04f5
 BASE_SHA = 04e3bfe0adc6b373a81ba080cf49ded5ca03b324
 PR_TIP = PENDING

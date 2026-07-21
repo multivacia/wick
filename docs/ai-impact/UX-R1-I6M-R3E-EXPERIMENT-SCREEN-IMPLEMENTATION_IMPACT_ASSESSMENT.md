@@ -275,8 +275,46 @@ responsive + axe + architecture boundary
 | Incluir tabelas de `R3E_REAL_DATA_RESULTS.md` | REJECTED — risco de interpretação econômica |
 | Autorizar validate / effect peeking | REJECTED — fora do boundary |
 | Rota `/research/r3e` | REJECTED — I6L |
+| Seletor visível de fixtures | REJECTED — fixture fixo interno |
+| Dependências novas | REJECTED |
+| Implementar em paralelo com outras telas | REJECTED — PARALLEL_TASKS_ALLOWED=false |
 
-## 15. Decisão
+## 15. Riscos
+
+| Risco | Severidade | Mitigação |
+|-------|------------|-----------|
+| Scope creep to real data / validate / peeking | HIGH | Architecture boundary + acceptance flags |
+| Synthetic mistaken for scientific proof | HIGH | Mandatory SyntheticDataNotice + illustrative labels |
+| R3D NO_MEASURABLE_EDGE read as R3E rejection | HIGH | Explicit distinction section + tests |
+| PENDING_FUTURE_UNSEEN_DATA read as FAILED | HIGH | FutureUnseenGate copy + tests |
+| Fabricated p-values / returns / Sharpe | HIGH | ViewModel forbids metrics; fixture qualitative only |
+| Trading / profitability implication | HIGH | Guardrail copy + negative claim tests |
+| Accidental R4/R5 unlock language | HIGH | Explicit BLOCKED / NOT_STARTED fields + tests |
+
+## 16. Questões abertas
+
+```text
+NONE_BLOCKING
+MERGE = remains unauthorized until separate human merge authorization
+FUTURE_NUMERIC_RESULTS_UI = not authorized in this increment
+```
+
+## 17. Decisão arquitetural recomendada
+
+Screen module under `web/src/screens/r3e-experiment/`; dedicated `R3eExperimentViewModel` + fixture `r3e_experiment_current_state_illustrative`; assemble via I6C `buildFixtureViewModels`; reuse I3 primitives; token-only CSS; activate `/experiments/r3e` and nav **Experimento R3E**; preserve Overview/Runs/Readiness/Host; WCAG 2.2 AA; zero new dependencies.
+
+## 18. Critérios para autorizar implementação
+
+```text
+1. This impact IMPACT_ASSESSMENT_STATUS = APPROVED
+2. IMPLEMENTATION_AUTHORIZED = true
+3. R3E_EXPERIMENT_SCREEN_IMPLEMENTATION_AUTHORIZED = true (human task)
+4. I6L AUTHORIZED_WITH_CONDITIONS assessment MERGED
+5. Scope limited to R3E explanatory screen + ViewModel + fixture + tests + governance
+6. R3E_EXPERIMENT_SCREEN_MERGE_AUTHORIZED remains false until human merge
+```
+
+All criteria satisfied for proceeding with I6M R3E Experiment screen code in this task/PR.
 
 ```text
 IMPACT_ASSESSMENT_STATUS = APPROVED
@@ -285,5 +323,3 @@ IMPLEMENTATION_EXECUTION_AUTHORIZED = true
 R3E_EXPERIMENT_SCREEN_IMPLEMENTATION_AUTHORIZED = true
 R3E_EXPERIMENT_SCREEN_MERGE_AUTHORIZED = false
 ```
-
-Proceed with implementation under the mandatory constraints above. Fresh independent review required after implementation. Do not merge without separate human merge authorization.
