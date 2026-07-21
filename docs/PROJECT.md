@@ -47,7 +47,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R1_RELEASE_ACCEPTED | **true** |
 | UX_R1_RELEASE_ACCEPTANCE_WORDING | **UX-R1 fixture-backed read-only scope is complete and governed.** |
 | Formal closure record | `docs/releases/UX-R1-FORMAL-RELEASE-CLOSURE-AND-ACCEPTANCE.md` |
-| UX_R2_STATUS / UX-R2_STATUS | **REMAINING_RELEASE_SINGLE_EXECUTION_MERGED** |
+| UX_R2_STATUS / UX-R2_STATUS | **FINAL_CLOSURE_ASSESSMENT_READY** |
 | UX_R2_DISCOVERY_ASSESSMENT_STATUS | **MERGED** |
 | UX_R2_DISCOVERY_AND_SCOPE_STATUS | **MERGED** |
 | UX_R2_DISCOVERY_DECISION | **SCOPE_RECOMMENDED** |
@@ -77,7 +77,17 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R2_FINAL_REVIEW_STATUS | **APPROVED** |
 | UX_R2_EXECUTION_MODEL | **SINGLE_BRANCH_SINGLE_PR_SINGLE_FINAL_VALIDATION** |
 | UX_R2_RELEASE_STATUS | **NOT_YET_FORMALLY_CLOSED** |
-| UX_R2_RELEASE_ACCEPTANCE_STATUS | **NOT_YET_ASSESSED** |
+| UX_R2_RELEASE_ACCEPTANCE_STATUS | **ASSESSMENT_COMPLETE_STAMP_PENDING** |
+| UX_R2_FINAL_CLOSURE_AND_ACCEPTANCE_ASSESSMENT_STATUS | **COMPLETE** (draft PR pending merge) |
+| UX_R2_FINAL_CLOSURE_AND_ACCEPTANCE_DECISION | **CLOSURE_AND_ACCEPTANCE_RECOMMENDED** |
+| UX_R2_PROPOSED_RELEASE_STATUS | **CLOSED** (proposed only; not stamped) |
+| UX_R2_PROPOSED_RELEASE_ACCEPTANCE_STATUS | **ACCEPTED** (proposed only; not stamped) |
+| UX_R2_PROPOSED_RELEASE_SCOPE | **FIXTURE_BACKED_EVIDENCE_AND_AUDIT_EXPLORATION** |
+| UX_R2_PROPOSED_ACCEPTANCE_WORDING | **UX-R2 fixture-backed evidence and audit exploration scope is complete, accepted, and governed.** |
+| UX_R2_RELEASE_CLOSURE_AUTHORIZED | **false** |
+| UX_R2_RELEASE_ACCEPTANCE_AUTHORIZED | **false** |
+| UX_R2_RELEASE_STAMP_AUTHORIZED | **false** |
+| UX_R3_START_AUTHORIZED | **false** |
 | UX_R2_REMAINING_RELEASE_FROZEN_SCOPE_STATUS | **FROZEN** |
 | UX_R2_REMAINING_RELEASE_DECISION | **AUTHORIZED_FOR_SINGLE_EXECUTION_WITH_CONDITIONS** |
 | UX_R2_REMAINING_INCREMENT_LIST | **I2 catalog history; I3 provenance UX; I4 cross-navigation; I5 fixture closure** |
@@ -86,7 +96,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R2_SINGLE_PR_EXECUTION_AUTHORIZED | **true** (consumed by PR #120 merge) |
 | UX_R2_SINGLE_FINAL_VALIDATION_AUTHORIZED | **true** (consumed by PR #120 merge) |
 | UX_R2_IMPLEMENTATION_AUTHORIZED | **true** (I1 + I2–I5 Evidence Explorer remaining release MERGED) |
-| UX_R2_PRODUCT_CODE_AUTHORIZED | **true** (I1 + I2–I5 MERGED; no further UX-R2 product code authorized pending closure) |
+| UX_R2_PRODUCT_CODE_AUTHORIZED | **false** (I1 + I2–I5 MERGED; no further UX-R2 product code; stamp task docs-only) |
 | UX_R2_I1_IMPLEMENTATION_AUTHORIZED | **true** |
 | EVIDENCE_EXPLORER_IMPLEMENTATION_AUTHORIZED | **true** |
 | EVIDENCE_EXPLORER_MERGE_AUTHORIZED | **true** (consumed by PR #116 merge) |
@@ -129,7 +139,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R2_FINAL_RELEASE_CLOSURE_AND_ACCEPTANCE_ASSESSMENT** (I2–I5 MERGED; UX-R2 not yet formally CLOSED/ACCEPTED) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R2_RELEASE_CLOSURE_STAMP** (assessment recommends CLOSED/ACCEPTED; stamp unauthorized) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -203,8 +213,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | SCIENTIFIC_INTERPRETATION_CHANGE_AUTHORIZED | **false** |
 | R4_STATE_CHANGE_AUTHORIZED | **false** |
 | R5_STATE_CHANGE_AUTHORIZED | **false** |
-| NEXT_RECOMMENDED_TASK | **UX_R2_FINAL_RELEASE_CLOSURE_AND_ACCEPTANCE_ASSESSMENT** |
-| NEXT_ITEM | **UX_R2_SEPARATE_FINAL_RELEASE_CLOSURE** |
+| NEXT_RECOMMENDED_TASK | **UX_R2_RELEASE_CLOSURE_STAMP** |
+| NEXT_ITEM | **UX_R2_FORMAL_ACCEPTANCE_AND_STATUS_STAMP** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -499,3 +509,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-21 | UX-R2 I2–I5 single-branch execution | Catalog history, provenance, cross-nav, closure; draft PR #120 | final review APPROVED; awaits human validation |
 | 2026-07-21 | Merge PR #120 UX-R2 I2–I5 single execution | Remaining Evidence Explorer MERGED; sem backend/rotas/deps | `UX_R2_REMAINING_RELEASE_SINGLE_EXECUTION_STATUS=MERGED`; NEXT=final closure assessment |
 | 2026-07-21 | Post-merge closure I2–I5 execution (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | UX-R2 ainda NOT_YET_FORMALLY_CLOSED; `PARALLEL_TASKS_ALLOWED=false` |
+| 2026-07-21 | UX-R2 final closure and acceptance assessment | Docs-only; CLOSURE_AND_ACCEPTANCE_RECOMMENDED; sem stamp | flags closure/acceptance/stamp false; NEXT=UX_R2_RELEASE_CLOSURE_STAMP |
