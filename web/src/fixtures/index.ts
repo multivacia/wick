@@ -44,3 +44,10 @@ export {
   getEvidenceCatalogFixture,
   type EvidenceCatalogFixture,
 } from "./evidenceCatalog.js";
+
+export {
+  COLLECTION_DATA_QUALITY_FIXTURE_ID,
+  COLLECTION_DATA_QUALITY_NOW_ISO,
+  getCollectionDataQualityFixture,
+  type CollectionDataQualityFixture,
+} from "./collectionDataQuality.js";
