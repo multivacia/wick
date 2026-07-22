@@ -4,6 +4,7 @@ export type NavItemId =
   | "overview"
   | "runs"
   | "readiness"
+  | "collected-data"
   | "host-scheduler"
   | "r3e"
   | "evidence";
@@ -49,6 +50,13 @@ const READINESS: NavItem = {
   active: true,
 };
 
+const COLLECTED_DATA: NavItem = {
+  id: "collected-data",
+  label: "Dados Coletados",
+  path: "/future-collection/collected-data",
+  active: true,
+};
+
 const HOST_SCHEDULER: NavItem = {
   id: "host-scheduler",
   label: "Host e Automação",
@@ -75,6 +83,7 @@ export const ACTIVE_NAV_ITEMS: readonly NavItem[] = [
   OVERVIEW,
   RUNS,
   READINESS,
+  COLLECTED_DATA,
   HOST_SCHEDULER,
   R3E,
   EVIDENCE,
@@ -89,16 +98,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
   {
     id: "future-collection",
     label: "Coleta Futura",
-    items: [
-      RUNS,
-      READINESS,
-      {
-        id: "collected-data",
-        label: "Dados Coletados",
-        active: false,
-        note: "Planejado — não disponível nesta versão",
-      },
-    ],
+    items: [RUNS, READINESS, COLLECTED_DATA],
   },
   {
     id: "operations",

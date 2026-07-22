@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ApplicationShell } from "../shell/ApplicationShell";
 import { RoutePlaceholder } from "../shell/RoutePlaceholder";
 import { NOT_FOUND_PLACEHOLDER } from "../shell/navigation";
+import { CollectedDataScreen } from "../screens/collected-data";
 import { EvidenceExplorerScreen } from "../screens/evidence-explorer";
 import { HostSchedulerScreen } from "../screens/host-scheduler";
 import { OverviewScreen } from "../screens/overview";
@@ -19,6 +20,10 @@ export function AppRoutes() {
         <Route
           path="future-collection/readiness"
           element={<ReadinessScreen />}
+        />
+        <Route
+          path="future-collection/collected-data"
+          element={<CollectedDataScreen />}
         />
         <Route
           path="operations/host-scheduler"
