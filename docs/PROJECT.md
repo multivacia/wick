@@ -116,6 +116,15 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R3_I3_STATUS | **NOT_STARTED** |
 | UX_R3_I4_STATUS | **NOT_STARTED** |
 | UX_R3_I5_STATUS | **NOT_STARTED** |
+| UX_R3_COMPLETE_RELEASE_IMPACT_ASSESSMENT_STATUS | **COMPLETE** (draft PR pending human merge) |
+| UX_R3_COMPLETE_RELEASE_DECISION | **REMAINING_SCOPE_RECOMMENDED** |
+| UX_R3_COMPLETE_RELEASE_DELIVERY_MODEL | **B_SINGLE_BRANCH_SINGLE_PR_SINGLE_FINAL_VALIDATION** |
+| UX_R3_SHOULD_CLOSE_AFTER_I1 | **false** |
+| UX_R3_REMAINING_SCOPE | **ONE_INCREMENT_PLUS_DOCS_CLOSURE** |
+| UX_R3_REMAINING_INCREMENT_COUNT | **2** |
+| UX_R3_REMAINING_INCREMENT_IDS | **UX_R3_I2_COLLECTION_QUALITY_CROSS_NAV_AND_COHERENCE; UX_R3_I3_FIXTURE_ACCEPTANCE_AND_CLOSURE** |
+| UX_R3_REMAINING_SCOPE_AUTHORIZED | **false** |
+| UX_R3_REMAINING_IMPLEMENTATION_AUTHORIZED | **false** |
 | UX_R3_IMPLEMENTATION_POSTURE | **FIXTURE_BACKED_READ_ONLY** |
 | UX_R3_PROCESS_MODEL | **FULL_INCREMENTAL_FLOW** |
 | UX_R3_SCOPE_AUTHORIZED | **false** |
@@ -173,7 +182,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R3_NEXT_INCREMENT_AUTHORIZATION_ASSESSMENT** (I1 MERGED; I2–I5 NOT_STARTED) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R3_REMAINING_RELEASE_SINGLE_EXECUTION** (complete-release assessment REMAINING_SCOPE_RECOMMENDED; remaining unauthorized) |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -247,8 +256,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | SCIENTIFIC_INTERPRETATION_CHANGE_AUTHORIZED | **false** |
 | R4_STATE_CHANGE_AUTHORIZED | **false** |
 | R5_STATE_CHANGE_AUTHORIZED | **false** |
-| NEXT_RECOMMENDED_TASK | **UX_R3_NEXT_INCREMENT_AUTHORIZATION_ASSESSMENT** |
-| NEXT_ITEM | **UX_R3_I2_SEPARATE_AUTHORIZATION_ASSESSMENT_TASK** |
+| NEXT_RECOMMENDED_TASK | **UX_R3_REMAINING_RELEASE_SINGLE_EXECUTION** |
+| NEXT_ITEM | **UX_R3_REMAINING_CROSS_NAV_AND_CLOSURE_SEPARATE_EXECUTION** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -564,3 +573,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-22 | UX-R3 I1 Collection Data Quality implementation | Fixture-backed Dados Coletados; review APPROVED; draft PR | UX-R3 IN_PROGRESS; NEXT=human merge; I2–I5 not started |
 | 2026-07-22 | Merge PR #130 UX-R3 I1 Collection Data Quality impl | `/future-collection/collected-data` MERGED; fixture-backed; sem backend/deps | `UX_R3_I1_STATUS=MERGED`; NEXT=next-increment auth assessment |
 | 2026-07-22 | Post-merge closure UX-R3 I1 impl (final-merge + merge-complete) | Handoffs + PROJECT reconciliado; sem MAIN_TIP-only | I2–I5 NOT_STARTED; `PARALLEL_TASKS_ALLOWED=false` |
+| 2026-07-22 | UX-R3 complete-release impact assessment | Docs-only; REMAINING_SCOPE_RECOMMENDED; I2 cross-nav + I3 closure | remaining unauthorized; CLOSE_AFTER_I1=false |
