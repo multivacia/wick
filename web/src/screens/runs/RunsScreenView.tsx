@@ -1,4 +1,4 @@
-import { PageHeader, Section, Stack } from "../../components/primitives";
+import { Card, PageHeader, Section, Stack } from "../../components/primitives";
 import type { RunsScreenData } from "./loadRunsScreenData";
 import { EmptyRunsState } from "./EmptyRunsState";
 import { PartialUnknownState } from "./PartialUnknownState";
@@ -6,6 +6,8 @@ import { RunsCollection } from "./RunsCollection";
 import { RunsSummary } from "./RunsSummary";
 import { SyntheticDataNotice } from "./SyntheticDataNotice";
 import { RelatedEvidenceLinks } from "../shared/RelatedEvidenceLinks";
+import { RelatedProductLinks } from "../shared/RelatedProductLinks";
+import { COLLECTED_DATA_RELATED_LINK } from "../shared/collectedDataRelatedLink";
 import "./runs.css";
 
 export type RunsScreenViewProps = {
@@ -46,6 +48,15 @@ export function RunsScreenView({ data }: RunsScreenViewProps) {
         runs={runs.runs}
         summaryTechnicalCode={runs.primaryMessage.technicalCode}
       />
+
+      <Section title="Navegação relacionada" className="wick-runs-section">
+        <Card className="wick-runs-card" data-testid="runs-related-nav">
+          <RelatedProductLinks
+            items={[COLLECTED_DATA_RELATED_LINK]}
+            testId="runs-related-product-links"
+          />
+        </Card>
+      </Section>
 
       <Section title="Evidências relacionadas" className="wick-runs-section">
         <RelatedEvidenceLinks

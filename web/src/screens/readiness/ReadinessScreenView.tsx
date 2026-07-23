@@ -1,5 +1,9 @@
-import { PageHeader, Section, Stack } from "../../components/primitives";
+import { Card, PageHeader, Section, Stack } from "../../components/primitives";
 import type { ReadinessScreenData } from "./loadReadinessScreenData";
+import {
+  RelatedProductLinks,
+} from "../shared/RelatedProductLinks";
+import { COLLECTED_DATA_RELATED_LINK } from "../shared/collectedDataRelatedLink";
 import { BlockingReason } from "./BlockingReason";
 import { CollectionState } from "./CollectionState";
 import { EffectPeekingState } from "./EffectPeekingState";
@@ -52,6 +56,18 @@ export function ReadinessScreenView({ data }: ReadinessScreenViewProps) {
       <Section title="Próximos passos" className="wick-readiness-section">
         <NextSafeAction readiness={readiness} />
         <EvidenceReference readiness={readiness} />
+      </Section>
+
+      <Section title="Navegação relacionada" className="wick-readiness-section">
+        <Card
+          className="wick-readiness-card"
+          data-testid="readiness-related-nav"
+        >
+          <RelatedProductLinks
+            items={[COLLECTED_DATA_RELATED_LINK]}
+            testId="readiness-related-product-links"
+          />
+        </Card>
       </Section>
 
       <PartialUnknownState readiness={readiness} />

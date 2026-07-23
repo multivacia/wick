@@ -30,7 +30,8 @@
 }
 
 .wick-overview-state-card,
-.wick-overview-summary-card {
+.wick-overview-summary-card,
+.wick-overview-related-card {
   min-width: 0;
   overflow-wrap: anywhere;
 }

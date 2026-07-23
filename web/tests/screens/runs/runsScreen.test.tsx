@@ -220,4 +220,17 @@ describe("I6G Runs screen", () => {
     expect(data.metadata.synthetic).toBe(true);
     expect(data.metadata.notOperationalEvidence).toBe(true);
   });
+
+  it("exposes inbound related navigation to Dados Coletados", () => {
+    render(<AppForTest initialEntry="/future-collection/runs" />);
+    const related = screen.getByTestId("runs-related-nav");
+    const link = within(related).getByTestId("related-link-collected-data");
+    expect(link).toHaveAttribute("href", "/future-collection/collected-data");
+    expect(related).toHaveTextContent(/não altera prontidão/i);
+    const main = screen.getByRole("main");
+    for (const anchor of within(main).queryAllByRole("link")) {
+      const href = anchor.getAttribute("href") ?? "";
+      expect(href).not.toMatch(/^https?:/i);
+    }
+  });
 });
