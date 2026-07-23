@@ -8,8 +8,8 @@ PHASE = REMAINING_RELEASE_EXECUTION
 CHANGE_RISK = MEDIUM
 DECISION = EXECUTION_AUTHORIZED
 
-PR = PENDING
-PR_URL = PENDING
+PR = 134
+PR_URL = https://github.com/multivacia/wick/pull/134
 BRANCH = cursor/ux-r3-remaining-release-single-execution-04f5
 BASE_SHA = 200f2767af82e027ffe32eeaca485c6236ad595a
 PR_TIP = 7a82696ccb807850e798d3ffc2d8710341a9f988
