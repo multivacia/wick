@@ -1,0 +1,156 @@
+# UX-R3 — Formal Release Closure and Acceptance Stamp
+
+```text
+RELEASE = UX-R3
+RELEASE_NAME = FIXTURE_BACKED_COLLECTION_MONITORING_DATA_QUALITY_AND_COHERENCE
+TASK_ID = UX-R3-SINGLE-FINAL-HUMAN-VALIDATION-AND-MERGE-001
+PHASE = FORMAL_RELEASE_CLOSURE_STAMP
+CHANGE_RISK = MEDIUM
+DECISION = APPROVED
+HUMAN_FINAL_VALIDATION_AUTHORIZED = true
+HUMAN_FINAL_VALIDATION_RESULT = APPROVED
+MERGE_AUTHORIZED = true
+
+UX_R3_RELEASE_STATUS = CLOSED
+UX_R3_RELEASE_ACCEPTANCE_STATUS = ACCEPTED
+UX_R3_RELEASE_SCOPE =
+  FIXTURE_BACKED_COLLECTION_MONITORING_DATA_QUALITY_AND_COHERENCE
+UX_R3_ACCEPTANCE_WORDING =
+  UX-R3 fixture-backed collection monitoring, data-quality exploration, and workflow coherence scope is complete, accepted, and governed.
+
+CLOSED_AT = 2026-07-23T12:33:28Z
+CLOSURE_MAIN_BASE = 3ad9336af1d6ea2f9be431d7c1e183852fb4bb86
+
+I1_STATUS = MERGED
+I2_STATUS = MERGED
+I3_STATUS = MERGED
+ALL_CHECKPOINTS = PASS
+FINAL_REVIEW_STATUS = APPROVED
+FINAL_REVIEW_DECISION = APPROVED
+HUMAN_FINAL_VALIDATION_RESULT = APPROVED
+
+EXECUTION_MODEL = B_SINGLE_BRANCH_SINGLE_PR_SINGLE_FINAL_VALIDATION
+DELIVERY_MODEL = B_SINGLE_BRANCH_SINGLE_PR_SINGLE_FINAL_VALIDATION
+
+PR134_STATUS = MERGED
+PR134_FINAL_TIP = 4ad697129d608944173ce8a708b3bdb7c8bd00cd
+PR134_MERGE_COMMIT = 3ad9336af1d6ea2f9be431d7c1e183852fb4bb86
+PR134_MERGED_AT = 2026-07-23T12:33:28Z
+CONTENT_REVIEWED_THROUGH_HEAD = 8cdafa6bd1d29f798991a9dd498c268cc5efc748
+POST_REVIEW_NORMATIVE_CHANGES = 0
+```
+
+## Acceptance wording (exact)
+
+```text
+UX-R3 fixture-backed collection monitoring, data-quality exploration, and workflow coherence scope is complete, accepted, and governed.
+```
+
+This acceptance applies **only** to fixture-backed read-only UX delivered in UX-R3 (I1 Dados Coletados + I2 cross-nav/coherence + I3 fixture acceptance/closure). It does **not** imply:
+
+```text
+real collection health
+future-window completion
+scientific approval
+edge confirmation
+operational readiness
+host discovery
+scheduler activation
+R4 authorization
+R5 start
+real-data integration
+validation execution
+effect peeking
+```
+
+## Accepted product scope
+
+```text
+I1_COLLECTION_DATA_QUALITY = ACCEPTED
+I2_COLLECTION_QUALITY_CROSS_NAV_AND_COHERENCE = ACCEPTED
+I3_FIXTURE_ACCEPTANCE_AND_CLOSURE = ACCEPTED
+```
+
+## Accepted route
+
+```text
+/future-collection/collected-data
+```
+
+Nav label: **Dados Coletados**  
+Fixture: `collection_data_quality_current_state_illustrative`  
+ViewModel: `CollectionDataQualityViewModel`
+
+## Accepted release boundary
+
+```text
+FIXTURE_BACKED_COLLECTION_MONITORING_DATA_QUALITY_AND_COHERENCE
+READ_ONLY
+CURATED_STATIC_DATA
+NO_BACKEND
+NO_RUNTIME_REPOSITORY_ACCESS
+NO_RAW_FILESYSTEM_ACCESS
+NO_REAL_DATA
+NO_FUTURE_UNSEEN_RESULTS
+NO_VALIDATION_EXECUTION
+NO_EFFECT_PEEKING
+NO_OPERATIONAL_ACTIONS
+NO_SCHEDULER_ACTIVATION
+NO_SCIENTIFIC_INTERPRETATION_CHANGE
+NO_R4_OR_R5_STATE_CHANGE
+NO_UX_R4_START
+```
+
+## Accepted limitations
+
+```text
+ACCEPTED_LIMITATIONS =
+  FIXTURE_ILLUSTRATIVE_ONLY;
+  RELATED_PRODUCT_LINKS_ARE_CURATED_THIN_LISTS;
+  OVERVIEW_DOES_NOT_HOST_SERIES_QUALITY_METRICS;
+  NO_REAL_DATA;
+  NO_FUTURE_UNSEEN_RESULTS;
+  NO_OPERATIONAL_CONTROLS
+```
+
+## Deferred / not started
+
+```text
+UX_R4_STATUS = NOT_STARTED
+UX_R4_DISCOVERY_AUTHORIZED = false
+R4_STATUS = BLOCKED
+R5_STATUS = NOT_STARTED
+```
+
+## Scientific and operational truth (immutable)
+
+```text
+HOST_DISCOVERY = DEFERRED
+OPERATIONAL_DEBT = OPEN
+SCHEDULER_ACTIVATION = BLOCKED
+R3E_GATE = PENDING_FUTURE_UNSEEN_DATA
+COLLECTION = IN_PROGRESS
+READINESS = NOT_READY
+READINESS_REASON = WINDOW_DAYS_INSUFFICIENT
+VALIDATION_COMMAND_EXECUTED = false
+EFFECT_PEEKING_PERFORMED = false
+R4_STATUS = BLOCKED
+R5_STATUS = NOT_STARTED
+R3D_RESULT = NO_MEASURABLE_EDGE
+R3E_STATUS = EXPLORATORY_COMPLETE_PENDING_FUTURE_UNSEEN_DATA
+SCIENTIFIC_CONCLUSION = UNCHANGED
+R3E_SCIENTIFIC_STATE_CHANGE = false
+```
+
+```text
+Débito técnico-operacional aceito e registrado. O projeto segue nas frentes não dependentes, sem considerar a ativação concluída.
+```
+
+## Next
+
+```text
+NEXT_RECOMMENDED_TASK = UX_R4_DISCOVERY_AND_SCOPE_ASSESSMENT
+NEXT_ITEM = UX_R4_DISCOVERY_NOT_AUTHORIZED
+```
+
+Do **not** start UX-R4 in this stamp task.
