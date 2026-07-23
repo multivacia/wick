@@ -8,6 +8,8 @@ RELEASE = UX-R3
 INCREMENT = I2
 TASK_ID = UX-R3-REMAINING-RELEASE-SINGLE-EXECUTION-001
 COMMIT_SHA = d4d2bc5017cc3c8eb2bc466cbb1929c62c2626f9
+FOLLOW_UP_FIX_COMMIT = f02f86c0f5c31d08e5eb3ea79a2a94ce44ecb210
+I2_PRODUCT_TIP_INCLUDING_FIX = f02f86c0f5c31d08e5eb3ea79a2a94ce44ecb210
 BASE_SHA = 200f2767af82e027ffe32eeaca485c6236ad595a
 CREATED_AT = 2026-07-23T00:29:30Z
 CREATED_BY = cursor-agent
@@ -49,6 +51,10 @@ SCIENTIFIC_SEMANTIC_STATUS = PASS
 NEW_ROUTES = 0
 NEW_SCREENS = 0
 ```
+
+## Follow-up
+
+Lint follow-up moved `COLLECTED_DATA_RELATED_LINK` into `collectedDataRelatedLink.ts` (react-refresh). Focused tests re-run PASS; decision remains PASS.
 
 ## Known limitations
 
