@@ -6,10 +6,8 @@ import { RunsCollection } from "./RunsCollection";
 import { RunsSummary } from "./RunsSummary";
 import { SyntheticDataNotice } from "./SyntheticDataNotice";
 import { RelatedEvidenceLinks } from "../shared/RelatedEvidenceLinks";
-import {
-  COLLECTED_DATA_RELATED_LINK,
-  RelatedProductLinks,
-} from "../shared/RelatedProductLinks";
+import { RelatedProductLinks } from "../shared/RelatedProductLinks";
+import { COLLECTED_DATA_RELATED_LINK } from "../shared/collectedDataRelatedLink";
 import "./runs.css";
 
 export type RunsScreenViewProps = {

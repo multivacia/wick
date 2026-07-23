@@ -52,9 +52,13 @@ describe("RelatedProductLinks architecture boundaries", () => {
       join(sharedRoot, "RelatedProductLinks.tsx"),
       "utf8",
     );
+    const collectedTarget = readFileSync(
+      join(sharedRoot, "collectedDataRelatedLink.ts"),
+      "utf8",
+    );
     expect(productLinks).toMatch(/from\s+["']react-router-dom["']/);
     expect(productLinks).toMatch(/<Link\b/);
     expect(productLinks).not.toMatch(/href=["']https?:/i);
-    expect(productLinks).toContain("/future-collection/collected-data");
+    expect(collectedTarget).toContain("/future-collection/collected-data");
   });
 });

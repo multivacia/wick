@@ -1,8 +1,6 @@
 import { Card, PageHeader, Section, Stack } from "../../components/primitives";
-import {
-  COLLECTED_DATA_RELATED_LINK,
-  RelatedProductLinks,
-} from "../shared/RelatedProductLinks";
+import { RelatedProductLinks } from "../shared/RelatedProductLinks";
+import { COLLECTED_DATA_RELATED_LINK } from "../shared/collectedDataRelatedLink";
 import { BlockerList } from "./BlockerList";
 import { EvidenceSummary } from "./EvidenceSummary";
 import { loadOverviewScreenData } from "./loadOverviewScreenData";

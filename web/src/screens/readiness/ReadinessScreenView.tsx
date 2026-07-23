@@ -1,9 +1,9 @@
 import { Card, PageHeader, Section, Stack } from "../../components/primitives";
 import type { ReadinessScreenData } from "./loadReadinessScreenData";
 import {
-  COLLECTED_DATA_RELATED_LINK,
   RelatedProductLinks,
 } from "../shared/RelatedProductLinks";
+import { COLLECTED_DATA_RELATED_LINK } from "../shared/collectedDataRelatedLink";
 import { BlockingReason } from "./BlockingReason";
 import { CollectionState } from "./CollectionState";
 import { EffectPeekingState } from "./EffectPeekingState";
