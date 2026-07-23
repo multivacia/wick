@@ -1,4 +1,8 @@
-import { PageHeader, Section, Stack } from "../../components/primitives";
+import { Card, PageHeader, Section, Stack } from "../../components/primitives";
+import {
+  COLLECTED_DATA_RELATED_LINK,
+  RelatedProductLinks,
+} from "../shared/RelatedProductLinks";
 import { BlockerList } from "./BlockerList";
 import { EvidenceSummary } from "./EvidenceSummary";
 import { loadOverviewScreenData } from "./loadOverviewScreenData";
@@ -55,6 +59,23 @@ export function OverviewScreen() {
       </Section>
 
       <BlockerList blockers={overview.activeBlockers} />
+
+      <Section title="Navegação relacionada" className="wick-overview-section">
+        <Card
+          className="wick-overview-related-card"
+          data-testid="overview-related-nav"
+        >
+          <p className="wick-overview-muted">
+            Completeness, gaps, duplicates e contagens de série ilustrativas
+            estão em Dados Coletados — não neste resumo operacional.
+            DATA_QUALITY ≠ SCIENTIFIC_APPROVAL.
+          </p>
+          <RelatedProductLinks
+            items={[COLLECTED_DATA_RELATED_LINK]}
+            testId="overview-related-product-links"
+          />
+        </Card>
+      </Section>
 
       <EvidenceSummary
         evidence={overview.lastKnownEvidence}

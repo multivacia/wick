@@ -200,4 +200,18 @@ describe("I6E Overview screen", () => {
     expect(data.metadata.notOperationalEvidence).toBe(true);
     expect(data.overview.nextSafeAction.advisoryOnly).toBe(true);
   });
+
+  it("exposes inbound related navigation to Dados Coletados without claiming quality metrics live on Overview", () => {
+    render(<AppForTest initialEntry="/overview" />);
+    const related = screen.getByTestId("overview-related-nav");
+    expect(related).toHaveTextContent(/não neste resumo operacional/i);
+    expect(related).toHaveTextContent(/DATA_QUALITY ≠ SCIENTIFIC_APPROVAL/);
+    const link = within(related).getByTestId("related-link-collected-data");
+    expect(link).toHaveAttribute("href", "/future-collection/collected-data");
+    const main = screen.getByRole("main");
+    for (const anchor of within(main).queryAllByRole("link")) {
+      const href = anchor.getAttribute("href") ?? "";
+      expect(href).not.toMatch(/^https?:/i);
+    }
+  });
 });

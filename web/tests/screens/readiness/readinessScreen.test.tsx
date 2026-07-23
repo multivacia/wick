@@ -160,13 +160,39 @@ describe("I6I Readiness screen", () => {
     );
   });
 
-  it("does not fabricate collection health metrics", () => {
+  it("does not fabricate collection health metrics and points to Dados Coletados", () => {
     renderScenario("current_project_state_illustrative");
     const collection = screen.getByTestId("readiness-collection-state");
     expect(collection).toHaveTextContent(/não fazem parte deste ViewModel/i);
     expect(collection).toHaveTextContent(/COLLECTION_IN_PROGRESS ≠ READY/);
+    expect(collection).toHaveTextContent(/DATA_QUALITY ≠ SCIENTIFIC_APPROVAL/);
+    expect(collection).toHaveTextContent(/não na Visão Geral/i);
+    expect(collection).not.toHaveTextContent(
+      /Consulte a Visão Geral quando esses campos estiverem disponíveis/i,
+    );
+    const qualityLink = within(collection).getByTestId(
+      "readiness-link-collected-data",
+    );
+    expect(qualityLink).toHaveAttribute(
+      "href",
+      "/future-collection/collected-data",
+    );
+    expect(qualityLink).toHaveTextContent("Dados Coletados");
     expect(within(collection).queryByTestId("readiness-window-observed")).toBeNull();
     expect(collection.textContent).not.toMatch(/\bacceptedCount\b|\bgapCount\b/);
+  });
+
+  it("exposes inbound related navigation to Dados Coletados", () => {
+    render(<AppForTest initialEntry="/future-collection/readiness" />);
+    const related = screen.getByTestId("readiness-related-nav");
+    const link = within(related).getByTestId("related-link-collected-data");
+    expect(link).toHaveAttribute("href", "/future-collection/collected-data");
+    expect(related).toHaveTextContent(/não altera prontidão/i);
+    const main = screen.getByRole("main");
+    for (const anchor of within(main).queryAllByRole("link")) {
+      const href = anchor.getAttribute("href") ?? "";
+      expect(href).not.toMatch(/^https?:/i);
+    }
   });
 
   it("renders blocking reason and next safe action as read-only text", () => {
