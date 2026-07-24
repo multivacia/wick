@@ -4,6 +4,8 @@ import {
   type EvidenceExplorerCriteria,
   type EvidenceExplorerFilters,
   type EvidenceExplorerViewModel,
+  type GovernedDecisionLedgerCriteria,
+  type GovernedDecisionLedgerFilters,
 } from "../../viewmodels";
 import type { EvidenceExplorerScreenData } from "./loadEvidenceExplorerScreenData";
 import { CatalogDisclosure } from "./CatalogDisclosure";
@@ -11,6 +13,7 @@ import { EvidenceDetail } from "./EvidenceDetail";
 import { EvidenceFilters } from "./EvidenceFilters";
 import { EvidenceList } from "./EvidenceList";
 import { EvidenceSearch } from "./EvidenceSearch";
+import { GovernedDecisionLedgerSection } from "./GovernedDecisionLedgerSection";
 import { SafetyNotices } from "./SafetyNotices";
 import { SyntheticDataNotice } from "./SyntheticDataNotice";
 import "./evidence-explorer.css";
@@ -18,24 +21,35 @@ import "./evidence-explorer.css";
 export type EvidenceExplorerScreenViewProps = {
   data: EvidenceExplorerScreenData;
   criteria: EvidenceExplorerCriteria;
+  ledgerCriteria: GovernedDecisionLedgerCriteria;
   onSearchQueryChange: (searchQuery: string) => void;
   onFiltersChange: (filters: EvidenceExplorerFilters) => void;
   onClearFilters: () => void;
   onSelectEvidence: (evidenceId: string) => void;
   onClearSelection: () => void;
+  onLedgerFiltersChange: (filters: GovernedDecisionLedgerFilters) => void;
+  onClearLedgerFilters: () => void;
+  onSelectDecision: (decisionId: string) => void;
+  onClearDecisionSelection: () => void;
 };
 
 /**
  * Presentational Evidence Explorer — search/filter/selection driven by parent.
+ * Governed decision ledger section renders above catalog search/filters.
  */
 export function EvidenceExplorerScreenView({
   data,
   criteria,
+  ledgerCriteria,
   onSearchQueryChange,
   onFiltersChange,
   onClearFilters,
   onSelectEvidence,
   onClearSelection,
+  onLedgerFiltersChange,
+  onClearLedgerFilters,
+  onSelectDecision,
+  onClearDecisionSelection,
 }: EvidenceExplorerScreenViewProps) {
   const vm: EvidenceExplorerViewModel = buildEvidenceExplorerViewModel(
     data.catalog,
@@ -59,6 +73,15 @@ export function EvidenceExplorerScreenView({
       <SyntheticDataNotice metadata={data.metadata} />
       <CatalogDisclosure disclosure={vm.catalogDisclosure} />
       <SafetyNotices notices={vm.safetyNotices} />
+
+      <GovernedDecisionLedgerSection
+        domain={data.ledger}
+        criteria={ledgerCriteria}
+        onFiltersChange={onLedgerFiltersChange}
+        onClearFilters={onClearLedgerFilters}
+        onSelectDecision={onSelectDecision}
+        onClearSelection={onClearDecisionSelection}
+      />
 
       <Section title="Busca e filtros" className="wick-evidence-section">
         <EvidenceSearch

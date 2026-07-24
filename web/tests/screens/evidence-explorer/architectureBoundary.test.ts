@@ -11,6 +11,10 @@ const viewmodelEvidenceFiles = [
   join(testDir, "../../../src/viewmodels/evidenceEnums.ts"),
   join(testDir, "../../../src/viewmodels/evidenceExplorerTypes.ts"),
   join(testDir, "../../../src/viewmodels/evidenceSourcePath.ts"),
+  join(testDir, "../../../src/viewmodels/buildGovernedDecisionLedgerViewModel.ts"),
+  join(testDir, "../../../src/viewmodels/filterGovernedDecisionLedger.ts"),
+  join(testDir, "../../../src/viewmodels/governedDecisionLedgerEnums.ts"),
+  join(testDir, "../../../src/viewmodels/governedDecisionLedgerTypes.ts"),
 ];
 
 function listFiles(dir: string): string[] {
