@@ -195,3 +195,95 @@ describe("UX-R2 I1 Evidence Explorer screen", () => {
     expect(r3e.textContent ?? "").not.toMatch(/R3D_RESULT=NO_MEASURABLE_EDGE/);
   });
 });
+
+describe("UX-R4 I2 Governed Decision Ledger on Evidence Explorer", () => {
+  it("renders the ledger section above the catalog", () => {
+    render(<AppForTest initialEntry="/governance/evidence" />);
+    const ledger = screen.getByTestId("governed-decision-ledger-section");
+    const catalog = screen.getByTestId("evidence-split");
+    expect(ledger.compareDocumentPosition(catalog) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "Livro de decisões governadas",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("ledger-illustrative-disclosure")).toHaveTextContent(
+      /somente leitura/i,
+    );
+  });
+
+  it("lists nine grounded decisions and opens detail with evidence links", async () => {
+    const user = userEvent.setup();
+    render(<AppForTest initialEntry="/governance/evidence" />);
+
+    expect(screen.getByTestId("ledger-result-count")).toHaveTextContent(
+      /Exibindo 9 de 9/,
+    );
+    await user.click(
+      screen.getByTestId("ledger-row-dec-r3e-pending-future-unseen"),
+    );
+    const detail = screen.getByTestId(
+      "ledger-detail-dec-r3e-pending-future-unseen",
+    );
+    expect(detail).toHaveTextContent(/PENDING_FUTURE_UNSEEN_DATA|future-unseen/i);
+    expect(within(detail).getByTestId("ledger-detail-conditions")).toBeInTheDocument();
+    expect(within(detail).getByTestId("ledger-must-not-infer")).toHaveTextContent(
+      /BLOCKED ≠ SYSTEM_FAILURE/,
+    );
+    const evidenceLink = within(detail).getByTestId(
+      "related-evidence-link-ev-r3e-pending-future-unseen",
+    );
+    expect(evidenceLink).toHaveAttribute(
+      "href",
+      "/governance/evidence?evidenceId=ev-r3e-pending-future-unseen",
+    );
+  });
+
+  it("filters the ledger and shows no-results state", async () => {
+    const user = userEvent.setup();
+    render(<AppForTest initialEntry="/governance/evidence" />);
+
+    await user.selectOptions(
+      screen.getByTestId("ledger-filter-disposition"),
+      "ACCEPTED",
+    );
+    await user.selectOptions(
+      screen.getByTestId("ledger-filter-domain"),
+      "OPERATIONAL_GOVERNANCE",
+    );
+    expect(screen.getByTestId("ledger-no-results-state")).toBeInTheDocument();
+    await user.click(screen.getByTestId("ledger-no-results-clear"));
+    expect(screen.getByTestId("ledger-filter-disposition")).toHaveValue("");
+    expect(screen.getByTestId("ledger-list")).toBeInTheDocument();
+  });
+
+  it("shows record without conditions and unknown date semantics", async () => {
+    const user = userEvent.setup();
+    render(<AppForTest initialEntry="/governance/evidence" />);
+
+    await user.click(
+      screen.getByTestId(
+        "ledger-row-dec-ux-r1-fixture-backed-read-only-acceptance",
+      ),
+    );
+    expect(
+      screen.getByTestId("ledger-detail-no-conditions"),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByTestId("ledger-row-dec-r5-not-started"));
+    const detail = screen.getByTestId("ledger-detail-dec-r5-not-started");
+    expect(within(detail).getByText("Desconhecida")).toBeInTheDocument();
+  });
+
+  it("keeps summary semantics labels distinct from failures/strategies", () => {
+    render(<AppForTest initialEntry="/governance/evidence" />);
+    const summary = screen.getByTestId("ledger-summary-counts");
+    expect(summary).toHaveTextContent(/≠ falhas de sistema/);
+    expect(summary).toHaveTextContent(/≠ estratégia aprovada/);
+    expect(summary).toHaveTextContent(/≠ ação automática/);
+    expect(screen.getByTestId("ledger-count-blocked")).not.toHaveTextContent(
+      /falha/i,
+    );
+  });
+});

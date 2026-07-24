@@ -200,3 +200,59 @@ export {
   COLLECTION_DATA_QUALITY_SEMANTIC_SAFEGUARDS,
   COLLECTION_DATA_QUALITY_FRESHNESS_DISCLOSURE,
 } from "./buildCollectionDataQualityViewModel.js";
+
+export {
+  LEDGER_DISPOSITIONS,
+  LEDGER_DOMAINS,
+  LEDGER_DECISION_TYPES,
+  LEDGER_REASSESSMENT_AVAILABILITY,
+  LEDGER_DISPOSITION_LABELS,
+  LEDGER_DISPOSITION_MEANINGS,
+  LEDGER_DOMAIN_LABELS,
+  LEDGER_DECISION_TYPE_LABELS,
+  LEDGER_REASSESSMENT_AVAILABILITY_LABELS,
+  mapDispositionToPresentation,
+  isLedgerDisposition,
+  isLedgerDomain,
+  isLedgerDecisionType,
+  type LedgerDisposition,
+  type LedgerDomain,
+  type LedgerDecisionType,
+  type LedgerReassessmentAvailability,
+} from "./governedDecisionLedgerEnums.js";
+
+export type {
+  LedgerEvidenceRefInput,
+  GovernedDecisionRecordInput,
+  GovernedDecisionLedgerDomainInput,
+  GovernedDecisionLedgerFilters,
+  GovernedDecisionLedgerCriteria,
+  LedgerFilterOption,
+  GovernedDecisionLedgerFilterOptions,
+  LedgerDispositionPresentation,
+  LedgerSummaryCounts,
+  GovernedDecisionRecordViewModel,
+  GovernedDecisionLedgerViewModel,
+} from "./governedDecisionLedgerTypes.js";
+
+export {
+  hasReassessmentTrigger,
+  matchesLedgerFilters,
+  sortLedgerRecords,
+  filterAndSortLedgerRecords,
+  clearLedgerFilters,
+  emptyLedgerCriteria,
+  buildLedgerFilterOptions,
+} from "./filterGovernedDecisionLedger.js";
+
+export {
+  buildGovernedDecisionLedgerViewModel,
+  presentDisposition,
+  assertValidDecisionId,
+  assertValidEvidenceId,
+  InvalidGovernedDecisionLedgerError,
+  GOVERNED_DECISION_LEDGER_SECTION_TITLE,
+  GOVERNED_DECISION_LEDGER_SECTION_DESCRIPTION,
+  GOVERNED_DECISION_LEDGER_SEMANTIC_SAFEGUARDS,
+  GOVERNED_DECISION_LEDGER_FRESHNESS_DISCLOSURE,
+} from "./buildGovernedDecisionLedgerViewModel.js";

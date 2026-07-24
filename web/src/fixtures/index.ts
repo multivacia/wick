@@ -51,3 +51,11 @@ export {
   getCollectionDataQualityFixture,
   type CollectionDataQualityFixture,
 } from "./collectionDataQuality.js";
+
+export {
+  GOVERNED_DECISION_LEDGER_FIXTURE_ID,
+  GOVERNED_DECISION_LEDGER_FIXTURE_VERSION,
+  GOVERNED_DECISION_LEDGER_NOW_ISO,
+  getGovernedDecisionLedgerFixture,
+  type GovernedDecisionLedgerFixture,
+} from "./governedDecisionLedger.js";
