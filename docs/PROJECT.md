@@ -667,3 +667,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-24 | UX-R4 I3 fixture acceptance and closure assessment | Docs-only; APPROVED; proposed CLOSED/ACCEPTED; draft PR | formal stamp unauthorized; NEXT=final human validation/merge |
 | 2026-07-24 | Merge PR #143 UX-R4 I3 acceptance + human final validation | I3 MERGED; human validation APPROVED; docs-only closure proposal | `UX_R4_I3_STATUS=MERGED`; formal stamp in post-merge |
 | 2026-07-24 | Post-merge closure UX-R4 formal stamp + merge-complete | FINAL-MERGE + formal stamp + MERGE-COMPLETE + PROJECT | `UX_R4_RELEASE_STATUS=CLOSED`; NEXT=`UX_R5_DISCOVERY_AND_SCOPE_ASSESSMENT` (not authorized) |
+| 2026-07-24 | Stamp UX-R4 MERGE-COMPLETE post-merge evidence | POST_MERGE_PR_STATUS=MERGED; PR #144 merge recorded | MAIN_TIP=`1c569b0`; UX-R5 still NOT_STARTED |

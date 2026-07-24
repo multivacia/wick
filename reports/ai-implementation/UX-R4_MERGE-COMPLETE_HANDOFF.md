@@ -19,11 +19,11 @@ FORMAL_CLOSURE_STAMP = docs/releases/UX-R4-FORMAL-RELEASE-CLOSURE-AND-ACCEPTANCE
 FORMAL_CLOSURE_HANDOFF = reports/ai-implementation/UX-R4-FORMAL-RELEASE-CLOSURE-AND-ACCEPTANCE_HANDOFF.md
 POST_MERGE_PR = 144
 POST_MERGE_PR_URL = https://github.com/multivacia/wick/pull/144
-POST_MERGE_PR_STATUS = OPEN
-POST_MERGE_PR_FINAL_TIP = b5875614aa12fe21f4da1e5a160129dafaff3ad3
-POST_MERGE_PR_MERGE_COMMIT = PENDING
-POST_MERGE_PR_MERGED_AT = PENDING
-MAIN_TIP = 28062165e2497457356ae49f914f02d3a716a8e7
+POST_MERGE_PR_STATUS = MERGED
+POST_MERGE_PR_FINAL_TIP = a0a15d4d4fd8a1c5811cc384eae89feba89e12fc
+POST_MERGE_PR_MERGE_COMMIT = 1c569b037b29de090359950f8ad69712088126b1
+POST_MERGE_PR_MERGED_AT = 2026-07-24T17:11:21Z
+MAIN_TIP = 1c569b037b29de090359950f8ad69712088126b1
 
 UX_R4_STATUS = CLOSED
 UX_R4_I1_STATUS = MERGED
@@ -87,7 +87,7 @@ CREATED_BY = cursor-agent
 
 ## Notes
 
-Docs-only post-merge closure for PR #143 plus formal UX-R4 CLOSED/ACCEPTED stamp. Combines FINAL-MERGE + formal stamp + MERGE-COMPLETE + PROJECT in one post-merge PR (no MAIN_TIP-only PR). `POST_MERGE_PR_STATUS` starts **OPEN** in this record and is stamped **MERGED** after the post-merge PR lands. UX-R5 discovery is recommended next but **not authorized / not started**. Scientific R4 remains **BLOCKED**.
+Docs-only post-merge closure for PR #143 plus formal UX-R4 CLOSED/ACCEPTED stamp. Combines FINAL-MERGE + formal stamp + MERGE-COMPLETE + PROJECT in one post-merge PR (no MAIN_TIP-only PR). `POST_MERGE_PR_STATUS` is **MERGED** (PR #144 → `1c569b0`). UX-R5 discovery is recommended next but **not authorized / not started**. Scientific R4 remains **BLOCKED**.
 
 ## Official operational wording preserved
 
