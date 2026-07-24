@@ -17,11 +17,11 @@ PR140_MERGED_AT = 2026-07-24T02:36:12Z
 POST_MERGE_HANDOFF = reports/ai-implementation/UX-R4-I2-EVIDENCE-DECISION-LEDGER-FIXTURE-REFRESH_FINAL-MERGE_HANDOFF.md
 POST_MERGE_PR = 141
 POST_MERGE_PR_URL = https://github.com/multivacia/wick/pull/141
-POST_MERGE_PR_STATUS = OPEN
-POST_MERGE_PR_FINAL_TIP = ebb6b1ac2df85ff88a14fe22353abdc3b7b145b4
-POST_MERGE_PR_MERGE_COMMIT = PENDING
-POST_MERGE_PR_MERGED_AT = PENDING
-MAIN_TIP = f3f42abc6e4b28cd881744025f23848ba68e1a32
+POST_MERGE_PR_STATUS = MERGED
+POST_MERGE_PR_FINAL_TIP = 997f2ecc18659645e7197ee720eaa8209a1dbf6b
+POST_MERGE_PR_MERGE_COMMIT = 9796eb9e9f8b609fd31e00ea8d31b68532bc0f72
+POST_MERGE_PR_MERGED_AT = 2026-07-24T02:43:44Z
+MAIN_TIP = 9796eb9e9f8b609fd31e00ea8d31b68532bc0f72
 
 IMPLEMENTATION_STATUS = MERGED
 FINAL_REVIEW_STATUS = APPROVED
@@ -78,7 +78,7 @@ CREATED_BY = cursor-agent
 
 ## Notes
 
-Docs-only post-merge closure for PR #140. Combines FINAL-MERGE + MERGE-COMPLETE + PROJECT in one post-merge PR (no MAIN_TIP-only PR). `POST_MERGE_PR_STATUS` remains **OPEN** in this record even after the post-merge PR merges. UX-R4 remains **IN_PROGRESS**; I3 is not begun and remains unauthorized.
+Docs-only post-merge closure for PR #140. Combines FINAL-MERGE + MERGE-COMPLETE + PROJECT in one post-merge PR (no MAIN_TIP-only PR). `POST_MERGE_PR_STATUS` is stamped **MERGED** with post-merge PR merge evidence after PR #141 landed. UX-R4 remains **IN_PROGRESS**; I3 is not begun and remains unauthorized.
 
 ## Official operational wording preserved
 
