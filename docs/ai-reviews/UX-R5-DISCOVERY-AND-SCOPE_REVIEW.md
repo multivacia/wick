@@ -12,8 +12,8 @@ BASE_SHA = 259092ec8b66a809dfb5d23d4ef0ddd65d455d64
 CONTENT_REVIEWED_THROUGH_HEAD = 290e747eab3bd927b9a803dd07143a6672c1e5af
 FINAL_CANDIDATE_HEAD = 290e747eab3bd927b9a803dd07143a6672c1e5af
 POST_REVIEW_NORMATIVE_CHANGES = 0
-CI_STATUS = PENDING
-PR_MERGEABLE = PENDING
+CI_STATUS = BLOCKED_BY_PREEXISTING_FRONTEND_AUDIT
+PR_MERGEABLE = BLOCKED_PENDING_AUDIT_RESOLUTION
 IMPACT_ASSESSMENT_STATUS = APPROVED
 ASSESSMENT_ONLY = true
 DECISION = DEFER_RECOMMENDED
@@ -43,7 +43,8 @@ Independent review of the UX-R5 discovery and scope assessment. After UX-R4 **CL
 ## Findings
 
 ### Blocking
-None.
+1. Pre-existing frontend production audit failure on `react-router` (GHSA-qwww-vcr4-c8h2) already red on `main` tip `259092e`. Docs-only UX-R5 discovery cannot bump dependencies under this prompt. CI GREEN / PR mergeable gates for this PR are blocked until a separately authorized dependency fix or human audit exception.
+
 
 ### Non-blocking
 1. Catalog clock and optional UX-R4 ledger seed lag are real polish gaps but correctly rejected as insufficient grounds for a new release.
