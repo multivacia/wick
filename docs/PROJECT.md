@@ -1,5 +1,9 @@
 # Wick — Visão do Projeto
 
+> **PROJECT_STATUS = ENCERRADO** (2026-07-25).  
+> Fonte canônica do encerramento: [`ENCERRAMENTO.md`](../ENCERRAMENTO.md).  
+> Pergunta respondida: **nenhuma vantagem preditiva líquida mensurável** nos padrões/universo/horizontes avaliados. Holdout consumido; R4 permanece BLOCKED; sem dinheiro real.
+
 ## Missão
 
 Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresentam vantagem preditiva líquida após custos — antes de qualquer uso de dinheiro real.
@@ -12,6 +16,22 @@ Avaliar, com rigor quantitativo e auditável, se padrões de candlestick apresen
 - Sem look-ahead: confirmação e entrada respeitam disponibilidade temporal.
 - Long-only por padrão; short só com decisão explícita.
 - Nenhum dinheiro real até R3 e R4 concluídas e auditadas; ordens reais só a partir da R6.
+
+## Estado final do projeto
+
+| Campo | Valor |
+|-------|--------|
+| PROJECT_STATUS | **ENCERRADO** |
+| CLOSED_AT | **2026-07-25** |
+| QUESTION_ANSWERED | **true** |
+| SCIENTIFIC_RESULT | **NO_MEASURABLE_EDGE** (R3D `REJECTED_NO_MEASURABLE_EDGE_V1`; R3E `CANDLE_ADDS_NO_VALUE`) |
+| HOLDOUT_CONSUMED | **true** |
+| R4_STATUS | **BLOCKED** |
+| R5_STATUS | **NOT_STARTED** |
+| REAL_MONEY_RISKED | **R$ 0,00** |
+| REAL_ORDERS | **none** |
+| NEXT_RECOMMENDED_TASK | **NONE — projeto encerrado** |
+| CLOSURE_RECORD | [`ENCERRAMENTO.md`](../ENCERRAMENTO.md) |
 
 ## Roadmap
 
@@ -173,8 +193,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | UX_R4_ACCEPTANCE_WORDING | **UX-R4 fixture-backed governed decision-ledger and evidence-catalog refresh scope is complete, accepted, and governed.** |
 | UX_R4_RELEASE_CLOSURE_AUTHORIZED | **true** (consumed by formal stamp) |
 | UX_R4_RELEASE_MERGE_AUTHORIZED | **true** (consumed by PR #143 merge) |
-| UX_R5_STATUS | **NOT_STARTED** |
-| UX_R5_DISCOVERY_AUTHORIZED | **false** |
+| UX_R5_STATUS | **NOT_STARTED** (superseded — projeto ENCERRADO) |
+| UX_R5_DISCOVERY_AUTHORIZED | **false** (projeto encerrado; discovery draft #146 obsoleto) |
 | UX_R3_COMPLETE_RELEASE_ASSESSMENT_STATUS | **MERGED** (PR #132 → `4d00d9b`) |
 | UX_R3_COMPLETE_RELEASE_IMPACT_ASSESSMENT_STATUS | **MERGED** (PR #132 → `4d00d9b`) |
 | UX_R3_COMPLETE_RELEASE_DECISION | **REMAINING_SCOPE_RECOMMENDED** |
@@ -246,7 +266,7 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | OPERATIONAL_ACTIONS_AUTHORIZED | **false** |
 | PARALLEL_KICKOFF_STATUS | **COMPLETE** (PRs #58–#61) |
 | I2_I5_I6_IMPL_AUTH_ASSESSMENT_STATUS | **MERGED** (PR #66 → `5098e83`) |
-| I2_I5_I6_IMPL_AUTH_NEXT | **UX_R5_DISCOVERY_AND_SCOPE_ASSESSMENT** (UX-R4 CLOSED/ACCEPTED; UX-R5 not authorized) |
+| I2_I5_I6_IMPL_AUTH_NEXT | **NONE — projeto ENCERRADO** |
 | I3_DECISION | **AUTHORIZED_WITH_CONDITIONS** |
 | I3_STATUS | **IMPLEMENTATION_MERGED** (PR #72 → `897353e`) |
 | I3_IMPLEMENTATION_AUTHORIZED | **true** (I3 primitives merged; no further I3 work authorized) |
@@ -320,8 +340,8 @@ Release **independente** do estado científico de R3E. Não modifica modelos, co
 | SCIENTIFIC_INTERPRETATION_CHANGE_AUTHORIZED | **false** |
 | R4_STATE_CHANGE_AUTHORIZED | **false** |
 | R5_STATE_CHANGE_AUTHORIZED | **false** |
-| NEXT_RECOMMENDED_TASK | **UX_R5_DISCOVERY_AND_SCOPE_ASSESSMENT** |
-| NEXT_ITEM | **UX_R5_DISCOVERY_NOT_AUTHORIZED** |
+| NEXT_RECOMMENDED_TASK | **NONE — projeto ENCERRADO** |
+| NEXT_ITEM | **PROJECT_CLOSED** |
 | PARALLEL_TASKS_ALLOWED | **false** |
 | UX_B2_IMPLEMENTATION_AUTHORIZED | **false** (beyond authorized increments) |
 | UX_B3_STATUS / UX-B3_STATUS | **MERGED** (`OPERATIONAL-MVP-SCREEN-CONTRACTS-001`; PR #44 → `253bd82`) |
@@ -668,3 +688,4 @@ Python 3.11+, uv, SQLAlchemy 2.x, psycopg 3, Alembic, **PostgreSQL 16** (oficial
 | 2026-07-24 | Merge PR #143 UX-R4 I3 acceptance + human final validation | I3 MERGED; human validation APPROVED; docs-only closure proposal | `UX_R4_I3_STATUS=MERGED`; formal stamp in post-merge |
 | 2026-07-24 | Post-merge closure UX-R4 formal stamp + merge-complete | FINAL-MERGE + formal stamp + MERGE-COMPLETE + PROJECT | `UX_R4_RELEASE_STATUS=CLOSED`; NEXT=`UX_R5_DISCOVERY_AND_SCOPE_ASSESSMENT` (not authorized) |
 | 2026-07-24 | Stamp UX-R4 MERGE-COMPLETE post-merge evidence | POST_MERGE_PR_STATUS=MERGED; PR #144 merge recorded | MAIN_TIP=`1c569b0`; UX-R5 still NOT_STARTED |
+| 2026-07-25 | Encerramento formal do projeto Wick | `ENCERRAMENTO.md` + README/PROJECT; pergunta respondida | `PROJECT_STATUS=ENCERRADO`; holdout consumido; R$ 0,00 |

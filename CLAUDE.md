@@ -1,5 +1,8 @@
 # CLAUDE.md — Wick
 
+> **PROJECT_STATUS = ENCERRADO (2026-07-25).**  
+> Leia primeiro: [`ENCERRAMENTO.md`](./ENCERRAMENTO.md). Não inicie novas features, UX releases, coleta, validate, unlock de R4/R5 ou trabalho paralelo neste repositório.
+
 ## Missão
 
 Construir um sistema de pesquisa quantitativa para avaliar se padrões de candlestick apresentam vantagem preditiva líquida após custos, antes de qualquer uso de dinheiro real.
@@ -7,10 +10,11 @@ Construir um sistema de pesquisa quantitativa para avaliar se padrões de candle
 ## Fonte de verdade
 
 Leia, nesta ordem:
-1. `docs/PROJECT.md`
-2. especificação da release em `docs/releases/`
-3. documentos de arquitetura relacionados
-4. código e migrations existentes
+1. `ENCERRAMENTO.md` (estado final do projeto — se ENCERRADO, pare)
+2. `docs/PROJECT.md`
+3. especificação da release em `docs/releases/`
+4. documentos de arquitetura relacionados
+5. código e migrations existentes
 
 Quando documentação e código divergirem:
 - não esconda a divergência;
