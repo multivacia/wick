@@ -1,8 +1,12 @@
 # Wick
 
+> **Status: ENCERRADO — 25 de julho de 2026.**  
+> A pergunta do projeto foi respondida: **nenhuma vantagem preditiva líquida mensurável** foi encontrada para os padrões de candlestick avaliados.  
+> **Leia primeiro:** [`ENCERRAMENTO.md`](./ENCERRAMENTO.md)
+
 Sistema de pesquisa quantitativa para avaliar se padrões de candlestick apresentam vantagem preditiva líquida após custos — **antes de qualquer uso de dinheiro real**.
 
-Release atual: **R1 — Setup e Ingestão**.
+Release científica final relevante: **R3D `REJECTED_NO_MEASURABLE_EDGE_V1`** (16/07/2026); R3E exploratório `CANDLE_ADDS_NO_VALUE` com gate `PENDING_FUTURE_UNSEEN_DATA`; R4 **BLOCKED**; R5 **NOT_STARTED**. Capital arriscado: **R$ 0,00**.
 
 ## Requisitos
 
