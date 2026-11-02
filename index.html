@@ -157,7 +157,7 @@ const examples={
 'RFB0002.CBL':"       IDENTIFICATION DIVISION.\n       PROGRAM-ID. RFB0002.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       COPY CLIPAG.\n       PROCEDURE DIVISION.\n           DISPLAY 'DEMONSTRACAO'.\n           GOBACK.",
 'CLIPAG.CPY':"       01 DADOS-CLIENTE.\n          05 CLI-ID PIC 9(8).\n          05 CLI-NOME PIC X(30).\n          05 CLI-VALOR PIC 9(7)V99 COMP-3."
 };
-let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false, autoSend=false, phase='idle', speechGeneration=0;
+let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false, autoSend=false, phase='idle', speechGeneration=0, processing=false, suppressNextVoice=false;
 let micStarting=false,micError=false,micResult=false,micFinal=false,micUserStopped=false,micAudio=false,micSound=false,micSpeech=false,micTimeout=null,signalTesting=false,micSubmitted=false;
 const diagEvents=[];
 function logDiag(event){const stamp=new Date().toLocaleTimeString();diagEvents.push(stamp+' '+event);if(diagEvents.length>20)diagEvents.shift();$('diagLog').textContent=diagEvents.join('\n');$('diagLog').scrollTop=$('diagLog').scrollHeight;}
@@ -246,15 +246,18 @@ if(lines.length===1)lines.push(english()?'No direct EXEC, COPY or DSN reference 
 return lines.join('\n')+'\n\n'+tr('result');
 }
 function send(message){
-const value=message.trim();if(!value)return;
+const value=message.trim();if(!value||processing)return;
+processing=true;suppressNextVoice=false;
 add('user',value);$('prompt').value='';$('transcript').classList.remove('visible');
 setPhase('analyzing');
+setTimeout(()=>{
 try{
 lastReply=codeResult(value);add('assistant',lastReply);
-if(autoSpeak)speak(lastReply);
-else setPhase('idle');
+if(autoSpeak&&!suppressNextVoice&&!listening)speak(lastReply);
+else setPhase(listening?'listening':'idle');
 }catch(e){setPhase('idle');note(english()?'Unable to analyse this request.':'Falha ao analisar esta solicitação.',true);logDiag('analysis-error: '+(e?.name||'unknown'));}
-
+finally{processing=false;suppressNextVoice=false;}
+},240);
 }
 function refreshFiles(){const area=$('files');area.replaceChildren();Object.keys(docs).sort().forEach(name=>{const button=document.createElement('button');button.type='button';button.textContent=name;button.className=name===selected?'selected':'';button.addEventListener('click',()=>{selected=name;refreshFiles();});area.append(button);});$('selectedFile').textContent=selected;$('source').textContent=docs[selected]||'';}
 function setLanguage(value){
@@ -268,6 +271,7 @@ if(mic&&(listening||micStarting)){micUserStopped=true;mic.abort();}stopSpeech();
 }
 const SpeechRecognitionClass=window.SpeechRecognition||window.webkitSpeechRecognition;
 function startMic(){
+if(processing){note(english()?'Finishing the current analysis.':'Concluindo a análise anterior.',false);return;}
 if(micStarting||listening){micUserStopped=true;logDiag('interrompido pelo usuário');try{mic&&mic.abort();}catch(e){finishMicUI();}return;}
 if(signalTesting){note(english()?'Wait for the signal test to finish.':'Aguarde o teste de sinal terminar.',true);return;}
 if(!window.isSecureContext||location.protocol==='file:'||location.protocol==='content:'){note(tr('secure'),true);return;}
@@ -395,11 +399,11 @@ $('test').addEventListener('click',()=>speak(tr('trial')));
 $('repeat').addEventListener('click',()=>speak(lastReply||tr('trial')));
 $('auto').addEventListener('click',()=>{autoSpeak=!autoSpeak;$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');$('auto').setAttribute('aria-pressed',String(autoSpeak));$('auto').classList.toggle('active',autoSpeak);if(!autoSpeak&&speaking)stopSpeech();});
 $('autoSend').addEventListener('click',()=>{autoSend=!autoSend;updateAutoSendUI();});
-$('stop').addEventListener('click',()=>{if(mic&&(listening||micStarting)){micUserStopped=true;try{mic.abort();}catch(e){finishMicUI();}}stopSpeech();if(!listening&&!micStarting)setPhase('idle');});
+$('stop').addEventListener('click',()=>{if(processing)suppressNextVoice=true;if(mic&&(listening||micStarting)){micUserStopped=true;try{mic.abort();}catch(e){finishMicUI();}}stopSpeech();if(!listening&&!micStarting)setPhase('idle');});
 $('mic').addEventListener('click',startMic);
 $('signalTest').addEventListener('click',testMicSignal);
 $('copyDiag').addEventListener('click',async()=>{
-const message='Multivacia 0.7.1 · '+lang+' · HTTPS='+window.isSecureContext+'\n'+diagEvents.join('\n');
+const message='Multivacia 0.8 · '+lang+' · HTTPS='+window.isSecureContext+'\n'+diagEvents.join('\n');
 try{await navigator.clipboard.writeText(message);diagSummary(english()?'Diagnostics copied.':'Diagnóstico copiado.');}catch(e){diagSummary(english()?'Select and copy the diagnostic text below.':'Selecione e copie o diagnóstico abaixo.',true);}
 });
 $('form').addEventListener('submit',e=>{e.preventDefault();send($('prompt').value);});
