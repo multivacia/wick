@@ -38,6 +38,10 @@ A interface não substitui revisão humana nem executa jobs. Não inclua código
 
 **Como testar a 0.8:** abra a página pelo HTTPS; habilite `AUTO ENVIO: ON` e, se desejar resposta falada, `FALA AUTOMÁTICA: ON`. Toque em OUVIR e diga "Qual programa executa o STEP050 do RFJ0001?". O envio automático só ocorre quando o navegador informa que a transcrição está finalizada. `PARAR` cancela a escuta ou interrompe a resposta. Mantenha AUTO ENVIO desligado se preferir revisar o texto antes de enviar.
 
+## Plano Diretor de evolução
+
+O roteiro das versões, o processo de inclusão/atualização/exclusão de componentes e os critérios de liberação estão em [Plano Diretor da MultivacIA](docs/plano-diretor-evolucao.md). A proposta é evolutiva; documentação não autoriza merge nem publicação.
+
 ## Arquitetura de dados 0.9
 
 Consulte [Schema, fluxos e segurança do catálogo](docs/arquitetura-catalogo-09.md).
