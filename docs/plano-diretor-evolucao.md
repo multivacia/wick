@@ -1,6 +1,6 @@
 # Plano Diretor de Evolução — MultivacIA
 
-**Status:** proposta de planejamento (não autoriza implementação, merge nem deploy).  
+**Status:** roadmap com implementação experimental de 0.9A/B e recuperação limitada de 0.9C em branch de trabalho; não autoriza merge nem deploy.  
 **Atualizado:** 2026-11-02.  
 **Repositório:** multivacia/wick.  
 **Referência técnica:** [Arquitetura do catálogo 0.9](arquitetura-catalogo-09.md) e PR #148.  
@@ -130,7 +130,9 @@ Inventário completo hipotético de 1.562 arquivos: 1.540 inalterados, 12 modifi
 **Portão de aprovação:** CI verde + roteiro manual validado + aprovação expressa de merge/publicação.
 
 ### Entrega MV-09B — Motor de sincronização incremental (0.9.x)
-**Construir:**
+**Implementação inicial na branch (homologação pendente):** classificação parcial/completa por biblioteca, SHA-256, conflitos de identidade, prévia de diferenças, exclusão com confirmação dupla, checagem de prévia obsoleta e atualização atômica em uma transação. Ainda falta inventário externo versionado, renomeações e retomada por checkpoint.
+
+**Escopo e pendências:**
 - [ ] Registro de origens e inventários com modo completo/parcial.
 - [ ] Detecção de novos, alterados, inalterados, conflitos, possíveis renomeações e ausentes.
 - [ ] Atualização e remoção controlada em lote, sem inferir exclusões de importações parciais.
@@ -140,14 +142,16 @@ Inventário completo hipotético de 1.562 arquivos: 1.540 inalterados, 12 modifi
 **Portão de aprovação:** testar cenários de adição, mudança, exclusão, conflito, interrupção e reexecução.
 
 ### Entrega MV-09C — Histórico, snapshots e confiabilidade (0.9.x)
-**Construir:**
+**Implementação parcial na branch (homologação pendente):** metadados de sincronização por execução, cópia exata do estado anterior dos componentes afetados e opção de desfazer a última atualização; teste sintético de 1.562 arquivos para classificar diferenças. O histórico de snapshots múltiplos e o benchmark com arquivos reais sintéticos ainda não existem.
+
+**Escopo e pendências:**
 - [ ] Execuções de sincronização, snapshots e versões de fonte.
 - [ ] Publicação consistente de lote e restauração do snapshot anterior.
 - [ ] Referências ambíguas/dinâmicas com status de resolução.
 - [ ] Relatório de qualidade e métricas.
 - [ ] Teste de carga com 1.562 artefatos **sintéticos**, sem qualquer fonte corporativo.
 
-**Portão de aprovação:** integridade demonstrada após falhas e retomadas; baseline de desempenho documentada.
+**Portão de aprovação:** integridade demonstrada após falhas e retomadas; baseline de desempenho documentada. **Este portão ainda não foi cumprido.**
 
 ### Entrega MV-10A — Grafo visual e análise de impacto (1.0)
 **Construir:**
@@ -215,9 +219,9 @@ Inventário completo hipotético de 1.562 arquivos: 1.540 inalterados, 12 modifi
 
 ## 8. Ordem imediata sugerida
 
-1. Homologar MV-09A sem merge.
-2. Implementar MV-09B: inventário, classificação e operações de inclusão/alteração/exclusão.
-3. Implementar MV-09C: snapshots e reversão com testes de carga.
+1. Homologar MV-09A no navegador sem merge.
+2. Homologar o núcleo MV-09B já implementado: prévia, conflitos, inclusão, atualização, exclusão e atomicidade; concluir inventário formal e reinício seguro.
+3. Homologar a reversão de uma execução em MV-09C e medir carga real de 1.562 artefatos sintéticos; planejar histórico de múltiplos snapshots.
 4. Aprovar promoção da 0.9 para main somente com evidências.
 5. Avançar para grafo visual 1.0, reaproveitando as relações já catalogadas.
 6. Somente depois integrar IA generativa 1.1, com respostas fundamentadas.
