@@ -1,5 +1,5 @@
 /**
- * MultivacIA 0.9B: deliberate, locally atomic inventory synchronization.
+ * MultivacIA 0.9B/C: locally atomic inventory sync and one-step undo.
  * No upload/network traffic. Absence in partial inventories never implies deletion.
  */
 import {artifactId, normalizeName, parseArtifact, PARSER_VERSION} from './parser.js';
@@ -133,8 +133,8 @@ export async function applyInventory(catalog,plan) {
       }
     }
     for(const row of staged) {
-      for(const key of row.postingKeys)p.delete(key);
-      for(const key of row.edgeKeys)e.delete(key);
+      for(const entry of row.oldPostings)p.delete([entry.term,entry.id,entry.line]);
+      for(const entry of row.oldEdges)e.delete([entry.sourceId,entry.type,entry.target,entry.line]);
       a.delete(row.item.id);
     }
     for(const record of parsed) {
@@ -146,20 +146,85 @@ export async function applyInventory(catalog,plan) {
     const runId=(crypto.randomUUID?.()||String(Date.now()));
     const audit={key:'sync:last',runId,finishedAt:new Date().toISOString(),
       mode:plan.mode,library:plan.library,counts:plan.counts};
-    tx.objectStore('meta').put(audit);
-    tx.objectStore('meta').put({...audit,key:'sync:run:'+runId});
+    const metadata=tx.objectStore('meta');
+    metadata.put(audit);
+    metadata.put({...audit,key:'sync:run:'+runId});
+    // One recoverable checkpoint, written atomically with the new snapshot.
+    // It includes exact prior source, postings and edges; never sent over network.
+    metadata.put({key:'sync:undo',runId,createdAt:audit.finishedAt,
+      before:staged.map(row=>({id:row.item.id,artifact:row.current||null,
+        postings:row.oldPostings,edges:row.oldEdges})),
+      after:targets.map(item=>({id:item.id,
+        hash:changed.some(c=>c.id===item.id)?item.hash:null,
+        parser:changed.some(c=>c.id===item.id)?PARSER_VERSION:null}))});
   };
   for(const item of targets) {
-    const row={item,postingKeys:[],edgeKeys:[],current:null};
+    const row={item,oldPostings:[],oldEdges:[],current:null};
     staged.push(row);
     a.get(item.id).onsuccess=ev=>{row.current=ev.target.result;finishRead();};
-    p.index('by_id').getAllKeys(IDBKeyRange.only(item.id)).onsuccess=ev=>{
-      row.postingKeys=ev.target.result;finishRead();
+    p.index('by_id').getAll(IDBKeyRange.only(item.id)).onsuccess=ev=>{
+      row.oldPostings=ev.target.result;finishRead();
     };
-    e.index('by_source').getAllKeys(IDBKeyRange.only(item.id)).onsuccess=ev=>{
-      row.edgeKeys=ev.target.result;finishRead();
+    e.index('by_source').getAll(IDBKeyRange.only(item.id)).onsuccess=ev=>{
+      row.oldEdges=ev.target.result;finishRead();
     };
   }
   await finished;
   return {applied:changed.length,removed:plan.removed.length,unchanged:plan.counts.unchanged};
+}
+
+/** Restore the exact previous records, not a reconstruction with a newer parser.
+ * Only the most recent successful inventory sync is reversible.
+ */
+export async function restoreLastInventory(catalog) {
+  const read=catalog.db.transaction('meta','readonly');
+  const undo=await on(read.objectStore('meta').get('sync:undo'));
+  if(!undo?.before?.length)throw new Error('Não há sincronização reversível neste navegador');
+  const tx=catalog.db.transaction(['artifacts','postings','edges','meta'],'readwrite');
+  const finished=settled(tx);
+  const a=tx.objectStore('artifacts'),p=tx.objectStore('postings'),e=tx.objectStore('edges');
+  const staged=[];
+  let pending=undo.after.length*3,aborted=false;
+  const abort=()=>{if(!aborted){aborted=true;tx.abort();}};
+  const finalize=()=>{
+    pending--;
+    if(pending!==0||aborted)return;
+    for(const row of staged) {
+      if((row.current?.hash??null)!==(row.expected.hash??null) ||
+        (row.current?.parserVersion??null)!==(row.expected.parser??null)){abort();return;}
+    }
+    for(const row of staged) {
+      for(const key of row.postings)p.delete(key);
+      for(const key of row.edges)e.delete(key);
+      a.delete(row.expected.id);
+    }
+    for(const before of undo.before) {
+      if(before.artifact)a.put(before.artifact);
+      for(const posting of before.postings)p.put(posting);
+      for(const edge of before.edges)e.put(edge);
+    }
+    const meta=tx.objectStore('meta');
+    meta.delete('sync:undo');
+    const runId=crypto.randomUUID?.()||String(Date.now());
+    const audit={key:'sync:last',runId,finishedAt:new Date().toISOString(),
+      mode:'restore',restoredRunId:undo.runId,counts:{restored:undo.before.length}};
+    meta.put(audit);
+    meta.put({...audit,key:'sync:run:'+runId});
+  };
+  for(const expected of undo.after) {
+    const row={expected,current:null,postings:[],edges:[]};staged.push(row);
+    a.get(expected.id).onsuccess=ev=>{row.current=ev.target.result;finalize();};
+    p.index('by_id').getAllKeys(IDBKeyRange.only(expected.id)).onsuccess=ev=>{
+      row.postings=ev.target.result;finalize();
+    };
+    e.index('by_source').getAllKeys(IDBKeyRange.only(expected.id)).onsuccess=ev=>{
+      row.edges=ev.target.result;finalize();
+    };
+  }
+  await finished;
+  return {restored:undo.before.length,runId:undo.runId};
+}
+
+export async function lastInventoryRun(catalog) {
+  return on(catalog.db.transaction('meta','readonly').objectStore('meta').get('sync:last'));
 }
