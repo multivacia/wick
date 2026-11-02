@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020602">
+<meta name="referrer" content="no-referrer">
+<title>Multivacia · MVP 0.7</title>
+<style>
+:root{--bg:#020602;--panel:#071309;--line:#295b32;--green:#8cf79e;--light:#d4ffdb;--muted:#76ad80;--amber:#f1d28b}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--green);font:14px/1.45 ui-monospace,SFMono-Regular,Consolas,"Courier New",monospace}
+button,select,input,textarea{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+button:disabled{cursor:default;opacity:.5}
+.app{max-width:850px;height:100vh;height:100dvh;margin:auto;display:flex;flex-direction:column;border-left:1px solid #17351d;border-right:1px solid #17351d}
+header{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;border-bottom:1px solid var(--line);gap:6px}
+.logo{font-size:clamp(16px,4.5vw,23px);letter-spacing:.07em;font-weight:800}
+.version{font-size:10px;color:var(--muted);white-space:nowrap}
+.facebox{display:flex;align-items:center;gap:15px;padding:9px 15px;border-bottom:1px solid var(--line);background:#041004}
+.face{width:100px;height:94px;flex:0 0 100px;filter:drop-shadow(0 0 4px #8cf79e33)}
+.face .eyes{animation:blink 7s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,43%,45%,100%{transform:scaleY(1)}44%{transform:scaleY(.08)}}
+.bars{display:none}
+.speaking .smile{display:none}.speaking .bars{display:block}
+.speaking .bar{animation:bounce .25s infinite alternate;transform-box:fill-box;transform-origin:center}
+.speaking .bar:nth-child(2){animation-duration:.38s}.speaking .bar:nth-child(3){animation-duration:.19s}
+@keyframes bounce{to{transform:scaleY(.3)}}
+.facecopy strong{display:block;color:var(--light);font-size:14px}
+.facecopy small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.controls{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.settings,.actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.settings select{min-width:130px;flex:1;max-width:280px}
+select,textarea,input{background:var(--panel);color:var(--light);border:1px solid var(--line);padding:9px;border-radius:2px}
+button{border:1px solid var(--line);color:var(--green);background:#0a190d;padding:9px 11px;border-radius:2px}
+button.primary{background:var(--green);color:#061008;border-color:var(--green);font-weight:800}
+button.active{color:#031008;background:var(--green)}
+.info{color:var(--muted);font-size:11px}
+.warn{color:var(--amber);font-size:11px}
+.nav{display:flex;border-bottom:1px solid var(--line)}
+.nav button{width:50%;border:0;border-radius:0;border-right:1px solid var(--line);background:transparent;font-weight:bold}
+.nav button.active{border-bottom:3px solid var(--green);color:var(--light)}
+.page{flex:1;min-height:0;display:none;flex-direction:column}
+.page.active{display:flex}
+.log{flex:1;min-height:0;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.msg{padding:11px;background:#051006;border:1px solid var(--line);white-space:pre-wrap;overflow-wrap:anywhere;max-width:96%}
+.msg.user{align-self:flex-end;border-left:3px solid var(--green);background:#09200c}
+.msg small{display:block;font-size:10px;margin-bottom:6px;color:var(--muted)}
+.transcript{margin:0 12px 7px;padding:8px;border:1px dashed #46784c;color:var(--amber);font-size:11px;display:none}
+.transcript.visible{display:block}
+.composer{display:flex;gap:7px;padding:8px 12px 12px;border-top:1px solid var(--line)}
+.composer input{flex:1;min-width:0;font-size:14px}
+.composer button{flex-shrink:0}
+.artifacts{padding:12px;overflow:auto}
+.artifacts p{font-size:12px;color:var(--muted)}
+.files{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
+.files button.selected{background:var(--green);color:#061008}
+pre{white-space:pre;overflow:auto;border:1px solid var(--line);padding:12px;font-size:11px;line-height:1.55;color:var(--light);background:#030d04;min-height:160px}
+.filebar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+footer{font-size:10px;color:var(--muted);border-top:1px solid var(--line);padding:7px 12px}
+@media(min-width:650px){.face{width:125px;height:110px;flex-basis:125px}.controls{flex-direction:row;align-items:center;justify-content:space-between}.controls .settings{flex:1}.actions{justify-content:flex-end}}
+@media(prefers-reduced-motion:reduce){.face .eyes,.speaking .bar{animation:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.7 · MAINFRAME</div></header>
+<div class="facebox">
+<svg id="face" class="face" viewBox="0 0 160 142" aria-label="Rosto pixelado da Multivacia" role="img">
+<g stroke="#8cf79e" fill="none" stroke-width="4" stroke-linecap="square">
+<path d="M33 30 V21 L46 11 H114 L127 21 V30"/>
+<path d="M24 44 L15 53 V92 L24 101"/>
+<path d="M136 44 L145 53 V92 L136 101"/>
+<path d="M45 109 L57 121 H103 L115 109"/>
+<path class="smile" d="M57 89 L67 99 H93 L103 89"/>
+</g>
+<g class="eyes" fill="#8cf79e"><rect x="54" y="46" width="12" height="28"/><rect x="94" y="46" width="12" height="28"/></g>
+<g class="bars" fill="#8cf79e"><rect class="bar" x="63" y="84" width="7" height="22"/><rect class="bar" x="77" y="81" width="7" height="28"/><rect class="bar" x="91" y="84" width="7" height="22"/></g>
+</svg>
+<div class="facecopy"><strong id="headline">Olá. Vamos conversar?</strong><small id="status" aria-live="polite">● PRONTA PARA OUVIR</small><small id="context">4 membros demonstrativos · sem dados corporativos</small></div>
+</div>
+<div class="controls">
+<div class="settings">
+<label for="language" id="labelLanguage">Idioma</label>
+<select id="language" aria-label="Idioma">
+<option value="pt-BR">Português (Brasil)</option>
+<option value="en-US">English (USA)</option>
+<option value="en-GB">English (UK)</option>
+</select>
+<select id="voice" aria-label="Voz"><option value="">Voz automática</option></select>
+</div>
+<div class="actions">
+<button id="mic" type="button" aria-label="Ativar microfone">🎤 <span id="micText">OUVIR</span></button>
+<button id="test" type="button">▶ <span id="testText">TESTAR VOZ</span></button>
+<button id="stop" type="button">■ <span id="stopText">PARAR</span></button>
+</div>
+<div id="microphoneInfo" class="warn" aria-live="polite">O reconhecimento de voz pode utilizar serviços externos do navegador. Use apenas dados fictícios ou autorizados.</div>
+</div>
+<div class="nav" role="tablist" aria-label="Navegação">
+<button id="tabChat" class="active" type="button" role="tab" aria-selected="true">CONVERSAR</button>
+<button id="tabFiles" type="button" role="tab" aria-selected="false">ARTEFATOS</button>
+</div>
+<section id="pageChat" class="page active" aria-label="Conversa">
+<div id="log" class="log" aria-live="polite"></div>
+<div id="transcript" class="transcript" aria-live="polite"></div>
+<form id="form" class="composer">
+<input id="prompt" type="text" autocomplete="off" aria-label="Pergunta" placeholder="Pergunte sobre JCL, PROC, COBOL...">
+<button class="primary" type="submit" id="send">ENVIAR</button>
+</form>
+</section>
+<section id="pageFiles" class="page" aria-label="Artefatos">
+<div class="artifacts">
+<div class="filebar"><strong id="filesTitle">Artefatos fictícios</strong><label><input id="upload" type="file" multiple accept=".jcl,.proc,.cbl,.cob,.cpy,.txt" hidden><button type="button" id="uploadButton">IMPORTAR ARQUIVOS</button></label></div>
+<p id="fileHelp">Conteúdo de exemplo para demonstrar relações. Arquivos importados são processados apenas neste navegador e não são enviados pelo aplicativo.</p>
+<div id="files" class="files"></div>
+<strong id="selectedFile"></strong>
+<pre id="source" tabindex="0"></pre>
+<button type="button" id="analyzeFile">ANALISAR ESTE MEMBRO</button>
+</div>
+</section>
+<footer id="footer">PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS</footer>
+</div>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const examples={
+'RFJ0001.JCL':"//RFJ0001 JOB (0000),'DEMO',CLASS=A\n//STEP050 EXEC PROC=RFP0001,PROGRAMA=RFB0002\n//SAIDA DD DSN=DEMO.CADASTRO.SAIDA,DISP=SHR",
+'RFP0001.PROC':"//RFP0001 PROC PROGRAMA=RFB0001\n//EXECUTE EXEC PGM=&PROGRAMA\n//ENTRADA DD DSN=DEMO.CADASTRO.ENTRADA,DISP=SHR\n// PEND",
+'RFB0002.CBL':"       IDENTIFICATION DIVISION.\n       PROGRAM-ID. RFB0002.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       COPY CLIPAG.\n       PROCEDURE DIVISION.\n           DISPLAY 'DEMONSTRACAO'.\n           GOBACK.",
+'CLIPAG.CPY':"       01 DADOS-CLIENTE.\n          05 CLI-ID PIC 9(8).\n          05 CLI-NOME PIC X(30).\n          05 CLI-VALOR PIC 9(7)V99 COMP-3."
+};
+let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false;
+const phrases={
+'pt-BR':{hello:'Olá. Vamos conversar?',ready:'● PRONTA PARA OUVIR',listen:'OUVIR',listening:'ESCUTANDO',test:'TESTAR VOZ',stop:'PARAR',send:'ENVIAR',chat:'CONVERSAR',files:'ARTEFATOS',placeholder:'Pergunte sobre JCL, PROC, COBOL...',intro:'Bem-vindo à Multivacia. Posso demonstrar relações entre JCL, PROC, COBOL e COPYBOOK. Experimente: qual programa executa o STEP050 do RFJ0001?',trial:'Olá! Eu sou a Multivacia. Posso conversar com você sobre sistemas mainframe.',transcript:'Transcrição pronta. Confira o texto e toque em ENVIAR.',listeningInfo:'Escutando. Fale normalmente e aguarde a transcrição.',secure:'Para ativar o microfone, abra a página em HTTPS ou localhost. Arquivos de Downloads podem ser bloqueados.',unsupported:'Reconhecimento de voz não disponível neste navegador. Use o campo de texto ou o microfone do teclado.',denied:'Permissão de microfone negada. Verifique as permissões do Chrome e do Android.',error:'Falha no reconhecimento de voz. Tente novamente.',noVoice:'Nenhuma voz instalada para este idioma; a reprodução pode usar a voz padrão do dispositivo.',noSpeech:'Nenhuma fala reconhecida. Tente novamente.',filesTitle:'Artefatos fictícios',help:'Exemplos demonstrativos. Arquivos importados são processados localmente; não são enviados pelo aplicativo.',analyze:'ANALISAR ESTE MEMBRO',import:'IMPORTAR ARQUIVOS',noMember:'Não encontrei esse membro nos arquivos carregados.',result:'Análise estrutural demonstrativa, sem execução do job e sem IA generativa.',footer:'PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS'},
+'en-US':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check Chrome and Android settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artifacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYZE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'},
+'en-GB':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check browser and device settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artefacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYSE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'}
+};
+const tr=key=>phrases[lang][key];
+const english=()=>lang!=='pt-BR';
+function status(text){$('status').textContent='● '+text;}
+function note(message,warning){$('microphoneInfo').textContent=message;$('microphoneInfo').className=warning?'warn':'info';}
+function add(role,body){const node=document.createElement('div');node.className='msg'+(role==='user'?' user':'');const who=document.createElement('small');who.textContent=role==='user'?(english()?'YOU':'VOCÊ'):'MULTIVACIA';const line=document.createElement('div');line.textContent=body;node.append(who,line);$('log').append(node);$('log').scrollTop=$('log').scrollHeight;}
+function show(tab){const chat=tab==='chat';$('pageChat').classList.toggle('active',chat);$('pageFiles').classList.toggle('active',!chat);$('tabChat').classList.toggle('active',chat);$('tabFiles').classList.toggle('active',!chat);$('tabChat').setAttribute('aria-selected',String(chat));$('tabFiles').setAttribute('aria-selected',String(!chat));}
+function setSpeaking(on){speaking=on;$('face').classList.toggle('speaking',on);if(!listening)status(on?(english()?'SPEAKING':'FALANDO'):(english()?'READY':'PRONTA PARA OUVIR'));}
+function voiceList(){
+const voice=$('voice');const available=window.speechSynthesis?window.speechSynthesis.getVoices():[];const related=available.filter(v=>v.lang.toLowerCase().replace('_','-')===lang.toLowerCase());
+voice.replaceChildren();const opt=document.createElement('option');opt.value='';opt.textContent=english()?'Automatic voice':'Voz automática';voice.append(opt);
+related.forEach(v=>{const o=document.createElement('option');o.value=v.voiceURI;o.textContent=v.name;voice.append(o);});
+if(related.length===0)note(tr('noVoice'),true);
+else note(english()?'Speech recognition may use external browser services. Use only sample or authorised data.':'O reconhecimento de voz pode usar serviços externos do navegador. Use apenas dados fictícios ou autorizados.',true);
+selectedVoice=related.some(v=>v.voiceURI===selectedVoice)?selectedVoice:'';voice.value=selectedVoice;
+}
+function stopSpeech(){if(window.speechSynthesis)window.speechSynthesis.cancel();setSpeaking(false);}
+function speak(text){
+if(!('speechSynthesis' in window))return;
+stopSpeech();const speech=new SpeechSynthesisUtterance(text);speech.lang=lang;speech.rate=.96;
+const options=window.speechSynthesis.getVoices().filter(v=>v.lang.toLowerCase().replace('_','-')===lang.toLowerCase());
+speech.voice=options.find(v=>v.voiceURI===selectedVoice)||options[0]||null;
+speech.onstart=()=>setSpeaking(true);speech.onend=()=>setSpeaking(false);speech.onerror=()=>setSpeaking(false);
+window.speechSynthesis.speak(speech);
+}
+function codeResult(question){
+let q=question.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const keys=Object.keys(docs),found=keys.filter(k=>q.includes(k.split('.')[0]));
+if(q.includes('STEP050')&&docs['RFJ0001.JCL']){
+const job=docs['RFJ0001.JCL'];const step=job.split('\n').find(line=>/STEP050\s+EXEC/i.test(line));
+if(step){
+const proc=(step.match(/PROC\s*=\s*([A-Z0-9_-]+)/i)||[])[1];
+const prog=(step.match(/PROGRAMA\s*=\s*([A-Z0-9_-]+)/i)||[])[1];
+return (english()?'STEP050 of RFJ0001 calls PROC ':'O STEP050 do RFJ0001 chama a PROC ')+(proc||'?')+(prog?(english()?', passing parameter PROGRAMA='+prog+'.':', passando o parâmetro PROGRAMA='+prog+'.'):'')+'\n'+(english()?'Evidence: ':'Evidência: ')+step+'\n\n'+tr('result');
+}}
+const target=found[0]||keys.find(k=>q.includes(k)); if(!target){
+return (english()?'Loaded sample members: ':'Membros demonstrativos disponíveis: ')+keys.join(', ')+'.\n'+(english()?'Try asking about STEP050 in RFJ0001 or use the ARTIFACTS tab.':'Pergunte sobre o STEP050 do RFJ0001 ou abra a aba ARTEFATOS.');
+}
+selected=target;refreshFiles();
+const data=docs[target];
+const execs=[...data.matchAll(/\bEXEC\s+(?:PGM|PROC)\s*=\s*([A-Z0-9&_-]+)/gi)].map(m=>m[1]);
+const copies=[...data.matchAll(/\bCOPY\s+([A-Z0-9_-]+)/gi)].map(m=>m[1]);
+const datasets=[...data.matchAll(/\bDSN\s*=\s*([A-Z0-9._-]+)/gi)].map(m=>m[1]);
+const lines=[english()?'Member: '+target:'Membro: '+target];
+if(execs.length)lines.push((english()?'Executed targets: ':'Execuções: ')+execs.join(', '));
+if(copies.length)lines.push('COPY: '+copies.join(', '));
+if(datasets.length)lines.push('DSN: '+datasets.join(', '));
+if(lines.length===1)lines.push(english()?'No direct EXEC, COPY or DSN reference found.':'Não foram encontradas referências diretas EXEC, COPY ou DSN.');
+return lines.join('\n')+'\n\n'+tr('result');
+}
+function send(message){
+const value=message.trim();if(!value)return;
+add('user',value);$('prompt').value='';$('transcript').classList.remove('visible');
+lastReply=codeResult(value);add('assistant',lastReply);status(english()?'READY':'PRONTA PARA OUVIR');
+}
+function refreshFiles(){const area=$('files');area.replaceChildren();Object.keys(docs).sort().forEach(name=>{const button=document.createElement('button');button.type='button';button.textContent=name;button.className=name===selected?'selected':'';button.addEventListener('click',()=>{selected=name;refreshFiles();});area.append(button);});$('selectedFile').textContent=selected;$('source').textContent=docs[selected]||'';}
+function setLanguage(value){
+lang=value;document.documentElement.lang=lang;$('language').value=lang;$('headline').textContent=tr('hello');
+$('micText').textContent=tr('listen');$('testText').textContent=tr('test');$('stopText').textContent=tr('stop');$('send').textContent=tr('send');
+$('tabChat').textContent=tr('chat');$('tabFiles').textContent=tr('files');$('prompt').placeholder=tr('placeholder');$('filesTitle').textContent=tr('filesTitle');$('fileHelp').textContent=tr('help');$('analyzeFile').textContent=tr('analyze');$('uploadButton').textContent=tr('import');$('footer').textContent=tr('footer');$('labelLanguage').textContent=english()?'Language':'Idioma';$('context').textContent=english()?Object.keys(docs).length+' sample members · no company data':Object.keys(docs).length+' membros fictícios · sem dados corporativos';
+if(mic&&listening)mic.stop();stopSpeech();status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');voiceList();
+}
+const SpeechRecognitionClass=window.SpeechRecognition||window.webkitSpeechRecognition;
+function startMic(){
+if(listening){if(mic)mic.stop();return;}
+if(!window.isSecureContext){note(tr('secure'),true);return;}
+if(!SpeechRecognitionClass){note(tr('unsupported'),true);return;}
+stopSpeech();
+try{
+mic=new SpeechRecognitionClass();mic.lang=lang;mic.continuous=false;mic.interimResults=true;mic.maxAlternatives=1;
+mic.onstart=()=>{listening=true;$('mic').classList.add('active');$('micText').textContent=tr('listening');$('transcript').classList.add('visible');$('transcript').textContent=tr('listeningInfo');status(english()?'LISTENING':'OUVINDO');};
+mic.onresult=event=>{let text='';for(let i=event.resultIndex;i<event.results.length;i++)text+=event.results[i][0].transcript+' ';text=text.trim();if(text){$('prompt').value=text;$('transcript').classList.add('visible');$('transcript').textContent=tr('transcript');}};
+mic.onerror=event=>{const denied=event.error==='not-allowed'||event.error==='service-not-allowed';note(denied?tr('denied'):event.error==='no-speech'?tr('noSpeech'):tr('error')+' ('+event.error+')',true);};
+mic.onend=()=>{listening=false;$('mic').classList.remove('active');$('micText').textContent=tr('listen');status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');};
+mic.start();
+}catch(error){note(tr('error')+' ('+(error&&error.name||'unknown')+')',true);}
+}
+$('language').addEventListener('change',e=>setLanguage(e.target.value));
+$('voice').addEventListener('change',e=>{selectedVoice=e.target.value;});
+$('test').addEventListener('click',()=>speak(tr('trial')));
+$('stop').addEventListener('click',()=>{if(mic&&listening)mic.stop();stopSpeech();});
+$('mic').addEventListener('click',startMic);
+$('form').addEventListener('submit',e=>{e.preventDefault();send($('prompt').value);});
+$('tabChat').addEventListener('click',()=>show('chat'));
+$('tabFiles').addEventListener('click',()=>show('files'));
+$('analyzeFile').addEventListener('click',()=>{show('chat');send((english()?'Analyze ':'Analise ')+selected);});
+$('uploadButton').addEventListener('click',()=>$('upload').click());
+$('upload').addEventListener('change',async e=>{
+for(const f of Array.from(e.target.files||[]).slice(0,20)){
+if(f.size>300000){note(english()?'File too large (max 300 KB).':'Arquivo muito grande (máx. 300 KB).',true);continue;}
+const name=f.name.toUpperCase();if(!/\.(JCL|PROC|CBL|COB|CPY|TXT)$/.test(name))continue;
+docs[name]=await f.text();selected=name;
+}
+refreshFiles();setLanguage(lang);e.target.value='';
+});
+if(window.speechSynthesis){voiceList();window.speechSynthesis.addEventListener?.('voiceschanged',voiceList);}
+setLanguage('pt-BR');refreshFiles();add('assistant',tr('intro'));
+})();
+</script>
+</body>
+</html>
