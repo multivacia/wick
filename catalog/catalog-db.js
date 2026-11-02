@@ -116,9 +116,9 @@ export class Catalog {
     await done;
   }
   async clear() {
-    const tx=this.db.transaction(['artifacts','postings','edges'],'readwrite');
+    const tx=this.db.transaction(['artifacts','postings','edges','meta'],'readwrite');
     const done=txDone(tx);
-    for(const name of ['artifacts','postings','edges']) tx.objectStore(name).clear();
+    for(const name of ['artifacts','postings','edges','meta']) tx.objectStore(name).clear();
     await done;
   }
   async remove(library,name) {
