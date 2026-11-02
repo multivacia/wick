@@ -1,5 +1,5 @@
 import {openCatalog} from './catalog-db.js';
-import {prepareInventory,applyInventory} from './sync.js';
+import {prepareInventory,applyInventory,restoreLastInventory,lastInventoryRun} from './sync.js';
 
 const $ = id => document.getElementById(id);
 const catalog = {db:null,busy:false};
@@ -121,11 +121,20 @@ syncPanel.innerHTML=[
   '</div>',
   '<div class="catalog-controls"><button id="syncPreview" type="button">1. GERAR PRÉVIA</button>',
   '<button id="syncApply" type="button" disabled>2. APLICAR ALTERAÇÕES</button></div>',
+  '<div class="catalog-controls"><button id="syncUndo" type="button">DESFAZER ÚLTIMA SINCRONIZAÇÃO</button></div>',
+  '<small id="syncLast">Histórico local: sem consulta.</small>',
   '<div id="syncReport" class="info" aria-live="polite">Nenhuma prévia gerada.</div>',
   '<div id="syncDetails" class="catalog-sync-details"></div>'
 ].join('');
 $('catalogStats').insertAdjacentElement('afterend',syncPanel);
 const syncMode=$('syncMode'),syncLibrary=$('syncLibrary');
+async function refreshLastSync(){
+  const last=await lastInventoryRun(await ready());
+  $('syncLast').textContent=last?
+    'Última operação: '+last.mode+' · '+new Date(last.finishedAt).toLocaleString()+' · '+last.runId:
+    'Nenhuma sincronização incremental registrada.';
+}
+refreshLastSync().catch(()=>{$('syncLast').textContent='Histórico local indisponível.';});
 let syncPlan=null;
 function discardPreview(){
   syncPlan=null;$('syncApply').disabled=true;
@@ -183,12 +192,25 @@ $('syncApply').addEventListener('click',async()=>{
     syncPlan=null;
     $('syncReport').textContent='Aplicado: '+result.applied+' indexados · '+result.removed+' removidos · '+result.unchanged+' inalterados.';
     $('syncDetails').replaceChildren();$('catalogResults').replaceChildren();
-    await refresh();
-    status('Sincronização local aplicada de forma atômica.');
+    await refresh();await refreshLastSync();
+    status('Sincronização local aplicada de forma atômica. Pode desfazer a última sincronização.');
   }catch(error){
     const quota=error?.name==='QuotaExceededError';
     status(quota?'Espaço local insuficiente: transação cancelada; preserve sua fonte e libere armazenamento.':
       'Sincronização não aplicada: '+String(error.message||error),true);
     discardPreview();
   }finally{catalog.busy=false;$('syncPreview').disabled=false;}
+});
+
+$('syncUndo').addEventListener('click',async()=>{
+  if(catalog.busy)return;
+  if(!window.confirm('Desfazer a última sincronização incremental? Os componentes, termos e relacionamentos anteriores serão restaurados.'))return;
+  catalog.busy=true;$('syncUndo').disabled=true;
+  try {
+    const result=await restoreLastInventory(await ready());
+    discardPreview();$('catalogResults').replaceChildren();
+    await refresh();await refreshLastSync();
+    status('Restauração atômica concluída: '+result.restored+' componentes recuperados.');
+  }catch(error){status('Restauração não aplicada: '+String(error.message||error),true);}
+  finally{catalog.busy=false;$('syncUndo').disabled=false;}
 });
