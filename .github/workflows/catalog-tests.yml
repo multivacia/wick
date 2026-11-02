@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'catalog/**'
-      - 'tests/catalog.test.mjs'
+      - 'tests/**'
       - index.html
       - '.github/workflows/catalog-tests.yml'
   workflow_dispatch:
@@ -22,4 +22,4 @@ jobs:
         with:
           node-version: '22'
       - name: Run catalog parser tests
-        run: node --test tests/catalog.test.mjs
+        run: node --test tests/*.test.mjs
