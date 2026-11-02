@@ -27,6 +27,8 @@ Depois abra `http://localhost:8080`. A versão pública atual permanece no GitHu
 - Importação local opcional de arquivos de texto para experimentos autorizados
 - **Nova na 0.9:** aba CATÁLOGO com IndexedDB, índice invertido, hash SHA-256, Web Worker, busca textual e relações com linhas de evidência
 - Indexação iniciada explicitamente pelo usuário; fonte inalterado não é reanalisado; limpeza do índice local
+- **0.9B (prévia):** inventário parcial/completo por biblioteca, prévia dos novos/alterados/ausentes, conflitos, aplicação atômica e remoção somente com confirmação dupla
+- **0.9C (prévia):** último snapshot anterior recuperável (um passo de desfazer), registro local da última sincronização e teste sintético de classificação de 1.562 membros
 
 ## Fora do escopo deste MVP
 
@@ -46,12 +48,14 @@ O roteiro das versões, o processo de inclusão/atualização/exclusão de compo
 
 Consulte [Schema, fluxos e segurança do catálogo](docs/arquitetura-catalogo-09.md).
 
-Na aba **CATÁLOGO**, clique em **INDEXAR ARTEFATOS CARREGADOS** para indexar os quatro exemplos. Busque `STEP050`, `RFP0001` ou `CLIPAG`; em seguida, abra as referências do resultado. Depois, execute a mesma indexação e verifique que `0` fontes foram reprocessados. Use **LIMPAR ÍNDICE LOCAL** para apagar os dados persistidos.
+Na aba **CATÁLOGO**, use **1. GERAR PRÉVIA** e **2. APLICAR ALTERAÇÕES** para uma sincronização controlada, com inventário **PARCIAL** por padrão (nunca exclui). Inventário **COMPLETO** limita-se à biblioteca DEMO ou LOCAL escolhida; marque completo somente quando tiver certeza de que a seleção contém **todos os membros dessa biblioteca**. Uma remoção exige segunda confirmação. Também existe **DESFAZER ÚLTIMA SINCRONIZAÇÃO**, que recupera apenas a última operação incremental; não é backup permanente. Como alternativa antiga, clique em **INDEXAR ARTEFATOS CARREGADOS** para indexar os quatro exemplos. Busque `STEP050`, `RFP0001` ou `CLIPAG`; em seguida, abra as referências do resultado. Depois, execute a mesma indexação e verifique que `0` fontes foram reprocessados. Use **LIMPAR ÍNDICE LOCAL** para apagar os dados persistidos.
 
 Os conteúdos importados que forem indexados ficam armazenados no navegador (por origem) até serem apagados. Não use fontes corporativos nesta demonstração pública.
 
 Execute os testes de parser sem instalar dependências:
 
 ```bash
-node --test tests/catalog.test.mjs
+node --test tests/*.test.mjs
 ```
+
+**Estado de validação 0.9:** testes automatizados do parser e da classificação de inventários; IndexedDB real, aplicação/rollback em navegador, 1.562 fontes sintéticos com medição de desempenho e regressão da voz ainda dependem de homologação. Nenhum merge/deploy está autorizado automaticamente.
