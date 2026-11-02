@@ -27,7 +27,7 @@ export function parseArtifact({name, library = 'LOCAL', content = ''}) {
   function addEdge(type, target, line, evidence) {
     target = normalizeName(target).replace(/[.,;]+$/, '');
     if (!target) return;
-    const unresolved = type === 'CALL_DYNAMIC' || target.includes('&') || target.includes('
+    const unresolved = type === 'CALL_DYNAMIC' || target.includes('&');
     const key = [type,target,line].join('|');
     if (unique.has(key)) return;
     unique.add(key);
