@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#020602">
 <meta name="referrer" content="no-referrer">
-<title>Multivacia · MVP 0.7</title>
+<title>Multivacia · MVP 0.7.1</title>
 <style>
 :root{--bg:#020602;--panel:#071309;--line:#295b32;--green:#8cf79e;--light:#d4ffdb;--muted:#76ad80;--amber:#f1d28b}
 *{box-sizing:border-box}
@@ -61,11 +61,18 @@ pre{white-space:pre;overflow:auto;border:1px solid var(--line);padding:12px;font
 footer{font-size:10px;color:var(--muted);border-top:1px solid var(--line);padding:7px 12px}
 @media(min-width:650px){.face{width:125px;height:110px;flex-basis:125px}.controls{flex-direction:row;align-items:center;justify-content:space-between}.controls .settings{flex:1}.actions{justify-content:flex-end}}
 @media(prefers-reduced-motion:reduce){.face .eyes,.speaking .bar{animation:none}}
+details.diagnostics{margin-top:3px;border:1px solid var(--line);padding:7px 9px;background:#040e05;color:var(--muted);font-size:11px}
+details.diagnostics summary{cursor:pointer;color:var(--green);font-weight:bold;padding:3px}
+details.diagnostics .diag-actions{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+details.diagnostics button{font-size:11px;padding:7px}
+details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-height:0;font-size:10px;padding:8px;color:var(--muted)}
+.signal{width:100%;height:8px;border:1px solid var(--line);margin:8px 0;background:#010701}
+.signal>div{height:100%;width:0;background:var(--green)}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.7 · MAINFRAME</div></header>
+<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.7.1 · MAINFRAME</div></header>
 <div class="facebox">
 <svg id="face" class="face" viewBox="0 0 160 142" aria-label="Rosto pixelado da Multivacia" role="img">
 <g stroke="#8cf79e" fill="none" stroke-width="4" stroke-linecap="square">
@@ -98,6 +105,13 @@ footer{font-size:10px;color:var(--muted);border-top:1px solid var(--line);paddin
 <button id="stop" type="button">■ <span id="stopText">PARAR</span></button>
 </div>
 <div id="microphoneInfo" class="warn" aria-live="polite">O reconhecimento de voz pode utilizar serviços externos do navegador. Use apenas dados fictícios ou autorizados.</div>
+<details id="micDiagnostics" class="diagnostics">
+<summary id="diagTitle">DIAGNÓSTICO DO MICROFONE</summary>
+<div id="diagSummary" aria-live="polite">Use este painel se o microfone ficar em “ESCUTANDO” sem transcrever.</div>
+<div class="diag-actions"><button type="button" id="signalTest">TESTAR SINAL (4s)</button><button type="button" id="copyDiag">COPIAR DIAGNÓSTICO</button></div>
+<div id="levelText">Nível de áudio: ainda não testado</div><div class="signal" aria-hidden="true"><div id="levelBar"></div></div>
+<pre id="diagLog" tabindex="0" aria-label="Eventos do microfone">Sem eventos. O áudio não é gravado por este teste.</pre>
+</details>
 </div>
 <div class="nav" role="tablist" aria-label="Navegação">
 <button id="tabChat" class="active" type="button" role="tab" aria-selected="true">CONVERSAR</button>
@@ -134,6 +148,11 @@ const examples={
 'CLIPAG.CPY':"       01 DADOS-CLIENTE.\n          05 CLI-ID PIC 9(8).\n          05 CLI-NOME PIC X(30).\n          05 CLI-VALOR PIC 9(7)V99 COMP-3."
 };
 let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false;
+let micStarting=false,micError=false,micResult=false,micUserStopped=false,micAudio=false,micSound=false,micSpeech=false,micTimeout=null,signalTesting=false;
+const diagEvents=[];
+function logDiag(event){const stamp=new Date().toLocaleTimeString();diagEvents.push(stamp+' '+event);if(diagEvents.length>20)diagEvents.shift();$('diagLog').textContent=diagEvents.join('\n');$('diagLog').scrollTop=$('diagLog').scrollHeight;}
+function diagSummary(message,expand){$('diagSummary').textContent=message;if(expand)$('micDiagnostics').open=true;}
+function finishMicUI(){listening=false;micStarting=false;$('mic').classList.remove('active');$('micText').textContent=tr('listen');status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');if(micTimeout!==null){clearTimeout(micTimeout);micTimeout=null;}}
 const phrases={
 'pt-BR':{hello:'Olá. Vamos conversar?',ready:'● PRONTA PARA OUVIR',listen:'OUVIR',listening:'ESCUTANDO',test:'TESTAR VOZ',repeat:'LER RESPOSTA',auto:'FALA AUTOMÁTICA',stop:'PARAR',send:'ENVIAR',chat:'CONVERSAR',files:'ARTEFATOS',placeholder:'Pergunte sobre JCL, PROC, COBOL...',intro:'Bem-vindo à Multivacia. Posso demonstrar relações entre JCL, PROC, COBOL e COPYBOOK. Experimente: qual programa executa o STEP050 do RFJ0001?',trial:'Olá! Eu sou a Multivacia. Posso conversar com você sobre sistemas mainframe.',transcript:'Transcrição pronta. Confira o texto e toque em ENVIAR.',listeningInfo:'Escutando. Fale normalmente e aguarde a transcrição.',secure:'Para ativar o microfone, abra a página em HTTPS ou localhost. Arquivos de Downloads podem ser bloqueados.',unsupported:'Reconhecimento de voz não disponível neste navegador. Use o campo de texto ou o microfone do teclado.',denied:'Permissão de microfone negada. Verifique as permissões do Chrome e do Android.',error:'Falha no reconhecimento de voz. Tente novamente.',noVoice:'Nenhuma voz instalada para este idioma; a reprodução pode usar a voz padrão do dispositivo.',noSpeech:'Nenhuma fala reconhecida. Tente novamente.',filesTitle:'Artefatos fictícios',help:'Exemplos demonstrativos. Arquivos importados são processados localmente; não são enviados pelo aplicativo.',analyze:'ANALISAR ESTE MEMBRO',import:'IMPORTAR ARQUIVOS',noMember:'Não encontrei esse membro nos arquivos carregados.',result:'Análise estrutural demonstrativa, sem execução do job e sem IA generativa.',footer:'PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS'},
 'en-US':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check Chrome and Android settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artifacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYZE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'},
@@ -197,31 +216,141 @@ function refreshFiles(){const area=$('files');area.replaceChildren();Object.keys
 function setLanguage(value){
 lang=value;document.documentElement.lang=lang;$('language').value=lang;$('headline').textContent=tr('hello');
 $('micText').textContent=tr('listen');$('testText').textContent=tr('test');$('repeatText').textContent=tr('repeat');$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');$('stopText').textContent=tr('stop');$('send').textContent=tr('send');
+$('diagTitle').textContent=english()?'MICROPHONE DIAGNOSTICS':'DIAGNÓSTICO DO MICROFONE';
+$('signalTest').textContent=english()?'TEST MIC SIGNAL (4s)':'TESTAR SINAL (4s)';
+$('copyDiag').textContent=english()?'COPY DIAGNOSTICS':'COPIAR DIAGNÓSTICO';
 $('tabChat').textContent=tr('chat');$('tabFiles').textContent=tr('files');$('prompt').placeholder=tr('placeholder');$('filesTitle').textContent=tr('filesTitle');$('fileHelp').textContent=tr('help');$('analyzeFile').textContent=tr('analyze');$('uploadButton').textContent=tr('import');$('footer').textContent=tr('footer');$('labelLanguage').textContent=english()?'Language':'Idioma';$('context').textContent=english()?Object.keys(docs).length+' sample members · no company data':Object.keys(docs).length+' membros fictícios · sem dados corporativos';
 if(mic&&listening)mic.stop();stopSpeech();status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');voiceList();
 }
 const SpeechRecognitionClass=window.SpeechRecognition||window.webkitSpeechRecognition;
 function startMic(){
-if(listening){if(mic)mic.stop();return;}
+if(micStarting||listening){micUserStopped=true;logDiag('interrompido pelo usuário');try{mic&&mic.stop();}catch(e){finishMicUI();}return;}
+if(signalTesting){note(english()?'Wait for the signal test to finish.':'Aguarde o teste de sinal terminar.',true);return;}
 if(!window.isSecureContext||location.protocol==='file:'||location.protocol==='content:'){note(tr('secure'),true);return;}
-if(!SpeechRecognitionClass){note(tr('unsupported'),true);return;}
-stopSpeech();
+if(!SpeechRecognitionClass){note(tr('unsupported'),true);logDiag('SpeechRecognition indisponível');diagSummary(tr('unsupported'),true);return;}
+stopSpeech();micStarting=true;micError=false;micResult=false;micUserStopped=false;micAudio=false;micSound=false;micSpeech=false;
+logDiag('iniciar reconhecimento '+lang+' · HTTPS='+window.isSecureContext);
+diagSummary(english()?'Recognition requested; waiting for microphone capture.':'Reconhecimento solicitado; aguardando confirmação de captação.',false);
 try{
 mic=new SpeechRecognitionClass();mic.lang=lang;mic.continuous=false;mic.interimResults=true;mic.maxAlternatives=1;
-mic.onstart=()=>{listening=true;$('mic').classList.add('active');$('micText').textContent=tr('listening');$('transcript').classList.add('visible');$('transcript').textContent=tr('listeningInfo');status(english()?'LISTENING':'OUVINDO');};
-mic.onresult=event=>{let text='';for(let i=event.resultIndex;i<event.results.length;i++)text+=event.results[i][0].transcript+' ';text=text.trim();if(text){$('prompt').value=text;$('transcript').classList.add('visible');$('transcript').textContent=tr('transcript');}};
-mic.onerror=event=>{const denied=event.error==='not-allowed'||event.error==='service-not-allowed';note(denied?tr('denied'):event.error==='no-speech'?tr('noSpeech'):tr('error')+' ('+event.error+')',true);};
-mic.onend=()=>{listening=false;$('mic').classList.remove('active');$('micText').textContent=tr('listen');status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');};
+mic.onstart=()=>{
+listening=true;micStarting=false;
+$('mic').classList.add('active');$('micText').textContent=tr('listening');
+$('transcript').classList.add('visible');
+$('transcript').textContent=english()?'Recognition started. Please speak.':'Reconhecimento iniciado. Fale normalmente.';
+status(english()?'RECOGNITION STARTED':'RECONHECIMENTO INICIADO');
+logDiag('start: serviço iniciado (não confirma áudio)');
+note(english()?'Recognition started. Waiting for audio capture...':'Reconhecimento iniciado. Aguardando captação de áudio...',false);
+micTimeout=setTimeout(()=>{
+if(!listening||micResult)return;
+const problem=!micAudio?(english()?'No audio-capture event. Use TEST MIC SIGNAL.':'Sem confirmação de captação de áudio. Use TESTAR SINAL.'):(micSpeech?(english()?'Speech detected but no transcript returned.':'Fala detectada, mas o serviço não retornou transcrição.'):(english()?'Microphone started, but no transcription. Try TEST MIC SIGNAL.':'Microfone iniciado, mas sem transcrição. Experimente TESTAR SINAL.'));
+logDiag('limite 15s: '+problem);
+diagSummary(problem,true);note(problem,true);
+micError=true;
+try{mic.abort();}catch(e){finishMicUI();}
+},15000);
+};
+mic.onaudiostart=()=>{micAudio=true;logDiag('audiostart: navegador iniciou captação');status(english()?'CAPTURING AUDIO':'CAPTANDO ÁUDIO');diagSummary(english()?'Browser reports microphone capture.':'O navegador informa que começou a captar áudio.',false);};
+mic.onsoundstart=()=>{micSound=true;logDiag('soundstart: som detectado');status(english()?'SOUND DETECTED':'SOM DETECTADO');};
+mic.onspeechstart=()=>{micSpeech=true;logDiag('speechstart: fala detectada');status(english()?'SPEECH DETECTED':'FALA DETECTADA');};
+mic.onspeechend=()=>logDiag('speechend: fim de fala');
+mic.onsoundend=()=>logDiag('soundend: fim de som');
+mic.onaudioend=()=>logDiag('audioend: fim de captação');
+mic.onnomatch=()=>{logDiag('nomatch: nenhuma palavra identificada');diagSummary(english()?'Audio processed without recognised words.':'Áudio processado, mas nenhuma palavra identificada.',true);};
+mic.onresult=event=>{
+let text='';
+for(let i=0;i<event.results.length;i++){if(event.results[i]?.[0])text+=event.results[i][0].transcript+' ';}
+text=text.trim();
+if(text){
+micResult=true;
+logDiag('result: texto recebido ('+text.length+' caracteres; conteúdo omitido)');
+$('prompt').value=text;$('transcript').classList.add('visible');$('transcript').textContent=tr('transcript');
+diagSummary(english()?'Transcription received. Check it and tap SEND.':'Transcrição recebida. Confira e toque em ENVIAR.',false);
+note(tr('transcript'),false);
+}
+};
+mic.onerror=event=>{
+micError=true;
+const error=event.error||'unknown';
+logDiag('error: '+error);
+const denied=error==='not-allowed'||error==='service-not-allowed';
+const message=denied?tr('denied'):error==='no-speech'?tr('noSpeech'):error==='network'?(english()?'Speech service network error; check connection and Chrome speech service.':'Erro de rede no serviço de reconhecimento de voz do Chrome.'):tr('error')+' ('+error+')';
+note(message,true);diagSummary(message,true);
+};
+mic.onend=()=>{
+logDiag('end: áudio='+micAudio+' som='+micSound+' fala='+micSpeech+' resultado='+micResult+' erro='+micError);
+if(!micResult&&!micError&&!micUserStopped){
+const reason=english()?'Recognition ended without a transcript. Run TEST MIC SIGNAL.':'Reconhecimento terminou sem transcrição. Execute TESTAR SINAL.';
+note(reason,true);diagSummary(reason,true);
+}
+finishMicUI();
+};
 mic.start();
-}catch(error){note(tr('error')+' ('+(error&&error.name||'unknown')+')',true);}
+}catch(error){
+logDiag('exceção: '+(error?.name||String(error)));note(tr('error')+' ('+(error?.name||'unknown')+')',true);diagSummary(tr('error'),true);finishMicUI();
+}
+}
+async function testMicSignal(){
+if(signalTesting)return;
+if(!navigator.mediaDevices?.getUserMedia){
+const message=english()?'getUserMedia is not available in this browser.':'getUserMedia não está disponível neste navegador.';
+note(message,true);logDiag(message);diagSummary(message,true);return;
+}
+if(mic&&(listening||micStarting)){micUserStopped=true;try{mic.abort();}catch(e){finishMicUI();}}
+signalTesting=true;$('signalTest').disabled=true;$('mic').disabled=true;
+logDiag('teste de sinal iniciado: 4 segundos, sem gravação');
+diagSummary(english()?'Speak close to the phone during the 4-second test.':'Fale perto do celular durante os 4 segundos do teste.',true);
+let stream=null,ctx=null;
+try{
+stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+logDiag('getUserMedia: permissão e stream OK');
+const Context=window.AudioContext||window.webkitAudioContext;
+if(!Context)throw new Error('AudioContext indisponível');
+ctx=new Context();
+if(ctx.state==='suspended')await ctx.resume();
+const src=ctx.createMediaStreamSource(stream);
+const analyser=ctx.createAnalyser();analyser.fftSize=1024;
+src.connect(analyser);
+const samples=new Uint8Array(analyser.fftSize);
+const started=Date.now();
+const peak=await new Promise(resolve=>{
+let max=0;
+function poll(){
+if(!signalTesting||Date.now()-started>=4000){resolve(max);return;}
+analyser.getByteTimeDomainData(samples);
+let sum=0;
+for(let i=0;i<samples.length;i++){const v=(samples[i]-128)/128;sum+=v*v;}
+const rms=Math.sqrt(sum/samples.length);max=Math.max(max,rms);
+$('levelBar').style.width=Math.min(100,Math.round(rms*650))+'%';
+$('levelText').textContent=(english()?'Audio signal: ':'Sinal do microfone: ')+Math.round(rms*100)+'% RMS';
+requestAnimationFrame(poll);
+}
+poll();
+});
+logDiag('sinal máximo: '+Math.round(peak*1000)/10+'% RMS');
+const message=peak>.008?(english()?'Microphone captured sound. The issue may be Chrome speech recognition; check the events above.':'O microfone captou som. A falha pode estar no reconhecimento de voz do Chrome; confira os eventos acima.'):(english()?'Very low or no microphone signal. Check Android microphone permission and speak loudly during a new test.':'Sinal muito baixo ou ausente. Confira a permissão do microfone no Android e repita falando mais perto.');
+diagSummary(message,true);note(message,peak<=.008);
+}catch(e){
+const message=(english()?'Capture test failed: ':'Falha no teste de captação: ')+(e?.name||'Error');
+logDiag(message);diagSummary(message,true);note(message,true);
+}finally{
+if(stream)stream.getTracks().forEach(t=>t.stop());
+if(ctx)try{await ctx.close();}catch(e){}
+signalTesting=false;$('signalTest').disabled=false;$('mic').disabled=false;$('levelBar').style.width='0%';
+}
 }
 $('language').addEventListener('change',e=>setLanguage(e.target.value));
 $('voice').addEventListener('change',e=>{selectedVoice=e.target.value;});
 $('test').addEventListener('click',()=>speak(tr('trial')));
 $('repeat').addEventListener('click',()=>speak(lastReply||tr('trial')));
 $('auto').addEventListener('click',()=>{autoSpeak=!autoSpeak;$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');$('auto').setAttribute('aria-pressed',String(autoSpeak));$('auto').classList.toggle('active',autoSpeak);});
-$('stop').addEventListener('click',()=>{if(mic&&listening)mic.stop();stopSpeech();});
+$('stop').addEventListener('click',()=>{if(mic&&(listening||micStarting)){micUserStopped=true;mic.stop();}stopSpeech();});
 $('mic').addEventListener('click',startMic);
+$('signalTest').addEventListener('click',testMicSignal);
+$('copyDiag').addEventListener('click',async()=>{
+const message='Multivacia 0.7.1 · '+lang+' · HTTPS='+window.isSecureContext+'\n'+diagEvents.join('\n');
+try{await navigator.clipboard.writeText(message);diagSummary(english()?'Diagnostics copied.':'Diagnóstico copiado.');}catch(e){diagSummary(english()?'Select and copy the diagnostic text below.':'Selecione e copie o diagnóstico abaixo.',true);}
+});
 $('form').addEventListener('submit',e=>{e.preventDefault();send($('prompt').value);});
 $('tabChat').addEventListener('click',()=>show('chat'));
 $('tabFiles').addEventListener('click',()=>show('files'));
