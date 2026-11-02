@@ -21,5 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Syntax-check catalog modules
+        run: for file in catalog/*.js; do node --check "$file"; done
       - name: Run catalog parser tests
         run: node --test tests/*.test.mjs
