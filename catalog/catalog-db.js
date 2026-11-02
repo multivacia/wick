@@ -115,6 +115,12 @@ export class Catalog {
     b.onsuccess=()=>{bKeys=b.result;bReady=true;commit();};
     await done;
   }
+  async clear() {
+    const tx=this.db.transaction(['artifacts','postings','edges'],'readwrite');
+    const done=txDone(tx);
+    for(const name of ['artifacts','postings','edges']) tx.objectStore(name).clear();
+    await done;
+  }
   async remove(library,name) {
     const id=artifactId(library,name);
     const tx=this.db.transaction(['artifacts','postings','edges'],'readwrite');
