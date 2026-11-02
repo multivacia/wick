@@ -54,18 +54,30 @@ Relações dinâmicas, macros e construções não reconhecidas exigem validaç�
 - A atualização da base só ocorre com clique explícito; ao tentar indexar arquivos importados, a interface solicita confirmação.
 - Código corporativo exigirá ambiente interno autorizado, autenticação, segregação, criptografia e auditoria; não será integrado ao GitHub Pages público.
 
+## Sincronização incremental 0.9B/C (implementação em homologação)
+
+- `catalog/sync.js` classifica fontes por biblioteca e hash: novos, alterados, inalterados, candidatos à exclusão e identidades em conflito.
+- Inventário **PARCIAL** é o padrão e nunca remove ausentes. Inventário **COMPLETO** exige seleção expressa da biblioteca `DEMO` ou `LOCAL`; todo arquivo ausente no escopo vira candidato à remoção (exige duas confirmações).
+- A tela oferece **GERAR PRÉVIA** antes de **APLICAR ALTERAÇÕES**. Arquivos com identidades duplicadas/bibliotecas incompatíveis bloqueiam a publicação.
+- A análise dos componentes alterados é concluída antes da abertura da transação; uma transação IndexedDB com `artifacts`, `postings`, `edges` e `meta` aplica o lote inteiro. Leitura e checagem de hash/versão anteriores impedem publicar uma prévia obsoleta sem erro.
+- Uma cópia **exata do estado anterior dos componentes afetados**, incluindo fonte, ocorrências e relações, fica em `meta.sync:undo` junto da publicação, para **desfazer apenas a última sincronização incremental**. Não equivale a uma estratégia definitiva de backup nem ao histórico ilimitado de snapshots.
+- `meta.sync:last` e `meta.sync:run:<id>` registram hora, modo, biblioteca e contagens; **LIMPAR ÍNDICE LOCAL** também remove esse histórico e o checkpoint de reversão.
+- O navegador pode negar a operação por quota e toda a transação deverá falhar sem publicação parcial. É necessário homologar esse comportamento em navegadores reais.
+- O teste de 1.562 arquivos é de **classificação sintética**; não é uma medição de performance do IndexedDB ou do parser em 1.562 fontes.
+
 ## Limitações e próximos incrementos
 
 - A pesquisa inicial é baseada em termos exatos normalizados, com `AND` entre termos significativos. Busca semântica e perguntas livres serão etapa posterior.
 - O parser cobre um subconjunto das variantes JCL/COBOL; condicionais, substituições, macros e resoluções interbibliotecas precisam de parsers especializados.
 - A interface atual mostra resultados e relações textuais, **não** um grafo visual. Grafo e impacto visual: 1.0.
+- Ainda falta importar inventários com proveniência formal, reconhecer renomeações, medir armazenamento, testar interrupções no IndexedDB real e oferecer histórico completo de múltiplos snapshots.
 - Processamento por lotes de 20 artefatos; a latência e o consumo real em bases maiores devem ser medidos em dispositivo e navegador.
 - O armazenamento e seus limites de quota são definidos pelo navegador, sem garantia de permanência.
 
 ## Testes
 
 ```sh
-node --test tests/catalog.test.mjs
+node --test tests/*.test.mjs
 ```
 
 Validações previstas para homologação: primeira indexação, segunda indexação com zero reprocessamentos, atualização de um fonte, limpeza, busca e consulta de relações após recarregar o navegador.
