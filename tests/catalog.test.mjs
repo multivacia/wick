@@ -10,7 +10,7 @@ const {parseArtifact,tokenize,artifactId,PARSER_VERSION}=await import(
 const jcl={name:'RFJ0001.JCL',library:'DEMO',content:
   "//RFJ0001 JOB (0000),'DEMO',CLASS=A\n//STEP050 EXEC PROC=RFP0001,PROGRAMA=RFB0002\n//SAIDA DD DSN=DEMO.CADASTRO.SAIDA,DISP=SHR"};
 test('catalog v1 parser remains deterministic',()=>{
-  assert.equal(PARSER_VERSION,1);
+  assert.equal(PARSER_VERSION,2);
   assert.equal(artifactId('DEMO','rfj0001.jcl'),'DEMO::RFJ0001.JCL');
   assert.deepEqual(tokenize('Não existe STEP050'),['NAO','EXISTE','STEP050']);
 });
@@ -37,4 +37,9 @@ test('COBOL COPY, literal CALL, and comments',()=>{
 test('repeated words are indexed once per line',()=>{
   const record=parseArtifact({name:'T.TXT',library:'DEMO',content:'ABC ABC ABC'});
   assert.equal(record.postings.filter(x=>x.term==='ABC'&&x.line===1).length,1);
+});
+
+test('COBOL indirect CALL is never treated as confirmed dependency',()=>{
+  const record=parseArtifact({name:'DYNAMIC.CBL',library:'DEMO',content:'           CALL PROG-VARIAVEL.'});
+  assert.equal(record.edges.find(x=>x.type==='CALL_DYNAMIC')?.confidence,'unresolved');
 });
