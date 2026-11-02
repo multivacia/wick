@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#020602">
 <meta name="referrer" content="no-referrer">
-<title>Multivacia · MVP 0.7.1</title>
+<title>Multivacia · MVP 0.8</title>
 <style>
 :root{--bg:#020602;--panel:#071309;--line:#295b32;--green:#8cf79e;--light:#d4ffdb;--muted:#76ad80;--amber:#f1d28b}
 *{box-sizing:border-box}
@@ -27,6 +27,14 @@ header{display:flex;justify-content:space-between;align-items:center;padding:13p
 .speaking .bar{animation:bounce .25s infinite alternate;transform-box:fill-box;transform-origin:center}
 .speaking .bar:nth-child(2){animation-duration:.38s}.speaking .bar:nth-child(3){animation-duration:.19s}
 @keyframes bounce{to{transform:scaleY(.3)}}
+.facebox.phase-listening .face{animation:listenPulse 1.1s ease-in-out infinite alternate}
+.facebox.phase-listening .eyes{animation:eyeListening .6s ease-in-out infinite alternate}
+.facebox.phase-analyzing .face{animation:thinkingGlow .5s ease-in-out infinite alternate}
+.facebox.phase-analyzing .smile{animation:thinkingSmile .3s steps(2,end) infinite}
+@keyframes listenPulse{to{filter:drop-shadow(0 0 10px #8cf79e99)}}
+@keyframes eyeListening{to{opacity:.45}}
+@keyframes thinkingGlow{to{filter:drop-shadow(0 0 9px #8cf79e88)}}
+@keyframes thinkingSmile{to{opacity:.12}}
 .facecopy strong{display:block;color:var(--light);font-size:14px}
 .facecopy small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
 .controls{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
@@ -60,7 +68,7 @@ pre{white-space:pre;overflow:auto;border:1px solid var(--line);padding:12px;font
 .filebar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 footer{font-size:10px;color:var(--muted);border-top:1px solid var(--line);padding:7px 12px}
 @media(min-width:650px){.face{width:125px;height:110px;flex-basis:125px}.controls{flex-direction:row;align-items:center;justify-content:space-between}.controls .settings{flex:1}.actions{justify-content:flex-end}}
-@media(prefers-reduced-motion:reduce){.face .eyes,.speaking .bar{animation:none}}
+@media(prefers-reduced-motion:reduce){.face .eyes,.speaking .bar,.facebox.phase-listening .face,.facebox.phase-listening .eyes,.facebox.phase-analyzing .face,.facebox.phase-analyzing .smile{animation:none}}
 details.diagnostics{margin-top:3px;border:1px solid var(--line);padding:7px 9px;background:#040e05;color:var(--muted);font-size:11px}
 details.diagnostics summary{cursor:pointer;color:var(--green);font-weight:bold;padding:3px}
 details.diagnostics .diag-actions{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
@@ -72,8 +80,8 @@ details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-
 </head>
 <body>
 <div class="app">
-<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.7.1 · MAINFRAME</div></header>
-<div class="facebox">
+<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.8 · MAINFRAME</div></header>
+<div id="facePanel" class="facebox">
 <svg id="face" class="face" viewBox="0 0 160 142" aria-label="Rosto pixelado da Multivacia" role="img">
 <g stroke="#8cf79e" fill="none" stroke-width="4" stroke-linecap="square">
 <path d="M33 30 V21 L46 11 H114 L127 21 V30"/>
@@ -102,8 +110,10 @@ details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-
 <button id="test" type="button">▶ <span id="testText">TESTAR VOZ</span></button>
 <button id="repeat" type="button">◖ <span id="repeatText">LER RESPOSTA</span></button>
 <button id="auto" type="button" aria-pressed="false"><span id="autoText">AUTO FALA: OFF</span></button>
+<button id="autoSend" type="button" aria-pressed="false"><span id="autoSendText">AUTO ENVIO: OFF</span></button>
 <button id="stop" type="button">■ <span id="stopText">PARAR</span></button>
 </div>
+<div id="voiceModeHint" class="info" aria-live="polite">Envio manual: confira o texto e toque em ENVIAR.</div>
 <div id="microphoneInfo" class="warn" aria-live="polite">O reconhecimento de voz pode utilizar serviços externos do navegador. Use apenas dados fictícios ou autorizados.</div>
 <details id="micDiagnostics" class="diagnostics">
 <summary id="diagTitle">DIAGNÓSTICO DO MICROFONE</summary>
@@ -147,24 +157,43 @@ const examples={
 'RFB0002.CBL':"       IDENTIFICATION DIVISION.\n       PROGRAM-ID. RFB0002.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       COPY CLIPAG.\n       PROCEDURE DIVISION.\n           DISPLAY 'DEMONSTRACAO'.\n           GOBACK.",
 'CLIPAG.CPY':"       01 DADOS-CLIENTE.\n          05 CLI-ID PIC 9(8).\n          05 CLI-NOME PIC X(30).\n          05 CLI-VALOR PIC 9(7)V99 COMP-3."
 };
-let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false;
-let micStarting=false,micError=false,micResult=false,micUserStopped=false,micAudio=false,micSound=false,micSpeech=false,micTimeout=null,signalTesting=false;
+let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false, autoSend=false, phase='idle', speechGeneration=0;
+let micStarting=false,micError=false,micResult=false,micFinal=false,micUserStopped=false,micAudio=false,micSound=false,micSpeech=false,micTimeout=null,signalTesting=false,micSubmitted=false;
 const diagEvents=[];
 function logDiag(event){const stamp=new Date().toLocaleTimeString();diagEvents.push(stamp+' '+event);if(diagEvents.length>20)diagEvents.shift();$('diagLog').textContent=diagEvents.join('\n');$('diagLog').scrollTop=$('diagLog').scrollHeight;}
 function diagSummary(message,expand){$('diagSummary').textContent=message;if(expand)$('micDiagnostics').open=true;}
-function finishMicUI(){listening=false;micStarting=false;$('mic').classList.remove('active');$('micText').textContent=tr('listen');status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');if(micTimeout!==null){clearTimeout(micTimeout);micTimeout=null;}}
+function finishMicUI(){listening=false;micStarting=false;$('mic').classList.remove('active');$('micText').textContent=tr('listen');if(phase!=='speaking'&&phase!=='analyzing')setPhase('idle');if(micTimeout!==null){clearTimeout(micTimeout);micTimeout=null;}}
 const phrases={
 'pt-BR':{hello:'Olá. Vamos conversar?',ready:'● PRONTA PARA OUVIR',listen:'OUVIR',listening:'ESCUTANDO',test:'TESTAR VOZ',repeat:'LER RESPOSTA',auto:'FALA AUTOMÁTICA',stop:'PARAR',send:'ENVIAR',chat:'CONVERSAR',files:'ARTEFATOS',placeholder:'Pergunte sobre JCL, PROC, COBOL...',intro:'Bem-vindo à Multivacia. Posso demonstrar relações entre JCL, PROC, COBOL e COPYBOOK. Experimente: qual programa executa o STEP050 do RFJ0001?',trial:'Olá! Eu sou a Multivacia. Posso conversar com você sobre sistemas mainframe.',transcript:'Transcrição pronta. Confira o texto e toque em ENVIAR.',listeningInfo:'Escutando. Fale normalmente e aguarde a transcrição.',secure:'Para ativar o microfone, abra a página em HTTPS ou localhost. Arquivos de Downloads podem ser bloqueados.',unsupported:'Reconhecimento de voz não disponível neste navegador. Use o campo de texto ou o microfone do teclado.',denied:'Permissão de microfone negada. Verifique as permissões do Chrome e do Android.',error:'Falha no reconhecimento de voz. Tente novamente.',noVoice:'Nenhuma voz instalada para este idioma; a reprodução pode usar a voz padrão do dispositivo.',noSpeech:'Nenhuma fala reconhecida. Tente novamente.',filesTitle:'Artefatos fictícios',help:'Exemplos demonstrativos. Arquivos importados são processados localmente; não são enviados pelo aplicativo.',analyze:'ANALISAR ESTE MEMBRO',import:'IMPORTAR ARQUIVOS',noMember:'Não encontrei esse membro nos arquivos carregados.',result:'Análise estrutural demonstrativa, sem execução do job e sem IA generativa.',footer:'PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS'},
 'en-US':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check Chrome and Android settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artifacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYZE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'},
 'en-GB':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check browser and device settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artefacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYSE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'}
 };
 const tr=key=>phrases[lang][key];
+function setPhase(next){
+phase=next;
+const panel=$('facePanel');for(const state of ['idle','listening','analyzing','speaking'])panel.classList.toggle('phase-'+state,state===next);
+$('face').classList.toggle('speaking',next==='speaking');
+const pt=lang==='pt-BR';
+const meta={
+idle:[pt?'Olá. Vamos conversar?':'Hello. Shall we talk?',pt?'PRONTA PARA OUVIR':'READY TO LISTEN'],
+listening:[pt?'Estou ouvindo.':'I am listening.',pt?'OUVINDO':'LISTENING'],
+analyzing:[pt?'Analisando o pedido...':'Analysing the request...',pt?'ANALISANDO':'ANALYSING'],
+speaking:[pt?'Respondendo.':'Speaking now.',pt?'FALANDO':'SPEAKING']
+};
+$('headline').textContent=meta[next][0];status(meta[next][1]);
+}
+function updateAutoSendUI(){
+$('autoSendText').textContent=(english()?'AUTO SEND':'AUTO ENVIO')+': '+(autoSend?'ON':'OFF');
+$('autoSend').setAttribute('aria-pressed',String(autoSend));
+$('autoSend').classList.toggle('active',autoSend);
+$('voiceModeHint').textContent=autoSend?(english()?'Automatic send enabled: a final transcript is sent when recognition ends. Tap STOP or LISTEN to cancel.':'Envio automático ativo: a transcrição final será enviada ao terminar de falar. Toque em PARAR ou OUVIR para cancelar.'):(english()?'Manual send: review the transcript and tap SEND.':'Envio manual: confira o texto e toque em ENVIAR.');
+}
 const english=()=>lang!=='pt-BR';
 function status(text){$('status').textContent='● '+text;}
 function note(message,warning){$('microphoneInfo').textContent=message;$('microphoneInfo').className=warning?'warn':'info';}
 function add(role,body){const node=document.createElement('div');node.className='msg'+(role==='user'?' user':'');const who=document.createElement('small');who.textContent=role==='user'?(english()?'YOU':'VOCÊ'):'MULTIVACIA';const line=document.createElement('div');line.textContent=body;node.append(who,line);$('log').append(node);$('log').scrollTop=$('log').scrollHeight;}
 function show(tab){const chat=tab==='chat';$('pageChat').classList.toggle('active',chat);$('pageFiles').classList.toggle('active',!chat);$('tabChat').classList.toggle('active',chat);$('tabFiles').classList.toggle('active',!chat);$('tabChat').setAttribute('aria-selected',String(chat));$('tabFiles').setAttribute('aria-selected',String(!chat));}
-function setSpeaking(on){speaking=on;$('face').classList.toggle('speaking',on);if(!listening)status(on?(english()?'SPEAKING':'FALANDO'):(english()?'READY':'PRONTA PARA OUVIR'));}
+function setSpeaking(on){speaking=on;setPhase(on?'speaking':'idle');}
 function voiceList(){
 const voice=$('voice');const available=window.speechSynthesis?window.speechSynthesis.getVoices():[];const related=available.filter(v=>v.lang.toLowerCase().replace('_','-')===lang.toLowerCase());
 voice.replaceChildren();const opt=document.createElement('option');opt.value='';opt.textContent=english()?'Automatic voice':'Voz automática';voice.append(opt);
@@ -173,14 +202,23 @@ if(related.length===0)note(tr('noVoice'),true);
 else note(english()?'Speech recognition may use external browser services. Use only sample or authorised data.':'O reconhecimento de voz pode usar serviços externos do navegador. Use apenas dados fictícios ou autorizados.',true);
 selectedVoice=related.some(v=>v.voiceURI===selectedVoice)?selectedVoice:'';voice.value=selectedVoice;
 }
-function stopSpeech(){if(window.speechSynthesis)window.speechSynthesis.cancel();setSpeaking(false);}
+function stopSpeech(){
+speechGeneration++;
+if(window.speechSynthesis){try{window.speechSynthesis.cancel();}catch(e){}}
+speaking=false;
+if(phase==='speaking')setPhase('idle');
+}
 function speak(text){
-if(!('speechSynthesis' in window))return;
-stopSpeech();const speech=new SpeechSynthesisUtterance(text);speech.lang=lang;speech.rate=.96;
+if(!('speechSynthesis' in window)){note(english()?'Speech synthesis unavailable in this browser.':'Síntese de voz indisponível neste navegador.',true);return;}
+stopSpeech();
+const token=++speechGeneration;
+const speech=new SpeechSynthesisUtterance(text);speech.lang=lang;speech.rate=.96;
 const options=window.speechSynthesis.getVoices().filter(v=>v.lang.toLowerCase().replace('_','-')===lang.toLowerCase());
 speech.voice=options.find(v=>v.voiceURI===selectedVoice)||options[0]||null;
-speech.onstart=()=>setSpeaking(true);speech.onend=()=>setSpeaking(false);speech.onerror=()=>setSpeaking(false);
-window.speechSynthesis.speak(speech);
+speech.onstart=()=>{if(token!==speechGeneration)return;speaking=true;setPhase('speaking');};
+speech.onend=()=>{if(token!==speechGeneration)return;speaking=false;setPhase('idle');};
+speech.onerror=()=>{if(token!==speechGeneration)return;speaking=false;setPhase('idle');};
+try{window.speechSynthesis.speak(speech);}catch(e){if(token===speechGeneration){speaking=false;setPhase('idle');note(english()?'Unable to play speech.':'Não foi possível reproduzir a voz.',true);}}
 }
 function codeResult(question){
 let q=question.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -210,25 +248,31 @@ return lines.join('\n')+'\n\n'+tr('result');
 function send(message){
 const value=message.trim();if(!value)return;
 add('user',value);$('prompt').value='';$('transcript').classList.remove('visible');
-lastReply=codeResult(value);add('assistant',lastReply);status(english()?'READY':'PRONTA PARA OUVIR');if(autoSpeak)speak(lastReply);
+setPhase('analyzing');
+try{
+lastReply=codeResult(value);add('assistant',lastReply);
+if(autoSpeak)speak(lastReply);
+else setPhase('idle');
+}catch(e){setPhase('idle');note(english()?'Unable to analyse this request.':'Falha ao analisar esta solicitação.',true);logDiag('analysis-error: '+(e?.name||'unknown'));}
+
 }
 function refreshFiles(){const area=$('files');area.replaceChildren();Object.keys(docs).sort().forEach(name=>{const button=document.createElement('button');button.type='button';button.textContent=name;button.className=name===selected?'selected':'';button.addEventListener('click',()=>{selected=name;refreshFiles();});area.append(button);});$('selectedFile').textContent=selected;$('source').textContent=docs[selected]||'';}
 function setLanguage(value){
 lang=value;document.documentElement.lang=lang;$('language').value=lang;$('headline').textContent=tr('hello');
-$('micText').textContent=tr('listen');$('testText').textContent=tr('test');$('repeatText').textContent=tr('repeat');$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');$('stopText').textContent=tr('stop');$('send').textContent=tr('send');
+$('micText').textContent=tr('listen');$('testText').textContent=tr('test');$('repeatText').textContent=tr('repeat');$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');updateAutoSendUI();$('stopText').textContent=tr('stop');$('send').textContent=tr('send');
 $('diagTitle').textContent=english()?'MICROPHONE DIAGNOSTICS':'DIAGNÓSTICO DO MICROFONE';
 $('signalTest').textContent=english()?'TEST MIC SIGNAL (4s)':'TESTAR SINAL (4s)';
 $('copyDiag').textContent=english()?'COPY DIAGNOSTICS':'COPIAR DIAGNÓSTICO';
 $('tabChat').textContent=tr('chat');$('tabFiles').textContent=tr('files');$('prompt').placeholder=tr('placeholder');$('filesTitle').textContent=tr('filesTitle');$('fileHelp').textContent=tr('help');$('analyzeFile').textContent=tr('analyze');$('uploadButton').textContent=tr('import');$('footer').textContent=tr('footer');$('labelLanguage').textContent=english()?'Language':'Idioma';$('context').textContent=english()?Object.keys(docs).length+' sample members · no company data':Object.keys(docs).length+' membros fictícios · sem dados corporativos';
-if(mic&&listening)mic.stop();stopSpeech();status(english()?'READY TO LISTEN':'PRONTA PARA OUVIR');voiceList();
+if(mic&&(listening||micStarting)){micUserStopped=true;mic.abort();}stopSpeech();setPhase('idle');voiceList();
 }
 const SpeechRecognitionClass=window.SpeechRecognition||window.webkitSpeechRecognition;
 function startMic(){
-if(micStarting||listening){micUserStopped=true;logDiag('interrompido pelo usuário');try{mic&&mic.stop();}catch(e){finishMicUI();}return;}
+if(micStarting||listening){micUserStopped=true;logDiag('interrompido pelo usuário');try{mic&&mic.abort();}catch(e){finishMicUI();}return;}
 if(signalTesting){note(english()?'Wait for the signal test to finish.':'Aguarde o teste de sinal terminar.',true);return;}
 if(!window.isSecureContext||location.protocol==='file:'||location.protocol==='content:'){note(tr('secure'),true);return;}
 if(!SpeechRecognitionClass){note(tr('unsupported'),true);logDiag('SpeechRecognition indisponível');diagSummary(tr('unsupported'),true);return;}
-stopSpeech();micStarting=true;micError=false;micResult=false;micUserStopped=false;micAudio=false;micSound=false;micSpeech=false;
+stopSpeech();micStarting=true;micError=false;micResult=false;micFinal=false;micSubmitted=false;micUserStopped=false;micAudio=false;micSound=false;micSpeech=false;
 logDiag('iniciar reconhecimento '+lang+' · HTTPS='+window.isSecureContext);
 diagSummary(english()?'Recognition requested; waiting for microphone capture.':'Reconhecimento solicitado; aguardando confirmação de captação.',false);
 try{
@@ -238,7 +282,7 @@ listening=true;micStarting=false;
 $('mic').classList.add('active');$('micText').textContent=tr('listening');
 $('transcript').classList.add('visible');
 $('transcript').textContent=english()?'Recognition started. Please speak.':'Reconhecimento iniciado. Fale normalmente.';
-status(english()?'RECOGNITION STARTED':'RECONHECIMENTO INICIADO');
+setPhase('listening');
 logDiag('start: serviço iniciado (não confirma áudio)');
 note(english()?'Recognition started. Waiting for audio capture...':'Reconhecimento iniciado. Aguardando captação de áudio...',false);
 micTimeout=setTimeout(()=>{
@@ -250,23 +294,25 @@ micError=true;
 try{mic.abort();}catch(e){finishMicUI();}
 },15000);
 };
-mic.onaudiostart=()=>{micAudio=true;logDiag('audiostart: navegador iniciou captação');status(english()?'CAPTURING AUDIO':'CAPTANDO ÁUDIO');diagSummary(english()?'Browser reports microphone capture.':'O navegador informa que começou a captar áudio.',false);};
-mic.onsoundstart=()=>{micSound=true;logDiag('soundstart: som detectado');status(english()?'SOUND DETECTED':'SOM DETECTADO');};
-mic.onspeechstart=()=>{micSpeech=true;logDiag('speechstart: fala detectada');status(english()?'SPEECH DETECTED':'FALA DETECTADA');};
+mic.onaudiostart=()=>{micAudio=true;logDiag('audiostart: navegador iniciou captação');setPhase('listening');status(english()?'CAPTURING AUDIO':'CAPTANDO ÁUDIO');diagSummary(english()?'Browser reports microphone capture.':'O navegador informa que começou a captar áudio.',false);};
+mic.onsoundstart=()=>{micSound=true;logDiag('soundstart: som detectado');setPhase('listening');status(english()?'SOUND DETECTED':'SOM DETECTADO');};
+mic.onspeechstart=()=>{micSpeech=true;logDiag('speechstart: fala detectada');setPhase('listening');status(english()?'SPEECH DETECTED':'FALA DETECTADA');};
 mic.onspeechend=()=>logDiag('speechend: fim de fala');
 mic.onsoundend=()=>logDiag('soundend: fim de som');
 mic.onaudioend=()=>logDiag('audioend: fim de captação');
 mic.onnomatch=()=>{logDiag('nomatch: nenhuma palavra identificada');diagSummary(english()?'Audio processed without recognised words.':'Áudio processado, mas nenhuma palavra identificada.',true);};
 mic.onresult=event=>{
-let text='';
-for(let i=0;i<event.results.length;i++){if(event.results[i]?.[0])text+=event.results[i][0].transcript+' ';}
-text=text.trim();
+let text='',allFinal=true;
+for(let i=0;i<event.results.length;i++){
+const result=event.results[i];if(result?.[0]){text+=result[0].transcript+' ';if(!result.isFinal)allFinal=false;}
+}
+text=text.trim();if(text&&allFinal)micFinal=true;
 if(text){
 micResult=true;
 logDiag('result: texto recebido ('+text.length+' caracteres; conteúdo omitido)');
 $('prompt').value=text;$('transcript').classList.add('visible');$('transcript').textContent=tr('transcript');
-diagSummary(english()?'Transcription received. Check it and tap SEND.':'Transcrição recebida. Confira e toque em ENVIAR.',false);
-note(tr('transcript'),false);
+diagSummary(autoSend?(english()?'Transcript captured. Waiting for end of speech to send automatically.':'Transcrição recebida. Aguardando o fim da fala para enviar automaticamente.'):tr('transcript'),false);
+note(autoSend?(english()?'Listening. I will send after recognition finishes.':'Escutando. Enviarei após o reconhecimento terminar.'):tr('transcript'),false);
 }
 };
 mic.onerror=event=>{
@@ -278,12 +324,16 @@ const message=denied?tr('denied'):error==='no-speech'?tr('noSpeech'):error==='ne
 note(message,true);diagSummary(message,true);
 };
 mic.onend=()=>{
-logDiag('end: áudio='+micAudio+' som='+micSound+' fala='+micSpeech+' resultado='+micResult+' erro='+micError);
+logDiag('end: áudio='+micAudio+' som='+micSound+' fala='+micSpeech+' resultado='+micResult+' final='+micFinal+' erro='+micError);
 if(!micResult&&!micError&&!micUserStopped){
 const reason=english()?'Recognition ended without a transcript. Run TEST MIC SIGNAL.':'Reconhecimento terminou sem transcrição. Execute TESTAR SINAL.';
 note(reason,true);diagSummary(reason,true);
 }
+const shouldSubmit=autoSend&&!micSubmitted&&!micUserStopped&&!micError&&micFinal&&$('prompt').value.trim();
+if(shouldSubmit){micSubmitted=true;logDiag('auto-envio: transcrição final confirmada (conteúdo omitido)');}
+else if(autoSend&&micResult&&!micFinal&&!micError&&!micUserStopped){note(english()?'No final transcript; text kept for review.':'Sem transcrição final; texto mantido para conferência.',true);}
 finishMicUI();
+if(shouldSubmit)send($('prompt').value);
 };
 mic.start();
 }catch(error){
@@ -343,8 +393,9 @@ $('language').addEventListener('change',e=>setLanguage(e.target.value));
 $('voice').addEventListener('change',e=>{selectedVoice=e.target.value;});
 $('test').addEventListener('click',()=>speak(tr('trial')));
 $('repeat').addEventListener('click',()=>speak(lastReply||tr('trial')));
-$('auto').addEventListener('click',()=>{autoSpeak=!autoSpeak;$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');$('auto').setAttribute('aria-pressed',String(autoSpeak));$('auto').classList.toggle('active',autoSpeak);});
-$('stop').addEventListener('click',()=>{if(mic&&(listening||micStarting)){micUserStopped=true;mic.stop();}stopSpeech();});
+$('auto').addEventListener('click',()=>{autoSpeak=!autoSpeak;$('autoText').textContent=tr('auto')+': '+(autoSpeak?'ON':'OFF');$('auto').setAttribute('aria-pressed',String(autoSpeak));$('auto').classList.toggle('active',autoSpeak);if(!autoSpeak&&speaking)stopSpeech();});
+$('autoSend').addEventListener('click',()=>{autoSend=!autoSend;updateAutoSendUI();});
+$('stop').addEventListener('click',()=>{if(mic&&(listening||micStarting)){micUserStopped=true;try{mic.abort();}catch(e){finishMicUI();}}stopSpeech();if(!listening&&!micStarting)setPhase('idle');});
 $('mic').addEventListener('click',startMic);
 $('signalTest').addEventListener('click',testMicSignal);
 $('copyDiag').addEventListener('click',async()=>{
