@@ -1,4 +1,5 @@
 import {openCatalog} from './catalog-db.js';
+import {prepareInventory,applyInventory} from './sync.js';
 
 const $ = id => document.getElementById(id);
 const catalog = {db:null,busy:false};
@@ -105,3 +106,89 @@ $('catalogClear').addEventListener('click',async()=>{
 });
 refresh().then(()=>status(tr('Pronto. Indexe os exemplos para começar.','Ready. Index the samples to start.')))
  .catch(error=>status('IndexedDB: '+String(error?.message||error),true));
+
+/* 0.9B: explicit preview -> apply. The old one-click incremental button stays
+ * for backwards compatibility, but NEVER infers removals. */
+const syncPanel=document.createElement('section');
+syncPanel.className='catalog-hit';
+syncPanel.setAttribute('aria-label','Sincronização de inventário');
+syncPanel.innerHTML=[
+  '<strong>ATUALIZAÇÃO INCREMENTAL · PRÉVIA</strong>',
+  '<small>Parcial: inclui e atualiza, nunca exclui. Completo: compara somente a biblioteca selecionada; ausências viram candidatas à remoção.</small>',
+  '<div class="catalog-controls">',
+  '<label>Inventário <select id="syncMode"><option value="partial">PARCIAL (SEGURO)</option><option value="complete">COMPLETO</option></select></label>',
+  '<label>Biblioteca <select id="syncLibrary"><option value="DEMO">DEMO</option><option value="LOCAL">LOCAL</option></select></label>',
+  '</div>',
+  '<div class="catalog-controls"><button id="syncPreview" type="button">1. GERAR PRÉVIA</button>',
+  '<button id="syncApply" type="button" disabled>2. APLICAR ALTERAÇÕES</button></div>',
+  '<div id="syncReport" class="info" aria-live="polite">Nenhuma prévia gerada.</div>',
+  '<div id="syncDetails" class="catalog-sync-details"></div>'
+].join('');
+$('catalogStats').insertAdjacentElement('afterend',syncPanel);
+const syncMode=$('syncMode'),syncLibrary=$('syncLibrary');
+let syncPlan=null;
+function discardPreview(){
+  syncPlan=null;$('syncApply').disabled=true;
+  $('syncReport').textContent='Altere o inventário e gere uma nova prévia.';
+  $('syncDetails').replaceChildren();
+}
+syncMode.addEventListener('change',discardPreview);
+syncLibrary.addEventListener('change',discardPreview);
+$('syncPreview').addEventListener('click',async()=>{
+  if(catalog.busy)return;
+  catalog.busy=true;$('syncPreview').disabled=true;
+  discardPreview();
+  try{
+    const fn=window.multivaciaCatalogSources;
+    if(typeof fn!=='function')throw new Error('Fonte de arquivos indisponível');
+    const mode=syncMode.value,library=syncLibrary.value;
+    const sources=fn();
+    const items=mode==='complete'?sources.filter(x=>x.library===library):sources;
+    if(items.some(x=>x.library!=='DEMO')){
+      if(!window.confirm('A prévia calcula hashes de fontes importados. A aplicação salvará o texto integral no IndexedDB deste navegador. Não utilize código corporativo neste site público. Continuar?'))return;
+    }
+    syncPlan=await prepareInventory(await ready(),items,{mode,library});
+    const n=syncPlan.counts;
+    $('syncReport').textContent=
+      'Novos: '+n.new+' · Alterados: '+n.modified+' · Inalterados: '+n.unchanged+
+      ' · Candidatos à remoção: '+n.removed+' · Conflitos: '+n.conflicts;
+    const lines=[
+      ...syncPlan.entries.filter(x=>x.state!=='unchanged').map(x=>x.state.toUpperCase()+' · '+x.id),
+      ...syncPlan.removed.map(x=>'REMOVER? · '+x.id),
+      ...syncPlan.conflicts.map(x=>'CONFLITO · '+x.id+' · '+x.reason)
+    ];
+    const output=$('syncDetails');output.replaceChildren();
+    const pre=document.createElement('pre');pre.style.minHeight='0';
+    pre.textContent=lines.slice(0,80).join('\n')+
+      (lines.length>80?'\n... e mais '+(lines.length-80)+' registros':'')||
+      'Nenhuma inclusão, alteração ou exclusão identificada.';
+    output.append(pre);
+    $('syncApply').disabled=n.conflicts>0 || n.new+n.modified+n.removed===0;
+    if(mode==='complete' && n.removed){
+      status('Prévia gerada. Revise os candidatos à remoção e confirme antes de aplicar.');
+    }else status('Prévia gerada sem modificar o catálogo.');
+  }catch(error){status('Prévia: '+String(error.message||error),true);discardPreview();}
+  finally{catalog.busy=false;$('syncPreview').disabled=false;}
+});
+$('syncApply').addEventListener('click',async()=>{
+  if(catalog.busy||!syncPlan)return;
+  const plan=syncPlan;
+  const n=plan.counts;
+  const desc='Aplicar '+n.new+' novos, '+n.modified+' alterados e '+n.removed+' remoções? Esta operação modifica a base local deste navegador.';
+  if(!window.confirm(desc))return;
+  if(n.removed && !window.confirm('ATENÇÃO: '+n.removed+' componentes ausentes serão removidos da biblioteca '+plan.library+'. Você confirmou que o inventário é COMPLETO e confiável?'))return;
+  catalog.busy=true;$('syncApply').disabled=true;$('syncPreview').disabled=true;
+  try {
+    const result=await applyInventory(await ready(),plan);
+    syncPlan=null;
+    $('syncReport').textContent='Aplicado: '+result.applied+' indexados · '+result.removed+' removidos · '+result.unchanged+' inalterados.';
+    $('syncDetails').replaceChildren();$('catalogResults').replaceChildren();
+    await refresh();
+    status('Sincronização local aplicada de forma atômica.');
+  }catch(error){
+    const quota=error?.name==='QuotaExceededError';
+    status(quota?'Espaço local insuficiente: transação cancelada; preserve sua fonte e libere armazenamento.':
+      'Sincronização não aplicada: '+String(error.message||error),true);
+    discardPreview();
+  }finally{catalog.busy=false;$('syncPreview').disabled=false;}
+});
