@@ -306,7 +306,7 @@ let text='',allFinal=true;
 for(let i=0;i<event.results.length;i++){
 const result=event.results[i];if(result?.[0]){text+=result[0].transcript+' ';if(!result.isFinal)allFinal=false;}
 }
-text=text.trim();if(text&&allFinal)micFinal=true;
+text=text.trim();micFinal=Boolean(text&&allFinal);
 if(text){
 micResult=true;
 logDiag('result: texto recebido ('+text.length+' caracteres; conteúdo omitido)');
