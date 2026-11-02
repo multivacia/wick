@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#020602">
 <meta name="referrer" content="no-referrer">
-<title>Multivacia · MVP 0.8</title>
+<title>MultivacIA · MVP 0.8.1</title>
 <style>
 :root{--bg:#020602;--panel:#071309;--line:#295b32;--green:#8cf79e;--light:#d4ffdb;--muted:#76ad80;--amber:#f1d28b}
 *{box-sizing:border-box}
@@ -80,7 +80,7 @@ details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-
 </head>
 <body>
 <div class="app">
-<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.8 · MAINFRAME</div></header>
+<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.8.1 · MAINFRAME</div></header>
 <div id="facePanel" class="facebox">
 <svg id="face" class="face" viewBox="0 0 160 142" aria-label="Rosto pixelado da Multivacia" role="img">
 <g stroke="#8cf79e" fill="none" stroke-width="4" stroke-linecap="square">
@@ -164,9 +164,9 @@ function logDiag(event){const stamp=new Date().toLocaleTimeString();diagEvents.p
 function diagSummary(message,expand){$('diagSummary').textContent=message;if(expand)$('micDiagnostics').open=true;}
 function finishMicUI(){listening=false;micStarting=false;$('mic').classList.remove('active');$('micText').textContent=tr('listen');if(phase!=='speaking'&&phase!=='analyzing')setPhase('idle');if(micTimeout!==null){clearTimeout(micTimeout);micTimeout=null;}}
 const phrases={
-'pt-BR':{hello:'Olá. Vamos conversar?',ready:'● PRONTA PARA OUVIR',listen:'OUVIR',listening:'ESCUTANDO',test:'TESTAR VOZ',repeat:'LER RESPOSTA',auto:'FALA AUTOMÁTICA',stop:'PARAR',send:'ENVIAR',chat:'CONVERSAR',files:'ARTEFATOS',placeholder:'Pergunte sobre JCL, PROC, COBOL...',intro:'Bem-vindo à Multivacia. Posso demonstrar relações entre JCL, PROC, COBOL e COPYBOOK. Experimente: qual programa executa o STEP050 do RFJ0001?',trial:'Olá! Eu sou a Multivacia. Posso conversar com você sobre sistemas mainframe.',transcript:'Transcrição pronta. Confira o texto e toque em ENVIAR.',listeningInfo:'Escutando. Fale normalmente e aguarde a transcrição.',secure:'Para ativar o microfone, abra a página em HTTPS ou localhost. Arquivos de Downloads podem ser bloqueados.',unsupported:'Reconhecimento de voz não disponível neste navegador. Use o campo de texto ou o microfone do teclado.',denied:'Permissão de microfone negada. Verifique as permissões do Chrome e do Android.',error:'Falha no reconhecimento de voz. Tente novamente.',noVoice:'Nenhuma voz instalada para este idioma; a reprodução pode usar a voz padrão do dispositivo.',noSpeech:'Nenhuma fala reconhecida. Tente novamente.',filesTitle:'Artefatos fictícios',help:'Exemplos demonstrativos. Arquivos importados são processados localmente; não são enviados pelo aplicativo.',analyze:'ANALISAR ESTE MEMBRO',import:'IMPORTAR ARQUIVOS',noMember:'Não encontrei esse membro nos arquivos carregados.',result:'Análise estrutural demonstrativa, sem execução do job e sem IA generativa.',footer:'PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS'},
-'en-US':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check Chrome and Android settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artifacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYZE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'},
-'en-GB':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am Multivacia. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check browser and device settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artefacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYSE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'}
+'pt-BR':{hello:'Olá. Vamos conversar?',ready:'● PRONTA PARA OUVIR',listen:'OUVIR',listening:'ESCUTANDO',test:'TESTAR VOZ',repeat:'LER RESPOSTA',auto:'FALA AUTOMÁTICA',stop:'PARAR',send:'ENVIAR',chat:'CONVERSAR',files:'ARTEFATOS',placeholder:'Pergunte sobre JCL, PROC, COBOL...',intro:'Bem-vindo à Multivacia. Posso demonstrar relações entre JCL, PROC, COBOL e COPYBOOK. Experimente: qual programa executa o STEP050 do RFJ0001?',trial:'Olá! Eu sou a MultivacIA. Posso conversar sobre JCLs e programas COBOL.',transcript:'Transcrição pronta. Confira o texto e toque em ENVIAR.',listeningInfo:'Escutando. Fale normalmente e aguarde a transcrição.',secure:'Para ativar o microfone, abra a página em HTTPS ou localhost. Arquivos de Downloads podem ser bloqueados.',unsupported:'Reconhecimento de voz não disponível neste navegador. Use o campo de texto ou o microfone do teclado.',denied:'Permissão de microfone negada. Verifique as permissões do Chrome e do Android.',error:'Falha no reconhecimento de voz. Tente novamente.',noVoice:'Nenhuma voz instalada para este idioma; a reprodução pode usar a voz padrão do dispositivo.',noSpeech:'Nenhuma fala reconhecida. Tente novamente.',filesTitle:'Artefatos fictícios',help:'Exemplos demonstrativos. Arquivos importados são processados localmente; não são enviados pelo aplicativo.',analyze:'ANALISAR ESTE MEMBRO',import:'IMPORTAR ARQUIVOS',noMember:'Não encontrei esse membro nos arquivos carregados.',result:'Análise estrutural demonstrativa, sem execução do job e sem IA generativa.',footer:'PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS'},
+'en-US':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am MultivacIA. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check Chrome and Android settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artifacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYZE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'},
+'en-GB':{hello:'Hello. Shall we talk?',ready:'● READY TO LISTEN',listen:'LISTEN',listening:'LISTENING',test:'TEST VOICE',repeat:'READ ANSWER',auto:'AUTO SPEAK',stop:'STOP',send:'SEND',chat:'CHAT',files:'ARTIFACTS',placeholder:'Ask about JCL, PROC, COBOL...',intro:'Welcome to Multivacia. I can demonstrate JCL, PROC, COBOL and COPYBOOK relationships. Try: which program runs in STEP050 of RFJ0001?',trial:'Hello! I am MultivacIA. I can talk with you about mainframe systems.',transcript:'Transcript ready. Check the text and tap SEND.',listeningInfo:'Listening. Speak normally, then check the transcript.',secure:'To use the microphone, open the page over HTTPS or localhost. Downloads may be blocked.',unsupported:'Speech recognition is not available in this browser. Type instead or use the keyboard microphone.',denied:'Microphone permission denied. Check browser and device settings.',error:'Speech recognition failed. Please try again.',noVoice:'No voice installed for this accent; playback may use the device default voice.',noSpeech:'No speech detected. Please try again.',filesTitle:'Sample artefacts',help:'Demonstration files. Imported files are processed locally and are not transmitted by this app.',analyze:'ANALYSE THIS MEMBER',import:'IMPORT FILES',noMember:'I could not find that member in the loaded files.',result:'Demonstration structural analysis; no job execution and no generative AI.',footer:'LOCAL PROTOTYPE · NO GENERATIVE AI · NO Z/OS CONNECTION'}
 };
 const tr=key=>phrases[lang][key];
 function setPhase(next){
@@ -208,11 +208,22 @@ if(window.speechSynthesis){try{window.speechSynthesis.cancel();}catch(e){}}
 speaking=false;
 if(phase==='speaking')setPhase('idle');
 }
+// These substitutions affect spoken output ONLY. Keep displayed analysis and source unmodified.
+function prepareSpeechText(value,locale){
+const text=String(value);
+if(locale==='pt-BR'){
+return text
+.replace(/\bMultivacIA\b/gi,'Multivac, I A')
+.replace(/\bJCLs\b/gi,'jota cê eles')
+.replace(/\bJCL\b/gi,'jota cê ele');
+}
+return text.replace(/\bMultivacIA\b/gi,'Multivac, I A');
+}
 function speak(text){
 if(!('speechSynthesis' in window)){note(english()?'Speech synthesis unavailable in this browser.':'Síntese de voz indisponível neste navegador.',true);return;}
 stopSpeech();
 const token=++speechGeneration;
-const speech=new SpeechSynthesisUtterance(text);speech.lang=lang;speech.rate=.96;
+const speech=new SpeechSynthesisUtterance(prepareSpeechText(text,lang));speech.lang=lang;speech.rate=.96;
 const options=window.speechSynthesis.getVoices().filter(v=>v.lang.toLowerCase().replace('_','-')===lang.toLowerCase());
 speech.voice=options.find(v=>v.voiceURI===selectedVoice)||options[0]||null;
 speech.onstart=()=>{if(token!==speechGeneration)return;speaking=true;setPhase('speaking');};
@@ -403,7 +414,7 @@ $('stop').addEventListener('click',()=>{if(processing)suppressNextVoice=true;if(
 $('mic').addEventListener('click',startMic);
 $('signalTest').addEventListener('click',testMicSignal);
 $('copyDiag').addEventListener('click',async()=>{
-const message='Multivacia 0.8 · '+lang+' · HTTPS='+window.isSecureContext+'\n'+diagEvents.join('\n');
+const message='MultivacIA 0.8.1 · '+lang+' · HTTPS='+window.isSecureContext+'\n'+diagEvents.join('\n');
 try{await navigator.clipboard.writeText(message);diagSummary(english()?'Diagnostics copied.':'Diagnóstico copiado.');}catch(e){diagSummary(english()?'Select and copy the diagnostic text below.':'Selecione e copie o diagnóstico abaixo.',true);}
 });
 $('form').addEventListener('submit',e=>{e.preventDefault();send($('prompt').value);});
