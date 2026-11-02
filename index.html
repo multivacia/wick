@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#020602">
 <meta name="referrer" content="no-referrer">
-<title>MultivacIA · MVP 0.8.1</title>
+<title>MultivacIA · MVP 0.9 (prévia)</title>
 <style>
 :root{--bg:#020602;--panel:#071309;--line:#295b32;--green:#8cf79e;--light:#d4ffdb;--muted:#76ad80;--amber:#f1d28b}
 *{box-sizing:border-box}
@@ -47,7 +47,7 @@ button.active{color:#031008;background:var(--green)}
 .info{color:var(--muted);font-size:11px}
 .warn{color:var(--amber);font-size:11px}
 .nav{display:flex;border-bottom:1px solid var(--line)}
-.nav button{width:50%;border:0;border-radius:0;border-right:1px solid var(--line);background:transparent;font-weight:bold}
+.nav button{width:33.333%;border:0;border-radius:0;border-right:1px solid var(--line);background:transparent;font-weight:bold}
 .nav button.active{border-bottom:3px solid var(--green);color:var(--light)}
 .page{flex:1;min-height:0;display:none;flex-direction:column}
 .page.active{display:flex}
@@ -76,11 +76,25 @@ details.diagnostics button{font-size:11px;padding:7px}
 details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-height:0;font-size:10px;padding:8px;color:var(--muted)}
 .signal{width:100%;height:8px;border:1px solid var(--line);margin:8px 0;background:#010701}
 .signal>div{height:100%;width:0;background:var(--green)}
+
+.catalog-panel{padding:12px;overflow:auto;flex:1;min-height:0;display:flex;flex-direction:column;gap:9px}
+.catalog-panel p{color:var(--muted);margin:0;font-size:12px}
+.catalog-controls{display:flex;gap:6px;flex-wrap:wrap}
+.catalog-controls button{flex:1;min-width:130px}
+.catalog-search{display:flex;gap:6px}
+.catalog-search input{flex:1;min-width:0}
+.catalog-hit{border:1px solid var(--line);background:#041004;padding:10px;display:flex;flex-direction:column;gap:5px}
+.catalog-hit strong{font-size:13px;color:var(--light)}
+.catalog-hit small{font-size:10px;color:var(--muted)}
+.catalog-hit pre{overflow-wrap:anywhere;white-space:pre-wrap;padding:5px 7px;margin:2px 0;background:#010701;border-left:2px solid var(--line);font-size:11px}
+.catalog-hit button{align-self:flex-start;font-size:11px}
+#catalogResults{display:flex;flex-direction:column;gap:9px}
+#catalogStats{color:var(--light);font-size:11px}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.8.1 · MAINFRAME</div></header>
+<header><div class="logo">◉ MULTIVACIA</div><div class="version">MVP 0.9 (PRÉVIA) · MAINFRAME</div></header>
 <div id="facePanel" class="facebox">
 <svg id="face" class="face" viewBox="0 0 160 142" aria-label="Rosto pixelado da Multivacia" role="img">
 <g stroke="#8cf79e" fill="none" stroke-width="4" stroke-linecap="square">
@@ -126,6 +140,7 @@ details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-
 <div class="nav" role="tablist" aria-label="Navegação">
 <button id="tabChat" class="active" type="button" role="tab" aria-selected="true">CONVERSAR</button>
 <button id="tabFiles" type="button" role="tab" aria-selected="false">ARTEFATOS</button>
+<button id="tabCatalog" type="button" role="tab" aria-selected="false">CATÁLOGO</button>
 </div>
 <section id="pageChat" class="page active" aria-label="Conversa">
 <div id="log" class="log" aria-live="polite"></div>
@@ -145,6 +160,23 @@ details.diagnostics pre{max-height:170px;overflow:auto;white-space:pre-wrap;min-
 <button type="button" id="analyzeFile">ANALISAR ESTE MEMBRO</button>
 </div>
 </section>
+<section id="pageCatalog" class="page" aria-label="Catálogo indexado">
+<div class="catalog-panel">
+<strong>CATÁLOGO INDEXADO · MULTIVACIA 0.9</strong>
+<p>Persistência local no navegador. Indexe apenas arquivos fictícios ou autorizados. Esta demonstração pública não é um repositório corporativo seguro.</p>
+<div id="catalogStats" aria-live="polite">Carregando catálogo local...</div>
+<div class="catalog-controls">
+<button type="button" id="catalogIndex">INDEXAR ARTEFATOS CARREGADOS</button>
+<button type="button" id="catalogClear">LIMPAR ÍNDICE LOCAL</button>
+</div>
+<form id="catalogSearchForm" class="catalog-search">
+<input id="catalogQuery" type="search" placeholder="Buscar por STEP050, RFJ0001, COPY..." autocomplete="off" aria-label="Buscar no catálogo">
+<button class="primary" id="catalogSearchButton" type="submit">BUSCAR</button>
+</form>
+<div id="catalogStatus" class="info" aria-live="polite">Indexe os artefatos demonstrativos para pesquisar.</div>
+<div id="catalogResults" aria-live="polite"></div>
+</div>
+</section>
 <footer id="footer">PROTÓTIPO LOCAL · SEM IA GENERATIVA · SEM CONEXÃO COM Z/OS</footer>
 </div>
 <script>
@@ -157,7 +189,7 @@ const examples={
 'RFB0002.CBL':"       IDENTIFICATION DIVISION.\n       PROGRAM-ID. RFB0002.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       COPY CLIPAG.\n       PROCEDURE DIVISION.\n           DISPLAY 'DEMONSTRACAO'.\n           GOBACK.",
 'CLIPAG.CPY':"       01 DADOS-CLIENTE.\n          05 CLI-ID PIC 9(8).\n          05 CLI-NOME PIC X(30).\n          05 CLI-VALOR PIC 9(7)V99 COMP-3."
 };
-let docs={...examples}, selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false, autoSend=false, phase='idle', speechGeneration=0, processing=false, suppressNextVoice=false;
+let docs={...examples}, importedNames=new Set(), selected='RFJ0001.JCL', lang='pt-BR', lastReply='', selectedVoice='', mic=null, listening=false, speaking=false, autoSpeak=false, autoSend=false, phase='idle', speechGeneration=0, processing=false, suppressNextVoice=false;
 let micStarting=false,micError=false,micResult=false,micFinal=false,micUserStopped=false,micAudio=false,micSound=false,micSpeech=false,micTimeout=null,signalTesting=false,micSubmitted=false;
 const diagEvents=[];
 function logDiag(event){const stamp=new Date().toLocaleTimeString();diagEvents.push(stamp+' '+event);if(diagEvents.length>20)diagEvents.shift();$('diagLog').textContent=diagEvents.join('\n');$('diagLog').scrollTop=$('diagLog').scrollHeight;}
@@ -192,7 +224,14 @@ const english=()=>lang!=='pt-BR';
 function status(text){$('status').textContent='● '+text;}
 function note(message,warning){$('microphoneInfo').textContent=message;$('microphoneInfo').className=warning?'warn':'info';}
 function add(role,body){const node=document.createElement('div');node.className='msg'+(role==='user'?' user':'');const who=document.createElement('small');who.textContent=role==='user'?(english()?'YOU':'VOCÊ'):'MULTIVACIA';const line=document.createElement('div');line.textContent=body;node.append(who,line);$('log').append(node);$('log').scrollTop=$('log').scrollHeight;}
-function show(tab){const chat=tab==='chat';$('pageChat').classList.toggle('active',chat);$('pageFiles').classList.toggle('active',!chat);$('tabChat').classList.toggle('active',chat);$('tabFiles').classList.toggle('active',!chat);$('tabChat').setAttribute('aria-selected',String(chat));$('tabFiles').setAttribute('aria-selected',String(!chat));}
+function show(tab){
+for(const [name,page,button] of [['chat','pageChat','tabChat'],['files','pageFiles','tabFiles'],['catalog','pageCatalog','tabCatalog']]){
+const active=tab===name;
+$(page).classList.toggle('active',active);
+$(button).classList.toggle('active',active);
+$(button).setAttribute('aria-selected',String(active));
+}
+}
 function setSpeaking(on){speaking=on;setPhase(on?'speaking':'idle');}
 function voiceList(){
 const voice=$('voice');const available=window.speechSynthesis?window.speechSynthesis.getVoices():[];const related=available.filter(v=>v.lang.toLowerCase().replace('_','-')===lang.toLowerCase());
@@ -277,7 +316,7 @@ $('micText').textContent=tr('listen');$('testText').textContent=tr('test');$('re
 $('diagTitle').textContent=english()?'MICROPHONE DIAGNOSTICS':'DIAGNÓSTICO DO MICROFONE';
 $('signalTest').textContent=english()?'TEST MIC SIGNAL (4s)':'TESTAR SINAL (4s)';
 $('copyDiag').textContent=english()?'COPY DIAGNOSTICS':'COPIAR DIAGNÓSTICO';
-$('tabChat').textContent=tr('chat');$('tabFiles').textContent=tr('files');$('prompt').placeholder=tr('placeholder');$('filesTitle').textContent=tr('filesTitle');$('fileHelp').textContent=tr('help');$('analyzeFile').textContent=tr('analyze');$('uploadButton').textContent=tr('import');$('footer').textContent=tr('footer');$('labelLanguage').textContent=english()?'Language':'Idioma';$('context').textContent=english()?Object.keys(docs).length+' sample members · no company data':Object.keys(docs).length+' membros fictícios · sem dados corporativos';
+$('tabChat').textContent=tr('chat');$('tabFiles').textContent=tr('files');$('tabCatalog').textContent=english()?'CATALOG':'CATÁLOGO';$('prompt').placeholder=tr('placeholder');$('filesTitle').textContent=tr('filesTitle');$('fileHelp').textContent=tr('help');$('analyzeFile').textContent=tr('analyze');$('uploadButton').textContent=tr('import');$('footer').textContent=tr('footer');$('labelLanguage').textContent=english()?'Language':'Idioma';$('context').textContent=english()?Object.keys(docs).length+' sample members · no company data':Object.keys(docs).length+' membros fictícios · sem dados corporativos';
 if(mic&&(listening||micStarting)){micUserStopped=true;mic.abort();}stopSpeech();setPhase('idle');voiceList();
 }
 const SpeechRecognitionClass=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -420,19 +459,25 @@ try{await navigator.clipboard.writeText(message);diagSummary(english()?'Diagnost
 $('form').addEventListener('submit',e=>{e.preventDefault();send($('prompt').value);});
 $('tabChat').addEventListener('click',()=>show('chat'));
 $('tabFiles').addEventListener('click',()=>show('files'));
+$('tabCatalog').addEventListener('click',()=>show('catalog'));
 $('analyzeFile').addEventListener('click',()=>{show('chat');send((english()?'Analyze ':'Analise ')+selected);});
 $('uploadButton').addEventListener('click',()=>$('upload').click());
 $('upload').addEventListener('change',async e=>{
 for(const f of Array.from(e.target.files||[]).slice(0,20)){
 if(f.size>300000){note(english()?'File too large (max 300 KB).':'Arquivo muito grande (máx. 300 KB).',true);continue;}
 const name=f.name.toUpperCase();if(!/\.(JCL|PROC|CBL|COB|CPY|TXT)$/.test(name))continue;
-docs[name]=await f.text();selected=name;
+docs[name]=await f.text();importedNames.add(name);selected=name;
 }
 refreshFiles();setLanguage(lang);e.target.value='';
 });
 if(window.speechSynthesis){voiceList();window.speechSynthesis.addEventListener?.('voiceschanged',voiceList);}
+// Read-only bridge: catalog data is persisted ONLY after the user clicks INDEXAR.
+window.multivaciaCatalogSources=()=>Object.entries(docs).map(([name,content])=>({
+name,content,library:importedNames.has(name)?'LOCAL':'DEMO'
+}));
 setLanguage('pt-BR');refreshFiles();add('assistant',tr('intro'));
 })();
 </script>
+<script type="module" src="./catalog/ui.js"></script>
 </body>
 </html>
